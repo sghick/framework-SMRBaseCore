@@ -1,0 +1,29 @@
+
+target "SMRBaseCoreDemo" do
+    platform:ios, '9.0'
+    use_frameworks!
+    
+    #### SMRCoreKit.SMRNetwork
+    pod 'AFNetworking', '3.2.1', :inhibit_warnings => true
+    pod 'YYCache', '1.0.4', :inhibit_warnings => true
+    #### SMRCoreKit.SMRDB
+    pod 'FMDB', '2.7.2', :inhibit_warnings => true
+    #### SMRCoreKit.SMRDB/SMRModel
+    pod 'YYModel', '1.0.4', :inhibit_warnings => true
+    #### SMRCoreKit.SMRDebug
+    pod 'FLEX', '2.4.0', :inhibit_warnings => true
+
+    #### SMRUIKit.SMRNavigationView
+    pod 'PureLayout', '3.1.4', :inhibit_warnings => true
+    pod 'SDWebImage', '4.4.3', :inhibit_warnings => true
+    pod 'MJRefresh', '3.1.15.7', :inhibit_warnings => true
+    
+end
+
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['ENABLE_BITCODE'] = 'NO' if config.build_settings['SDKROOT'] == 'iphoneos'
+        end
+    end
+end
