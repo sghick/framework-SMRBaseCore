@@ -80,32 +80,44 @@ static const char SPRightMarginKey = '\0';
         NSAssert(NO, @"%s:未标记使用自定义样式线, 请使用 '-:smr_markCustomTableViewSeparators'", __func__);
     }
     
-    [self testRangeFromFormat];
-
-    NSString *dfmt = @"Fn";
-    NSRange range = [format rangeOfString:@"n"];
-    if (range.location != NSNotFound) {
-        dfmt = [format substringWithRange:NSMakeRange(0, range.location + 1)];
-    }
-    
-    format = [format stringByReplacingCharactersInRange:NSMakeRange(0, range.location + 1) withString:@""];
-    format = [format stringByReplacingOccurrencesOfString:@":" withString:@""];
-    NSArray<NSString *> *fmts = format.length?[format componentsSeparatedByString:@","]:nil;
-    BOOL didBroken = NO;
-    for (NSString *ft in fmts) {
-        NSRange range = [self rangeFromFormat:ft];
-        if (NSLocationInRange(indexPath.row, range)) {
-            NSString *style = [ft substringToIndex:1];
-            char cstyle = [style characterAtIndex:0];
-            [self setCell:cell separatorMargins:[self insetWithChar:cstyle]];
-            didBroken = YES;
-            break;
+    NSArray<NSString *> *fms = [format componentsSeparatedByString:@"|"];
+    NSInteger allCount = [self numberOfRowsInSection:indexPath.section];
+    NSInteger curIndex = indexPath.row;
+    NSInteger reseat = allCount - curIndex;
+    BOOL didBreak = NO;
+    NSString *defStyle = @"Fn";
+    NSString *style = nil;
+    NSRange range = NSMakeRange(0, 0);
+    for (NSString *fm in fms) {
+        range = [self rangeFromFormat:fm style:&style];
+        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
+        if ([style containsString:@"n"]) {
+            defStyle = style;
+        }
+        if (![style containsString:@"-"]) {
+            // 解析正常情况
+            if ([indexSet containsIndex:curIndex]) {
+                NSLog(@"seat:%@,%@=>%@%@", @(curIndex), fm, style, NSStringFromRange(range));
+                didBreak = YES;
+                break;
+            }
+        } else {
+            // 解析倒数的情况
+            if ([indexSet containsIndex:reseat]) {
+                NSLog(@"reseat:%@,%@=>%@%@", @(reseat), fm, style, NSStringFromRange(range));
+                didBreak = YES;
+                break;
+            }
         }
     }
-    if (!didBroken) {
-        NSString *style = [dfmt substringToIndex:1];
+    if (!didBreak) {
+        char cstyle = [defStyle characterAtIndex:0];
+        [self setCell:cell separatorMargins:[self insetWithChar:cstyle]];
+        NSLog(@"=====index:%@,通用样式:%@", @(curIndex), defStyle);
+    } else {
         char cstyle = [style characterAtIndex:0];
         [self setCell:cell separatorMargins:[self insetWithChar:cstyle]];
+        NSLog(@"=====index:%@,使用样式:%@", @(curIndex), style);
     }
 }
 
@@ -128,15 +140,40 @@ static const char SPRightMarginKey = '\0';
         return NSMakeRange(0, 0);
     }
     
-    NSRange rtn = NSMakeRange(0, 0);
-    NSString *style = [format substringFromIndex:1];
-    if ([style containsString:@"{"] && [style containsString:@"}"]) {
-        rtn = NSRangeFromString(style);
-    } else {
-        rtn = NSMakeRange(style.intValue, 1);
+    NSString *style = nil;
+    NSRange range = [self rangeFromFormat:format style:&style];
+    NSLog(@"%@%@", style, NSStringFromRange(range));
+    return range;
+}
+
+
+/**
+ 返回格式: L{2, 1},  Ln{0, 0},  F-{4, 1}
+ style:   L,        Ln,        F-
+ range:   {2, 1},   {0, 0},    {4, 1}
+ */
+- (NSRange)rangeFromFormat:(NSString *)format style:(NSString **)style {
+    if (!format.length) {
+        return NSMakeRange(0, 0);
     }
-    NSLog(@"%@", NSStringFromRange(rtn));
-    return rtn;
+    // 样式
+    *style = [format substringToIndex:1];
+    if ([format containsString:@"-"]) {
+        *style = [*style stringByAppendingString:@"-"];
+    }
+    NSString *rg = [format substringFromIndex:1];
+    // 判断其余样式
+    if ([rg.lowercaseString isEqualToString:@"n"]) {
+        *style = [format substringToIndex:2];
+        return NSMakeRange(0, 0);
+    }
+    if ([rg containsString:@"{"] && [rg containsString:@"}"]) {
+        return NSRangeFromString(rg);
+    }
+    if (!rg.integerValue) {
+        return NSMakeRange(0, 0);
+    }
+    return NSMakeRange(ABS(rg.integerValue), 1);
 }
 
 
@@ -188,29 +225,30 @@ static const char SPRightMarginKey = '\0';
     NSAssert(NSEqualRanges([self rangeFromFormat:nil], NSMakeRange(0, 0)), @"error");
     NSAssert(NSEqualRanges([self rangeFromFormat:@""], NSMakeRange(0, 0)), @"error");
     
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"y"], NSMakeRange(0, 1)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"#"], NSMakeRange(0, 1)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"cden"], NSMakeRange(0, 1)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@":"], NSMakeRange(0, 1)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"n:"], NSMakeRange(0, 1)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"C"], NSMakeRange(0, 1)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"O"], NSMakeRange(0, 1)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"F:"], NSMakeRange(0, 1)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"On"], NSMakeRange(0, 1)), @"error");
+    NSAssert(NSEqualRanges([self rangeFromFormat:@"y"], NSMakeRange(0, 0)), @"error");
+    NSAssert(NSEqualRanges([self rangeFromFormat:@"#"], NSMakeRange(0, 0)), @"error");
+    NSAssert(NSEqualRanges([self rangeFromFormat:@"cden"], NSMakeRange(0, 0)), @"error");
+    NSAssert(NSEqualRanges([self rangeFromFormat:@":"], NSMakeRange(0, 0)), @"error");
+    NSAssert(NSEqualRanges([self rangeFromFormat:@"n:"], NSMakeRange(0, 0)), @"error");
+    NSAssert(NSEqualRanges([self rangeFromFormat:@"C"], NSMakeRange(0, 0)), @"error");
+    NSAssert(NSEqualRanges([self rangeFromFormat:@"O"], NSMakeRange(0, 0)), @"error");
+    NSAssert(NSEqualRanges([self rangeFromFormat:@"F:"], NSMakeRange(0, 0)), @"error");
+    NSAssert(NSEqualRanges([self rangeFromFormat:@"On"], NSMakeRange(0, 0)), @"error");
     
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"On:"], NSMakeRange(0, 1)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"Fn:"], NSMakeRange(0, 1)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"Ln:"], NSMakeRange(0, 1)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"Rn:"], NSMakeRange(0, 1)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"Cn:"], NSMakeRange(0, 1)), @"error");
-    
+    NSAssert(NSEqualRanges([self rangeFromFormat:@"On:"], NSMakeRange(0, 0)), @"error");
+    NSAssert(NSEqualRanges([self rangeFromFormat:@"Fn:"], NSMakeRange(0, 0)), @"error");
+    NSAssert(NSEqualRanges([self rangeFromFormat:@"Ln:"], NSMakeRange(0, 0)), @"error");
+    NSAssert(NSEqualRanges([self rangeFromFormat:@"Rn:"], NSMakeRange(0, 0)), @"error");
+    NSAssert(NSEqualRanges([self rangeFromFormat:@"Cn:"], NSMakeRange(0, 0)), @"error");
     NSAssert(NSEqualRanges([self rangeFromFormat:@"On{3}"], NSMakeRange(3, 0)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"C1"], NSMakeRange(1, 1)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"C3"], NSMakeRange(3, 1)), @"error");
+    
+    NSAssert(NSEqualRanges([self rangeFromFormat:@"C2"], NSMakeRange(2, 1)), @"error");
+    NSAssert(NSEqualRanges([self rangeFromFormat:@"C-3"], NSMakeRange(3, 1)), @"error");
     NSAssert(NSEqualRanges([self rangeFromFormat:@"F{1,1}"], NSMakeRange(1, 1)), @"error");
     NSAssert(NSEqualRanges([self rangeFromFormat:@"L{2,2}"], NSMakeRange(2, 2)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"O{4,4}"], NSMakeRange(4, 4)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"E{4,4}"], NSMakeRange(4, 4)), @"error");
+    NSAssert(NSEqualRanges([self rangeFromFormat:@"O-{4,4}"], NSMakeRange(4, 4)), @"error");
+    NSAssert(NSEqualRanges([self rangeFromFormat:@"E{5,-5}"], NSMakeRange(5, 5)), @"error");
+    NSAssert(NSEqualRanges([self rangeFromFormat:@"E{-6,6}"], NSMakeRange(6, 6)), @"error");
     
     NSLog(@"test finished");
 }

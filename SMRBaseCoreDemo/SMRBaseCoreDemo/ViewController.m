@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "SMRNetworkTests.h"
 
 @interface ViewController ()
 
@@ -18,10 +17,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    NSLog(@"启动成功,请点击页面进入测试.");
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [[[SMRNetworkTests alloc] init] begin];
+    NSString *testClass = @"SMRTableViewTests";
+    
+    Class cls = NSClassFromString(testClass);
+    if (cls) {
+        [[[cls alloc] init] begin];
+    } else {
+        NSLog(@"未找到测试类");
+    }
 }
 
 @end
