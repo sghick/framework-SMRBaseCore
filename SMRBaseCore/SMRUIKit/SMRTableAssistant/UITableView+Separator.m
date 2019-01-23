@@ -97,14 +97,14 @@ static const char SPRightMarginKey = '\0';
         if (![style containsString:@"-"]) {
             // 解析正常情况
             if ([indexSet containsIndex:curIndex]) {
-                NSLog(@"seat:%@,%@=>%@%@", @(curIndex), fm, style, NSStringFromRange(range));
+//                NSLog(@"seat:%@,%@=>%@%@", @(curIndex), fm, style, NSStringFromRange(range));
                 didBreak = YES;
                 break;
             }
         } else {
             // 解析倒数的情况
             if ([indexSet containsIndex:reseat]) {
-                NSLog(@"reseat:%@,%@=>%@%@", @(reseat), fm, style, NSStringFromRange(range));
+//                NSLog(@"reseat:%@,%@=>%@%@", @(reseat), fm, style, NSStringFromRange(range));
                 didBreak = YES;
                 break;
             }
@@ -113,11 +113,11 @@ static const char SPRightMarginKey = '\0';
     if (!didBreak) {
         char cstyle = [defStyle characterAtIndex:0];
         [self setCell:cell separatorMargins:[self insetWithChar:cstyle]];
-        NSLog(@"=====index:%@,通用样式:%@", @(curIndex), defStyle);
+//        NSLog(@"=====index:%@,通用样式:%@", @(curIndex), defStyle);
     } else {
         char cstyle = [style characterAtIndex:0];
         [self setCell:cell separatorMargins:[self insetWithChar:cstyle]];
-        NSLog(@"=====index:%@,使用样式:%@", @(curIndex), style);
+//        NSLog(@"=====index:%@,使用样式:%@", @(curIndex), style);
     }
 }
 
