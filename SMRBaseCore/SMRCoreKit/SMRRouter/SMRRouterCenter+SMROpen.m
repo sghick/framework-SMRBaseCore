@@ -17,7 +17,7 @@
 + (id)fetchObjectWithTarget:(NSString *)target action:(NSString *)action params:(nullable NSDictionary *)params {
     return [self p_performWithTarget:target action:action params:params openType:SMRTargetOpenTypeNone];
 }
-+ (id)openWithWithTarget:(NSString *)target action:(NSString *)action params:(nullable NSDictionary *)params {
++ (id)openWithTarget:(NSString *)target action:(NSString *)action params:(nullable NSDictionary *)params {
     return [self p_performWithTarget:target action:action params:params openType:SMRTargetOpenTypeOpen];
 }
 + (id)openPathWithTarget:(NSString *)target action:(NSString *)action params:(nullable NSDictionary *)params {

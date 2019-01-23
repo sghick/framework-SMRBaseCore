@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Native Deals
 
 + (id)fetchObjectWithTarget:(NSString *)target action:(NSString *)action params:(nullable NSDictionary *)params;
-+ (id)openWithWithTarget:(NSString *)target action:(NSString *)action params:(nullable NSDictionary *)params;
++ (id)openWithTarget:(NSString *)target action:(NSString *)action params:(nullable NSDictionary *)params;
 + (id)openPathWithTarget:(NSString *)target action:(NSString *)action params:(nullable NSDictionary *)params;
 
 #pragma mark - URL Deals
