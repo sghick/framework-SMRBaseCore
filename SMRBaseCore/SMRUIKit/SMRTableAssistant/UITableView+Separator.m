@@ -9,6 +9,17 @@
 #import "UITableView+Separator.h"
 #import <objc/runtime.h>
 
+/// On
+NSString * const SMRSeperatorsFormatAllNone = @"On";
+/// Fn
+NSString * const SMRSeperatorsFormatAllLong = @"Fn";
+/// Ln
+NSString * const SMRSeperatorsFormatAllLeftLess = @"Ln";
+/// Rn
+NSString * const SMRSeperatorsFormatAllRightLess = @"Rn";
+/// Cn
+NSString * const SMRSeperatorsFormatAllCenterLess = @"Cn";
+
 @interface UITableView ()
 
 @property (nonatomic, assign) BOOL didMarkedCustom;
