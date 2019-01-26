@@ -4,7 +4,7 @@
 
 ## Index
 * SMRCoreKit
-  * [SMRRouter](wiki-SMRRouter)
+  * [SMRRouter](#wiki-SMRRouter)
   * [SMRDB](wiki-SMRDB)
   * [SMRNetwork](wiki-SMRNetwork)
   * [SMRModel](wiki-SMRModel)
@@ -24,6 +24,10 @@
 * SMRUtilsKit
   * [SMRKeyChain](wiki-SMRKeyChain)
   * [SMRPhoneInfo](wiki-SMRPhoneInfo)
+  
+  
+## <a id="wiki-SMRRouter">SMRRouter</a>
+  
 
 ## ThirdLib Used
 #### SMRCoreKit.SMRNetwork
