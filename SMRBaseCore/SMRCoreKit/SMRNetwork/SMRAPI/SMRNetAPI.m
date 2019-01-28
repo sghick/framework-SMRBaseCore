@@ -111,7 +111,7 @@ SMRReqeustMethod const SMRReqeustMethodDELETE   = @"DELETE";
 - (void)fillDataTask:(NSURLSessionTask *)dataTask {
     _dataTask = dataTask;
 }
-- (void)fillResponse:(id)response error:(SMRNetError *)error {
+- (void)fillResponse:(id)response error:(NSError *)error {
     _response = response;
     _error = error;
 }

@@ -30,7 +30,7 @@
         NSLog(@"=======cache========");
     } successBlock:^(SMRNetAPI *api, id response) {
         NSLog(@"=======success========");
-    } faildBlock:^(SMRNetAPI *api, id response, SMRNetError *error) {
+    } faildBlock:^(SMRNetAPI *api, id response, NSError *error) {
         NSLog(@"=======faild========");
     } uploadProgress:^(SMRNetAPI *api, NSProgress *downloadProgress) {
         NSLog(@"=======progress========");
@@ -49,7 +49,7 @@
         NSLog(@"=======cache========");
     } successBlock:^(SMRNetAPI *api, id response) {
         NSLog(@"=======success========");
-    } faildBlock:^(SMRNetAPI *api, id response, SMRNetError *error) {
+    } faildBlock:^(SMRNetAPI *api, id response, NSError *error) {
         NSLog(@"=======faild========");
     } uploadProgress:^(SMRNetAPI *api, NSProgress *downloadProgress) {
         NSLog(@"=======progress========");
@@ -68,7 +68,7 @@
         NSLog(@"=======cache========");
     } successBlock:^(SMRNetAPI *api, id response) {
         NSLog(@"=======success========");
-    } faildBlock:^(SMRNetAPI *api, id response, SMRNetError *error) {
+    } faildBlock:^(SMRNetAPI *api, id response, NSError *error) {
         NSLog(@"=======faild========");
     } uploadProgress:^(SMRNetAPI *api, NSProgress *downloadProgress) {
         NSLog(@"=======progress========");

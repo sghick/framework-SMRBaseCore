@@ -11,25 +11,22 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class SMRNetAPI;
-@class SMRNetError;
 @protocol SMRSessionRetryDelegate <NSObject>
 
 /// 是否需要重试
-- (BOOL)shouldRetryWithError:(SMRNetError *)error api:(SMRNetAPI *)api;
+- (BOOL)shouldRetryWithError:(NSError *)error api:(SMRNetAPI *)api;
 
 @end
 
 @class SMRNetAPI;
-@class SMRNetError;
 @protocol SMRSessionAPIInitDelegate <NSObject>
 
 /// 是否需要重试
-- (BOOL)shouldQueryInitAPIWithError:(SMRNetError *)error api:(SMRNetAPI *)api;
+- (BOOL)shouldQueryInitAPIWithError:(NSError *)error api:(SMRNetAPI *)api;
 
 @end
 
 @class SMRNetAPI;
-@class SMRNetError;
 @protocol SMRSessionProtocol <NSObject>
 
 /** api.callback.cacheBlock will called while create datatask */

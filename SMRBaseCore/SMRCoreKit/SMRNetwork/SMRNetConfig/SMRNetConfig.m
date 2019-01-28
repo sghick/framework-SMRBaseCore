@@ -10,7 +10,7 @@
 #import "AFHTTPSessionManager.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "SMRNetAPI.h"
-#import "SMRNetError.h"
+#import "NSError+SMRNetError.h"
 
 @interface SMRNetConfig ()
 
@@ -45,11 +45,11 @@
     return [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(100, 400)];
 }
 
-- (SMRNetError *)validateServerErrorWithAPI:(SMRNetAPI *)api response:(NSURLResponse *)response responseObject:(id)responseObject error:(NSError *)error {
+- (NSError *)validateServerErrorWithAPI:(SMRNetAPI *)api response:(NSURLResponse *)response responseObject:(id)responseObject error:(NSError *)error {
     if (!error) {
         return nil;
     }
-    return [SMRNetError smr_errorWithBaseError:error];
+    return [NSError smr_errorForNetworkDomainWithCode:error.code detail:nil message:nil userInfo:error.userInfo];
 }
 
 - (id)responseObjectWithError:(NSError *)error {
@@ -64,13 +64,13 @@
 
 #pragma mark - SMRAPIRetryDelegate
 
-- (BOOL)canRetryWhenRecivedError:(SMRNetError *)error api:(SMRNetAPI *)api {
+- (BOOL)canRetryWhenRecivedError:(NSError *)error api:(SMRNetAPI *)api {
     return YES;
 }
 
 #pragma mark - SMRAPIInitDelegate
 
-- (SMRNetAPI *)shouldQueryInitAPIWithCurrentAPI:(SMRNetAPI *)currentAPI error:(SMRNetError *)error {
+- (SMRNetAPI *)shouldQueryInitAPIWithCurrentAPI:(SMRNetAPI *)currentAPI error:(NSError *)error {
     return nil;
 }
 
@@ -78,7 +78,7 @@
     return YES;
 }
 
-- (void)apiInitFaild:(SMRNetError *)error {
+- (void)apiInitFaild:(NSError *)error {
     
 }
 

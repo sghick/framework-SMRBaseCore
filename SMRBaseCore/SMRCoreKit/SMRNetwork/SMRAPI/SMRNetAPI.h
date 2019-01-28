@@ -9,12 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @class SMRNetAPI;
-@class SMRNetError;
 @protocol AFMultipartFormData;
 typedef void(^SMRConstructingUploadBlock)(SMRNetAPI *api, id <AFMultipartFormData> formData);
 typedef void(^SMRNetAPICacheBlock)(SMRNetAPI *api, id response);
 typedef void(^SMRNetAPISuccessBlock)(SMRNetAPI *api, id response);
-typedef void(^SMRNetAPIFaildBlock)(SMRNetAPI *api, id response, SMRNetError *error);
+typedef void(^SMRNetAPIFaildBlock)(SMRNetAPI *api, id response, NSError *error);
 typedef void(^SMRNetAPIUploadProgressBlock)(SMRNetAPI *api, NSProgress *uploadProgress);
 typedef void(^SMRNetAPIDownloadProgressBlock)(SMRNetAPI *api, NSProgress *downloadProgress);
 
@@ -90,7 +89,6 @@ extern SMRReqeustMethod const SMRReqeustMethodDELETE;
  普通API
  */
 @class SMRNetCachePolicy;
-@class SMRNetError;
 @interface SMRNetAPI : NSObject
 
 @property (copy  , nonatomic) NSString *identifier;
@@ -106,10 +104,10 @@ extern SMRReqeustMethod const SMRReqeustMethodDELETE;
 
 @property (strong, nonatomic, readonly) NSURLSessionTask *dataTask;     /// API创建的任务,API发起后才能获取到值
 @property (strong, nonatomic, readonly) id response;                    ///< API请求成功后的返回结果
-@property (strong, nonatomic, readonly) SMRNetError *error;             ///< API请求失败后的错误
+@property (strong, nonatomic, readonly) NSError *error;             ///< API请求失败后的错误
 
 - (void)fillDataTask:(NSURLSessionTask *)dataTask;
-- (void)fillResponse:(id)response error:(SMRNetError *)error;
+- (void)fillResponse:(id)response error:(NSError *)error;
 
 /**
  创建普通API

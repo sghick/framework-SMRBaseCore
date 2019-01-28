@@ -10,7 +10,7 @@
 #import "AFNetworkActivityIndicatorManager.h"
 #import "SMRNetConfig.h"
 #import "SMRNetAPI.h"
-#import "SMRNetError.h"
+#import "NSError+SMRNetError.h"
 #import "SMRNetCache.h"
 #import "SMRNetInfo.h"
 
@@ -77,7 +77,7 @@
         if (callback.successBlock) {
             callback.successBlock(api, responseObject);
         }
-    } failure:^(NSURLSessionDataTask *task, SMRNetError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         id response = [self.config responseObjectWithError:error];
         NSLog(@"API请求错误:%@,\n\tresponse=%@,\n%@", api, response, error);
         // 设置请求结束的标志
@@ -112,7 +112,7 @@
                                uploadProgress:(nullable void (^)(NSProgress *))uploadProgress
                              downloadProgress:(nullable void (^)(NSProgress *))downloadProgress
                                       success:(void (^)(NSURLSessionDataTask *, id))success
-                                      failure:(void (^)(NSURLSessionDataTask *, SMRNetError *))failure{
+                                      failure:(void (^)(NSURLSessionDataTask *, NSError *))failure{
     if (![api isKindOfClass:[SMRMultipartNetAPI class]]) {
         return [self smr_dataTaskWithAPI:api uploadProgress:uploadProgress downloadProgress:downloadProgress success:success failure:failure];
     } else {
@@ -126,11 +126,11 @@
  POST   ->uploadProgress+block
  GET,POST,HEAD,PUT,PATCH,DELETE ->success+failure
  */
-- (NSURLSessionDataTask *)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             smr_dataTaskWithAPI:(SMRNetAPI *)api
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            uploadProgress:(nullable void (^)(NSProgress *))uploadProgress
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          downloadProgress:(nullable void (^)(NSProgress *))downloadProgress
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   success:(void (^)(NSURLSessionDataTask *, id))success
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   failure:(void (^)(NSURLSessionDataTask *, SMRNetError *))failure {
+- (NSURLSessionDataTask *)smr_dataTaskWithAPI:(SMRNetAPI *)api
+                               uploadProgress:(nullable void (^)(NSProgress *))uploadProgress
+                             downloadProgress:(nullable void (^)(NSProgress *))downloadProgress
+                                      success:(void (^)(NSURLSessionDataTask *, id))success
+                                      failure:(void (^)(NSURLSessionDataTask *, NSError *))failure {
     
     AFHTTPSessionManager *manager = self;
     // 设置超时时间
@@ -145,7 +145,8 @@
     if (serializationError) {
         if (failure) {
             dispatch_async(manager.completionQueue ?: dispatch_get_main_queue(), ^{
-                failure(nil, [SMRNetError smr_errorWithBaseError:serializationError]);
+                NSError *error = [NSError smr_errorForNetworkDomainWithCode:serializationError.code detail:nil message:nil userInfo:serializationError.userInfo];
+                failure(nil, error);
             });
         }
         
@@ -170,7 +171,7 @@
                                 constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block
                                            uploadProgress:(void (^)(NSProgress *))uploadProgress
                                                   success:(void (^)(NSURLSessionDataTask *, id))success
-                                                  failure:(void (^)(NSURLSessionDataTask *, SMRNetError *))failure {
+                                                  failure:(void (^)(NSURLSessionDataTask *, NSError *))failure {
     AFHTTPSessionManager *manager = self;
     // 设置超时时间
     manager.requestSerializer.timeoutInterval = api.timeoutInterval;
@@ -181,7 +182,8 @@
     if (serializationError) {
         if (failure) {
             dispatch_async(self.completionQueue ?: dispatch_get_main_queue(), ^{
-                failure(nil, [SMRNetError smr_errorWithBaseError:serializationError]);
+                NSError *error = [NSError smr_errorForNetworkDomainWithCode:serializationError.code detail:nil message:nil userInfo:serializationError.userInfo];
+                failure(nil, error);
             });
         }
         
@@ -204,7 +206,7 @@
                                 error:(NSError *)error
                                   api:(SMRNetAPI *)api
                               success:(void (^)(NSURLSessionDataTask *, id))success
-                              failure:(void (^)(NSURLSessionDataTask *, SMRNetError *))failure {
+                              failure:(void (^)(NSURLSessionDataTask *, NSError *))failure {
     // 尝试使用ETag获取缓存
     id eTagResponseObject = [self responseObjectForETagWithResponse:(NSHTTPURLResponse *)response api:api];
     if (eTagResponseObject) {
@@ -213,7 +215,7 @@
     // 尝试缓存ETag信息
     [self cacheResponseObjectForETag:responseObject response:(NSHTTPURLResponse *)response api:api];
     // 校验网络错误
-    SMRNetError *netError = [self.config validateServerErrorWithAPI:api response:response responseObject:responseObject error:error];
+    NSError *netError = [self.config validateServerErrorWithAPI:api response:response responseObject:responseObject error:error];
     if (netError) {
         if (failure) {
             failure(dataTask, netError);

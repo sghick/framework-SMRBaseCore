@@ -11,6 +11,7 @@
 #import "SMRNetAPI.h"
 #import "SMRNetAPIQueue.h"
 #import "SMRSession.h"
+#import "NSError+SMRNetError.h"
 
 @interface SMRNetManager ()<
 SMRSessionRetryDelegate,
@@ -49,6 +50,18 @@ SMRSessionAPIInitDelegate>
     }
 }
 
+- (void)callFaildAllTask {
+    SMRNetAPI *api = [self.netAPIQueue dequeue];
+    while (api) {
+        if (api.callback.faildBlock) {
+            NSError *error = [NSError smr_errorForNetworkDomainWithCode:1001 detail:nil message:@"API初始化失败" userInfo:nil];
+            api.callback.faildBlock(api, nil, error);
+        }
+        api = [self.netAPIQueue dequeue];
+    }
+    _suspended = NO;
+}
+
 #pragma mark - Query
 
 - (void)query:(SMRNetAPI *)api {
@@ -75,7 +88,7 @@ SMRSessionAPIInitDelegate>
 #pragma mark - SMRSessionRetryDelegate
 
 /// 是否需要重试
-- (BOOL)shouldRetryWithError:(SMRNetError *)error api:(SMRNetAPI *)api {
+- (BOOL)shouldRetryWithError:(NSError *)error api:(SMRNetAPI *)api {
     SMRAPICallback *callback = api.callback;
     BOOL shouldRetry = NO;
     if (callback.retryCount < api.maxRetryTime) {
@@ -91,7 +104,7 @@ SMRSessionAPIInitDelegate>
 #pragma mark - SMRSessionAPIInitDelegate
 
 /// 是否需要初始化API/自动登录
-- (BOOL)shouldQueryInitAPIWithError:(SMRNetError *)error api:(SMRNetAPI *)api {
+- (BOOL)shouldQueryInitAPIWithError:(NSError *)error api:(SMRNetAPI *)api {
     BOOL shouldQueryInit = NO;
     SMRNetAPI *initAPI = [self.config shouldQueryInitAPIWithCurrentAPI:api error:error];
     if (initAPI) {
@@ -104,13 +117,15 @@ SMRSessionAPIInitDelegate>
                     [self resumeAllTask];
                 } else {
                     NSLog(@"初始化API失败,config中判断失败:%@", api.identifier);
+                    [self callFaildAllTask];
                 }
-            } faildBlock:^(SMRNetAPI *api, id response, SMRNetError *error) {
+            } faildBlock:^(SMRNetAPI *api, id response, NSError *error) {
                 NSLog(@"初始化API失败:%@,%@", api.identifier, error);
+                [self callFaildAllTask];
                 [self.config apiInitFaild:error];
             } uploadProgress:nil downloadProgress:nil];
             NSLog(@"初始化API中:%@", initAPI.identifier);
-            [self p_query:api callback:callback];
+            [self p_query:initAPI callback:callback];
             // 挂起其它API,直到API初始化API判定成功
             [self suspendAllTask];
         }

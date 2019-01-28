@@ -20,7 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@class SMRNetError;
 @protocol SMRResponseDelegate <NSObject>
 
 /**
@@ -37,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  鉴别'response','responseObject','error'是否为服务器错误,并返回这个错误,没有错误返回nil
  */
-- (SMRNetError *)validateServerErrorWithAPI:(SMRNetAPI *)api response:(NSURLResponse *)response responseObject:(nullable id)responseObject error:(nullable NSError *)error;
+- (NSError *)validateServerErrorWithAPI:(SMRNetAPI *)api response:(NSURLResponse *)response responseObject:(nullable id)responseObject error:(nullable NSError *)error;
 
 /**
  从error中取出responseObject
@@ -52,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  根据error决定是否可以重试
  */
-- (BOOL)canRetryWhenRecivedError:(SMRNetError *)error api:(SMRNetAPI *)api;
+- (BOOL)canRetryWhenRecivedError:(NSError *)error api:(SMRNetAPI *)api;
 
 @end
 
@@ -61,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  在这里定义一个初始化的API,这应该是一个带自动重试功能的
  */
-- (SMRNetAPI *)shouldQueryInitAPIWithCurrentAPI:(SMRNetAPI *)currentAPI error:(SMRNetError *)error;
+- (SMRNetAPI *)shouldQueryInitAPIWithCurrentAPI:(SMRNetAPI *)currentAPI error:(NSError *)error;
 
 /**
  初始化API成功的回调
@@ -72,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  初始化API失败的回调
  */
-- (void)apiInitFaild:(SMRNetError *)error;
+- (void)apiInitFaild:(NSError *)error;
 
 @end
 

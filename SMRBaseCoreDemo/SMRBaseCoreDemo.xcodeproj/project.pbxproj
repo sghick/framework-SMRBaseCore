@@ -52,7 +52,6 @@
 		8A814C9D21F5C3D900D8AEB6 /* SMRNetAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814C9921F5C3D900D8AEB6 /* SMRNetAPI.m */; };
 		8A814CA121F5C40000D8AEB6 /* SMRNetConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814C9F21F5C40000D8AEB6 /* SMRNetConfig.m */; };
 		8A814CA421F5C40600D8AEB6 /* SMRNetCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814CA321F5C40600D8AEB6 /* SMRNetCache.m */; };
-		8A814CA721F5C40D00D8AEB6 /* SMRNetError.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814CA621F5C40D00D8AEB6 /* SMRNetError.m */; };
 		8A814CAD21F5C4AC00D8AEB6 /* SMRNetInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814CAC21F5C4AB00D8AEB6 /* SMRNetInfo.m */; };
 		8A814CB021F5C5A900D8AEB6 /* SMRSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814CAF21F5C5A900D8AEB6 /* SMRSession.m */; };
 		8A814CB321F5C5F700D8AEB6 /* SMRAPICreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814CB221F5C5F700D8AEB6 /* SMRAPICreator.m */; };
@@ -83,6 +82,9 @@
 		8A814D3121F80B8F00D8AEB6 /* SMRRankerLifecycleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814D2B21F80B8F00D8AEB6 /* SMRRankerLifecycleManager.m */; };
 		8A814D3221F80B8F00D8AEB6 /* SMRRankerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814D2C21F80B8F00D8AEB6 /* SMRRankerManager.m */; };
 		8A814D3321F80B8F00D8AEB6 /* SMRRankerAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814D2E21F80B8F00D8AEB6 /* SMRRankerAction.m */; };
+		8AE4952A21FEB3040055263E /* NSError+SMRError.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4952921FEB3040055263E /* NSError+SMRError.m */; };
+		8AE4952D21FEB5000055263E /* NSError+SMRNetError.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4952C21FEB5000055263E /* NSError+SMRNetError.m */; };
+		8AE4953121FEB8F70055263E /* smr_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8AE4953021FEB8F70055263E /* smr_config.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -197,8 +199,6 @@
 		8A814CA021F5C40000D8AEB6 /* SMRNetConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRNetConfig.h; sourceTree = "<group>"; };
 		8A814CA221F5C40600D8AEB6 /* SMRNetCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRNetCache.h; sourceTree = "<group>"; };
 		8A814CA321F5C40600D8AEB6 /* SMRNetCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRNetCache.m; sourceTree = "<group>"; };
-		8A814CA521F5C40D00D8AEB6 /* SMRNetError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRNetError.h; sourceTree = "<group>"; };
-		8A814CA621F5C40D00D8AEB6 /* SMRNetError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRNetError.m; sourceTree = "<group>"; };
 		8A814CAB21F5C4AB00D8AEB6 /* SMRNetInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRNetInfo.h; sourceTree = "<group>"; };
 		8A814CAC21F5C4AB00D8AEB6 /* SMRNetInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRNetInfo.m; sourceTree = "<group>"; };
 		8A814CAE21F5C5A900D8AEB6 /* SMRSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRSession.h; sourceTree = "<group>"; };
@@ -263,6 +263,11 @@
 		8A814D2D21F80B8F00D8AEB6 /* SMRRankerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRRankerManager.h; sourceTree = "<group>"; };
 		8A814D2E21F80B8F00D8AEB6 /* SMRRankerAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRRankerAction.m; sourceTree = "<group>"; };
 		8A814D2F21F80B8F00D8AEB6 /* SMRRankerLifecycleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRRankerLifecycleManager.h; sourceTree = "<group>"; };
+		8AE4952821FEB3040055263E /* NSError+SMRError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSError+SMRError.h"; sourceTree = "<group>"; };
+		8AE4952921FEB3040055263E /* NSError+SMRError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSError+SMRError.m"; sourceTree = "<group>"; };
+		8AE4952B21FEB5000055263E /* NSError+SMRNetError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSError+SMRNetError.h"; sourceTree = "<group>"; };
+		8AE4952C21FEB5000055263E /* NSError+SMRNetError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSError+SMRNetError.m"; sourceTree = "<group>"; };
+		8AE4953021FEB8F70055263E /* smr_config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = smr_config.plist; sourceTree = "<group>"; };
 		A6320258A49093D592CC8E60 /* Pods-SMRBaseCoreDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMRBaseCoreDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		BEB68DCCB6F5224C71F40E77 /* Pods_SMRBaseCoreDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SMRBaseCoreDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -319,6 +324,7 @@
 		8A814A4C21F5B7BD00D8AEB6 /* SMRBaseCoreDemo */ = {
 			isa = PBXGroup;
 			children = (
+				8AE4953021FEB8F70055263E /* smr_config.plist */,
 				8A814A4D21F5B7BD00D8AEB6 /* AppDelegate.h */,
 				8A814A4E21F5B7BD00D8AEB6 /* AppDelegate.m */,
 				8A814A5021F5B7BD00D8AEB6 /* ViewController.h */,
@@ -396,6 +402,7 @@
 				8A814BA221F5BA1600D8AEB6 /* SMRRouter */,
 				8A814B0721F5B9B000D8AEB6 /* SMRDB */,
 				8A814AF321F5B9A000D8AEB6 /* SMRDebug */,
+				8AE4952721FEB2DF0055263E /* SMRError */,
 			);
 			path = SMRCoreKit;
 			sourceTree = "<group>";
@@ -578,8 +585,8 @@
 		8A814C8E21F5C34100D8AEB6 /* SMRNetError */ = {
 			isa = PBXGroup;
 			children = (
-				8A814CA521F5C40D00D8AEB6 /* SMRNetError.h */,
-				8A814CA621F5C40D00D8AEB6 /* SMRNetError.m */,
+				8AE4952B21FEB5000055263E /* NSError+SMRNetError.h */,
+				8AE4952C21FEB5000055263E /* NSError+SMRNetError.m */,
 			);
 			path = SMRNetError;
 			sourceTree = "<group>";
@@ -749,6 +756,15 @@
 			path = SMRRanker;
 			sourceTree = "<group>";
 		};
+		8AE4952721FEB2DF0055263E /* SMRError */ = {
+			isa = PBXGroup;
+			children = (
+				8AE4952821FEB3040055263E /* NSError+SMRError.h */,
+				8AE4952921FEB3040055263E /* NSError+SMRError.m */,
+			);
+			path = SMRError;
+			sourceTree = "<group>";
+		};
 		A1F75AF303FA462F55AA4249 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -871,6 +887,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AE4953121FEB8F70055263E /* smr_config.plist in Resources */,
 				8A814B0521F5B9A000D8AEB6 /* menu_bg_trangle@2x.png in Resources */,
 				8A814CBD21F5C77400D8AEB6 /* SMRUIKitBundle.bundle in Resources */,
 				8A814A5A21F5B7BE00D8AEB6 /* LaunchScreen.storyboard in Resources */,
@@ -965,6 +982,7 @@
 				8A814B9C21F5B9DC00D8AEB6 /* SMRDBUtilOption.m in Sources */,
 				8A814D1621F6F5F900D8AEB6 /* SMRTestTableController.m in Sources */,
 				8A814CAD21F5C4AC00D8AEB6 /* SMRNetInfo.m in Sources */,
+				8AE4952A21FEB3040055263E /* NSError+SMRError.m in Sources */,
 				8A814C9521F5C3D000D8AEB6 /* SMRNetManager.m in Sources */,
 				8A814B8B21F5B9D100D8AEB6 /* SMRDBSetter.m in Sources */,
 				8A814BCA21F5BA2100D8AEB6 /* NSURL+SMRRouter.m in Sources */,
@@ -1003,6 +1021,7 @@
 				8A814CED21F5CC4A00D8AEB6 /* UITableView+SMRSections.m in Sources */,
 				8A814BA021F5B9DC00D8AEB6 /* SMRDBSelectOption.m in Sources */,
 				8A814CD821F5CAEA00D8AEB6 /* SMRNavigationView.m in Sources */,
+				8AE4952D21FEB5000055263E /* NSError+SMRNetError.m in Sources */,
 				8A814BCB21F5BA2100D8AEB6 /* SMRRouterConfig.m in Sources */,
 				8A814B8821F5B9D100D8AEB6 /* SMRDBTableOption.m in Sources */,
 				8A814C9D21F5C3D900D8AEB6 /* SMRNetAPI.m in Sources */,
@@ -1018,7 +1037,6 @@
 				8A814BCE21F5BA2100D8AEB6 /* SMRTarget.m in Sources */,
 				8A814CA421F5C40600D8AEB6 /* SMRNetCache.m in Sources */,
 				8A814BA121F5B9DC00D8AEB6 /* SMRDBDeleteOption.m in Sources */,
-				8A814CA721F5C40D00D8AEB6 /* SMRNetError.m in Sources */,
 				8A814CF921F5CD2100D8AEB6 /* SMRKeyChainManager.m in Sources */,
 				8A814B8921F5B9D100D8AEB6 /* SMRDBColumn.m in Sources */,
 				8A814B0321F5B9A000D8AEB6 /* SMRLogSideMenuView.m in Sources */,
@@ -1201,7 +1219,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4U92X5J5QF;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SMRBaseCoreDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1218,7 +1239,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4U92X5J5QF;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SMRBaseCoreDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
