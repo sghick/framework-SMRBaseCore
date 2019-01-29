@@ -85,6 +85,10 @@
 		8AE4952A21FEB3040055263E /* NSError+SMRError.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4952921FEB3040055263E /* NSError+SMRError.m */; };
 		8AE4952D21FEB5000055263E /* NSError+SMRNetError.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4952C21FEB5000055263E /* NSError+SMRNetError.m */; };
 		8AE4953121FEB8F70055263E /* smr_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8AE4953021FEB8F70055263E /* smr_config.plist */; };
+		8AE4955421FFEA490055263E /* SMRLayoutCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4955321FFEA490055263E /* SMRLayoutCenter.m */; };
+		8AE4955621FFEB4D0055263E /* item.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8AE4955521FFEB4D0055263E /* item.plist */; };
+		8AE4955A21FFEEA60055263E /* SMRLayoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4955921FFEEA60055263E /* SMRLayoutTests.m */; };
+		8AE4955D21FFEF090055263E /* SMRLayoutTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4955C21FFEF090055263E /* SMRLayoutTestController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -268,6 +272,14 @@
 		8AE4952B21FEB5000055263E /* NSError+SMRNetError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSError+SMRNetError.h"; sourceTree = "<group>"; };
 		8AE4952C21FEB5000055263E /* NSError+SMRNetError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSError+SMRNetError.m"; sourceTree = "<group>"; };
 		8AE4953021FEB8F70055263E /* smr_config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = smr_config.plist; sourceTree = "<group>"; };
+		8AE4955221FFEA490055263E /* SMRLayoutCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRLayoutCenter.h; sourceTree = "<group>"; };
+		8AE4955321FFEA490055263E /* SMRLayoutCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRLayoutCenter.m; sourceTree = "<group>"; };
+		8AE4955521FFEB4D0055263E /* item.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = item.plist; sourceTree = "<group>"; };
+		8AE4955821FFEEA60055263E /* SMRLayoutTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRLayoutTests.h; sourceTree = "<group>"; };
+		8AE4955921FFEEA60055263E /* SMRLayoutTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRLayoutTests.m; sourceTree = "<group>"; };
+		8AE4955B21FFEF090055263E /* SMRLayoutTestController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRLayoutTestController.h; sourceTree = "<group>"; };
+		8AE4955C21FFEF090055263E /* SMRLayoutTestController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRLayoutTestController.m; sourceTree = "<group>"; };
+		8AE4955E21FFEFF60055263E /* SMRLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRLayout.h; sourceTree = "<group>"; };
 		A6320258A49093D592CC8E60 /* Pods-SMRBaseCoreDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMRBaseCoreDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		BEB68DCCB6F5224C71F40E77 /* Pods_SMRBaseCoreDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SMRBaseCoreDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -395,6 +407,7 @@
 		8A814A8221F5B80B00D8AEB6 /* SMRCoreKit */ = {
 			isa = PBXGroup;
 			children = (
+				8AE4955121FFE67D0055263E /* SMRLayout */,
 				8A814D1721F80B8100D8AEB6 /* SMRRanker */,
 				8A814C7321F5C2E500D8AEB6 /* SMRNetwork */,
 				8A814BF621F5BCF200D8AEB6 /* SMRLifecycle */,
@@ -713,6 +726,7 @@
 			isa = PBXGroup;
 			children = (
 				8A814D0B21F5D1FA00D8AEB6 /* SMRTestsDelegate.h */,
+				8AE4955721FFEE8E0055263E /* SMRLayoutTests */,
 				8A814D1021F6F36C00D8AEB6 /* SMRTableViewTests */,
 				8A814D0C21F5D22000D8AEB6 /* SMRNetworkTests */,
 			);
@@ -763,6 +777,28 @@
 				8AE4952921FEB3040055263E /* NSError+SMRError.m */,
 			);
 			path = SMRError;
+			sourceTree = "<group>";
+		};
+		8AE4955121FFE67D0055263E /* SMRLayout */ = {
+			isa = PBXGroup;
+			children = (
+				8AE4955E21FFEFF60055263E /* SMRLayout.h */,
+				8AE4955221FFEA490055263E /* SMRLayoutCenter.h */,
+				8AE4955321FFEA490055263E /* SMRLayoutCenter.m */,
+			);
+			path = SMRLayout;
+			sourceTree = "<group>";
+		};
+		8AE4955721FFEE8E0055263E /* SMRLayoutTests */ = {
+			isa = PBXGroup;
+			children = (
+				8AE4955821FFEEA60055263E /* SMRLayoutTests.h */,
+				8AE4955921FFEEA60055263E /* SMRLayoutTests.m */,
+				8AE4955521FFEB4D0055263E /* item.plist */,
+				8AE4955B21FFEF090055263E /* SMRLayoutTestController.h */,
+				8AE4955C21FFEF090055263E /* SMRLayoutTestController.m */,
+			);
+			path = SMRLayoutTests;
 			sourceTree = "<group>";
 		};
 		A1F75AF303FA462F55AA4249 /* Pods */ = {
@@ -890,6 +926,7 @@
 				8AE4953121FEB8F70055263E /* smr_config.plist in Resources */,
 				8A814B0521F5B9A000D8AEB6 /* menu_bg_trangle@2x.png in Resources */,
 				8A814CBD21F5C77400D8AEB6 /* SMRUIKitBundle.bundle in Resources */,
+				8AE4955621FFEB4D0055263E /* item.plist in Resources */,
 				8A814A5A21F5B7BE00D8AEB6 /* LaunchScreen.storyboard in Resources */,
 				8A814B0421F5B9A000D8AEB6 /* menu_bg_trangle@3x.png in Resources */,
 				8A814A5721F5B7BE00D8AEB6 /* Assets.xcassets in Resources */,
@@ -1009,12 +1046,14 @@
 				8A814A5221F5B7BD00D8AEB6 /* ViewController.m in Sources */,
 				8A814BFA21F5BCF200D8AEB6 /* SMRLifecycle.m in Sources */,
 				8A814BC821F5BA2100D8AEB6 /* SMRRouterCenter+SMROpen.m in Sources */,
+				8AE4955A21FFEEA60055263E /* SMRLayoutTests.m in Sources */,
 				8A814CF121F5CCA600D8AEB6 /* UIImage+SMR.m in Sources */,
 				8A814D0621F5D08B00D8AEB6 /* UIFont+SMR.m in Sources */,
 				8A814CFD21F5CFFB00D8AEB6 /* SMRInterfaceAdapter.m in Sources */,
 				8A814CEB21F5CC4A00D8AEB6 /* UITableView+Separator.m in Sources */,
 				8A814A5D21F5B7BE00D8AEB6 /* main.m in Sources */,
 				8A814B7821F5B9BF00D8AEB6 /* SMRDataBase.m in Sources */,
+				8AE4955D21FFEF090055263E /* SMRLayoutTestController.m in Sources */,
 				8A814D3121F80B8F00D8AEB6 /* SMRRankerLifecycleManager.m in Sources */,
 				8A814CB621F5C66700D8AEB6 /* SMRNetAPIQueue.m in Sources */,
 				8A814A4F21F5B7BD00D8AEB6 /* AppDelegate.m in Sources */,
@@ -1046,6 +1085,7 @@
 				8A814B7921F5B9BF00D8AEB6 /* SMRYYModelParser.m in Sources */,
 				8A814D0921F5D0BD00D8AEB6 /* UIView+SMRFrame.m in Sources */,
 				8A814CCF21F5CA5700D8AEB6 /* SMRNavigationBar.m in Sources */,
+				8AE4955421FFEA490055263E /* SMRLayoutCenter.m in Sources */,
 				8A814CD221F5CA6900D8AEB6 /* SMRNavigationItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

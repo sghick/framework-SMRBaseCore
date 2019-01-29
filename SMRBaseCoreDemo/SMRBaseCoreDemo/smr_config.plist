@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<!--
-   smr_config.plist
-   SMRBaseCoreDemo
-
-   Created by 丁治文 on 2019/1/28.
-   Copyright (c) 2019 sumrise. All rights reserved.
--->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-    <dict>
-    
-    </dict>
+<dict>
+	<key>router</key>
+	<dict>
+		<key>parser</key>
+		<string></string>
+	</dict>
+	<key>network</key>
+	<dict/>
+	<key>database</key>
+	<dict/>
+	<key>model</key>
+	<dict/>
+	<key>debug</key>
+	<dict/>
+	<key>lifecycle</key>
+	<dict/>
+	<key>error</key>
+	<dict/>
+	<key>theme</key>
+	<dict>
+		<key>left_margin</key>
+		<integer>0</integer>
+		<key>right_margin</key>
+		<integer>0</integer>
+		<key>status_bar_style</key>
+		<integer>1</integer>
+	</dict>
+</dict>
 </plist>
