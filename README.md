@@ -38,11 +38,28 @@
 ## <a id="wiki-SMRLayout"></a>SMRLayout
 * 布局原理
   * 采用plist/xml文件布局
-  * 可配置使用比例`<Config use=s iPhone5=1 iPhone6=1.2 iPhone7=1.2 default=1>`
+  * 可配置使用比例`"config" =     {
+        use = s;
+        iPhone5 = 1;
+        iPhone6 = 1.2;
+        iPhone6Plus = 1.5;
+        iPhoneX = 1.7;
+    };` s表示根据不同屏幕尺寸使用不同的比值
 * 布局格式
-  * `<Class top=100 left=30 bottom=90 right=30>`
-  * `<Class top=100 left=30 width=300 height=200>`
-  * `<Class top=100s left=30s bottom=90s right=30s>` s表示根据不同屏幕尺寸使用不同的比值,这个比值应该在`<Config />`标签中配置
+  * `"backImage<UIImageView" =     {
+        top = 105;
+        left = 40;
+        bottom = 20;
+        right = 10;
+        "setBackgroundColor:" = "#FF00FF";
+    };`
+  * `"deleteBtn<UIButton" =     {
+        top = 100;
+        left = 10;
+        width = 30;
+        height = 30;
+        "setBackgroundColor:" = "#33FFEE";
+    };`
 #
 ## <a id="wiki-SMRAdapter"></a>SMRAdapter
 ## <a id="wiki-SMRNavigationView"></a>SMRNavigationView
