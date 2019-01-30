@@ -83,6 +83,9 @@
 - (SMRRow *)rowAtIndexPathRow:(NSInteger)row;                /**< 未找到返回nil */
 - (NSInteger)rowKeyAtIndexPathRow:(NSInteger)row;           /**< 未找到返回-1 */
 
+/** 返回一个跟此section位置相关的唯一表示 */
+- (NSString *)identifier;
+
 @end
 
 @interface SMRRow : NSObject
@@ -91,5 +94,8 @@
 @property (nonatomic, assign) NSInteger rowKey;
 @property (nonatomic, assign) NSInteger rowSamesIndex;
 @property (nonatomic, assign) NSInteger rowSamesCount;
+
+/** 返回一个跟此row位置相关的唯一表示 */
+- (NSString *)identifier;
 
 @end

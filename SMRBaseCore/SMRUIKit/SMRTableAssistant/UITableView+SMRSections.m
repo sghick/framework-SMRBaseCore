@@ -38,6 +38,21 @@ static const char SMRSectionsDelegateDelegatePropertyKey = '\0';
     return delegate;
 }
 
+// foldStatus
+static const char SMRFoldStatusPropertyKey = '\0';
+- (void)setFoldStatus:(NSMutableDictionary *)foldStatus {
+    if (foldStatus != self.foldStatus) {
+        objc_setAssociatedObject(self, &SMRFoldStatusPropertyKey, foldStatus, OBJC_ASSOCIATION_RETAIN);
+    }
+}
+
+- (NSMutableDictionary *)foldStatus {
+    NSMutableDictionary *foldStatus = objc_getAssociatedObject(self, &SMRFoldStatusPropertyKey);
+    if (!foldStatus) {
+        foldStatus = [NSMutableDictionary dictionary];
+    }
+    return foldStatus;
+}
 
 #pragma mark - Overide
 
@@ -98,6 +113,27 @@ static const char SMRSectionsDelegateDelegatePropertyKey = '\0';
 
 - (SMRRow *)rowWithIndexPath:(NSIndexPath *)indexPath {
     return [self.sections rowWithIndexPath:indexPath];
+}
+
+- (void)smr_setCellFold:(BOOL)fold key:(NSString *)key {
+    NSParameterAssert(key);
+    if (!key) {
+        return;
+    }
+    [self.foldStatus setObject:@(fold) forKey:key];
+}
+
+- (BOOL)smr_foldWithKey:(NSString *)key {
+    NSParameterAssert(key);
+    if (!key) {
+        return NO;
+    }
+    return ((NSNumber *)[self.foldStatus objectForKey:key]).boolValue;
+}
+
+- (void)smr_removeAllFoldStatus {
+    [self.foldStatus removeAllObjects];
+    self.foldStatus = nil;
 }
 
 @end

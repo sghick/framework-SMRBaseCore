@@ -227,6 +227,7 @@ static const char SPRightMarginKey = '\0';
 
 // private
 - (UIEdgeInsets)insetForNone {
+    NSAssert(self.style == UITableViewStylePlain, @"暂时不支持非StylePlain形式的使用方式");
     return UIEdgeInsetsMake(0, [UIScreen mainScreen].bounds.size.width, 0, 0);
 }
 

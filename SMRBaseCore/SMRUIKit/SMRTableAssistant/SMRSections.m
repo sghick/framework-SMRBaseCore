@@ -235,8 +235,16 @@
     return rowCount;
 }
 
+- (NSString *)identifier {
+    return [NSString stringWithFormat:@"sk%@si%@", @(self.sectionKey), @(self.sectionSamesIndex)];
+}
+
 @end
 
 @implementation SMRRow
+
+- (NSString *)identifier {
+    return [NSString stringWithFormat:@"sk%@rk%@ri%@", @(self.sectionKey), @(self.rowKey), @(self.rowSamesIndex)];
+}
 
 @end

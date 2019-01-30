@@ -54,4 +54,11 @@
 - (SMRSection *)sectionWithIndexPathSection:(NSInteger)indexPathSection;
 - (SMRRow *)rowWithIndexPath:(NSIndexPath *)indexPath;
 
+/// 设置展开折叠状态
+- (void)smr_setCellFold:(BOOL)fold key:(NSString *)key;
+/// 获取展开折叠状态
+- (BOOL)smr_foldWithKey:(NSString *)key;
+/// 清楚标记所用空间
+- (void)smr_removeAllFoldStatus;
+
 @end
