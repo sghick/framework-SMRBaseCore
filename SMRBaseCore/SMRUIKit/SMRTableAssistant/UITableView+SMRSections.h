@@ -55,10 +55,10 @@
 - (SMRRow *)rowWithIndexPath:(NSIndexPath *)indexPath;
 
 /// 设置展开折叠状态
-- (void)smr_setCellFold:(BOOL)fold key:(NSString *)key;
-/// 获取展开折叠状态
-- (BOOL)smr_foldWithKey:(NSString *)key;
+- (void)smr_setCellUnfoldStatus:(BOOL)unfold key:(NSString *)key;
+/// 获取展开折叠状态,未设置时,默认为NO,折叠状态
+- (BOOL)smr_unfoldStatusWithKey:(NSString *)key;
 /// 清楚标记所用空间
-- (void)smr_removeAllFoldStatus;
+- (void)smr_removeAllUnfoldStatus;
 
 @end

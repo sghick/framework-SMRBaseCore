@@ -38,20 +38,20 @@ static const char SMRSectionsDelegateDelegatePropertyKey = '\0';
     return delegate;
 }
 
-// foldStatus
-static const char SMRFoldStatusPropertyKey = '\0';
-- (void)setFoldStatus:(NSMutableDictionary *)foldStatus {
-    if (foldStatus != self.foldStatus) {
-        objc_setAssociatedObject(self, &SMRFoldStatusPropertyKey, foldStatus, OBJC_ASSOCIATION_RETAIN);
+// unfoldStatus
+static const char SMRUnfoldStatusPropertyKey = '\0';
+- (void)setUnfoldStatus:(NSMutableDictionary *)unfoldStatus {
+    if (unfoldStatus != self.unfoldStatus) {
+        objc_setAssociatedObject(self, &SMRUnfoldStatusPropertyKey, unfoldStatus, OBJC_ASSOCIATION_RETAIN);
     }
 }
 
-- (NSMutableDictionary *)foldStatus {
-    NSMutableDictionary *foldStatus = objc_getAssociatedObject(self, &SMRFoldStatusPropertyKey);
-    if (!foldStatus) {
-        foldStatus = [NSMutableDictionary dictionary];
+- (NSMutableDictionary *)unfoldStatus {
+    NSMutableDictionary *unfoldStatus = objc_getAssociatedObject(self, &SMRUnfoldStatusPropertyKey);
+    if (!unfoldStatus) {
+        unfoldStatus = [NSMutableDictionary dictionary];
     }
-    return foldStatus;
+    return unfoldStatus;
 }
 
 #pragma mark - Overide
@@ -115,25 +115,25 @@ static const char SMRFoldStatusPropertyKey = '\0';
     return [self.sections rowWithIndexPath:indexPath];
 }
 
-- (void)smr_setCellFold:(BOOL)fold key:(NSString *)key {
+- (void)smr_setCellUnfoldStatus:(BOOL)fold key:(NSString *)key {
     NSParameterAssert(key);
     if (!key) {
         return;
     }
-    [self.foldStatus setObject:@(fold) forKey:key];
+    [self.unfoldStatus setObject:@(fold) forKey:key];
 }
 
-- (BOOL)smr_foldWithKey:(NSString *)key {
+- (BOOL)smr_unfoldStatusWithKey:(NSString *)key {
     NSParameterAssert(key);
     if (!key) {
         return NO;
     }
-    return ((NSNumber *)[self.foldStatus objectForKey:key]).boolValue;
+    return ((NSNumber *)[self.unfoldStatus objectForKey:key]).boolValue;
 }
 
-- (void)smr_removeAllFoldStatus {
-    [self.foldStatus removeAllObjects];
-    self.foldStatus = nil;
+- (void)smr_removeAllUnfoldStatus {
+    [self.unfoldStatus removeAllObjects];
+    self.unfoldStatus = nil;
 }
 
 @end
