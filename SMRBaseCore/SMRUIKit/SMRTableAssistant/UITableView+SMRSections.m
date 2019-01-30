@@ -48,9 +48,6 @@ static const char SMRUnfoldStatusPropertyKey = '\0';
 
 - (NSMutableDictionary *)unfoldStatus {
     NSMutableDictionary *unfoldStatus = objc_getAssociatedObject(self, &SMRUnfoldStatusPropertyKey);
-    if (!unfoldStatus) {
-        unfoldStatus = [NSMutableDictionary dictionary];
-    }
     return unfoldStatus;
 }
 
@@ -115,12 +112,15 @@ static const char SMRUnfoldStatusPropertyKey = '\0';
     return [self.sections rowWithIndexPath:indexPath];
 }
 
-- (void)smr_setCellUnfoldStatus:(BOOL)fold key:(NSString *)key {
+- (void)smr_setCellUnfoldStatus:(BOOL)unfold key:(NSString *)key {
     NSParameterAssert(key);
     if (!key) {
         return;
     }
-    [self.unfoldStatus setObject:@(fold) forKey:key];
+    if (!self.unfoldStatus) {
+        self.unfoldStatus = [NSMutableDictionary dictionary];
+    }
+    [self.unfoldStatus setObject:@(unfold) forKey:key];
 }
 
 - (BOOL)smr_unfoldStatusWithKey:(NSString *)key {
