@@ -12,6 +12,7 @@
   * [SMRDebug](#wiki-SMRDebug)
   * [SMRRanker](#wiki-SMRRanker)
   * [SMRLifecycle](#wiki-SMRLifecycle)
+  * [SMRLayout](#wiki-SMRLayout)
   
 
 * SMRUIKit
@@ -34,6 +35,31 @@
 ## <a id="wiki-SMRDebug"></a>SMRDebug
 ## <a id="wiki-SMRRanker"></a>SMRRanker
 ## <a id="wiki-SMRLifecycle"></a>SMRLifecycle
+## <a id="wiki-SMRLayout"></a>SMRLayout
+* 布局原理
+  * 采用plist/xml文件布局
+  * 可配置使用比例`"config" =     {
+        use = s;
+        iPhone5 = 1;
+        iPhone6 = 1.2;
+        iPhone6Plus = 1.5;
+        iPhoneX = 1.7;
+    };` s表示根据不同屏幕尺寸使用不同的比值
+* 布局格式
+  * `"backImage<UIImageView" =     {
+        top = 105;
+        left = 40;
+        bottom = 20;
+        right = 10;
+        "setBackgroundColor:" = "#FF00FF";
+    };`
+  * `"deleteBtn<UIButton" =     {
+        top = 100;
+        left = 10;
+        width = 30;
+        height = 30;
+        "setBackgroundColor:" = "#33FFEE";
+    };`
 #
 ## <a id="wiki-SMRAdapter"></a>SMRAdapter
 ## <a id="wiki-SMRNavigationView"></a>SMRNavigationView
@@ -56,7 +82,7 @@
   * s.dependency 'YYModel', '1.0.4'
 #### SMRCoreKit.SMRDebug
   * s.dependency 'FLEX', '2.4.0'
-#### SMRUIKit.SMRNavigationView
+#### SMRCoreKit.SMRLayout/SMRUIKit.SMRNavigationView
   * s.dependency 'PureLayout', '3.1.4'
   * s.dependency 'SDWebImage', '4.4.3'
 #### SMRUIKit.SMRController
