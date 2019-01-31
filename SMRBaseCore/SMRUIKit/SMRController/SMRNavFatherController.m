@@ -21,7 +21,9 @@
     [super viewDidLoad];
     _onceViewDidLoad = YES;
     // 给一个默认值
-    self.navigationView.backBtnHidden = !(self.navigationController.viewControllers.count > 1);
+    if (self.navigationController) {
+        self.navigationView.backBtnHidden = !(self.navigationController.viewControllers.count > 1);
+    } 
     // Do any additional setup after loading the view.
     [self checkNeedsAddSubview];
 }

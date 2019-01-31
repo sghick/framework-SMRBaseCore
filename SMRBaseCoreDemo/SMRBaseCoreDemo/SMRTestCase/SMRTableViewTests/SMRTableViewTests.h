@@ -6,12 +6,11 @@
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "SMRTestsDelegate.h"
+#import "SMRTests.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SMRTableViewTests : NSObject<SMRTestsDelegate>
+@interface SMRTableViewTests : SMRTests
 
 @end
 

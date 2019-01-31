@@ -1,8 +1,8 @@
 //
-//  SMRLayoutTests.h
+//  SMRButtonTests.h
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/1/29.
+//  Created by 丁治文 on 2019/1/31.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SMRLayoutTests : SMRTests
+@interface SMRButtonTests : SMRTests
 
 @end
 

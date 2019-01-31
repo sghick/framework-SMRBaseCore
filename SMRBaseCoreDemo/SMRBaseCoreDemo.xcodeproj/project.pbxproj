@@ -89,6 +89,11 @@
 		8AE4955621FFEB4D0055263E /* item.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8AE4955521FFEB4D0055263E /* item.plist */; };
 		8AE4955A21FFEEA60055263E /* SMRLayoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4955921FFEEA60055263E /* SMRLayoutTests.m */; };
 		8AE4955D21FFEF090055263E /* SMRLayoutTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4955C21FFEF090055263E /* SMRLayoutTestController.m */; };
+		8AE4956822028AEE0055263E /* UIButton+SMR.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4956722028AEE0055263E /* UIButton+SMR.m */; };
+		8AE4956C22028C9D0055263E /* SMRButtonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4956B22028C9D0055263E /* SMRButtonTests.m */; };
+		8AE4956F22028CC30055263E /* SMRTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4956E22028CC30055263E /* SMRTests.m */; };
+		8AE4957222028D840055263E /* SMRButtonTestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4957122028D840055263E /* SMRButtonTestsController.m */; };
+		8AE49574220292770055263E /* SMRButtonAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AE49573220292770055263E /* SMRButtonAssets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -280,6 +285,15 @@
 		8AE4955B21FFEF090055263E /* SMRLayoutTestController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRLayoutTestController.h; sourceTree = "<group>"; };
 		8AE4955C21FFEF090055263E /* SMRLayoutTestController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRLayoutTestController.m; sourceTree = "<group>"; };
 		8AE4955E21FFEFF60055263E /* SMRLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRLayout.h; sourceTree = "<group>"; };
+		8AE4956622028AEE0055263E /* UIButton+SMR.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+SMR.h"; sourceTree = "<group>"; };
+		8AE4956722028AEE0055263E /* UIButton+SMR.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+SMR.m"; sourceTree = "<group>"; };
+		8AE4956A22028C9D0055263E /* SMRButtonTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRButtonTests.h; sourceTree = "<group>"; };
+		8AE4956B22028C9D0055263E /* SMRButtonTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRButtonTests.m; sourceTree = "<group>"; };
+		8AE4956D22028CC30055263E /* SMRTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRTests.h; sourceTree = "<group>"; };
+		8AE4956E22028CC30055263E /* SMRTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRTests.m; sourceTree = "<group>"; };
+		8AE4957022028D840055263E /* SMRButtonTestsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRButtonTestsController.h; sourceTree = "<group>"; };
+		8AE4957122028D840055263E /* SMRButtonTestsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRButtonTestsController.m; sourceTree = "<group>"; };
+		8AE49573220292770055263E /* SMRButtonAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SMRButtonAssets.xcassets; sourceTree = "<group>"; };
 		A6320258A49093D592CC8E60 /* Pods-SMRBaseCoreDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMRBaseCoreDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		BEB68DCCB6F5224C71F40E77 /* Pods_SMRBaseCoreDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SMRBaseCoreDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -388,6 +402,7 @@
 				8A814CC821F5C9DD00D8AEB6 /* SMRNavigationView */,
 				8A814CD921F5CC3600D8AEB6 /* SMRTableAssistant */,
 				8A814CEE21F5CC7D00D8AEB6 /* SMRImageCate */,
+				8AE49562220289F40055263E /* SMRButtonCate */,
 				8A814CB721F5C74000D8AEB6 /* SMRUIKitBundle.h */,
 				8A814CB821F5C74000D8AEB6 /* SMRUIKitBundle.m */,
 				8A814CBC21F5C77400D8AEB6 /* SMRUIKitBundle.bundle */,
@@ -726,7 +741,10 @@
 			isa = PBXGroup;
 			children = (
 				8A814D0B21F5D1FA00D8AEB6 /* SMRTestsDelegate.h */,
+				8AE4956D22028CC30055263E /* SMRTests.h */,
+				8AE4956E22028CC30055263E /* SMRTests.m */,
 				8AE4955721FFEE8E0055263E /* SMRLayoutTests */,
+				8AE4956922028C8A0055263E /* SMRButtonTests */,
 				8A814D1021F6F36C00D8AEB6 /* SMRTableViewTests */,
 				8A814D0C21F5D22000D8AEB6 /* SMRNetworkTests */,
 			);
@@ -799,6 +817,27 @@
 				8AE4955C21FFEF090055263E /* SMRLayoutTestController.m */,
 			);
 			path = SMRLayoutTests;
+			sourceTree = "<group>";
+		};
+		8AE49562220289F40055263E /* SMRButtonCate */ = {
+			isa = PBXGroup;
+			children = (
+				8AE4956622028AEE0055263E /* UIButton+SMR.h */,
+				8AE4956722028AEE0055263E /* UIButton+SMR.m */,
+			);
+			path = SMRButtonCate;
+			sourceTree = "<group>";
+		};
+		8AE4956922028C8A0055263E /* SMRButtonTests */ = {
+			isa = PBXGroup;
+			children = (
+				8AE4956A22028C9D0055263E /* SMRButtonTests.h */,
+				8AE4956B22028C9D0055263E /* SMRButtonTests.m */,
+				8AE4957022028D840055263E /* SMRButtonTestsController.h */,
+				8AE4957122028D840055263E /* SMRButtonTestsController.m */,
+				8AE49573220292770055263E /* SMRButtonAssets.xcassets */,
+			);
+			path = SMRButtonTests;
 			sourceTree = "<group>";
 		};
 		A1F75AF303FA462F55AA4249 /* Pods */ = {
@@ -925,6 +964,7 @@
 			files = (
 				8AE4953121FEB8F70055263E /* smr_config.plist in Resources */,
 				8A814B0521F5B9A000D8AEB6 /* menu_bg_trangle@2x.png in Resources */,
+				8AE49574220292770055263E /* SMRButtonAssets.xcassets in Resources */,
 				8A814CBD21F5C77400D8AEB6 /* SMRUIKitBundle.bundle in Resources */,
 				8AE4955621FFEB4D0055263E /* item.plist in Resources */,
 				8A814A5A21F5B7BE00D8AEB6 /* LaunchScreen.storyboard in Resources */,
@@ -1021,6 +1061,7 @@
 				8A814CAD21F5C4AC00D8AEB6 /* SMRNetInfo.m in Sources */,
 				8AE4952A21FEB3040055263E /* NSError+SMRError.m in Sources */,
 				8A814C9521F5C3D000D8AEB6 /* SMRNetManager.m in Sources */,
+				8AE4957222028D840055263E /* SMRButtonTestsController.m in Sources */,
 				8A814B8B21F5B9D100D8AEB6 /* SMRDBSetter.m in Sources */,
 				8A814BCA21F5BA2100D8AEB6 /* NSURL+SMRRouter.m in Sources */,
 				8A814BCC21F5BA2100D8AEB6 /* SMRNavigator.m in Sources */,
@@ -1072,10 +1113,13 @@
 				8A814CB921F5C74000D8AEB6 /* SMRUIKitBundle.m in Sources */,
 				8A814B6921F5B9BF00D8AEB6 /* NSObject+SMRDB.m in Sources */,
 				8A814D1321F6F37900D8AEB6 /* SMRTableViewTests.m in Sources */,
+				8AE4956F22028CC30055263E /* SMRTests.m in Sources */,
 				8A814BC921F5BA2100D8AEB6 /* SMRURLProvider.m in Sources */,
 				8A814BCE21F5BA2100D8AEB6 /* SMRTarget.m in Sources */,
 				8A814CA421F5C40600D8AEB6 /* SMRNetCache.m in Sources */,
 				8A814BA121F5B9DC00D8AEB6 /* SMRDBDeleteOption.m in Sources */,
+				8AE4956C22028C9D0055263E /* SMRButtonTests.m in Sources */,
+				8AE4956822028AEE0055263E /* UIButton+SMR.m in Sources */,
 				8A814CF921F5CD2100D8AEB6 /* SMRKeyChainManager.m in Sources */,
 				8A814B8921F5B9D100D8AEB6 /* SMRDBColumn.m in Sources */,
 				8A814B0321F5B9A000D8AEB6 /* SMRLogSideMenuView.m in Sources */,
