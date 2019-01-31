@@ -137,9 +137,9 @@
     manager.requestSerializer.timeoutInterval = api.timeoutInterval;
     // 创建request对象
     NSError *serializationError = nil;
-    NSURL *relativeURL = [NSURL URLWithString:api.host] ?: manager.baseURL;
+    NSString *apiURLStr = [NSString stringWithFormat:@"%@%@", api.host?:@"", api.url?:@""];
     NSMutableURLRequest *request = [manager.requestSerializer requestWithMethod:api.method
-                                                                      URLString:[[NSURL URLWithString:api.url relativeToURL:relativeURL] absoluteString]
+                                                                      URLString:[[NSURL URLWithString:apiURLStr relativeToURL:manager.baseURL] absoluteString]
                                                                      parameters:api.params
                                                                           error:&serializationError];
     if (serializationError) {
