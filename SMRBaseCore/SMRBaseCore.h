@@ -30,8 +30,8 @@
 #import "UIButton+SMR.h"
 
 /// SMRUtilsKit
+#import "SMRMatrixCalculator.h"
 #import "SMRPhoneInfo.h"
 #import "SMRKeyChainManager.h"
-#import "SMRUDManager.h"
 
 #endif /* SMRBaseCore_h */

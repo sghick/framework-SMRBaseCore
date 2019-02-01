@@ -94,6 +94,7 @@
 		8AE4956F22028CC30055263E /* SMRTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4956E22028CC30055263E /* SMRTests.m */; };
 		8AE4957222028D840055263E /* SMRButtonTestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4957122028D840055263E /* SMRButtonTestsController.m */; };
 		8AE49574220292770055263E /* SMRButtonAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AE49573220292770055263E /* SMRButtonAssets.xcassets */; };
+		8AE495A6220422680055263E /* SMRMatrixCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE495A5220422680055263E /* SMRMatrixCalculator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -295,6 +296,8 @@
 		8AE4957122028D840055263E /* SMRButtonTestsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRButtonTestsController.m; sourceTree = "<group>"; };
 		8AE49573220292770055263E /* SMRButtonAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SMRButtonAssets.xcassets; sourceTree = "<group>"; };
 		8AE4957C2202C1F00055263E /* SMRBaseCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRBaseCore.h; sourceTree = "<group>"; };
+		8AE495A4220422680055263E /* SMRMatrixCalculator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRMatrixCalculator.h; sourceTree = "<group>"; };
+		8AE495A5220422680055263E /* SMRMatrixCalculator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRMatrixCalculator.m; sourceTree = "<group>"; };
 		A6320258A49093D592CC8E60 /* Pods-SMRBaseCoreDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMRBaseCoreDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		BEB68DCCB6F5224C71F40E77 /* Pods_SMRBaseCoreDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SMRBaseCoreDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -415,6 +418,7 @@
 		8A814A8121F5B80B00D8AEB6 /* SMRUtilsKit */ = {
 			isa = PBXGroup;
 			children = (
+				8AE495A32204225C0055263E /* SMRMatrixCalculator */,
 				8A814CF321F5CCD800D8AEB6 /* SMRPhoneInfo */,
 				8A814CF221F5CCD800D8AEB6 /* SMRKeyChain */,
 			);
@@ -842,6 +846,15 @@
 			path = SMRButtonTests;
 			sourceTree = "<group>";
 		};
+		8AE495A32204225C0055263E /* SMRMatrixCalculator */ = {
+			isa = PBXGroup;
+			children = (
+				8AE495A4220422680055263E /* SMRMatrixCalculator.h */,
+				8AE495A5220422680055263E /* SMRMatrixCalculator.m */,
+			);
+			path = SMRMatrixCalculator;
+			sourceTree = "<group>";
+		};
 		A1F75AF303FA462F55AA4249 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1087,6 +1100,7 @@
 				8A814CB321F5C5F700D8AEB6 /* SMRAPICreator.m in Sources */,
 				8A814D3021F80B8F00D8AEB6 /* SMRRankerConfig.m in Sources */,
 				8A814A5221F5B7BD00D8AEB6 /* ViewController.m in Sources */,
+				8AE495A6220422680055263E /* SMRMatrixCalculator.m in Sources */,
 				8A814BFA21F5BCF200D8AEB6 /* SMRLifecycle.m in Sources */,
 				8A814BC821F5BA2100D8AEB6 /* SMRRouterCenter+SMROpen.m in Sources */,
 				8AE4955A21FFEEA60055263E /* SMRLayoutTests.m in Sources */,
