@@ -97,6 +97,7 @@
 		8AF6B4FD22141E7800A56E51 /* SMRContentMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF6B4FC22141E7800A56E51 /* SMRContentMaskView.m */; };
 		8AF6B50122141F2C00A56E51 /* SMRAlertViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF6B50022141F2C00A56E51 /* SMRAlertViewTests.m */; };
 		8AF6B504221423BF00A56E51 /* SMRUIAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF6B503221423BF00A56E51 /* SMRUIAdapter.m */; };
+		8AF6B50B221424A800A56E51 /* UIView+SMRResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF6B50A221424A800A56E51 /* UIView+SMRResponder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -304,6 +305,8 @@
 		8AF6B50022141F2C00A56E51 /* SMRAlertViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRAlertViewTests.m; sourceTree = "<group>"; };
 		8AF6B502221423BF00A56E51 /* SMRUIAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRUIAdapter.h; sourceTree = "<group>"; };
 		8AF6B503221423BF00A56E51 /* SMRUIAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRUIAdapter.m; sourceTree = "<group>"; };
+		8AF6B509221424A800A56E51 /* UIView+SMRResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+SMRResponder.h"; sourceTree = "<group>"; };
+		8AF6B50A221424A800A56E51 /* UIView+SMRResponder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+SMRResponder.m"; sourceTree = "<group>"; };
 		A6320258A49093D592CC8E60 /* Pods-SMRBaseCoreDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMRBaseCoreDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		BEB68DCCB6F5224C71F40E77 /* Pods_SMRBaseCoreDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SMRBaseCoreDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -408,6 +411,7 @@
 		8A814A8021F5B80B00D8AEB6 /* SMRUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				8AF6B5052214248600A56E51 /* SMRResponder */,
 				8AF6B4FA22141E5500A56E51 /* SMRAlertView */,
 				8A814CFA21F5CEC800D8AEB6 /* SMRAdapter */,
 				8A814CBE21F5C80C00D8AEB6 /* SMRController */,
@@ -881,6 +885,15 @@
 			path = SMRAlertViewTests;
 			sourceTree = "<group>";
 		};
+		8AF6B5052214248600A56E51 /* SMRResponder */ = {
+			isa = PBXGroup;
+			children = (
+				8AF6B509221424A800A56E51 /* UIView+SMRResponder.h */,
+				8AF6B50A221424A800A56E51 /* UIView+SMRResponder.m */,
+			);
+			path = SMRResponder;
+			sourceTree = "<group>";
+		};
 		A1F75AF303FA462F55AA4249 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1152,6 +1165,7 @@
 				8A814BCD21F5BA2100D8AEB6 /* SMRRouterCenter.m in Sources */,
 				8A814CF621F5CCFB00D8AEB6 /* SMRPhoneInfo.m in Sources */,
 				8A814B0221F5B9A000D8AEB6 /* SMRLogScreen.m in Sources */,
+				8AF6B50B221424A800A56E51 /* UIView+SMRResponder.m in Sources */,
 				8A814CD521F5CA9800D8AEB6 /* SMRNavigationAccessoriesBar.m in Sources */,
 				8A814CB921F5C74000D8AEB6 /* SMRUIKitBundle.m in Sources */,
 				8A814B6921F5B9BF00D8AEB6 /* NSObject+SMRDB.m in Sources */,

@@ -32,6 +32,7 @@ typedef void(^SMRContentMaskViewTouchedBlock)(SMRContentMaskView *maskView);
 
 - (void)show;
 - (void)showAnimated:(BOOL)animated;
+- (void)showInView:(UIView *)view animated:(BOOL)animated;
 
 - (void)hide;
 - (void)hideAnimated:(BOOL)animated;
