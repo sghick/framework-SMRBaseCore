@@ -24,7 +24,7 @@
 }
 
 - (void)testBtnAction:(UIButton *)sender {
-    NSString *testClass = @"SMRButtonTests";
+    NSString *testClass = @"SMRAlertViewTests";
     
     Class cls = NSClassFromString(testClass);
     if (cls) {

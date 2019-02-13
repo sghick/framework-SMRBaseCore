@@ -21,13 +21,14 @@
 #import "SMRLayout.h"
 
 /// SMRUIKit
-#import "SMRController.h"
-#import "SMRAdapter.h"
+#import "SMRViewController.h"
+#import "SMRUIAdapter.h"
 #import "SMRNavigationView.h"
 #import "SMRTableAssistant.h"
 #import "UIView+SMRResponder.h"
 #import "UIImage+SMR.h"
 #import "UIButton+SMR.h"
+#import "SMRContentMaskView.h"
 
 /// SMRUtilsKit
 #import "SMRMatrixCalculator.h"

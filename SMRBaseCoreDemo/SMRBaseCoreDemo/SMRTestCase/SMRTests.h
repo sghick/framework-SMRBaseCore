@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SMRTestsDelegate.h"
-#import "SMRNavigator.h"
+#import "SMRBaseCore.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

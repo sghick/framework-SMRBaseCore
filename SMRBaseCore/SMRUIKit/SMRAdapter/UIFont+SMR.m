@@ -7,7 +7,7 @@
 //
 
 #import "UIFont+SMR.h"
-#import "SMRInterfaceAdapter.h"
+#import "SMRUIAdapter.h"
 
 @implementation UIFont (SMR)
 
