@@ -10,12 +10,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSInteger, SMRContentMaskViewContentAlignment) {
+    SMRContentMaskViewContentAlignmentCenter   = 0,    ///< contentView居中
+    SMRContentMaskViewContentAlignmentBottom   = 1,    ///< contentView在底部
+};
+
 @protocol SMRContentMaskViewProtocol <NSObject>
 
 /** 定义了maskView的contentView部分 */
 - (UIView *)contentViewOfMaskView;
-/** 定义了contentView的左右缩进 */
+/** 定义了contentView的左右缩进,默认30 */
 - (CGFloat)marginOfContentView;
+/** 定义了contentView的位置,默认居中 */
+- (SMRContentMaskViewContentAlignment)contentAlignmentOfMaskView;
 
 @end
 

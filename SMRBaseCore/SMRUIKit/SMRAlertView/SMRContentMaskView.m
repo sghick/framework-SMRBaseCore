@@ -7,6 +7,7 @@
 //
 
 #import "SMRContentMaskView.h"
+#import "SMRUIAdapter.h"
 #import "PureLayout.h"
 
 @interface SMRContentMaskView ()
@@ -44,11 +45,23 @@
 - (void)updateConstraints {
     if (!self.didLoadLayout) {
         _didLoadLayout = YES;
-        [self.contentView autoCenterInSuperview];
-        [self.contentView autoSetDimension:ALDimensionWidth toSize:CGRectGetWidth([UIScreen mainScreen].bounds) - 2*[self marginOfContentView]];
-        [NSLayoutConstraint autoSetPriority:UILayoutPriorityDefaultLow forConstraints:^{
-            [self.contentView autoSetDimension:ALDimensionHeight toSize:10 relation:NSLayoutRelationGreaterThanOrEqual];
-        }];
+        SMRContentMaskViewContentAlignment alignment = [self contentAlignmentOfMaskView];
+        if (alignment == SMRContentMaskViewContentAlignmentCenter) {
+            // 默认居中
+            [self.contentView autoCenterInSuperview];
+            [self.contentView autoSetDimension:ALDimensionWidth toSize:CGRectGetWidth([UIScreen mainScreen].bounds) - 2*[self marginOfContentView]];
+            [NSLayoutConstraint autoSetPriority:UILayoutPriorityDefaultLow forConstraints:^{
+                [self.contentView autoSetDimension:ALDimensionHeight toSize:10 relation:NSLayoutRelationGreaterThanOrEqual];
+            }];
+        } else {
+            // 在底部
+            [self.contentView autoAlignAxisToSuperviewAxis:ALAxisVertical];
+            [self.contentView autoPinEdgeToSuperviewEdge:ALEdgeBottom];
+            [self.contentView autoSetDimension:ALDimensionWidth toSize:CGRectGetWidth([UIScreen mainScreen].bounds) - 2*[self marginOfContentView]];
+            [NSLayoutConstraint autoSetPriority:UILayoutPriorityDefaultLow forConstraints:^{
+                [self.contentView autoSetDimension:ALDimensionHeight toSize:10 relation:NSLayoutRelationGreaterThanOrEqual];
+            }];
+        }
     }
     [super updateConstraints];
 }
@@ -63,6 +76,10 @@
 
 - (CGFloat)marginOfContentView {
     return 30;
+}
+
+- (SMRContentMaskViewContentAlignment)contentAlignmentOfMaskView {
+    return SMRContentMaskViewContentAlignmentCenter;
 }
 
 #pragma mark - Actions
