@@ -19,6 +19,9 @@
 }
 
 - (SMRRow *)rowWithIndexPath:(NSIndexPath *)indexPath {
+    if (!indexPath) {
+        return nil;
+    }
     SMRSection *sec = [self sectionWithIndexPathSection:indexPath.section];
     if (sec) {
         SMRRow *row = [sec rowAtIndexPathRow:indexPath.row];

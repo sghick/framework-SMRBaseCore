@@ -19,15 +19,14 @@ typedef NS_ENUM(NSInteger, SMRContentMaskViewContentAlignment) {
 
 /** 定义了maskView的contentView部分 */
 - (UIView *)contentViewOfMaskView;
-/** 定义了contentView的左右缩进,默认30 */
-- (CGFloat)marginOfContentView;
+/** 定义了contentView的左右缩进后的宽,默认左右缩进了各30 */
+- (CGFloat)widthOfContentView;
 /** 定义了contentView的位置,默认居中 */
 - (SMRContentMaskViewContentAlignment)contentAlignmentOfMaskView;
 
 @end
 
-@class SMRContentMaskView;
-typedef void(^SMRContentMaskViewTouchedBlock)(SMRContentMaskView *maskView);
+typedef void(^SMRContentMaskViewTouchedBlock)(id maskView);
 
 @interface SMRContentMaskView : UIView<SMRContentMaskViewProtocol>
 
@@ -36,6 +35,9 @@ typedef void(^SMRContentMaskViewTouchedBlock)(SMRContentMaskView *maskView);
 
 @property (copy  , nonatomic) SMRContentMaskViewTouchedBlock backgroundTouchedBlock;    ///< 背景的点击事件
 @property (copy  , nonatomic) SMRContentMaskViewTouchedBlock contentViewTouchedBlock;   ///< 内容的点击事件
+
+/** 更新contentView的高 */
+- (void)updateHeightOfContentView:(CGFloat)heightOfContentView;
 
 - (void)show;
 - (void)showAnimated:(BOOL)animated;

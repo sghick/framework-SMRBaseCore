@@ -12,6 +12,8 @@
 
 @interface SMRContentMaskView ()
 
+@property (strong, nonatomic) NSLayoutConstraint *heightOfContentViewLayout;
+
 @end
 
 @implementation SMRContentMaskView
@@ -29,12 +31,12 @@
     }
     self = [super initWithFrame:frame];
     if (self) {
-        [self createSubviews];
+        [self createContentMaskSubviews];
     }
     return self;
 }
 
-- (void)createSubviews {
+- (void)createContentMaskSubviews {
     self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     [self addSubview:self.contentView];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewTapAction:)];
@@ -49,17 +51,17 @@
         if (alignment == SMRContentMaskViewContentAlignmentCenter) {
             // 默认居中
             [self.contentView autoCenterInSuperview];
-            [self.contentView autoSetDimension:ALDimensionWidth toSize:CGRectGetWidth([UIScreen mainScreen].bounds) - 2*[self marginOfContentView]];
+            [self.contentView autoSetDimension:ALDimensionWidth toSize:[self widthOfContentView]];
             [NSLayoutConstraint autoSetPriority:UILayoutPriorityDefaultLow forConstraints:^{
-                [self.contentView autoSetDimension:ALDimensionHeight toSize:10 relation:NSLayoutRelationGreaterThanOrEqual];
+                self.heightOfContentViewLayout = [self.contentView autoSetDimension:ALDimensionHeight toSize:10 relation:NSLayoutRelationGreaterThanOrEqual];
             }];
         } else {
             // 在底部
             [self.contentView autoAlignAxisToSuperviewAxis:ALAxisVertical];
             [self.contentView autoPinEdgeToSuperviewEdge:ALEdgeBottom];
-            [self.contentView autoSetDimension:ALDimensionWidth toSize:CGRectGetWidth([UIScreen mainScreen].bounds) - 2*[self marginOfContentView]];
+            [self.contentView autoSetDimension:ALDimensionWidth toSize:[self widthOfContentView]];
             [NSLayoutConstraint autoSetPriority:UILayoutPriorityDefaultLow forConstraints:^{
-                [self.contentView autoSetDimension:ALDimensionHeight toSize:10 relation:NSLayoutRelationGreaterThanOrEqual];
+                self.heightOfContentViewLayout = [self.contentView autoSetDimension:ALDimensionHeight toSize:10 relation:NSLayoutRelationGreaterThanOrEqual];
             }];
         }
     }
@@ -74,8 +76,8 @@
     return view;
 }
 
-- (CGFloat)marginOfContentView {
-    return 30;
+- (CGFloat)widthOfContentView {
+    return CGRectGetWidth([UIScreen mainScreen].bounds) - 2*[SMRUIAdapter smr_adapterWithValue:43.0];
 }
 
 - (SMRContentMaskViewContentAlignment)contentAlignmentOfMaskView {
@@ -97,6 +99,14 @@
 }
 
 #pragma mark - Utils
+
+- (void)updateHeightOfContentView:(CGFloat)heightOfContentView {
+    [self.heightOfContentViewLayout autoRemove];
+    [NSLayoutConstraint autoSetPriority:UILayoutPriorityDefaultLow forConstraints:^{
+        self.heightOfContentViewLayout = [self.contentView autoSetDimension:ALDimensionHeight toSize:heightOfContentView relation:NSLayoutRelationGreaterThanOrEqual];
+    }];
+    [self setNeedsUpdateConstraints];
+}
 
 - (void)show {
     [self showAnimated:YES];

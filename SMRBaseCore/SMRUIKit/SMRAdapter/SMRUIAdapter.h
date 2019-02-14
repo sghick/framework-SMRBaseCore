@@ -42,7 +42,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 // 屏幕高度
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
-@interface smr_InterfaceAdapter : NSObject
+@interface SMRUIAdapter : NSObject
 
 /// 适配比例 实际宽度 / 设计稿宽度
 + (CGFloat)interfaceScale;
@@ -50,6 +50,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 + (CGPoint)smr_adapterWithPoint:(CGPoint)point;
 + (CGSize)smr_adapterWithSize:(CGSize)size;
 + (CGRect)smr_adapterWithRect:(CGRect)rect;
++ (UIEdgeInsets)smr_adapterWithInsets:(UIEdgeInsets)insets;
 /// 系统版本是否大于或等于10.0
 + (BOOL)overtopiOS10;
 /// 系统版本是否大于或等于11.0

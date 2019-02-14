@@ -81,6 +81,8 @@
 		8A814D3121F80B8F00D8AEB6 /* SMRRankerLifecycleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814D2B21F80B8F00D8AEB6 /* SMRRankerLifecycleManager.m */; };
 		8A814D3221F80B8F00D8AEB6 /* SMRRankerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814D2C21F80B8F00D8AEB6 /* SMRRankerManager.m */; };
 		8A814D3321F80B8F00D8AEB6 /* SMRRankerAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814D2E21F80B8F00D8AEB6 /* SMRRankerAction.m */; };
+		8AE02F5422154FBD006235BB /* SMRAlertViewContentTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE02F5322154FBD006235BB /* SMRAlertViewContentTextCell.m */; };
+		8AE02F5722154FE6006235BB /* SMRAlertViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE02F5622154FE6006235BB /* SMRAlertViewButton.m */; };
 		8AE4952A21FEB3040055263E /* NSError+SMRError.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4952921FEB3040055263E /* NSError+SMRError.m */; };
 		8AE4952D21FEB5000055263E /* NSError+SMRNetError.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4952C21FEB5000055263E /* NSError+SMRNetError.m */; };
 		8AE4953121FEB8F70055263E /* smr_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8AE4953021FEB8F70055263E /* smr_config.plist */; };
@@ -98,6 +100,8 @@
 		8AF6B50122141F2C00A56E51 /* SMRAlertViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF6B50022141F2C00A56E51 /* SMRAlertViewTests.m */; };
 		8AF6B504221423BF00A56E51 /* SMRUIAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF6B503221423BF00A56E51 /* SMRUIAdapter.m */; };
 		8AF6B50B221424A800A56E51 /* UIView+SMRResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF6B50A221424A800A56E51 /* UIView+SMRResponder.m */; };
+		8AF6B50E22142EC800A56E51 /* SMRTableAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF6B50D22142EC800A56E51 /* SMRTableAlertView.m */; };
+		8AF6B51122142EFB00A56E51 /* SMRAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF6B51022142EFB00A56E51 /* SMRAlertView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -274,6 +278,10 @@
 		8A814D2D21F80B8F00D8AEB6 /* SMRRankerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRRankerManager.h; sourceTree = "<group>"; };
 		8A814D2E21F80B8F00D8AEB6 /* SMRRankerAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRRankerAction.m; sourceTree = "<group>"; };
 		8A814D2F21F80B8F00D8AEB6 /* SMRRankerLifecycleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRRankerLifecycleManager.h; sourceTree = "<group>"; };
+		8AE02F5222154FBD006235BB /* SMRAlertViewContentTextCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRAlertViewContentTextCell.h; sourceTree = "<group>"; };
+		8AE02F5322154FBD006235BB /* SMRAlertViewContentTextCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRAlertViewContentTextCell.m; sourceTree = "<group>"; };
+		8AE02F5522154FE6006235BB /* SMRAlertViewButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRAlertViewButton.h; sourceTree = "<group>"; };
+		8AE02F5622154FE6006235BB /* SMRAlertViewButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRAlertViewButton.m; sourceTree = "<group>"; };
 		8AE4952821FEB3040055263E /* NSError+SMRError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSError+SMRError.h"; sourceTree = "<group>"; };
 		8AE4952921FEB3040055263E /* NSError+SMRError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSError+SMRError.m"; sourceTree = "<group>"; };
 		8AE4952B21FEB5000055263E /* NSError+SMRNetError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSError+SMRNetError.h"; sourceTree = "<group>"; };
@@ -307,6 +315,10 @@
 		8AF6B503221423BF00A56E51 /* SMRUIAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRUIAdapter.m; sourceTree = "<group>"; };
 		8AF6B509221424A800A56E51 /* UIView+SMRResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+SMRResponder.h"; sourceTree = "<group>"; };
 		8AF6B50A221424A800A56E51 /* UIView+SMRResponder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+SMRResponder.m"; sourceTree = "<group>"; };
+		8AF6B50C22142EC800A56E51 /* SMRTableAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRTableAlertView.h; sourceTree = "<group>"; };
+		8AF6B50D22142EC800A56E51 /* SMRTableAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRTableAlertView.m; sourceTree = "<group>"; };
+		8AF6B50F22142EFB00A56E51 /* SMRAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRAlertView.h; sourceTree = "<group>"; };
+		8AF6B51022142EFB00A56E51 /* SMRAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRAlertView.m; sourceTree = "<group>"; };
 		A6320258A49093D592CC8E60 /* Pods-SMRBaseCoreDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMRBaseCoreDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		BEB68DCCB6F5224C71F40E77 /* Pods_SMRBaseCoreDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SMRBaseCoreDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -872,6 +884,14 @@
 			children = (
 				8AF6B4FB22141E7800A56E51 /* SMRContentMaskView.h */,
 				8AF6B4FC22141E7800A56E51 /* SMRContentMaskView.m */,
+				8AF6B50C22142EC800A56E51 /* SMRTableAlertView.h */,
+				8AF6B50D22142EC800A56E51 /* SMRTableAlertView.m */,
+				8AF6B50F22142EFB00A56E51 /* SMRAlertView.h */,
+				8AF6B51022142EFB00A56E51 /* SMRAlertView.m */,
+				8AE02F5222154FBD006235BB /* SMRAlertViewContentTextCell.h */,
+				8AE02F5322154FBD006235BB /* SMRAlertViewContentTextCell.m */,
+				8AE02F5522154FE6006235BB /* SMRAlertViewButton.h */,
+				8AE02F5622154FE6006235BB /* SMRAlertViewButton.m */,
 			);
 			path = SMRAlertView;
 			sourceTree = "<group>";
@@ -1113,6 +1133,7 @@
 				8A814B9C21F5B9DC00D8AEB6 /* SMRDBUtilOption.m in Sources */,
 				8A814D1621F6F5F900D8AEB6 /* SMRTestTableController.m in Sources */,
 				8A814CAD21F5C4AC00D8AEB6 /* SMRNetInfo.m in Sources */,
+				8AE02F5422154FBD006235BB /* SMRAlertViewContentTextCell.m in Sources */,
 				8AE4952A21FEB3040055263E /* NSError+SMRError.m in Sources */,
 				8A814C9521F5C3D000D8AEB6 /* SMRNetManager.m in Sources */,
 				8AE4957222028D840055263E /* SMRButtonTestsController.m in Sources */,
@@ -1144,6 +1165,7 @@
 				8A814BC821F5BA2100D8AEB6 /* SMRRouterCenter+SMROpen.m in Sources */,
 				8AE4955A21FFEEA60055263E /* SMRLayoutTests.m in Sources */,
 				8A814CF121F5CCA600D8AEB6 /* UIImage+SMR.m in Sources */,
+				8AE02F5722154FE6006235BB /* SMRAlertViewButton.m in Sources */,
 				8A814D0621F5D08B00D8AEB6 /* UIFont+SMR.m in Sources */,
 				8A814CEB21F5CC4A00D8AEB6 /* UITableView+Separator.m in Sources */,
 				8A814A5D21F5B7BE00D8AEB6 /* main.m in Sources */,
@@ -1153,6 +1175,7 @@
 				8A814CB621F5C66700D8AEB6 /* SMRNetAPIQueue.m in Sources */,
 				8AF6B50122141F2C00A56E51 /* SMRAlertViewTests.m in Sources */,
 				8A814A4F21F5B7BD00D8AEB6 /* AppDelegate.m in Sources */,
+				8AF6B50E22142EC800A56E51 /* SMRTableAlertView.m in Sources */,
 				8A814CED21F5CC4A00D8AEB6 /* UITableView+SMRSections.m in Sources */,
 				8A814BA021F5B9DC00D8AEB6 /* SMRDBSelectOption.m in Sources */,
 				8A814CD821F5CAEA00D8AEB6 /* SMRNavigationView.m in Sources */,
@@ -1161,6 +1184,7 @@
 				8A814B8821F5B9D100D8AEB6 /* SMRDBTableOption.m in Sources */,
 				8A814C9D21F5C3D900D8AEB6 /* SMRNetAPI.m in Sources */,
 				8A814CEC21F5CC4A00D8AEB6 /* SMRSections.m in Sources */,
+				8AF6B51122142EFB00A56E51 /* SMRAlertView.m in Sources */,
 				8AF6B504221423BF00A56E51 /* SMRUIAdapter.m in Sources */,
 				8A814BCD21F5BA2100D8AEB6 /* SMRRouterCenter.m in Sources */,
 				8A814CF621F5CCFB00D8AEB6 /* SMRPhoneInfo.m in Sources */,
