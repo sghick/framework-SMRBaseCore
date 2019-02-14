@@ -7,9 +7,7 @@
 //
 
 #import "SMRAlertViewContentTextCell.h"
-#import "UIColor+SMR.h"
-#import "UIFont+SMR.h"
-#import "SMRUIAdapter.h"
+#import "SMRAdapter.h"
 #import "PureLayout.h"
 
 @interface SMRAlertViewContentTextCell ()

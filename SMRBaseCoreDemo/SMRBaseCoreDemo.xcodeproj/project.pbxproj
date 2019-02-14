@@ -278,6 +278,7 @@
 		8A814D2D21F80B8F00D8AEB6 /* SMRRankerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRRankerManager.h; sourceTree = "<group>"; };
 		8A814D2E21F80B8F00D8AEB6 /* SMRRankerAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRRankerAction.m; sourceTree = "<group>"; };
 		8A814D2F21F80B8F00D8AEB6 /* SMRRankerLifecycleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRRankerLifecycleManager.h; sourceTree = "<group>"; };
+		8A914DC62215784F00E2F691 /* SMRAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRAdapter.h; sourceTree = "<group>"; };
 		8AE02F5222154FBD006235BB /* SMRAlertViewContentTextCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRAlertViewContentTextCell.h; sourceTree = "<group>"; };
 		8AE02F5322154FBD006235BB /* SMRAlertViewContentTextCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRAlertViewContentTextCell.m; sourceTree = "<group>"; };
 		8AE02F5522154FE6006235BB /* SMRAlertViewButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRAlertViewButton.h; sourceTree = "<group>"; };
@@ -754,6 +755,7 @@
 		8A814CFA21F5CEC800D8AEB6 /* SMRAdapter */ = {
 			isa = PBXGroup;
 			children = (
+				8A914DC62215784F00E2F691 /* SMRAdapter.h */,
 				8AF6B502221423BF00A56E51 /* SMRUIAdapter.h */,
 				8AF6B503221423BF00A56E51 /* SMRUIAdapter.m */,
 				8A814D0121F5D04A00D8AEB6 /* UIColor+SMR.h */,

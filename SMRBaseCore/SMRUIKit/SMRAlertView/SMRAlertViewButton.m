@@ -7,11 +7,9 @@
 //
 
 #import "SMRAlertViewButton.h"
+#import "SMRAdapter.h"
 #import "SMRMatrixCalculator.h"
-#import "UIFont+SMR.h"
 #import "PureLayout.h"
-#import "UIColor+SMR.h"
-#import "SMRUIAdapter.h"
 
 @interface SMRAlertViewButton ()
 

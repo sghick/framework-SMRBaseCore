@@ -7,7 +7,7 @@
 //
 
 #import "SMRContentMaskView.h"
-#import "SMRUIAdapter.h"
+#import "SMRAdapter.h"
 #import "PureLayout.h"
 
 @interface SMRContentMaskView ()

@@ -22,7 +22,7 @@
 
 /// SMRUIKit
 #import "SMRViewController.h"
-#import "SMRUIAdapter.h"
+#import "SMRAdapter.h"
 #import "SMRNavigationView.h"
 #import "SMRTableAssistant.h"
 #import "UIView+SMRResponder.h"

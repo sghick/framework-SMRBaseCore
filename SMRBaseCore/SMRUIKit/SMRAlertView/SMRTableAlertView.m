@@ -7,7 +7,7 @@
 //
 
 #import "SMRTableAlertView.h"
-#import "SMRUIAdapter.h"
+#import "SMRAdapter.h"
 
 @interface SMRTableAlertView ()<
 UITableViewDataSource,

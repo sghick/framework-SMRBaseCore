@@ -7,9 +7,9 @@
 //
 
 #import "SMRAlertView.h"
+#import "SMRAdapter.h"
 #import "UITableView+Separator.h"
 #import "UITableView+SMRSections.h"
-#import "SMRUIAdapter.h"
 #import "SMRAlertViewContentTextCell.h"
 #import "SMRAlertViewButton.h"
 
