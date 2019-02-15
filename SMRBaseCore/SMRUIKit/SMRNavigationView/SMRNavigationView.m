@@ -197,12 +197,16 @@
 }
 
 - (void)setBackBtn:(UIButton *)backBtn {
+    // 移除默认的
+    [self removeViewFromLeftViews:_backBtn];
     _backBtn = backBtn;
     [backBtn addTarget:self action:@selector(backButtonDidTouched:) forControlEvents:UIControlEventTouchUpInside];
     [self setNeedsLayout];
 }
 
 - (void)setCloseBtn:(UIButton *)closeBtn {
+    // 移除默认的
+    [self removeViewFromLeftViews:_closeBtn];
     _closeBtn = closeBtn;
     [closeBtn addTarget:self action:@selector(closeButtonDidTouched:) forControlEvents:UIControlEventTouchUpInside];
     [self setNeedsLayout];

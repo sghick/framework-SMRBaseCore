@@ -90,4 +90,16 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
     }
 }
 
+- (void)removeViewFromLeftViews:(UIView *)view {
+    NSMutableArray *leftViews = [self.leftViews mutableCopy];
+    [leftViews removeObject:view];
+    _leftViews = [leftViews copy];
+}
+
+- (void)removeViewFromRightViews:(UIView *)view {
+    NSMutableArray *rightViews = [self.rightViews mutableCopy];
+    [rightViews removeObject:view];
+    _rightViews = [rightViews copy];
+}
+
 @end

@@ -23,6 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) UIView *rightView;
 @property (nonatomic, strong, nullable) UIView *centerView;
 
+/** 单纯只能移除某个view,不会刷新UI */
+- (void)removeViewFromLeftViews:(UIView *)view;
+/** 单纯只能移除某个view,不会刷新UI */
+- (void)removeViewFromRightViews:(UIView *)view;
+
 @end
 
 NS_ASSUME_NONNULL_END
