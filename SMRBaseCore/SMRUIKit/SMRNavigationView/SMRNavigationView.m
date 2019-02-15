@@ -8,7 +8,6 @@
 
 #import "SMRNavigationView.h"
 #import "PureLayout.h"
-#import "UIImage+SMR.h"
 #import "SMRUIKitBundle.h"
 
 @interface SMRNavigationView ()

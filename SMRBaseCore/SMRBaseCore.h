@@ -26,7 +26,6 @@
 #import "SMRNavigationView.h"
 #import "SMRTableAssistant.h"
 #import "UIView+SMRResponder.h"
-#import "UIImage+SMR.h"
 #import "UIButton+SMR.h"
 #import "SMRAlertView.h"
 
@@ -34,5 +33,6 @@
 #import "SMRMatrixCalculator.h"
 #import "SMRPhoneInfo.h"
 #import "SMRKeyChainManager.h"
+#import "SMRUtilsHeader.h"
 
 #endif /* SMRBaseCore_h */

@@ -8,7 +8,6 @@
 
 #import "SMRViewController.h"
 #import "SMRNavigationController.h"
-#import "UIImage+SMR.h"
 #import "SDImageCache.h"
 
 @interface SMRViewController ()
