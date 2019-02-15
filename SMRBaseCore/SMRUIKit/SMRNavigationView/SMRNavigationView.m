@@ -198,17 +198,13 @@
 
 - (void)setBackBtn:(UIButton *)backBtn {
     _backBtn = backBtn;
-    if (!(backBtn.allControlEvents&UIControlEventTouchUpInside)) {
-        [backBtn addTarget:self action:@selector(backButtonDidTouched:) forControlEvents:UIControlEventTouchUpInside];
-    }
+    [backBtn addTarget:self action:@selector(backButtonDidTouched:) forControlEvents:UIControlEventTouchUpInside];
     [self setNeedsLayout];
 }
 
 - (void)setCloseBtn:(UIButton *)closeBtn {
     _closeBtn = closeBtn;
-    if (!(closeBtn.allControlEvents&UIControlEventTouchUpInside)) {
-        [closeBtn addTarget:self action:@selector(closeButtonDidTouched:) forControlEvents:UIControlEventTouchUpInside];
-    }
+    [closeBtn addTarget:self action:@selector(closeButtonDidTouched:) forControlEvents:UIControlEventTouchUpInside];
     [self setNeedsLayout];
 }
 
