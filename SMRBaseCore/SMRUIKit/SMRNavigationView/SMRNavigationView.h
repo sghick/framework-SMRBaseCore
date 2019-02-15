@@ -16,22 +16,22 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  返回按钮
  */
-@property (nonatomic, strong, readonly) UIButton *backBtn;
+@property (nonatomic, strong) UIButton *backBtn;
 
 /**
  *  一次返回按钮
  */
-@property (nonatomic, strong, readonly) UIButton *closeBtn;
+@property (nonatomic, strong) UIButton *closeBtn;
 
 /**
  *  标题
  */
-@property (nonatomic, strong, readonly) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *titleLabel;
 
 /**
  *  下边阴影(在nav之外)
  */
-@property (nonatomic, strong, readonly) UIImageView *shadowView;
+@property (nonatomic, strong) UIImageView *shadowView;
 
 
 /**

@@ -30,7 +30,12 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
                 [leftView autoPinEdgeToSuperviewEdge:ALEdgeLeft];
             }
             [leftView autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
-            [leftView autoSetDimensionsToSize:viewSize];
+            // 优先使用view的size
+            CGSize useSize = CGSizeEqualToSize(leftView.frame.size, CGSizeZero) ? viewSize : leftView.frame.size;
+            // 如未设置size,则自适应
+            if (!CGSizeEqualToSize(useSize, CGSizeZero)) {
+                [leftView autoSetDimensionsToSize:useSize];
+            }
             
             lastView = leftView;
         }
@@ -52,7 +57,12 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
                 [rightView autoPinEdgeToSuperviewEdge:ALEdgeRight];
             }
             [rightView autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
-            [rightView autoSetDimensionsToSize:viewSize];
+            // 优先使用view的size
+            CGSize useSize = CGSizeEqualToSize(rightView.frame.size, CGSizeZero) ? viewSize : rightView.frame.size;
+            // 如未设置size,则自适应
+            if (!CGSizeEqualToSize(useSize, CGSizeZero)) {
+                [rightView autoSetDimensionsToSize:useSize];
+            }
             
             lastView = rightView;
         }

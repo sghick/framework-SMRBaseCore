@@ -196,6 +196,26 @@
     return self.frame.origin.y + self.frame.size.height;
 }
 
+- (void)setBackBtn:(UIButton *)backBtn {
+    _backBtn = backBtn;
+    [self setNeedsLayout];
+}
+
+- (void)setCloseBtn:(UIButton *)closeBtn {
+    _closeBtn = closeBtn;
+    [self setNeedsLayout];
+}
+
+- (void)setTitleLabel:(UILabel *)titleLabel {
+    _titleLabel = titleLabel;
+    [self setNeedsLayout];
+}
+
+- (void)setShadowView:(UIImageView *)shadowView {
+    _shadowView = shadowView;
+    [self setNeedsLayout];
+}
+
 - (void)setTitle:(NSString *)title {
     _title = title;
     self.titleLabel.text = title;
