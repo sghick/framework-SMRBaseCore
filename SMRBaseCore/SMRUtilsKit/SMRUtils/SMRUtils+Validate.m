@@ -10,6 +10,22 @@
 
 @implementation SMRUtils (Validate)
 
++ (NSArray<NSString *> *)matchFirstGroupsInString:(NSString *)content regex:(NSString *)regex {
+    NSRegularExpressionOptions options = NSRegularExpressionCaseInsensitive;
+    NSError *error = NULL;
+    NSRegularExpression *reg = [NSRegularExpression regularExpressionWithPattern:regex options:options error:&error];
+    NSTextCheckingResult *result = [reg firstMatchInString:content options:0 range:NSMakeRange(0, [content length])];
+    if (result.numberOfRanges > 0) {
+        NSMutableArray *retArray = [NSMutableArray array];
+        for (int i = 0; i < result.numberOfRanges; i++) {
+            NSString *retString = [content substringWithRange:[result rangeAtIndex:i]];
+            [retArray addObject:retString];
+        }
+        return [retArray copy];
+    }
+    return nil;
+}
+
 + (BOOL)validateString:(NSString *)validateString predicateFormat:(NSString *)predicateFormat regex:(NSString *)regex {
     BOOL isValid = NO;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ %@", predicateFormat, regex];

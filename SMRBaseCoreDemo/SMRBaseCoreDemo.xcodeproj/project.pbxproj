@@ -112,6 +112,7 @@
 		8AF6B50B221424A800A56E51 /* UIView+SMRResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF6B50A221424A800A56E51 /* UIView+SMRResponder.m */; };
 		8AF6B50E22142EC800A56E51 /* SMRTableAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF6B50D22142EC800A56E51 /* SMRTableAlertView.m */; };
 		8AF6B51122142EFB00A56E51 /* SMRAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF6B51022142EFB00A56E51 /* SMRAlertView.m */; };
+		FE77761D22187F8300F6416F /* SMRUtilsValidateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FE77761C22187F8300F6416F /* SMRUtilsValidateTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -353,6 +354,8 @@
 		8AF6B51022142EFB00A56E51 /* SMRAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRAlertView.m; sourceTree = "<group>"; };
 		A6320258A49093D592CC8E60 /* Pods-SMRBaseCoreDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMRBaseCoreDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		BEB68DCCB6F5224C71F40E77 /* Pods_SMRBaseCoreDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SMRBaseCoreDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE77761B22187F8300F6416F /* SMRUtilsValidateTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRUtilsValidateTests.h; sourceTree = "<group>"; };
+		FE77761C22187F8300F6416F /* SMRUtilsValidateTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRUtilsValidateTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -876,6 +879,8 @@
 			children = (
 				8A914E09221662F900E2F691 /* SMRUtilsAnimationTests.h */,
 				8A914E0A221662F900E2F691 /* SMRUtilsAnimationTests.m */,
+				FE77761B22187F8300F6416F /* SMRUtilsValidateTests.h */,
+				FE77761C22187F8300F6416F /* SMRUtilsValidateTests.m */,
 			);
 			path = SMRUtilsTests;
 			sourceTree = "<group>";
@@ -1252,6 +1257,7 @@
 				8AE4952D21FEB5000055263E /* NSError+SMRNetError.m in Sources */,
 				8A814BCB21F5BA2100D8AEB6 /* SMRRouterConfig.m in Sources */,
 				8A814B8821F5B9D100D8AEB6 /* SMRDBTableOption.m in Sources */,
+				FE77761D22187F8300F6416F /* SMRUtilsValidateTests.m in Sources */,
 				8A814C9D21F5C3D900D8AEB6 /* SMRNetAPI.m in Sources */,
 				8A914DEE2215AA0B00E2F691 /* SMRUtils+NSString.m in Sources */,
 				8A814CEC21F5CC4A00D8AEB6 /* SMRSections.m in Sources */,

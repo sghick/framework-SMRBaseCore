@@ -10,7 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ 正则表达式:http://www.runoob.com/regexp/regexp-syntax.html
+ */
 @interface SMRUtils (Validate)
+
+/**
+ 使用正则获取第一个正确匹配到的结果,支付匹配group
+ */
++ (NSArray<NSString *> *)matchFirstGroupsInString:(NSString *)content regex:(NSString *)regex;
 
 /**
  系统自带的谓词匹配
