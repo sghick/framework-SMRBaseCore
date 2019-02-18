@@ -7,17 +7,62 @@
 //
 
 #import "UIView+SMRAdapter.h"
-
-static NSInteger const kTagForBDSAdapterBottomView = 342983;
+#import "PureLayout.h"
 
 @implementation UIView (SMRAdapter)
 
-/** 给view的底部添加一个定高定色的view */
-- (UIView *)addSafeAreaViewWithColor:(UIColor *)color height:(CGFloat)height;
-/** 给view的底部添加一个定高定色的view,可取得view的约束 */
-- (UIView *)addSafeAreaViewWithColor:(UIColor *)color height:(CGFloat)height layouts:(NSArray<NSLayoutConstraint *> * _Nullable *)layouts;
+- (UIView *)addSafeAreaViewWithColor:(UIColor *)color fromBottomOfView:(UIView *)fromBottomOfView {
+    NSArray<NSLayoutConstraint *> *layouts = nil;
+    return [self addSafeAreaViewWithColor:color orFromBottomOfView:fromBottomOfView orHeight:0 layouts:&layouts];
+}
 
-/** 给view的底部view更换颜色 */
-- (void)updateSafeAreaViewColor:(UIColor *)color;
+- (UIView *)addSafeAreaViewWithColor:(UIColor *)color fromBottomOfView:(UIView *)fromBottomOfView layouts:(NSArray<NSLayoutConstraint *> *__autoreleasing *)layouts {
+    return [self addSafeAreaViewWithColor:color orFromBottomOfView:fromBottomOfView orHeight:0 layouts:layouts];
+}
+
+- (UIView *)addSafeAreaViewWithColor:(UIColor *)color height:(CGFloat)height {
+    NSArray<NSLayoutConstraint *> *layouts = nil;
+    return [self addSafeAreaViewWithColor:color orFromBottomOfView:nil orHeight:height layouts:&layouts];
+}
+
+- (UIView *)addSafeAreaViewWithColor:(UIColor *)color height:(CGFloat)height layouts:(NSArray<NSLayoutConstraint *> **)layouts {
+    return [self addSafeAreaViewWithColor:color orFromBottomOfView:nil orHeight:height layouts:layouts];
+}
+
+- (UIView *)addSafeAreaViewWithColor:(UIColor *)color
+                  orFromBottomOfView:(UIView *)orFromBottomOfView
+                            orHeight:(CGFloat)orHeight
+                             layouts:(NSArray<NSLayoutConstraint *> **)layouts {
+    UIView *view = [self viewWithTag:kTagForSMRAdapterBottomView];
+    if (view) {
+        view.backgroundColor = color;
+        return view;
+    }
+    view = [[UIView alloc] init];
+    view.backgroundColor = color;
+    view.tag = kTagForSMRAdapterBottomView;
+    [self addSubview:view];
+    
+    *layouts = [NSLayoutConstraint autoCreateAndInstallConstraints:^{
+        [view autoPinEdgeToSuperviewEdge:ALEdgeBottom];
+        [view autoPinEdgeToSuperviewEdge:ALEdgeLeft];
+        [view autoPinEdgeToSuperviewEdge:ALEdgeRight];
+        if (orFromBottomOfView) {
+            NSAssert(orFromBottomOfView.superview, @"请为它设置一个父类");
+            [view autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:orFromBottomOfView];
+        } else {
+            [view autoSetDimension:ALDimensionHeight toSize:orHeight];
+        }
+    }];
+    
+    return view;
+}
+
+- (void)updateSafeAreaViewColor:(UIColor *)color {
+    UIView *view = [self viewWithTag:kTagForSMRAdapterBottomView];
+    if (view) {
+        view.backgroundColor = color;
+    }
+}
 
 @end

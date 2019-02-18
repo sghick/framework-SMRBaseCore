@@ -10,39 +10,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSInteger const kTagForSMRAdapterBottomView = 342983;
+
 @interface UIView (SMRAdapter)
 
-- (UIView *)addSafeAreaViewWithColor:(UIColor *)color height:(CGFloat)height {
-    return [self addSafeAreaViewWithColor:color height:height layouts:nil];
-}
+/** 给view的底部添加一个定高定色的view,指定从哪个view开始 */
+- (UIView *)addSafeAreaViewWithColor:(UIColor *)color fromBottomOfView:(UIView *)fromBottomOfView;
+/** 给view的底部添加一个定高定色的view,指定从哪个view开始,可取得view的约束 */
+- (UIView *)addSafeAreaViewWithColor:(UIColor *)color fromBottomOfView:(UIView *)fromBottomOfView layouts:(NSArray<NSLayoutConstraint *> **)layouts;
 
-- (UIView *)addSafeAreaViewWithColor:(UIColor *)color height:(CGFloat)height layouts:(NSArray<NSLayoutConstraint *> * _Nullable *)layouts {
-    UIView *view = [self viewWithTag:kTagForBDSAdapterBottomView];
-    if (view) {
-        view.backgroundColor = color;
-        return view;
-    }
-    view = [[UIView alloc] init];
-    view.backgroundColor = color;
-    view.tag = kTagForBDSAdapterBottomView;
-    [self addSubview:view];
-    
-    *layouts = [NSLayoutConstraint autoCreateAndInstallConstraints:^{
-        [view autoPinEdgeToSuperviewEdge:ALEdgeBottom];
-        [view autoPinEdgeToSuperviewEdge:ALEdgeLeft];
-        [view autoPinEdgeToSuperviewEdge:ALEdgeRight];
-        [view autoSetDimension:ALDimensionHeight toSize:height];
-    }];
-    
-    return view;
-}
+/** 给view的底部添加一个定高定色的view,指定高 */
+- (UIView *)addSafeAreaViewWithColor:(UIColor *)color height:(CGFloat)height;
+/** 给view的底部添加一个定高定色的view,可取得view的约束 */
+- (UIView *)addSafeAreaViewWithColor:(UIColor *)color height:(CGFloat)height layouts:(NSArray<NSLayoutConstraint *> **)layouts;
 
-- (void)updateSafeAreaViewColor:(UIColor *)color {
-    UIView *view = [self viewWithTag:kTagForBDSAdapterBottomView];
-    if (view) {
-        view.backgroundColor = color;
-    }
-}
+/** 给view的底部view更换颜色 */
+- (void)updateSafeAreaViewColor:(UIColor *)color;
 
 @end
 

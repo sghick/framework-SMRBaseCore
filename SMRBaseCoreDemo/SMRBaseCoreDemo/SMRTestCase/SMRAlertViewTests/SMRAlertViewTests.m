@@ -7,6 +7,7 @@
 //
 
 #import "SMRAlertViewTests.h"
+#import "PureLayout.h"
 
 @implementation SMRAlertViewTests
 
@@ -33,6 +34,12 @@
     [view setSureButtonTouchedBlock:^(id  _Nonnull maskView) {
         NSLog(@"我知道了");
     }];
+    
+    UIView *btview = [[UIView alloc] initWithFrame:CGRectMake(100, 300, 200, 300)];
+    btview.backgroundColor = [UIColor blueColor];
+    [[UIApplication sharedApplication].delegate.window addSubview:btview];
+    
+    [[UIApplication sharedApplication].delegate.window addSafeAreaViewWithColor:[UIColor redColor] fromBottomOfView:btview];
 }
 
 @end
