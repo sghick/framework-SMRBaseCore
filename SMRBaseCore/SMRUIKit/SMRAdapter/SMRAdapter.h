@@ -13,5 +13,6 @@
 #import "UIColor+SMR.h"
 #import "UIFont+SMR.h"
 #import "UIView+SMRFrame.h"
+#import "UIView+SMRAdapter.h"
 
 #endif /* SMRAdapter_h */

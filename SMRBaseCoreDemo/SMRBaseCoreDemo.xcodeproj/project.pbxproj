@@ -91,6 +91,7 @@
 		8A914E042216530A00E2F691 /* SMRUtils+Locations.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A914E032216530A00E2F691 /* SMRUtils+Locations.m */; };
 		8A914E072216580600E2F691 /* SMRUtils+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A914E062216580600E2F691 /* SMRUtils+Animation.m */; };
 		8A914E0B221662F900E2F691 /* SMRUtilsAnimationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A914E0A221662F900E2F691 /* SMRUtilsAnimationTests.m */; };
+		8A914ED3221ADA3700E2F691 /* UIView+SMRAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A914ED2221ADA3700E2F691 /* UIView+SMRAdapter.m */; };
 		8AE02F5422154FBD006235BB /* SMRAlertViewContentTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE02F5322154FBD006235BB /* SMRAlertViewContentTextCell.m */; };
 		8AE02F5722154FE6006235BB /* SMRAlertViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE02F5622154FE6006235BB /* SMRAlertViewButton.m */; };
 		8AE4952A21FEB3040055263E /* NSError+SMRError.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4952921FEB3040055263E /* NSError+SMRError.m */; };
@@ -311,6 +312,8 @@
 		8A914E062216580600E2F691 /* SMRUtils+Animation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SMRUtils+Animation.m"; sourceTree = "<group>"; };
 		8A914E09221662F900E2F691 /* SMRUtilsAnimationTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRUtilsAnimationTests.h; sourceTree = "<group>"; };
 		8A914E0A221662F900E2F691 /* SMRUtilsAnimationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRUtilsAnimationTests.m; sourceTree = "<group>"; };
+		8A914ED1221ADA3700E2F691 /* UIView+SMRAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+SMRAdapter.h"; sourceTree = "<group>"; };
+		8A914ED2221ADA3700E2F691 /* UIView+SMRAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+SMRAdapter.m"; sourceTree = "<group>"; };
 		8AE02F5222154FBD006235BB /* SMRAlertViewContentTextCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRAlertViewContentTextCell.h; sourceTree = "<group>"; };
 		8AE02F5322154FBD006235BB /* SMRAlertViewContentTextCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRAlertViewContentTextCell.m; sourceTree = "<group>"; };
 		8AE02F5522154FE6006235BB /* SMRAlertViewButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRAlertViewButton.h; sourceTree = "<group>"; };
@@ -789,6 +792,8 @@
 				8A814D0521F5D08B00D8AEB6 /* UIFont+SMR.m */,
 				8A814D0721F5D0BD00D8AEB6 /* UIView+SMRFrame.h */,
 				8A814D0821F5D0BD00D8AEB6 /* UIView+SMRFrame.m */,
+				8A914ED1221ADA3700E2F691 /* UIView+SMRAdapter.h */,
+				8A914ED2221ADA3700E2F691 /* UIView+SMRAdapter.m */,
 			);
 			path = SMRAdapter;
 			sourceTree = "<group>";
@@ -1289,6 +1294,7 @@
 				8A814B7921F5B9BF00D8AEB6 /* SMRYYModelParser.m in Sources */,
 				8A814D0921F5D0BD00D8AEB6 /* UIView+SMRFrame.m in Sources */,
 				8A814CCF21F5CA5700D8AEB6 /* SMRNavigationBar.m in Sources */,
+				8A914ED3221ADA3700E2F691 /* UIView+SMRAdapter.m in Sources */,
 				8AE4955421FFEA490055263E /* SMRLayoutCenter.m in Sources */,
 				8A814CD221F5CA6900D8AEB6 /* SMRNavigationItem.m in Sources */,
 			);
