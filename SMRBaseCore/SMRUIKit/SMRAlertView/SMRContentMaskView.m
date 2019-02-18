@@ -10,8 +10,12 @@
 #import "SMRAdapter.h"
 #import "PureLayout.h"
 
-@interface SMRContentMaskView ()
+@interface SMRContentMaskView ()<
+UIGestureRecognizerDelegate>
 
+@property (strong, nonatomic) UIControl *backControl;
+@property (strong, nonatomic) UIControl *contentControl;
+@property (assign, nonatomic) CGFloat heightOfContentView;
 @property (strong, nonatomic) NSLayoutConstraint *heightOfContentViewLayout;
 
 @end
@@ -37,23 +41,27 @@
 }
 
 - (void)createContentMaskSubviews {
-    self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    _heightOfContentView = 40;
+    self.alpha = 1;
+    self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+    [self addSubview:self.backControl];
     [self addSubview:self.contentView];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewTapAction:)];
-    [self addGestureRecognizer:tap];
     [self setNeedsUpdateConstraints];
 }
 
 - (void)updateConstraints {
     if (!self.didLoadLayout) {
         _didLoadLayout = YES;
+        [self.backControl autoPinEdgesToSuperviewMargins];
+        [self.contentControl autoPinEdgesToSuperviewMargins];
+        
         SMRContentMaskViewContentAlignment alignment = [self contentAlignmentOfMaskView];
         if (alignment == SMRContentMaskViewContentAlignmentCenter) {
             // 默认居中
             [self.contentView autoCenterInSuperview];
             [self.contentView autoSetDimension:ALDimensionWidth toSize:[self widthOfContentView]];
             [NSLayoutConstraint autoSetPriority:UILayoutPriorityDefaultLow forConstraints:^{
-                self.heightOfContentViewLayout = [self.contentView autoSetDimension:ALDimensionHeight toSize:10 relation:NSLayoutRelationGreaterThanOrEqual];
+                self.heightOfContentViewLayout = [self.contentView autoSetDimension:ALDimensionHeight toSize:self.heightOfContentView relation:NSLayoutRelationGreaterThanOrEqual];
             }];
         } else {
             // 在底部
@@ -61,7 +69,7 @@
             [self.contentView autoPinEdgeToSuperviewEdge:ALEdgeBottom];
             [self.contentView autoSetDimension:ALDimensionWidth toSize:[self widthOfContentView]];
             [NSLayoutConstraint autoSetPriority:UILayoutPriorityDefaultLow forConstraints:^{
-                self.heightOfContentViewLayout = [self.contentView autoSetDimension:ALDimensionHeight toSize:10 relation:NSLayoutRelationGreaterThanOrEqual];
+                self.heightOfContentViewLayout = [self.contentView autoSetDimension:ALDimensionHeight toSize:self.heightOfContentView relation:NSLayoutRelationGreaterThanOrEqual];
             }];
         }
     }
@@ -81,7 +89,7 @@
 }
 
 - (SMRContentMaskViewContentAlignment)contentAlignmentOfMaskView {
-    return SMRContentMaskViewContentAlignmentCenter;
+    return SMRContentMaskViewContentAlignmentBottom;
 }
 
 #pragma mark - Actions
@@ -98,9 +106,22 @@
     }
 }
 
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if ([gestureRecognizer.view isEqual:self]) {
+        return YES;
+    }
+    if ([gestureRecognizer.view isEqual:self.contentView]) {
+        return YES;
+    }
+    return NO;
+}
+
 #pragma mark - Utils
 
 - (void)updateHeightOfContentView:(CGFloat)heightOfContentView {
+    _heightOfContentView = heightOfContentView;
     [self.heightOfContentViewLayout autoRemove];
     [NSLayoutConstraint autoSetPriority:UILayoutPriorityDefaultLow forConstraints:^{
         self.heightOfContentViewLayout = [self.contentView autoSetDimension:ALDimensionHeight toSize:heightOfContentView relation:NSLayoutRelationGreaterThanOrEqual];
@@ -119,10 +140,27 @@
         return;
     }
     [view addSubview:self];
-    self.alpha = 0;
-    [UIView animateWithDuration:0.25 animations:^{
+    if (animated) {
+        // show back
+        [UIView animateWithDuration:0.25 animations:^{
+            self.alpha = 1;
+        }];
+        
+        // show content
+        SMRContentMaskViewContentAlignment alignment = [self contentAlignmentOfMaskView];
+        if (alignment == SMRContentMaskViewContentAlignmentCenter) {
+            
+        } else {
+            CGFloat offsetY = self.heightOfContentViewLayout.constant;
+            self.contentView.transform = CGAffineTransformMakeTranslation(0, offsetY);
+            [UIView animateWithDuration:0.25 animations:^{
+                self.contentView.alpha = 1;
+                self.contentView.transform = CGAffineTransformMakeTranslation(0, 0);
+            }];
+        }
+    } else {
         self.alpha = 1;
-    }];
+    }
 }
 
 - (void)hide {
@@ -130,11 +168,29 @@
 }
 - (void)hideAnimated:(BOOL)animated {
     if (animated) {
-        [UIView animateWithDuration:0.25 animations:^{
-            self.alpha = 0;
-        } completion:^(BOOL finished) {
-            [self removeFromSuperview];
-        }];
+        SMRContentMaskViewContentAlignment alignment = [self contentAlignmentOfMaskView];
+        if (alignment == SMRContentMaskViewContentAlignmentCenter) {
+            // hide back
+            [UIView animateWithDuration:0.25 animations:^{
+                self.alpha = 0;
+            } completion:^(BOOL finished) {
+                [self removeFromSuperview];
+            }];
+        } else {
+            // hide content
+            CGFloat offsetY = self.heightOfContentViewLayout.constant;
+            [UIView animateWithDuration:0.25 animations:^{
+                self.contentView.transform = CGAffineTransformMakeTranslation(0, offsetY);
+            }];
+            
+            // hide back
+            [UIView animateWithDuration:0.25 animations:^{
+                self.alpha = 0;
+                self.contentView.alpha = 0;
+            } completion:^(BOOL finished) {
+                [self removeFromSuperview];
+            }];
+        }
     } else {
         [self removeFromSuperview];
     }
@@ -145,10 +201,25 @@
 - (UIView *)contentView {
     if (!_contentView) {
         _contentView = [self contentViewOfMaskView];
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(contentViewTapAction:)];
-        [_contentView addGestureRecognizer:tap];
+        [_contentView addSubview:self.contentControl];
     }
     return _contentView;
+}
+
+- (UIControl *)backControl {
+    if (!_backControl) {
+        _backControl = [[UIControl alloc] init];
+        [_backControl addTarget:self action:@selector(backgroundViewTapAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _backControl;
+}
+
+- (UIControl *)contentControl {
+    if (!_contentControl) {
+        _contentControl = [[UIControl alloc] init];
+        [_contentControl addTarget:self action:@selector(contentViewTapAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _contentControl;
 }
 
 @end
