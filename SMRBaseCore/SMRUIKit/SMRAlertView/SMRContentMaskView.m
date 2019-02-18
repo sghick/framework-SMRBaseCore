@@ -89,7 +89,7 @@ UIGestureRecognizerDelegate>
 }
 
 - (SMRContentMaskViewContentAlignment)contentAlignmentOfMaskView {
-    return SMRContentMaskViewContentAlignmentBottom;
+    return SMRContentMaskViewContentAlignmentCenter;
 }
 
 #pragma mark - Actions
