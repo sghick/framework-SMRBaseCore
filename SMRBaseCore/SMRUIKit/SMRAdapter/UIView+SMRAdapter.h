@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSInteger const kTagForSMRAdapterBottomView = 342983;
+static NSInteger const kTagForSMRAdapterBottomView = 541608;
 
 @interface UIView (SMRAdapter)
 

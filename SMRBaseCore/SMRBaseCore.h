@@ -28,6 +28,7 @@
 #import "UIView+SMRResponder.h"
 #import "UIButton+SMR.h"
 #import "SMRAlertView.h"
+#import "SMRTextView.h"
 
 /// SMRUtilsKit
 #import "SMRMatrixCalculator.h"
