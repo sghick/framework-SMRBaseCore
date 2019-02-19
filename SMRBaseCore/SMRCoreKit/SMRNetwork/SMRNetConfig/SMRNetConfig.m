@@ -42,7 +42,7 @@
 }
 
 - (NSIndexSet *)setForAcceptableStatusCodes {
-    return [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(100, 400)];
+    return [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(100, 300)];
 }
 
 - (NSError *)validateServerErrorWithAPI:(SMRNetAPI *)api response:(NSURLResponse *)response responseObject:(id)responseObject error:(NSError *)error {

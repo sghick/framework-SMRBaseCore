@@ -30,6 +30,10 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  设置响应的正常网络状态码,默认为:[100, 400)
  覆盖此方法后,将使用AFN的默认区间:[200, 300)
+ 状态码参考:
+ https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+ https://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81
+ https://baike.baidu.com/item/HTTP%E7%8A%B6%E6%80%81%E7%A0%81/5053660?fr=aladdin
  */
 - (NSIndexSet *)setForAcceptableStatusCodes;
 
