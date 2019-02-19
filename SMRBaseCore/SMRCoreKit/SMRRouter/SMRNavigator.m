@@ -65,7 +65,7 @@
         return [self p_rootTabbarController];
     }
 }
-+ (UINavigationController *)getRootTabNavigationControllerWithTab:(int)tab {
++ (UINavigationController *)getRootTabNavigationControllerWithTab:(NSUInteger)tab {
     SMRNavigator *navigator = [SMRNavigator sharedNavigator];
     if (navigator.rootTabNavigationControllerBlock) {
         return navigator.rootTabNavigationControllerBlock(tab);
@@ -73,7 +73,7 @@
         return [self p_rootTabNavigationControllerWithTab:tab forceSeleceted:NO];
     }
 }
-+ (UINavigationController *)changeRootTabNavigationControllerWithTab:(int)tab {
++ (UINavigationController *)changeRootTabNavigationControllerWithTab:(NSUInteger)tab {
     SMRNavigator *navigator = [SMRNavigator sharedNavigator];
     if (navigator.changeRootTabNavigationControllerBlock) {
         return navigator.changeRootTabNavigationControllerBlock(tab);
@@ -125,7 +125,7 @@
         return nil;
     }
 }
-+ (UINavigationController *)p_rootTabNavigationControllerWithTab:(int)tab forceSeleceted:(BOOL)forceSeleceted {
++ (UINavigationController *)p_rootTabNavigationControllerWithTab:(NSUInteger)tab forceSeleceted:(BOOL)forceSeleceted {
     UITabBarController *tabbar = [self p_rootTabbarController];
     UINavigationController *root = nil;
     NSArray *roots = tabbar.viewControllers;
