@@ -65,7 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (SMRNetAPI *)apiForInitialization;
 
 /** 如果需要自动重试初始化API,请重写这个方法,并返回YES */
-- (BOOL)needsQueryInitAPIWhenRecivedError:(NSError *)error currentAPI:(SMRNetAPI *)currentAPI;
+- (BOOL)canQueryInitAPIWhenRecivedError:(NSError *)error currentAPI:(SMRNetAPI *)currentAPI;
 
 /** 初始化API成功的回调:返回NO,表示业务层判定为失败,默认返回YES */
 - (BOOL)apiInitSuccessed:(SMRNetAPI *)api response:(id)response;

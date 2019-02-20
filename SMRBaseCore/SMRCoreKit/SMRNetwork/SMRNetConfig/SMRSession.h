@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol SMRSessionRetryDelegate <NSObject>
 
 /// 是否需要重试
-- (BOOL)shouldRetryWithError:(NSError *)error api:(SMRNetAPI *)api;
+- (BOOL)willRetryWithError:(NSError *)error api:(SMRNetAPI *)api;
 
 @end
 
@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol SMRSessionAPIInitDelegate <NSObject>
 
 /// 是否需要重试
-- (BOOL)shouldQueryInitAPIWithError:(NSError *)error api:(SMRNetAPI *)api;
+- (BOOL)willQueryInitAPIWithError:(NSError *)error api:(SMRNetAPI *)api;
 
 @end
 

@@ -10,7 +10,7 @@
 #import "AFHTTPSessionManager.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "SMRNetAPI.h"
-#import "NSError+SMRNetError.h"
+#import "NSError+SMRNetwork.h"
 
 @interface SMRNetConfig ()
 
@@ -83,7 +83,7 @@
     return nil;
 }
 
-- (BOOL)needsQueryInitAPIWhenRecivedError:(NSError *)error currentAPI:(SMRNetAPI *)currentAPI {
+- (BOOL)canQueryInitAPIWhenRecivedError:(NSError *)error currentAPI:(SMRNetAPI *)currentAPI {
     return NO;
 }
 

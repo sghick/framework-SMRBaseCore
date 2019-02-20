@@ -1,8 +1,8 @@
 //
-//  NSError+SMRNetError.h
+//  NSError+SMRNetwork.h
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/1/28.
+//  Created by 丁治文 on 2019/2/20.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 

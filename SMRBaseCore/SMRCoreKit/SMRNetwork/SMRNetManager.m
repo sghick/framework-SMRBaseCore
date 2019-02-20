@@ -11,7 +11,7 @@
 #import "SMRNetAPI.h"
 #import "SMRNetAPIQueue.h"
 #import "SMRSession.h"
-#import "NSError+SMRNetError.h"
+#import "NSError+SMRNetwork.h"
 
 @interface SMRNetManager ()<
 SMRSessionRetryDelegate,
@@ -87,15 +87,13 @@ SMRSessionAPIInitDelegate>
 #pragma mark - SMRSessionRetryDelegate
 
 /// 是否需要重试
-- (BOOL)shouldRetryWithError:(NSError *)error api:(SMRNetAPI *)api {
+- (BOOL)willRetryWithError:(NSError *)error api:(SMRNetAPI *)api {
     SMRAPICallback *callback = api.callback;
-    BOOL shouldRetry = NO;
-    if (callback.retryCount < api.maxRetryTime) {
-        shouldRetry = [self.config canRetryWhenRecivedError:error api:api];
-        if (shouldRetry) {
-            callback.retryCount++;
-            [self p_query:api callback:callback];
-        }
+    BOOL canRetry = [self.config canRetryWhenRecivedError:error api:api];
+    BOOL shouldRetry = (canRetry && (callback.retryCount < api.maxRetryTime));
+    if (shouldRetry) {
+        callback.retryCount++;
+        [self p_query:api callback:callback];
     }
     return shouldRetry;
 }
@@ -103,7 +101,7 @@ SMRSessionAPIInitDelegate>
 #pragma mark - SMRSessionAPIInitDelegate
 
 /// 是否需要初始化API/自动登录
-- (BOOL)shouldQueryInitAPIWithError:(NSError *)error api:(SMRNetAPI *)api {
+- (BOOL)willQueryInitAPIWithError:(NSError *)error api:(SMRNetAPI *)api {
     BOOL shouldQueryInit = NO;
     // 从config中获取初始化API,如果获取到了,则判断是否满足初始化API的条件
     SMRNetAPI *initAPI = [self p_getInitAPIIfNeededWhenRecviedError:error api:api];
@@ -150,7 +148,7 @@ SMRSessionAPIInitDelegate>
 }
 
 - (SMRNetAPI *)p_getInitAPIIfNeededWhenRecviedError:(NSError *)error api:(SMRNetAPI *)api {
-    if ([self.config needsQueryInitAPIWhenRecivedError:error currentAPI:api]) {
+    if ([self.config canQueryInitAPIWhenRecivedError:error currentAPI:api]) {
         SMRNetAPI *initAPI = [self.config apiForInitialization];
         if (!initAPI.identifier) {
             NSAssert(NO, @"请为您的初始化API设置一个identifier");

@@ -10,7 +10,7 @@
 #import "AFNetworkActivityIndicatorManager.h"
 #import "SMRNetConfig.h"
 #import "SMRNetAPI.h"
-#import "NSError+SMRNetError.h"
+#import "NSError+SMRNetwork.h"
 #import "SMRNetCache.h"
 #import "SMRNetInfo.h"
 
@@ -87,17 +87,17 @@
         // 保存网络请求失败的结果
         [api fillResponse:nil error:error];
         // 重试
-        BOOL shouldRetry = NO;
-        if ([self.retryDelegate respondsToSelector:@selector(shouldRetryWithError:api:)]) {
-            shouldRetry = [self.retryDelegate shouldRetryWithError:error api:api];
+        BOOL willRetry = NO;
+        if ([self.retryDelegate respondsToSelector:@selector(willRetryWithError:api:)]) {
+            willRetry = [self.retryDelegate willRetryWithError:error api:api];
         }
         // 初始化API
-        BOOL shouldInit = NO;
-        if ([self.initDelegate respondsToSelector:@selector(shouldQueryInitAPIWithError:api:)]) {
-            shouldInit = [self.initDelegate shouldQueryInitAPIWithError:error api:api];
+        BOOL willQueryInitAPI = NO;
+        if ([self.initDelegate respondsToSelector:@selector(willQueryInitAPIWithError:api:)]) {
+            willQueryInitAPI = [self.initDelegate willQueryInitAPIWithError:error api:api];
         }
         // 如果不需要重试,并且不需要初始化API,则进行回调,否则将在内部处理
-        BOOL shouldCallback = (!shouldRetry && !shouldInit);
+        BOOL shouldCallback = (!willRetry && !willQueryInitAPI);
         if (shouldCallback && callback.faildBlock) {
             callback.faildBlock(api, response, error);
         }
