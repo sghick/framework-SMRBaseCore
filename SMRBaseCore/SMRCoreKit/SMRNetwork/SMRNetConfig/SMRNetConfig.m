@@ -49,13 +49,22 @@
     if (!error) {
         return nil;
     }
-    return [NSError smr_errorForNetworkDomainWithCode:error.code detail:nil message:nil userInfo:error.userInfo];
+    NSError *err = [NSError smr_errorForNetworkDomainWithCode:((NSString *)responseObject[@"code"]).integerValue
+                                                       detail:responseObject[@"detail"]
+                                                      message:responseObject[@"message"]
+                                                     userInfo:error.userInfo];
+    return err;
 }
 
 - (id)responseObjectWithError:(NSError *)error {
     id data = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
     if (data && [data isKindOfClass:[NSData class]]) {
-        id responseObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        id responseObject = nil;
+        if ([NSJSONSerialization isValidJSONObject:data]) {
+            responseObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        } else {
+            responseObject = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        }
         return responseObject;
     } else {
         return nil;
@@ -70,8 +79,12 @@
 
 #pragma mark - SMRAPIInitDelegate
 
-- (SMRNetAPI *)shouldQueryInitAPIWithCurrentAPI:(SMRNetAPI *)currentAPI error:(NSError *)error {
+- (SMRNetAPI *)apiForInitialization {
     return nil;
+}
+
+- (BOOL)needsQueryInitAPIWhenRecivedError:(NSError *)error currentAPI:(SMRNetAPI *)currentAPI {
+    return NO;
 }
 
 - (BOOL)apiInitSuccessed:(SMRNetAPI *)api response:(id)response {

@@ -817,7 +817,6 @@
 				8A814D0B21F5D1FA00D8AEB6 /* SMRTestsDelegate.h */,
 				8AE4956D22028CC30055263E /* SMRTests.h */,
 				8AE4956E22028CC30055263E /* SMRTests.m */,
-				8A914F12221D262E00E2F691 /* BDSUtilsTests */,
 				8A914EDB221BA87A00E2F691 /* SMRTextViewTests */,
 				8A914E08221662D300E2F691 /* SMRUtilsTests */,
 				8AF6B4FE22141F0400A56E51 /* SMRAlertViewTests */,
@@ -925,13 +924,6 @@
 				8A914EDD221BA89500E2F691 /* SMRTextViewTests.m */,
 			);
 			path = SMRTextViewTests;
-			sourceTree = "<group>";
-		};
-		8A914F12221D262E00E2F691 /* BDSUtilsTests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = BDSUtilsTests;
 			sourceTree = "<group>";
 		};
 		8AE4952721FEB2DF0055263E /* SMRError */ = {

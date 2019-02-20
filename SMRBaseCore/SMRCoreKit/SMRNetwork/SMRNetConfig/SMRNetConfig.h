@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  从error中取出responseObject
- AFN的ResponseSerializer会默认将非(200-299)的错误码放在error.info中,并且下层不好获取
+ AFN的ResponseSerializer设置的非'正常网络状态码区间'(由setForAcceptableStatusCodes所设置)的错误码放在error.info中,并且下层不好获取
  */
 - (nullable id)responseObjectWithError:(nullable NSError *)error;
 
@@ -61,20 +61,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol SMRAPIInitDelegate <NSObject>
 
-/**
- 在这里定义一个初始化的API,这应该是一个带自动重试功能的
- */
-- (SMRNetAPI *)shouldQueryInitAPIWithCurrentAPI:(SMRNetAPI *)currentAPI error:(NSError *)error;
+/** 设置一个初始化API */
+- (SMRNetAPI *)apiForInitialization;
 
-/**
- 初始化API成功的回调
- 返回NO,表示业务层判定为失败,默认返回YES
- */
+/** 如果需要自动重试初始化API,请重写这个方法,并返回YES */
+- (BOOL)needsQueryInitAPIWhenRecivedError:(NSError *)error currentAPI:(SMRNetAPI *)currentAPI;
+
+/** 初始化API成功的回调:返回NO,表示业务层判定为失败,默认返回YES */
 - (BOOL)apiInitSuccessed:(SMRNetAPI *)api response:(id)response;
 
-/**
- 初始化API失败的回调
- */
+/** 初始化API失败的回调 */
 - (void)apiInitFaild:(NSError *)error;
 
 @end

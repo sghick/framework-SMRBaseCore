@@ -153,6 +153,7 @@
         return nil;
     }
     // 设置Header的时机
+    [self configRequestGeneralHeadersBeforeDataTask:request api:api];
     [self.config configRequestBeforeDataTask:request api:api];
     // 设置ETag
     [self configETagBeforeDataTaskIfRequestMethodGET:request api:api];
@@ -190,6 +191,7 @@
         return nil;
     }
     // 设置Header的时机
+    [self configRequestGeneralHeadersBeforeDataTask:request api:api];
     [self.config configRequestBeforeDataTask:request api:api];
     // 设置ETag
     [self configETagBeforeDataTaskIfRequestMethodGET:request api:api];
@@ -224,6 +226,19 @@
         if (success) {
             success(dataTask, responseObject);
         }
+    }
+}
+
+#pragma mark - GeneralHeaders
+
+- (void)configRequestGeneralHeadersBeforeDataTask:(NSMutableURLRequest *)request api:(SMRNetAPI *)api {
+    // 日期
+    NSString *syncedRFC1123Date = [SMRNetInfo rfc1123StringWithDate:[SMRNetInfo syncedDate]];
+    [request setValue:syncedRFC1123Date forHTTPHeaderField:@"Date"];
+    // Cookie
+    NSString *cookie = [SMRNetInfo getCookie];
+    if (cookie) {
+        [request setValue:cookie forHTTPHeaderField:@"cookie"];
     }
 }
 
