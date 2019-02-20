@@ -18,5 +18,6 @@
 #import "SMRUtils+Validate.h"
 #import "SMRUtils+Locations.h"
 #import "SMRUtils+Animation.h"
+#import "SMRUtils+Version.h"
 
 #endif /* SMRUtilsHeader_h */

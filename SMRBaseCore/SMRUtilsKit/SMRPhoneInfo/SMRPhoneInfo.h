@@ -31,6 +31,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)imsiString;
 
 /**
+ 手机系统名称:iOS
+ */
++ (NSString *)systemName;
+
+/**
  获取手机系统版本
  */
 + (NSString *)systemVersionString;

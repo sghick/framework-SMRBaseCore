@@ -71,6 +71,10 @@ static NSString *const kSMRForIDFVStringInKeyChain = @"kSMRForIDFVStringInKeyCha
     return [self IDFVString];
 }
 
++ (NSString *)systemName {
+    return [NSString stringWithFormat:@"%@", [[UIDevice currentDevice] systemName]];
+}
+
 + (NSString *)systemVersionString {
 #if !TARGET_OS_WATCH
     return [NSString stringWithFormat:@"%@", [[UIDevice currentDevice] systemVersion]];
@@ -88,7 +92,7 @@ static NSString *const kSMRForIDFVStringInKeyChain = @"kSMRForIDFVStringInKeyCha
 }
 
 + (NSString *)phoneBrand {
-    return @"iOS";
+    return @"Apple";
 }
 
 + (NSString *)netOperator {

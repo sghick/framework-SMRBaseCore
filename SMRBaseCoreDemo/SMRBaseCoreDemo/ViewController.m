@@ -24,12 +24,13 @@
 }
 
 - (void)testBtnAction:(UIButton *)sender {
-    NSString *testClass = @"SMRTextViewTests";
+    NSString *testClass = @"SMRUtilsVersionTests";
     
     Class cls = NSClassFromString(testClass);
     if (cls) {
         NSLog(@"开始测试");
         [[[cls alloc] init] begin];
+        NSLog(@"结束");
     } else {
         NSLog(@"未找到测试类");
     }
