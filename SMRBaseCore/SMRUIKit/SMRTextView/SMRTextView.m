@@ -36,7 +36,7 @@ UITextViewDelegate>
 }
 
 - (void)createSMRTextViewSubviews {
-    self.layer.borderColor = [UIColor smr_colorFromHexRGB:@"#999999"].CGColor;
+    self.layer.borderColor = [UIColor smr_colorWithHexRGB:@"#999999"].CGColor;
     self.layer.borderWidth = 1.0/[UIScreen mainScreen].scale;
     self.layer.cornerRadius = [SMRUIAdapter smr_adapterWithValue:1.0];
 
@@ -141,7 +141,7 @@ UITextViewDelegate>
         _contentTextView.delegate = self;
         _contentTextView.scrollEnabled = YES;
         _contentTextView.textAlignment = NSTextAlignmentLeft;
-        _contentTextView.textColor = [UIColor smr_colorFromHexRGB:@"#333333"];
+        _contentTextView.textColor = [UIColor smr_colorWithHexRGB:@"#333333"];
         _contentTextView.font = [UIFont smr_systemFontOfSize:12.0];
     }
     return _contentTextView;
@@ -150,7 +150,7 @@ UITextViewDelegate>
 - (UILabel *)countLabel {
     if (_countLabel == nil) {
         _countLabel = [[UILabel alloc] init];
-        _countLabel.textColor = [UIColor smr_colorFromHexRGB:@"#333333"];
+        _countLabel.textColor = [UIColor smr_colorWithHexRGB:@"#333333"];
         _countLabel.font = [UIFont smr_systemFontOfSize:10];
         _countLabel.text = [self p_ountTextWithCount:0 maxLength:_maxLength format:_countFormat];
         _countLabel.hidden = YES;

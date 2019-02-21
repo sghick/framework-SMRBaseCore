@@ -60,7 +60,7 @@
     button.backgroundColor = (deepColor ? [UIColor blackColor] : [UIColor whiteColor]);
     button.titleLabel.font = [UIFont smr_systemFontOfSize:15.0];
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
-    button.layer.borderColor = (deepColor ? [UIColor blackColor].CGColor : [UIColor smr_colorFromHexRGB:@"#979797"].CGColor);
+    button.layer.borderColor = (deepColor ? [UIColor blackColor].CGColor : [UIColor smr_colorWithHexRGB:@"#979797"].CGColor);
     button.layer.borderWidth = 1.0/[UIScreen mainScreen].scale;
     return button;
 }

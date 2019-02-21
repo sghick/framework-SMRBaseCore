@@ -50,7 +50,7 @@
     [paragraphStyle setAlignment:NSTextAlignmentCenter];
     [attributeContentString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, attributedContent.length)];
     [attributeContentString addAttribute:NSFontAttributeName value:[UIFont smr_systemFontOfSize:16.0] range:NSMakeRange(0, attributedContent.length)];
-    [attributeContentString addAttribute:NSForegroundColorAttributeName value:[UIColor smr_colorFromHexRGB:@"#333333"] range:NSMakeRange(0, attributedContent.length)];
+    [attributeContentString addAttribute:NSForegroundColorAttributeName value:[UIColor smr_colorWithHexRGB:@"#333333"] range:NSMakeRange(0, attributedContent.length)];
     
     [attributedContent enumerateAttributesInRange:NSMakeRange(0, attributedContent.length) options:NSAttributedStringEnumerationReverse usingBlock:^(NSDictionary<NSString *,id> * _Nonnull attrs, NSRange range, BOOL * _Nonnull stop) {
         [attributeContentString addAttributes:attrs range:range];
