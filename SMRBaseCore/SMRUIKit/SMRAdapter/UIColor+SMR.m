@@ -70,10 +70,10 @@
     return result;
 }
 
-+ (UIColor *)smr_colorWithHexRGBValue:(NSInteger)hex {
++ (UIColor *)smr_colorWithHexRGBValue:(int32_t)hex {
     return [self smr_colorWithHexRGBValue:hex alpha:1.0];
 }
-+ (UIColor *)smr_colorWithHexRGBValue:(NSInteger)hex alpha:(CGFloat)alpha {
++ (UIColor *)smr_colorWithHexRGBValue:(int32_t)hex alpha:(CGFloat)alpha {
     if (hex > 0xFFFFFF) {
         return nil;
     }

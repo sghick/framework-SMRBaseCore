@@ -27,9 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIColor *)smr_colorWithHexRGB:(NSString *)colorString alpha:(CGFloat)alpha;
 
 /** 以16进制整数创建一个RGB颜色,支持格式:0xFFFFFF */
-+ (UIColor *)smr_colorWithHexRGBValue:(NSInteger)hex;
++ (UIColor *)smr_colorWithHexRGBValue:(int32_t)hex;
 /** 以16进制整数创建一个RGB颜色,带透明度 */
-+ (UIColor *)smr_colorWithHexRGBValue:(NSInteger)hex alpha:(CGFloat)alpha;
++ (UIColor *)smr_colorWithHexRGBValue:(int32_t)hex alpha:(CGFloat)alpha;
 
 /** 以红绿蓝三色的分子创建一个RGB颜色 */
 + (UIColor *)smr_colorWithRed:(NSInteger)red green:(NSInteger)green blue:(NSInteger)blue;
