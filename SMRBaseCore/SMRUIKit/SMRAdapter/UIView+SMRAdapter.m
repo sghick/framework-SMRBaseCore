@@ -7,9 +7,14 @@
 //
 
 #import "UIView+SMRAdapter.h"
+#import "SMRUIAdapter.h"
 #import "PureLayout.h"
 
 @implementation UIView (SMRAdapter)
+
+- (UIView *)addSafeAreaViewWithColor:(UIColor *)color {
+    return [self addSafeAreaViewWithColor:color height:BOTTOM_HEIGHT];
+}
 
 - (UIView *)addSafeAreaViewWithColor:(UIColor *)color fromBottomOfView:(UIView *)fromBottomOfView {
     NSArray<NSLayoutConstraint *> *layouts = nil;
@@ -33,6 +38,9 @@
                   orFromBottomOfView:(UIView *)orFromBottomOfView
                             orHeight:(CGFloat)orHeight
                              layouts:(NSArray<NSLayoutConstraint *> **)layouts {
+    if (!orFromBottomOfView && (orHeight == 0)) {
+        return nil;
+    }
     UIView *view = [self viewWithTag:kTagForSMRAdapterBottomView];
     if (view) {
         view.backgroundColor = color;
