@@ -11,8 +11,8 @@
 typedef UIViewController *(^SMRMainwindowRootController)(UIViewController *root);
 typedef UIViewController *(^SMRKeywindowRootController)(void);
 typedef UITabBarController *(^SMRRootTabbarController)(void);
-typedef UINavigationController *(^SMRRootTabNavigationController)(NSUInteger tab);
-typedef UINavigationController *(^SMRChangeRootTabNavigationController)(NSUInteger tab);
+typedef UINavigationController *(^SMRRootTabNavigationController)(NSInteger tab);
+typedef UINavigationController *(^SMRChangeRootTabNavigationController)(NSInteger tab);
 
 @interface SMRNavigator : NSObject
 
@@ -40,9 +40,12 @@ typedef UINavigationController *(^SMRChangeRootTabNavigationController)(NSUInteg
 /// 2.调用block获取root
 + (UITabBarController *)getRootTabbarController;
 /// 3.调用block获取root,未获取到则返回nil.
-+ (UINavigationController *)getRootTabNavigationControllerWithTab:(NSUInteger)tab;
++ (UINavigationController *)getRootTabNavigationControllerWithTab:(NSInteger)tab;
 /// 3.切换相应的tab,并返回切换后的root.
-+ (UINavigationController *)changeRootTabNavigationControllerWithTab:(NSUInteger)tab;
++ (UINavigationController *)changeRootTabNavigationControllerWithTab:(NSInteger)tab;
+
+/// 跳转一个控制器,如果对应Tab存在,则切换到目标Tab
++ (BOOL)pushOrPresentToMainTabViewController:(UIViewController *)controller animated:(BOOL)animated tab:(NSInteger)tab;
 
 + (BOOL)pushOrPresentToViewController:(UIViewController *)viewController animated:(BOOL)animated;
 + (BOOL)pushOrPresentToViewController:(UIViewController *)viewController baseController:(UIViewController *)baseController animated:(BOOL)animated;

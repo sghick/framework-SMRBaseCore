@@ -65,7 +65,7 @@
         return [self p_rootTabbarController];
     }
 }
-+ (UINavigationController *)getRootTabNavigationControllerWithTab:(NSUInteger)tab {
++ (UINavigationController *)getRootTabNavigationControllerWithTab:(NSInteger)tab {
     SMRNavigator *navigator = [SMRNavigator sharedNavigator];
     if (navigator.rootTabNavigationControllerBlock) {
         return navigator.rootTabNavigationControllerBlock(tab);
@@ -73,7 +73,7 @@
         return [self p_rootTabNavigationControllerWithTab:tab forceSeleceted:NO];
     }
 }
-+ (UINavigationController *)changeRootTabNavigationControllerWithTab:(NSUInteger)tab {
++ (UINavigationController *)changeRootTabNavigationControllerWithTab:(NSInteger)tab {
     SMRNavigator *navigator = [SMRNavigator sharedNavigator];
     if (navigator.changeRootTabNavigationControllerBlock) {
         return navigator.changeRootTabNavigationControllerBlock(tab);
@@ -125,7 +125,7 @@
         return nil;
     }
 }
-+ (UINavigationController *)p_rootTabNavigationControllerWithTab:(NSUInteger)tab forceSeleceted:(BOOL)forceSeleceted {
++ (UINavigationController *)p_rootTabNavigationControllerWithTab:(NSInteger)tab forceSeleceted:(BOOL)forceSeleceted {
     UITabBarController *tabbar = [self p_rootTabbarController];
     UINavigationController *root = nil;
     NSArray *roots = tabbar.viewControllers;
@@ -144,6 +144,15 @@
     }
 }
 
++ (BOOL)pushOrPresentToMainTabViewController:(UIViewController *)controller animated:(BOOL)animated tab:(NSInteger)tab {
+    UIViewController *main = [SMRNavigator getRootTabNavigationControllerWithTab:tab];
+    if (main) {
+        [SMRNavigator resetToRootViewControllerWithCompletion:nil];
+        return (BOOL)[SMRNavigator changeRootTabNavigationControllerWithTab:tab];
+    } else {
+        return [SMRNavigator pushOrPresentToViewController:controller animated:animated];
+    }
+}
 + (BOOL)pushOrPresentToViewController:(UIViewController *)viewController animated:(BOOL)animated {
     UIViewController *base = [SMRNavigator getMainwindowTopController];
     return [self pushOrPresentToViewController:viewController baseController:base.navigationController?:base animated:YES];

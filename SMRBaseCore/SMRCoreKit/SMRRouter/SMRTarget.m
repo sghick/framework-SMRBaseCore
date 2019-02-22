@@ -89,6 +89,95 @@ NSString * const k_perform_open = @"k_perform_open";
     }
 }
 
+- (void)supportedActionWithParams:(NSDictionary *)params
+                      toChangeTab:(NSInteger)toChangeTab
+                 toOpenController:(UIViewController *)controller
+                  openActionBlock:(void (^)(UIViewController * _Nonnull))openActionBlock
+              openPathActionBlock:(void (^)(UIViewController * _Nonnull))openPathActionBlock {
+    [self supportedActionWithParams:params
+                   toOpenController:controller
+                    openActionBlock:^(UIViewController * _Nonnull controller) {
+                        UINavigationController *main = [SMRNavigator getRootTabNavigationControllerWithTab:toChangeTab];
+                        if (main) {
+                            // 如果目前控制器存在于目标Tab中,并且为栈顶,直接切换;否则,强行重置切换至对应Tab,并在当前tab打开目标控制器
+                            BOOL condition = [main.viewControllers.firstObject isKindOfClass:controller.class];
+                            [self p_changeTabIfCondition:condition
+                                             toChangeTab:toChangeTab
+                                              forceReset:YES controller:controller
+                                               openBlock:openActionBlock];
+                        } else {
+                            // 不切换Tab,仅在当前位置直接打开目标控制器
+                            [self p_changeTabIfCondition:NO
+                                             toChangeTab:-1
+                                              forceReset:NO controller:controller
+                                               openBlock:openActionBlock];
+                        }
+                    }
+                openPathActionBlock:^(UIViewController * _Nonnull controller) {
+                    UINavigationController *main = [SMRNavigator getRootTabNavigationControllerWithTab:toChangeTab];
+                    if (main) {
+                        // 如果目前控制器存在于目标Tab中,并且为栈顶,直接切换;否则,强行重置切换至对应Tab,并在当前tab打开目标控制器
+                        BOOL condition = [main.viewControllers.firstObject isKindOfClass:controller.class];
+                        [self p_changeTabIfCondition:condition
+                                         toChangeTab:toChangeTab
+                                          forceReset:YES controller:controller
+                                           openBlock:openPathActionBlock];
+                    } else {
+                        // 不切换Tab,仅在当前位置直接打开目标控制器
+                        [self p_changeTabIfCondition:NO
+                                         toChangeTab:-1
+                                          forceReset:NO controller:controller
+                                           openBlock:openPathActionBlock];
+                    }
+                }];
+}
+
+- (void)supportedMainTabActionWithParams:(NSDictionary *)params
+                             toChangeTab:(NSInteger)toChangeTab
+                        toOpenController:(UIViewController *)controller
+                         openActionBlock:(void (^)(UIViewController * _Nonnull))openActionBlock
+                     openPathActionBlock:(void (^)(UIViewController * _Nonnull))openPathActionBlock {
+    [self supportedActionWithParams:params
+                   toOpenController:controller
+                    openActionBlock:^(UIViewController * _Nonnull controller) {
+                        // 如果目前控制器存在于目标Tab中,直接切换;否则,不切换Tab,仅在当前位置直接打开目标控制器
+                        UIViewController *main = [SMRNavigator getRootTabNavigationControllerWithTab:toChangeTab];
+                        [self p_changeTabIfCondition:(BOOL)main
+                                         toChangeTab:toChangeTab
+                                          forceReset:NO controller:controller
+                                           openBlock:openActionBlock];
+                    }
+                openPathActionBlock:^(UIViewController * _Nonnull controller) {
+                    // 如果目前控制器存在于目标Tab中,直接切换;否则,不切换Tab,仅在当前位置直接打开目标控制器
+                    UIViewController *main = [SMRNavigator getRootTabNavigationControllerWithTab:toChangeTab];
+                    [self p_changeTabIfCondition:(BOOL)main
+                                     toChangeTab:toChangeTab
+                                      forceReset:NO controller:controller
+                                       openBlock:openPathActionBlock];
+                }];
+}
+
+- (void)p_changeTabIfCondition:(BOOL)condition
+                   toChangeTab:(NSInteger)toChangeTab
+                    forceReset:(BOOL)forceReset
+                    controller:(UIViewController *)controller
+                     openBlock:(nullable void (^)(UIViewController *controller))openBlock {
+    if (condition) {
+        [SMRNavigator resetToRootViewControllerWithCompletion:nil];
+        [SMRNavigator changeRootTabNavigationControllerWithTab:toChangeTab];
+    } else {
+        if (openBlock) {
+            openBlock(controller);
+        } else {
+            if (forceReset) {
+                [SMRNavigator resetToRootViewControllerWithCompletion:nil];
+                [SMRNavigator changeRootTabNavigationControllerWithTab:toChangeTab];
+            }
+            [SMRNavigator pushOrPresentToViewController:controller animated:YES];
+        }
+    }
+}
+
 @end
 
 
