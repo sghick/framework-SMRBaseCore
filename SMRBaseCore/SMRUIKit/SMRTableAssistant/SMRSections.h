@@ -31,18 +31,21 @@
  @return 未找到返回nil
  */
 - (NSIndexPath *)indexPathWithRowKey:(NSInteger)rowKey;
+- (NSIndexPath *)indexPathWithRowKey:(NSInteger)rowKey rowSamesIndex:(NSInteger)rowSamesIndex;
 /**
  返回对应的indexPath
  如果rowKey有重复的，推荐用此方法
  @return 未找到返回nil
  */
 - (NSIndexPath *)indexPathWithSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey;
+- (NSIndexPath *)indexPathWithSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey rowSamesIndex:(NSInteger)rowSamesIndex;
 
 /**
  返回sectionKey对应的indexPath的section
  @return 未找到返回-1
  */
 - (NSInteger)indexPathSectionWithSectionKey:(NSInteger)sectionKey;
+- (NSInteger)indexPathSectionWithSectionKey:(NSInteger)sectionKey sectionSamesIndex:(NSInteger)sectionSamesIndex;
 /**
  返回一个section
  @return 未找到返回nil
