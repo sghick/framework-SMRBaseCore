@@ -78,5 +78,9 @@ extern NSString * const SMRSeperatorsFormatAllCenterLess;
  */
 - (void)smr_setSeparatorsWithFormat:(NSString *)format cell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath;
 
+/**
+ 隐藏底部额外的线
+ */
+- (void)smr_setExtraCellLineHidden;
 
 @end

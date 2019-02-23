@@ -188,7 +188,7 @@ static const char SPRightMarginKey = '\0';
 }
 
 
-// private 隐藏多余的view
+// 隐藏多余的view
 - (void)smr_setExtraCellLineHidden {
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor clearColor];
