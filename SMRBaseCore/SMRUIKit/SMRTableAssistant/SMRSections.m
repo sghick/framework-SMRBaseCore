@@ -28,7 +28,7 @@
         if (row == nil) {
             row = [[SMRRow alloc] init];
             row.sectionKey = sec.sectionKey;
-            row.rowKey = -99999;
+            row.rowKey = -1;
         }
         return row;
     }
@@ -56,7 +56,7 @@
         }
         index++;
     }
-    return -99999;
+    return -1;
 }
 
 // private
@@ -70,16 +70,20 @@
             return sectionSamesIndex;
         }
     }
-    return -99999;
+    return -1;
 }
 
 - (NSIndexPath *)indexPathWithRowKey:(NSInteger)rowKey {
+    return [self indexPathWithRowKey:rowKey rowSamesIndex:0];
+}
+
+- (NSIndexPath *)indexPathWithRowKey:(NSInteger)rowKey rowSamesIndex:(NSInteger)rowSamesIndex {
     for (int s = 0; s < self.sections.count; s++) {
         SMRSection *sec = self.sections[s];
         for (int r = 0; r < sec.rows.count; r++) {
             SMRRow *row = sec.rows[r];
             if (row.rowKey == rowKey) {
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:r inSection:s];
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(r + rowSamesIndex) inSection:s];
                 return indexPath;
             }
         }
@@ -88,12 +92,16 @@
 }
 
 - (NSIndexPath *)indexPathWithSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey {
+    return [self indexPathWithSectionKey:sectionKey rowKey:rowKey rowSamesIndex:0];
+}
+
+- (NSIndexPath *)indexPathWithSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey rowSamesIndex:(NSInteger)rowSamesIndex {
     for (int s = 0; s < self.sections.count; s++) {
         SMRSection *sec = self.sections[s];
         for (int r = 0; r < sec.rows.count; r++) {
             SMRRow *row = sec.rows[r];
             if ((row.sectionKey == sectionKey) && (row.rowKey == rowKey)) {
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:r inSection:s];
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(r + rowSamesIndex) inSection:s];
                 return indexPath;
             }
         }
@@ -102,10 +110,14 @@
 }
 
 - (NSInteger)indexPathSectionWithSectionKey:(NSInteger)sectionKey {
+    return [self indexPathSectionWithSectionKey:sectionKey sectionSamesIndex:0];
+}
+
+- (NSInteger)indexPathSectionWithSectionKey:(NSInteger)sectionKey sectionSamesIndex:(NSInteger)sectionSamesIndex {
     for (int s = 0; s < self.sections.count; s++) {
         SMRSection *sec = self.sections[s];
         if (sec.sectionKey == sectionKey) {
-            return s;
+            return (s + sectionSamesIndex);
         }
     }
     return -1;
@@ -205,7 +217,7 @@
         }
         index++;
     }
-    return -99999;
+    return -1;
 }
 
 // private
@@ -219,7 +231,7 @@
             return rowSamesIndex;
         }
     }
-    return -99999;
+    return -1;
 }
 
 - (NSInteger)rowKeyAtIndexPathRow:(NSInteger)row {
