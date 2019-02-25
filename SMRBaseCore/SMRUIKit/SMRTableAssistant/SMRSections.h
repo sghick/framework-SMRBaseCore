@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class SMRSection, SMRRow;
 @interface SMRSections : NSObject
 
@@ -18,27 +20,27 @@
  返回一个row
  @return 未找到:若section存在，返回rowKey = -99999的row对象，否则返回nil
  */
-- (SMRRow *)rowWithIndexPath:(NSIndexPath *)indexPath;
+- (nullable SMRRow *)rowWithIndexPath:(NSIndexPath *)indexPath;
 /**
  返回一个section
  @return 未找到返回nil
  */
-- (SMRSection *)sectionWithIndexPathSection:(NSInteger)section;
+- (nullable SMRSection *)sectionWithIndexPathSection:(NSInteger)section;
 
 /**
  返回对应的indexPath
  如果rowKey没有重复的，推荐用此方法
  @return 未找到返回nil
  */
-- (NSIndexPath *)indexPathWithRowKey:(NSInteger)rowKey;
-- (NSIndexPath *)indexPathWithRowKey:(NSInteger)rowKey rowSamesIndex:(NSInteger)rowSamesIndex;
+- (nullable NSIndexPath *)indexPathWithRowKey:(NSInteger)rowKey;
+- (nullable NSIndexPath *)indexPathWithRowKey:(NSInteger)rowKey rowSamesIndex:(NSInteger)rowSamesIndex;
 /**
  返回对应的indexPath
  如果rowKey有重复的，推荐用此方法
  @return 未找到返回nil
  */
-- (NSIndexPath *)indexPathWithSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey;
-- (NSIndexPath *)indexPathWithSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey rowSamesIndex:(NSInteger)rowSamesIndex;
+- (nullable NSIndexPath *)indexPathWithSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey;
+- (nullable NSIndexPath *)indexPathWithSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey rowSamesIndex:(NSInteger)rowSamesIndex;
 
 /**
  返回sectionKey对应的indexPath的section
@@ -50,7 +52,7 @@
  返回一个section
  @return 未找到返回nil
  */
-- (SMRSection *)sectionWithSectionKey:(NSInteger)sectionKey;
+- (nullable SMRSection *)sectionWithSectionKey:(NSInteger)sectionKey;
 
 /**
  添加section
@@ -83,7 +85,7 @@
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithSectionKey:(NSInteger)sectionKey;
 - (void)addRowKey:(NSInteger)rowKey sectionSamesCount:(NSInteger)sectionSamesCount rowSamesCount:(NSInteger)rowSamesCount;
-- (SMRRow *)rowAtIndexPathRow:(NSInteger)row;                /**< 未找到返回nil */
+- (nullable SMRRow *)rowAtIndexPathRow:(NSInteger)row;                /**< 未找到返回nil */
 - (NSInteger)rowKeyAtIndexPathRow:(NSInteger)row;           /**< 未找到返回-1 */
 
 /** 返回一个跟此section位置相关的唯一表示 */
@@ -102,3 +104,5 @@
 - (NSString *)identifier;
 
 @end
+
+NS_ASSUME_NONNULL_END
