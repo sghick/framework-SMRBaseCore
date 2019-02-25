@@ -10,6 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class SMRTextView;
+@protocol SMRTextViewDelegate <NSObject>
+
+- (void)textView:(SMRTextView *)textView didChangedWithText:(NSString *)text;
+- (void)textView:(SMRTextView *)textView didEndEditingWithText:(NSString *)text;
+
+@end
+
 @interface SMRTextView : UIView
 
 /** 内容缩进,默认{15, 15, 15, 15} */
@@ -27,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, readonly) UITextView *contentTextView;
 @property (strong, nonatomic, readonly) UILabel *placeHolderLabel;
 @property (strong, nonatomic, readonly) UILabel *countLabel;
+
+@property (weak  , nonatomic) id<SMRTextViewDelegate> delegate;
 
 @end
 

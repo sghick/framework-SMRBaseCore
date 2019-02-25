@@ -66,7 +66,8 @@ UITextViewDelegate>
     [super updateConstraints];
 }
 
-#pragma mark -- textView delegate
+#pragma mark -- UITextViewDelegate
+
 - (void)textViewDidChange:(UITextView *)textView {
     if (textView.text.length == 0) {
         self.placeHolderLabel.hidden = NO;
@@ -77,6 +78,10 @@ UITextViewDelegate>
         textView.text = [textView.text substringToIndex:self.maxLength];
     }
     self.countLabel.text = [self p_ountTextWithCount:textView.text.length maxLength:self.maxLength format:self.countFormat];
+    // 回调
+    if ([self.delegate respondsToSelector:@selector(textView:didChangedWithText:)]) {
+        [self.delegate textView:self didChangedWithText:textView.text];
+    }
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
@@ -87,10 +92,18 @@ UITextViewDelegate>
     if (willText.length > self.maxLength) {
         textView.text = [willText substringToIndex:self.maxLength];
         self.countLabel.text = [self p_ountTextWithCount:self.maxLength maxLength:self.maxLength format:self.countFormat];
+        // 回调
+        if ([self.delegate respondsToSelector:@selector(textView:didChangedWithText:)]) {
+            [self.delegate textView:self didChangedWithText:textView.text];
+        }
         return NO;
-    } else {
-        self.countLabel.text = [self p_ountTextWithCount:willText.length maxLength:self.maxLength format:self.countFormat];
-        return YES;
+    }
+    return YES;
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    if ([self.delegate respondsToSelector:@selector(textView:didEndEditingWithText:)]) {
+        [self.delegate textView:self didEndEditingWithText:textView.text];
     }
 }
 
