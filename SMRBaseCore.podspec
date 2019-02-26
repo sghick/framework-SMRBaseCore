@@ -28,6 +28,8 @@ s.dependency 'SDWebImage', '4.4.3'
 s.dependency 'MJRefresh', '3.1.15.7'
 s.dependency 'MBProgressHUD', '1.1.0'
 s.dependency 'IQKeyboardManager', '~> 3.3.7'
+#### SMRUtilsKit.SMRUtils
+s.dependency 'YYText', '1.0.7'
 ####
 s.dependency 'CocoaSecurity', '1.2.4'
 

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3474ABA988B303EAE936A32D /* Pods_SMRBaseCoreDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEB68DCCB6F5224C71F40E77 /* Pods_SMRBaseCoreDemo.framework */; };
+		8A72B2262223DC6000EDE6EF /* SMRYYLabelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A72B2252223DC6000EDE6EF /* SMRYYLabelTests.m */; };
+		8A72B23222254A9300EDE6EF /* SMRUtils+YYText.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A72B23122254A9300EDE6EF /* SMRUtils+YYText.m */; };
 		8A814A4F21F5B7BD00D8AEB6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814A4E21F5B7BD00D8AEB6 /* AppDelegate.m */; };
 		8A814A5221F5B7BD00D8AEB6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814A5121F5B7BD00D8AEB6 /* ViewController.m */; };
 		8A814A5521F5B7BD00D8AEB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A814A5321F5B7BD00D8AEB6 /* Main.storyboard */; };
@@ -140,6 +142,10 @@
 
 /* Begin PBXFileReference section */
 		265B7E2F72042FFDB9545E7F /* Pods-SMRBaseCoreDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMRBaseCoreDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo.release.xcconfig"; sourceTree = "<group>"; };
+		8A72B2242223DC6000EDE6EF /* SMRYYLabelTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRYYLabelTests.h; sourceTree = "<group>"; };
+		8A72B2252223DC6000EDE6EF /* SMRYYLabelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRYYLabelTests.m; sourceTree = "<group>"; };
+		8A72B23022254A9300EDE6EF /* SMRUtils+YYText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SMRUtils+YYText.h"; sourceTree = "<group>"; };
+		8A72B23122254A9300EDE6EF /* SMRUtils+YYText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SMRUtils+YYText.m"; sourceTree = "<group>"; };
 		8A814A4A21F5B7BD00D8AEB6 /* SMRBaseCoreDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMRBaseCoreDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A814A4D21F5B7BD00D8AEB6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8A814A4E21F5B7BD00D8AEB6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -895,6 +901,8 @@
 				8A914E062216580600E2F691 /* SMRUtils+Animation.m */,
 				8A914F06221D02D600E2F691 /* SMRUtils+Version.h */,
 				8A914F07221D02D600E2F691 /* SMRUtils+Version.m */,
+				8A72B23022254A9300EDE6EF /* SMRUtils+YYText.h */,
+				8A72B23122254A9300EDE6EF /* SMRUtils+YYText.m */,
 			);
 			path = SMRUtils;
 			sourceTree = "<group>";
@@ -902,6 +910,8 @@
 		8A914E08221662D300E2F691 /* SMRUtilsTests */ = {
 			isa = PBXGroup;
 			children = (
+				8A72B2242223DC6000EDE6EF /* SMRYYLabelTests.h */,
+				8A72B2252223DC6000EDE6EF /* SMRYYLabelTests.m */,
 				8A914E09221662F900E2F691 /* SMRUtilsAnimationTests.h */,
 				8A914E0A221662F900E2F691 /* SMRUtilsAnimationTests.m */,
 				FE77761B22187F8300F6416F /* SMRUtilsValidateTests.h */,
@@ -1225,6 +1235,7 @@
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework",
 				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
+				"${BUILT_PRODUCTS_DIR}/YYText/YYText.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -1238,6 +1249,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYModel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYText.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1319,6 +1331,7 @@
 				8A814CEC21F5CC4A00D8AEB6 /* SMRSections.m in Sources */,
 				8A914F1D221E46D100E2F691 /* SMRAdapterTests.m in Sources */,
 				8AF6B51122142EFB00A56E51 /* SMRAlertView.m in Sources */,
+				8A72B2262223DC6000EDE6EF /* SMRYYLabelTests.m in Sources */,
 				8AF6B504221423BF00A56E51 /* SMRUIAdapter.m in Sources */,
 				8A914DFA2215AAAA00E2F691 /* SMRUtils+UIImage.m in Sources */,
 				8A814BCD21F5BA2100D8AEB6 /* SMRRouterCenter.m in Sources */,
@@ -1349,6 +1362,7 @@
 				8A814CCF21F5CA5700D8AEB6 /* SMRNavigationBar.m in Sources */,
 				8A914ED3221ADA3700E2F691 /* UIView+SMRAdapter.m in Sources */,
 				8AE4955421FFEA490055263E /* SMRLayoutCenter.m in Sources */,
+				8A72B23222254A9300EDE6EF /* SMRUtils+YYText.m in Sources */,
 				8A914EDE221BA89500E2F691 /* SMRTextViewTests.m in Sources */,
 				8A814CD221F5CA6900D8AEB6 /* SMRNavigationItem.m in Sources */,
 			);
