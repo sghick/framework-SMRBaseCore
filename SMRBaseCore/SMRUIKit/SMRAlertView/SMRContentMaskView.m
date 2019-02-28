@@ -85,7 +85,7 @@ UIGestureRecognizerDelegate>
 }
 
 - (CGFloat)widthOfContentView {
-    return CGRectGetWidth([UIScreen mainScreen].bounds) - 2*[SMRUIAdapter smr_adapterWithValue:43.0];
+    return CGRectGetWidth([UIScreen mainScreen].bounds) - 2*[SMRUIAdapter value:43.0];
 }
 
 - (SMRContentMaskViewContentAlignment)contentAlignmentOfMaskView {

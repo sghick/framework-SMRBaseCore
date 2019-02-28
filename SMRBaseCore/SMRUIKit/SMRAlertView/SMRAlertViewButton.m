@@ -35,7 +35,7 @@
         [self addSubview:buttons.firstObject];
         [buttons.firstObject autoCenterInSuperview];
         [buttons.firstObject autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
-        [buttons.firstObject autoSetDimension:ALDimensionHeight toSize:[SMRUIAdapter smr_adapterWithValue:40.0]];
+        [buttons.firstObject autoSetDimension:ALDimensionHeight toSize:[SMRUIAdapter value:40.0]];
     }
     if (buttons.count == 2) {
         [self addSubview:buttons.firstObject];
@@ -44,12 +44,12 @@
         [buttons.firstObject autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
         [buttons.firstObject autoPinEdgeToSuperviewEdge:ALEdgeLeft];
         [buttons.firstObject autoConstrainAttribute:ALAttributeRight toAttribute:ALAttributeVertical ofView:self withOffset:-space/2.0];
-        [buttons.firstObject autoSetDimension:ALDimensionHeight toSize:[SMRUIAdapter smr_adapterWithValue:40.0]];
+        [buttons.firstObject autoSetDimension:ALDimensionHeight toSize:[SMRUIAdapter value:40.0]];
         
         [buttons.lastObject autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
         [buttons.lastObject autoPinEdgeToSuperviewEdge:ALEdgeRight];
         [buttons.lastObject autoConstrainAttribute:ALAttributeLeft toAttribute:ALAttributeVertical ofView:self withOffset:space/2.0];
-        [buttons.lastObject autoSetDimension:ALDimensionHeight toSize:[SMRUIAdapter smr_adapterWithValue:40.0]];
+        [buttons.lastObject autoSetDimension:ALDimensionHeight toSize:[SMRUIAdapter value:40.0]];
     }
 }
 

@@ -10,32 +10,36 @@
 
 @implementation SMRUIAdapter
 
-+ (CGFloat)interfaceScale {
++ (CGFloat)scale {
     return [UIScreen mainScreen].bounds.size.width / 375.0f;
 }
 
-+ (CGFloat)smr_adapterWithValue:(CGFloat)value {
-    return value*[self interfaceScale];
++ (CGFloat)value:(CGFloat)value {
+    return value * [self scale];
 }
 
-+ (CGPoint)smr_adapterWithPoint:(CGPoint)point {
-    return CGPointMake(point.x*[self interfaceScale], point.y*[self interfaceScale]);
++ (CGPoint)point:(CGPoint)point {
+    return CGPointMake(point.x * [self scale], point.y * [self scale]);
 }
 
-+ (CGSize)smr_adapterWithSize:(CGSize)size {
-    return CGSizeMake(size.width*[self interfaceScale], size.height*[self interfaceScale]);
++ (CGSize)size:(CGSize)size {
+    return CGSizeMake(size.width * [self scale], size.height * [self scale]);
 }
 
-+ (CGRect)smr_adapterWithRect:(CGRect)rect {
++ (CGRect)rect:(CGRect)rect {
     CGSize size = rect.size;
     CGPoint point = rect.origin;
-    CGFloat scale = [self interfaceScale];
-    return CGRectMake(point.x*scale, point.y*scale, size.width*scale, size.height*scale);
+    CGFloat scale = [self scale];
+    return CGRectMake(point.x * scale, point.y * scale, size.width * scale, size.height * scale);
 }
 
-+ (UIEdgeInsets)smr_adapterWithInsets:(UIEdgeInsets)insets {
-    CGFloat scale = [self interfaceScale];
++ (UIEdgeInsets)insets:(UIEdgeInsets)insets {
+    CGFloat scale = [self scale];
     return UIEdgeInsetsMake(insets.top*scale, insets.left*scale, insets.bottom*scale, insets.right*scale);
+}
+
++ (CGFloat)margin {
+    return 30*[self scale];
 }
 
 + (BOOL)overtopiOS10 {

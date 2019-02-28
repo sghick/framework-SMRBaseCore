@@ -28,7 +28,7 @@ UITextViewDelegate>
     if (self) {
         _maxLength = 500;
         _countFormat = @"(c / a)";
-        _contentInsets = [SMRUIAdapter smr_adapterWithInsets:UIEdgeInsetsMake(15, 15, 15, 15)];
+        _contentInsets = [SMRUIAdapter insets:UIEdgeInsetsMake(15, 15, 15, 15)];
         [self createSMRTextViewSubviews];
         [self setNeedsUpdateConstraints];
     }
@@ -38,7 +38,7 @@ UITextViewDelegate>
 - (void)createSMRTextViewSubviews {
     self.layer.borderColor = [UIColor smr_colorWithHexRGB:@"#999999"].CGColor;
     self.layer.borderWidth = 1.0/[UIScreen mainScreen].scale;
-    self.layer.cornerRadius = [SMRUIAdapter smr_adapterWithValue:1.0];
+    self.layer.cornerRadius = [SMRUIAdapter value:1.0];
 
     self.contentTextView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     [self addSubview:self.contentTextView];

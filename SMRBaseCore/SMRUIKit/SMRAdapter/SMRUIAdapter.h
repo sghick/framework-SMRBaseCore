@@ -36,21 +36,27 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 // 底部安全区域
 #define BOTTOM_HEIGHT (IS_IPHONEX_SERIES ? 34.f : 0.f)
 // 分割线高度
-#define LINE_HEIGHT 1
+#define LINE_HEIGHT (1.0/[UIScreen mainScreen].scale)
 // 屏幕宽度
-#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 // 屏幕高度
-#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+#define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
+// 内容宽度
+#define SCREEN_CONTENT_WIDTH (SCREEN_WIDTH - 2*[BDSUIAdapter margin])
 
 @interface SMRUIAdapter : NSObject
 
 /// 适配比例 实际宽度 / 设计稿宽度
-+ (CGFloat)interfaceScale;
-+ (CGFloat)smr_adapterWithValue:(CGFloat)value;
-+ (CGPoint)smr_adapterWithPoint:(CGPoint)point;
-+ (CGSize)smr_adapterWithSize:(CGSize)size;
-+ (CGRect)smr_adapterWithRect:(CGRect)rect;
-+ (UIEdgeInsets)smr_adapterWithInsets:(UIEdgeInsets)insets;
++ (CGFloat)scale;
++ (CGFloat)value:(CGFloat)value;
++ (CGPoint)point:(CGPoint)point;
++ (CGSize)size:(CGSize)size;
++ (CGRect)rect:(CGRect)rect;
++ (UIEdgeInsets)insets:(UIEdgeInsets)insets;
+
+/// 常用数值
++ (CGFloat)margin; ///< default:20*scale,info.plist中配置的数值为不加scale,如果需要scale,请配置成30*scale字样
+
 /// 系统版本是否大于或等于10.0
 + (BOOL)overtopiOS10;
 /// 系统版本是否大于或等于11.0

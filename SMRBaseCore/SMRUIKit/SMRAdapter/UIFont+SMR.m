@@ -12,15 +12,15 @@
 @implementation UIFont (SMR)
 
 + (UIFont *)smr_systemFontOfSize:(CGFloat)fontSize {
-    return [UIFont systemFontOfSize:fontSize*[SMRUIAdapter interfaceScale]];
+    return [UIFont systemFontOfSize:fontSize*[SMRUIAdapter scale]];
 }
 
 + (UIFont *)smr_boldSystemFontOfSize:(CGFloat)fontSize {
-    return [UIFont boldSystemFontOfSize:fontSize*[SMRUIAdapter interfaceScale]];
+    return [UIFont boldSystemFontOfSize:fontSize*[SMRUIAdapter scale]];
 }
 
 + (UIFont *)smr_fontWithName:(NSString *)fontName size:(CGFloat)fontSize {
-    return [UIFont fontWithName:fontName size:fontSize*[SMRUIAdapter interfaceScale]];
+    return [UIFont fontWithName:fontName size:fontSize*[SMRUIAdapter scale]];
 }
 
 @end

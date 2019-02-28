@@ -71,7 +71,7 @@ UITableViewSectionsDelegate>
 #pragma mark - SMRTableAlertViewProtocol
 
 - (UIEdgeInsets)smr_insetsOfContent {
-    return [SMRUIAdapter smr_adapterWithInsets:UIEdgeInsetsMake(56, 20, 0, 20)];
+    return [SMRUIAdapter insets:UIEdgeInsetsMake(56, 20, 0, 20)];
 }
 
 - (CGFloat)smr_heightOfTitleBar {
@@ -86,7 +86,7 @@ UITableViewSectionsDelegate>
 - (CGFloat)smr_heightOfBottomBar {
     // 有按钮时
     if (self.buttonTitles.count) {
-        return [SMRUIAdapter smr_adapterWithValue:40.0 + 2*26.0];
+        return [SMRUIAdapter value:40.0 + 2*26.0];
     }
     return 0;
 }
@@ -115,7 +115,7 @@ UITableViewSectionsDelegate>
             buttons = @[cancelBtn, sureBtn];
         }
         
-        SMRAlertViewButton *btn = [[SMRAlertViewButton alloc] initWithButtons:buttons space:[SMRUIAdapter smr_adapterWithValue:20.0]];
+        SMRAlertViewButton *btn = [[SMRAlertViewButton alloc] initWithButtons:buttons space:[SMRUIAdapter value:20.0]];
         return btn;
     }
     return nil;
@@ -147,7 +147,7 @@ UITableViewSectionsDelegate>
             break;
         case kRowTypeContentImage: {
             if (self.imageURL.length) {
-                return [SMRUIAdapter smr_adapterWithValue:100.0];
+                return [SMRUIAdapter value:100.0];
             }
             return 0;
         }
