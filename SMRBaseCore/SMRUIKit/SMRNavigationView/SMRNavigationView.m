@@ -161,7 +161,7 @@
 
 - (UIButton *)backBtn {
     if (_backBtn == nil) {
-        UIButton *backBtn = [SMRNavigationView buttonOfOnlyImage:[SMRUIKitBundle smr_imageWithName:@"nav_back@3x"]
+        UIButton *backBtn = [SMRNavigationView buttonOfOnlyImage:[SMRUIKitBundle imageWithName:@"nav_back@3x"]
                                                           target:self
                                                           action:@selector(backButtonDidTouched:)];
         _backBtn = backBtn;
@@ -171,7 +171,7 @@
 
 - (UIButton *)closeBtn {
     if (_closeBtn == nil) {
-        UIButton *closeBtn = [SMRNavigationView buttonOfOnlyImage:[SMRUIKitBundle smr_imageWithName:@"nav_close@3x"]
+        UIButton *closeBtn = [SMRNavigationView buttonOfOnlyImage:[SMRUIKitBundle imageWithName:@"nav_close@3x"]
                                                            target:self
                                                            action:@selector(closeButtonDidTouched:)];
         closeBtn.hidden = YES;
@@ -182,7 +182,7 @@
 
 - (UIImageView *)shadowView {
     if (_shadowView == nil) {
-        UIImage *image = [SMRUIKitBundle smr_imageWithName:@"nav_shadow"];
+        UIImage *image = [SMRUIKitBundle imageWithName:@"nav_shadow"];
         image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 4, 0, 4) resizingMode:UIImageResizingModeStretch];
         UIImageView *view = [[UIImageView alloc] init];
         view.image = image;

@@ -12,9 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SMRUIKitBundle : NSBundle
 
-+ (instancetype)smr_sourceBundle;
++ (instancetype)sourceBundle;
 
-+ (UIImage *)smr_imageWithName:(NSString *)name;
++ (UIImage *)imageWithName:(NSString *)name;
 
 @end
 
