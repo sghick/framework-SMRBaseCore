@@ -54,8 +54,8 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 + (CGRect)rect:(CGRect)rect;
 + (UIEdgeInsets)insets:(UIEdgeInsets)insets;
 
-/// 常用数值
-+ (CGFloat)margin; ///< default:20*scale,info.plist中配置的数值为不加scale,如果需要scale,请配置成30*scale字样
+/// 常用数值,配置请参考BaseCore.h头文件
++ (CGFloat)margin; ///< default:20*scale
 
 /// 系统版本是否大于或等于10.0
 + (BOOL)overtopiOS10;

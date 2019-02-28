@@ -38,8 +38,21 @@
     return UIEdgeInsetsMake(insets.top*scale, insets.left*scale, insets.bottom*scale, insets.right*scale);
 }
 
+static CGFloat _margin = -1;
 + (CGFloat)margin {
-    return 30*[self scale];
+    if (_margin == -1) {
+        NSString *value = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Base Core Config"][@"Adapter Margin"];
+        if (value) {
+            // 优先读取info.plist中的配置
+            _margin = value.doubleValue;
+            if ([value containsString:@"*scale"]) {
+                _margin *= [self scale];
+            }
+        } else {
+            _margin = 20*[self scale];
+        }
+    }
+    return _margin;
 }
 
 + (BOOL)overtopiOS10 {
