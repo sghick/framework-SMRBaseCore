@@ -51,7 +51,7 @@
         [self.splitLine autoPinEdgeToSuperviewEdge:ALEdgeLeft];
         [self.splitLine autoPinEdgeToSuperviewEdge:ALEdgeRight];
         [self.splitLine autoPinEdgeToSuperviewEdge:ALEdgeBottom];
-        [self.splitLine autoSetDimension:ALDimensionHeight toSize:1/[UIScreen mainScreen].scale];
+        [self.splitLine autoSetDimension:ALDimensionHeight toSize:1.0/[UIScreen mainScreen].scale];
     }
     [super updateConstraints];
 }
