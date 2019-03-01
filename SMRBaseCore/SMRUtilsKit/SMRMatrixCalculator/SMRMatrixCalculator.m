@@ -87,11 +87,17 @@
 }
 
 - (CGFloat)spaceOfColumnForEqualization {
+    if (self.columnsCount <= 1) {
+        return 0;
+    }
     CGFloat spaceH = (CGRectGetWidth(self.bounds) - self.cellSize.width*self.columnsCount)/(self.columnsCount - 1);
     return spaceH;
 }
 
 - (CGFloat)spaceOfRowsForEqualization {
+    if (self.rowsCount <= 1) {
+        return 0;
+    }
     CGFloat spaceV = (CGRectGetHeight(self.bounds) - self.cellSize.height*self.rowsCount)/(self.rowsCount - 1);
     return spaceV;
 }
