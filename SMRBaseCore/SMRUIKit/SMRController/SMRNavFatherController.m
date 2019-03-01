@@ -85,6 +85,7 @@
         [_navigationView removeFromSuperview];
         _navigationView = nil;
         _navigationView = navigationView;
+        _navigationView.delegate = self;
         [self checkNeedsAddSubview];
     }
 }
@@ -93,12 +94,13 @@
     if (_navigationView == nil) {
         if ([self respondsToSelector:@selector(navigationViewInitialization)]) {
             _navigationView = [self navigationViewInitialization];
+            _navigationView.delegate = self;
         } else {
             SMRNavigationView *navigationView = [[SMRNavigationView alloc] init];
             _navigationView = navigationView;
+            _navigationView.delegate = self;
         }
     }
-    _navigationView.delegate = self;
     return _navigationView;
 }
 
