@@ -41,6 +41,9 @@
     return image;
 }
 
++ (UIImage *)createImageWithColor:(UIColor *)color {
+    return [self createImageWithColor:color rect:CGRectMake(0, 0, 1, 1)];
+}
 + (UIImage *)createImageWithColor:(UIColor *)color rect:(CGRect)rect {
     UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
     [color setFill];

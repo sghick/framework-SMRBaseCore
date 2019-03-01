@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)transformScrollViewToImage:(UIScrollView *)scrollView;
 
 /** 创建一个相应颜色大小的矩形图片(1*1) */
++ (UIImage *)createImageWithColor:(UIColor *)color;
 + (UIImage *)createImageWithColor:(UIColor *)color rect:(CGRect)rect;
 
 /** 改变图片的颜色 */
