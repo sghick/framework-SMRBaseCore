@@ -74,7 +74,7 @@
 
 // 重写
 - (nullable NSString *)title {
-    return self.navigationView.title;
+    return _navigationView.title;
 }
 - (void)setTitle:(nullable NSString *)title {
     self.navigationView.title = title;
