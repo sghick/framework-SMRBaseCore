@@ -21,6 +21,19 @@
     NSLog(@"释放对象:<%@: %p>", self.class, self);
 }
 
+/** 常用请求的回调方式1 */
++ (instancetype)callbacWithSuccessBlock:(SMRNetAPISuccessBlock)successBlock
+                             faildBlock:(SMRNetAPIFaildBlock)faildBlock {
+    return [self callbackWithConstructingBlock:nil cacheBlock:nil successBlock:successBlock faildBlock:faildBlock uploadProgress:nil downloadProgress:nil];
+}
+
+/** 常用请求的回调方式2 */
++ (instancetype)callbacWithCacheBlock:(SMRNetAPICacheBlock)cacheBlock
+                         successBlock:(SMRNetAPISuccessBlock)successBlock
+                           faildBlock:(SMRNetAPIFaildBlock)faildBlock {
+    return [self callbackWithConstructingBlock:nil cacheBlock:cacheBlock successBlock:successBlock faildBlock:faildBlock uploadProgress:nil downloadProgress:nil];
+}
+
 /** GET请求的回调方式 */
 + (instancetype)callbackForGETWithCacheBlock:(SMRNetAPICacheBlock)cacheBlock
                                 successBlock:(SMRNetAPISuccessBlock)successBlock

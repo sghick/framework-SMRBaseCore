@@ -28,6 +28,15 @@ typedef void(^SMRNetAPIDownloadProgressBlock)(SMRNetAPI *api, NSProgress *downlo
 @property (copy  , nonatomic) SMRNetAPIUploadProgressBlock uploadProgress;
 @property (copy  , nonatomic) SMRNetAPIDownloadProgressBlock downloadProgress;
 
+/** 常用请求的回调方式1 */
++ (instancetype)callbacWithSuccessBlock:(SMRNetAPISuccessBlock)successBlock
+                             faildBlock:(SMRNetAPIFaildBlock)faildBlock;
+
+/** 常用请求的回调方式2 */
++ (instancetype)callbacWithCacheBlock:(SMRNetAPICacheBlock)cacheBlock
+                         successBlock:(SMRNetAPISuccessBlock)successBlock
+                           faildBlock:(SMRNetAPIFaildBlock)faildBlock;
+
 /** GET请求的回调方式 */
 + (instancetype)callbackForGETWithCacheBlock:(SMRNetAPICacheBlock)cacheBlock
                                 successBlock:(SMRNetAPISuccessBlock)successBlock
