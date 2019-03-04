@@ -24,7 +24,7 @@
 }
 
 - (void)testBtnAction:(UIButton *)sender {
-    NSString *testClass = @"SMRYYLabelTests";
+    NSString *testClass = @"SMRMatrixCalculatorTests";
     
     Class cls = NSClassFromString(testClass);
     if (cls) {

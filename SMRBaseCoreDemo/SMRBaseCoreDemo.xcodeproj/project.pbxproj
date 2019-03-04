@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3474ABA988B303EAE936A32D /* Pods_SMRBaseCoreDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEB68DCCB6F5224C71F40E77 /* Pods_SMRBaseCoreDemo.framework */; };
+		8A4AA2B2222CC7550034929D /* SMRMatrixCalculatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4AA2B1222CC7550034929D /* SMRMatrixCalculatorTests.m */; };
 		8A72B2262223DC6000EDE6EF /* SMRYYLabelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A72B2252223DC6000EDE6EF /* SMRYYLabelTests.m */; };
 		8A72B23222254A9300EDE6EF /* SMRUtils+YYText.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A72B23122254A9300EDE6EF /* SMRUtils+YYText.m */; };
 		8A814A4F21F5B7BD00D8AEB6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814A4E21F5B7BD00D8AEB6 /* AppDelegate.m */; };
@@ -142,6 +143,8 @@
 
 /* Begin PBXFileReference section */
 		265B7E2F72042FFDB9545E7F /* Pods-SMRBaseCoreDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMRBaseCoreDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo.release.xcconfig"; sourceTree = "<group>"; };
+		8A4AA2B0222CC7550034929D /* SMRMatrixCalculatorTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRMatrixCalculatorTests.h; sourceTree = "<group>"; };
+		8A4AA2B1222CC7550034929D /* SMRMatrixCalculatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRMatrixCalculatorTests.m; sourceTree = "<group>"; };
 		8A72B2242223DC6000EDE6EF /* SMRYYLabelTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRYYLabelTests.h; sourceTree = "<group>"; };
 		8A72B2252223DC6000EDE6EF /* SMRYYLabelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRYYLabelTests.m; sourceTree = "<group>"; };
 		8A72B23022254A9300EDE6EF /* SMRUtils+YYText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SMRUtils+YYText.h"; sourceTree = "<group>"; };
@@ -918,6 +921,8 @@
 				FE77761C22187F8300F6416F /* SMRUtilsValidateTests.m */,
 				8A914F09221D1D5100E2F691 /* SMRUtilsVersionTests.h */,
 				8A914F0A221D1D5100E2F691 /* SMRUtilsVersionTests.m */,
+				8A4AA2B0222CC7550034929D /* SMRMatrixCalculatorTests.h */,
+				8A4AA2B1222CC7550034929D /* SMRMatrixCalculatorTests.m */,
 			);
 			path = SMRUtilsTests;
 			sourceTree = "<group>";
@@ -1313,6 +1318,7 @@
 				8A914DEB2215A96900E2F691 /* SMRUtils.m in Sources */,
 				8AE4955D21FFEF090055263E /* SMRLayoutTestController.m in Sources */,
 				8A814D3121F80B8F00D8AEB6 /* SMRRankerLifecycleManager.m in Sources */,
+				8A4AA2B2222CC7550034929D /* SMRMatrixCalculatorTests.m in Sources */,
 				8A814CB621F5C66700D8AEB6 /* SMRNetAPIQueue.m in Sources */,
 				8AF6B50122141F2C00A56E51 /* SMRAlertViewTests.m in Sources */,
 				8A814A4F21F5B7BD00D8AEB6 /* AppDelegate.m in Sources */,
