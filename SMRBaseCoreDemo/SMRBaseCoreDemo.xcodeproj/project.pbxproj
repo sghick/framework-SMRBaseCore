@@ -151,6 +151,7 @@
 		8A4AA2C3222D2EA40034929D /* SMRModelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRModelTests.m; sourceTree = "<group>"; };
 		8A4AA2C5222D2F1C0034929D /* SMRTestPersonModels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRTestPersonModels.h; sourceTree = "<group>"; };
 		8A4AA2C6222D2F1C0034929D /* SMRTestPersonModels.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRTestPersonModels.m; sourceTree = "<group>"; };
+		8A4AA2C8222D45320034929D /* SMRController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRController.h; sourceTree = "<group>"; };
 		8A72B2242223DC6000EDE6EF /* SMRYYLabelTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRYYLabelTests.h; sourceTree = "<group>"; };
 		8A72B2252223DC6000EDE6EF /* SMRYYLabelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRYYLabelTests.m; sourceTree = "<group>"; };
 		8A72B23022254A9300EDE6EF /* SMRUtils+YYText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SMRUtils+YYText.h"; sourceTree = "<group>"; };
@@ -764,6 +765,7 @@
 		8A814CBE21F5C80C00D8AEB6 /* SMRController */ = {
 			isa = PBXGroup;
 			children = (
+				8A4AA2C8222D45320034929D /* SMRController.h */,
 				8A814CBF21F5C8DB00D8AEB6 /* SMRNavigationController.h */,
 				8A814CC021F5C8DB00D8AEB6 /* SMRNavigationController.m */,
 				8A814CC221F5C8F600D8AEB6 /* SMRViewController.h */,
@@ -1251,8 +1253,11 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaSecurity/CocoaSecurity.framework",
 				"${BUILT_PRODUCTS_DIR}/FLEX/FLEX.framework",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
@@ -1265,8 +1270,11 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaSecurity.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLEX.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",

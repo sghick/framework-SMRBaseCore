@@ -10,6 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class SMRNetAPI;
+@class SMRAPICallback;
 @interface SMRViewController : UIViewController
 
 /**
@@ -21,6 +23,27 @@ NS_ASSUME_NONNULL_BEGIN
  设置状态栏颜色
  */
 @property (assign, nonatomic) UIStatusBarStyle statusBarStyle;
+
+/**
+ 发起网络请求
+ */
+- (void)query:(SMRNetAPI *)api callback:(nullable SMRAPICallback *)callback;
+
+/**
+ toast
+ */
+- (void)toast:(NSString *)toast;
+
+/**
+ 展示HUD
+ */
+- (void)showHUD;
+- (void)showWindowHUD;
+
+/**
+ 隐藏HUD
+ */
+- (void)hideHUD;
 
 /**
  @override

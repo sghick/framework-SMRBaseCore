@@ -9,6 +9,8 @@
 #import "SMRViewController.h"
 #import "SMRNavigationController.h"
 #import "SDImageCache.h"
+#import "SMRNetwork.h"
+#import "MBProgressHUD.h"
 
 @interface SMRViewController ()
 
@@ -123,6 +125,39 @@
     if ([childController isKindOfClass:[SMRViewController class]]) {
         childController.isMainPage = self.isMainPage;
     }
+}
+
+- (void)query:(SMRNetAPI *)api callback:(nullable SMRAPICallback *)callback {
+    [[SMRNetManager sharedManager] query:api callback:callback];
+}
+
+- (void)toast:(NSString *)toast {
+    if (!toast.length) {
+        return;
+    }
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.label.text = toast;
+    hud.offset = CGPointMake(0.f, MBProgressMaxOffset);
+    [hud hideAnimated:YES afterDelay:2.f];
+}
+
+- (void)showHUD {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+}
+
+- (void)showWindowHUD {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+}
+
+- (void)hideHUD {
+    MBProgressHUD *hud = [MBProgressHUD HUDForView:self.view];
+    if (!hud) {
+        hud = [MBProgressHUD HUDForView:self.view.window];
+    }
+    [hud hideAnimated:YES];
 }
 
 #pragma mark - Getters/Setters
