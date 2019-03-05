@@ -30,22 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)query:(SMRNetAPI *)api callback:(nullable SMRAPICallback *)callback;
 
 /**
- toast
- */
-- (void)toast:(NSString *)toast;
-
-/**
- 展示HUD
- */
-- (void)showHUD;
-- (void)showWindowHUD;
-
-/**
- 隐藏HUD
- */
-- (void)hideHUD;
-
-/**
  @override
  是否允许右滑返回,默认YES
  */

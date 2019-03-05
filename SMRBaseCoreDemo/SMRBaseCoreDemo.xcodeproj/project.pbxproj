@@ -11,6 +11,7 @@
 		8A4AA2B2222CC7550034929D /* SMRMatrixCalculatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4AA2B1222CC7550034929D /* SMRMatrixCalculatorTests.m */; };
 		8A4AA2C4222D2EA40034929D /* SMRModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4AA2C3222D2EA40034929D /* SMRModelTests.m */; };
 		8A4AA2C7222D2F1C0034929D /* SMRTestPersonModels.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4AA2C6222D2F1C0034929D /* SMRTestPersonModels.m */; };
+		8A4AA2D8222E1E590034929D /* SMRUtils+MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4AA2D7222E1E590034929D /* SMRUtils+MBProgressHUD.m */; };
 		8A72B2262223DC6000EDE6EF /* SMRYYLabelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A72B2252223DC6000EDE6EF /* SMRYYLabelTests.m */; };
 		8A72B23222254A9300EDE6EF /* SMRUtils+YYText.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A72B23122254A9300EDE6EF /* SMRUtils+YYText.m */; };
 		8A814A4F21F5B7BD00D8AEB6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814A4E21F5B7BD00D8AEB6 /* AppDelegate.m */; };
@@ -152,6 +153,8 @@
 		8A4AA2C5222D2F1C0034929D /* SMRTestPersonModels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRTestPersonModels.h; sourceTree = "<group>"; };
 		8A4AA2C6222D2F1C0034929D /* SMRTestPersonModels.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRTestPersonModels.m; sourceTree = "<group>"; };
 		8A4AA2C8222D45320034929D /* SMRController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRController.h; sourceTree = "<group>"; };
+		8A4AA2D6222E1E590034929D /* SMRUtils+MBProgressHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SMRUtils+MBProgressHUD.h"; sourceTree = "<group>"; };
+		8A4AA2D7222E1E590034929D /* SMRUtils+MBProgressHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SMRUtils+MBProgressHUD.m"; sourceTree = "<group>"; };
 		8A72B2242223DC6000EDE6EF /* SMRYYLabelTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRYYLabelTests.h; sourceTree = "<group>"; };
 		8A72B2252223DC6000EDE6EF /* SMRYYLabelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRYYLabelTests.m; sourceTree = "<group>"; };
 		8A72B23022254A9300EDE6EF /* SMRUtils+YYText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SMRUtils+YYText.h"; sourceTree = "<group>"; };
@@ -926,6 +929,8 @@
 				8A914F07221D02D600E2F691 /* SMRUtils+Version.m */,
 				8A72B23022254A9300EDE6EF /* SMRUtils+YYText.h */,
 				8A72B23122254A9300EDE6EF /* SMRUtils+YYText.m */,
+				8A4AA2D6222E1E590034929D /* SMRUtils+MBProgressHUD.h */,
+				8A4AA2D7222E1E590034929D /* SMRUtils+MBProgressHUD.m */,
 			);
 			path = SMRUtils;
 			sourceTree = "<group>";
@@ -1300,6 +1305,7 @@
 				8A814CAD21F5C4AC00D8AEB6 /* SMRNetInfo.m in Sources */,
 				8A914E072216580600E2F691 /* SMRUtils+Animation.m in Sources */,
 				8AE02F5422154FBD006235BB /* SMRAlertViewContentTextCell.m in Sources */,
+				8A4AA2D8222E1E590034929D /* SMRUtils+MBProgressHUD.m in Sources */,
 				8A914E042216530A00E2F691 /* SMRUtils+Locations.m in Sources */,
 				8AE4952A21FEB3040055263E /* NSError+SMRError.m in Sources */,
 				8A4AA2C4222D2EA40034929D /* SMRModelTests.m in Sources */,

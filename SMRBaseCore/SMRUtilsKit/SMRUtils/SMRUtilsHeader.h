@@ -19,5 +19,6 @@
 #import "SMRUtils+Locations.h"
 #import "SMRUtils+Animation.h"
 #import "SMRUtils+Version.h"
+#import "SMRUtils+MBProgressHUD.h"
 
 #endif /* SMRUtilsHeader_h */
