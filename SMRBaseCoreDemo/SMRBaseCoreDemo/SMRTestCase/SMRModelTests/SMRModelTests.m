@@ -13,7 +13,7 @@
 
 - (id)begin {
     [self testCreateAPIParams];
-    
+    [SMRUtils showHUD];
     return self;
 }
 

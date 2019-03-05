@@ -13,13 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SMRUtils (MBProgressHUD)
 
 /** toast */
-- (void)toast:(NSString *)toast;
++ (void)toast:(NSString *)toast;
 
 /** 展示HUD */
-- (void)showHUD;
++ (void)showHUD;
 
 /** 隐藏HUD */
-- (void)hideHUD;
++ (void)hideHUD;
 
 @end
 

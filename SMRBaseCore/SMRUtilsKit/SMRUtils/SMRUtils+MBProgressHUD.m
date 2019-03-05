@@ -12,7 +12,7 @@
 
 @implementation SMRUtils (MBProgressHUD)
 
-- (void)toast:(NSString *)toast {
++ (void)toast:(NSString *)toast {
     if (!toast.length) {
         return;
     }
@@ -24,13 +24,13 @@
     [hud hideAnimated:YES afterDelay:2.f];
 }
 
-- (void)showHUD {
++ (void)showHUD {
     UIView *view = [SMRNavigator getMainwindowTopController].view.window;
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.mode = MBProgressHUDModeIndeterminate;
 }
 
-- (void)hideHUD {
++ (void)hideHUD {
     UIView *view = [SMRNavigator getMainwindowTopController].view.window;
     MBProgressHUD *hud = [MBProgressHUD HUDForView:view];
     if (!hud) {
