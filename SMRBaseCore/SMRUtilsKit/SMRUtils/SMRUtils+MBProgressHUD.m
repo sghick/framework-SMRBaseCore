@@ -13,11 +13,15 @@
 @implementation SMRUtils (MBProgressHUD)
 
 + (void)toast:(NSString *)toast {
+    UIView *view = [UIApplication sharedApplication].delegate.window;
+    [self toast:toast inView:view];
+}
+
++ (void)toast:(NSString *)toast inView:(UIView *)inView {
     if (!toast.length) {
         return;
     }
-    UIView *view = [SMRNavigator getMainwindowTopController].view.window;
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:inView animated:YES];
     hud.mode = MBProgressHUDModeText;
     hud.label.text = toast;
     hud.offset = CGPointMake(0.f, MBProgressMaxOffset);
@@ -25,17 +29,22 @@
 }
 
 + (void)showHUD {
-    UIView *view = [SMRNavigator getMainwindowTopController].view.window;
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    UIView *view = [UIApplication sharedApplication].delegate.window;
+    [self showHUDInView:view];
+}
+
++ (void)showHUDInView:(UIView *)inView {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:inView animated:YES];
     hud.mode = MBProgressHUDModeIndeterminate;
 }
 
 + (void)hideHUD {
-    UIView *view = [SMRNavigator getMainwindowTopController].view.window;
-    MBProgressHUD *hud = [MBProgressHUD HUDForView:view];
-    if (!hud) {
-        hud = [MBProgressHUD HUDForView:view.window];
-    }
+    UIView *view = [UIApplication sharedApplication].delegate.window;
+    [self hideHUDInView:view];
+}
+
++ (void)hideHUDInView:(UIView *)inView {
+    MBProgressHUD *hud = [MBProgressHUD HUDForView:inView];
     [hud hideAnimated:YES];
 }
 
