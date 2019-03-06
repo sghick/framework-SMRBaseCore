@@ -16,9 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SMRUtils (Validate)
 
 /**
- 使用正则获取第一个正确匹配到的结果,支付匹配group
+ 使用正则获取第一个正确匹配到的第一个结果,支持匹配group,返回数组中第1个为完整结果,之后的为group中的子结果,获取失败返回nil
  */
 + (NSArray<NSString *> *)matchFirstGroupsInString:(NSString *)content regex:(NSString *)regex;
+
+/**
+ 使用正则获取正确匹配到的所有结果,支持匹配group,返回数组中第1个为完整结果,之后的为group中的子结果,获取失败返回nil
+ */
++ (NSArray<NSArray<NSString *> *> *)matchGroupsInString:(NSString *)content regex:(NSString *)regex;
 
 /**
  系统自带的谓词匹配

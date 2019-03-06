@@ -57,6 +57,7 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
     [button setTitle:title forState:UIControlStateNormal];
     [button setTitleColor:(deepColor ? [UIColor whiteColor] : [UIColor blackColor]) forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
     button.backgroundColor = (deepColor ? [UIColor blackColor] : [UIColor whiteColor]);
     button.titleLabel.font = [UIFont smr_systemFontOfSize:15.0];
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];

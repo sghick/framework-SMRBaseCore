@@ -26,6 +26,29 @@
     return nil;
 }
 
++ (NSArray<NSArray<NSString *> *> *)matchGroupsInString:(NSString *)content regex:(NSString *)regex {
+    NSRegularExpressionOptions options = NSRegularExpressionCaseInsensitive;
+    NSError *error = NULL;
+    NSRegularExpression *reg = [NSRegularExpression regularExpressionWithPattern:regex options:options error:&error];
+    NSArray<NSTextCheckingResult *> *results = [reg matchesInString:content options:0 range:NSMakeRange(0, [content length])];
+    NSMutableArray<NSArray *> *rtn = [NSMutableArray array];
+    for (NSTextCheckingResult *result in results) {
+        if (result.numberOfRanges > 0) {
+            NSMutableArray *arr = [NSMutableArray array];
+            for (int i = 0; i < result.numberOfRanges; i++) {
+                NSString *retString = [content substringWithRange:[result rangeAtIndex:i]];
+                [arr addObject:retString];
+            }
+            [rtn addObject:[arr copy]];
+        }
+    }
+    if (rtn.count > 0) {
+        return [rtn copy];
+    } else {
+        return nil;
+    }
+}
+
 + (BOOL)validateString:(NSString *)validateString predicateFormat:(NSString *)predicateFormat regex:(NSString *)regex {
     BOOL isValid = NO;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ %@", predicateFormat, regex];
