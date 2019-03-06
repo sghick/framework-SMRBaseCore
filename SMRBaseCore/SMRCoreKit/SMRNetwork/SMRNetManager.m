@@ -155,7 +155,7 @@ SMRSessionAPIInitDelegate>
             return nil;
         }
         
-        if ([initAPI.identifier isEqualToString:api.identifier]) {
+        if (![initAPI.identifier isEqualToString:api.identifier]) {
             return initAPI;
         }
     }
