@@ -98,7 +98,7 @@ static NSString *_cookie = nil;
     }
     else {
         NSString *str = [[self netUserDefaults] objectForKey:@"cookie"];
-        if ([self isNullOrEmptyString:str]) {
+        if (![self isNullOrEmptyString:str]) {
             _cookie = str;
             return _cookie;
         } else {
