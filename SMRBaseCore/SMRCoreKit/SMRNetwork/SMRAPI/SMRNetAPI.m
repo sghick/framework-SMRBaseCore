@@ -146,6 +146,13 @@ SMRReqeustMethod const SMRReqeustMethodDELETE   = @"DELETE";
     return api;
 }
 
+- (SMRAPICallback *)callback {
+    if (!_callback) {
+        _callback = [[SMRAPICallback alloc] init];
+    }
+    return _callback;
+}
+
 @end
 
 @implementation SMRMultipartNetAPI
