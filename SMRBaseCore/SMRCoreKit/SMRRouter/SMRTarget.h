@@ -28,11 +28,11 @@ typedef NS_ENUM(NSInteger, SMRTargetOpenType) {
 /**
  支持打开一个可能包含在对应Tab控制器,如果对应Tab中不包含与目标控制器类相同的控制器,则按正常方式进行跳转
  
- @param params              设置:k_perform_open=<BDSTargetOpenType>,将会执行对应的方法方法
+ @param params              设置:k_perform_open=<SMRTargetOpenType>,将会执行对应的方法方法
  @param toChangeTab         对应要切换的Tab
  @param controller          对应要执行的控制器
- @param openActionBlock     如果k_perform_open=BDSTargetOpenTypeOpen,且对应Tab不存在,将执行此block,并且无默认处理(block==nil时将会默认进行处理)
- @param openPathActionBlock 如果k_perform_open=BDSTargetOpenTypeOpenPath,且对应Tab不存在,将执行此block,并且无默认处理(block==nil时将会默认进行处理)
+ @param openActionBlock     如果k_perform_open=SMRTargetOpenTypeOpen,且对应Tab不存在,将执行此block,并且无默认处理(block==nil时将会默认进行处理)
+ @param openPathActionBlock 如果k_perform_open=SMRTargetOpenTypeOpenPath,且对应Tab不存在,将执行此block,并且无默认处理(block==nil时将会默认进行处理)
  */
 - (void)supportedActionWithParams:(nullable NSDictionary *)params
                       toChangeTab:(NSInteger)toChangeTab
@@ -44,11 +44,11 @@ typedef NS_ENUM(NSInteger, SMRTargetOpenType) {
 /**
  支持打开一个可能在对应Tab控制器,如果对应Tab不存在,则按正常方式进行跳转
  
- @param params              设置:k_perform_open=<BDSTargetOpenType>,将会执行对应的方法方法
+ @param params              设置:k_perform_open=<SMRTargetOpenType>,将会执行对应的方法方法
  @param toChangeTab         对应要切换的Tab
  @param controller          对应要执行的控制器
- @param openActionBlock     如果k_perform_open=BDSTargetOpenTypeOpen,且对应Tab不存在,将执行此block,并且无默认处理(block==nil时将会默认进行处理)
- @param openPathActionBlock 如果k_perform_open=BDSTargetOpenTypeOpenPath,且对应Tab不存在,将执行此block,并且无默认处理(block==nil时将会默认进行处理)
+ @param openActionBlock     如果k_perform_open=SMRTargetOpenTypeOpen,且对应Tab不存在,将执行此block,并且无默认处理(block==nil时将会默认进行处理)
+ @param openPathActionBlock 如果k_perform_open=SMRTargetOpenTypeOpenPath,且对应Tab不存在,将执行此block,并且无默认处理(block==nil时将会默认进行处理)
  */
 - (void)supportedMainTabActionWithParams:(nullable NSDictionary *)params
                              toChangeTab:(NSInteger)toChangeTab

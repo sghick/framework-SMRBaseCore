@@ -42,7 +42,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 // 屏幕高度
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
 // 内容宽度
-#define SCREEN_CONTENT_WIDTH (SCREEN_WIDTH - 2*[BDSUIAdapter margin])
+#define SCREEN_CONTENT_WIDTH (SCREEN_WIDTH - 2*[SMRUIAdapter margin])
 
 @interface SMRUIAdapter : NSObject
 

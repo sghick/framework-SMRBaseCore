@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3474ABA988B303EAE936A32D /* Pods_SMRBaseCoreDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEB68DCCB6F5224C71F40E77 /* Pods_SMRBaseCoreDemo.framework */; };
+		8A2DE23B2232635000E9A07E /* SMRIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE2392232635000E9A07E /* SMRIndexView.m */; };
 		8A4AA2B2222CC7550034929D /* SMRMatrixCalculatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4AA2B1222CC7550034929D /* SMRMatrixCalculatorTests.m */; };
 		8A4AA2C4222D2EA40034929D /* SMRModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4AA2C3222D2EA40034929D /* SMRModelTests.m */; };
 		8A4AA2C7222D2F1C0034929D /* SMRTestPersonModels.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4AA2C6222D2F1C0034929D /* SMRTestPersonModels.m */; };
@@ -146,6 +147,8 @@
 
 /* Begin PBXFileReference section */
 		265B7E2F72042FFDB9545E7F /* Pods-SMRBaseCoreDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMRBaseCoreDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo.release.xcconfig"; sourceTree = "<group>"; };
+		8A2DE2392232635000E9A07E /* SMRIndexView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRIndexView.m; sourceTree = "<group>"; };
+		8A2DE23A2232635000E9A07E /* SMRIndexView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRIndexView.h; sourceTree = "<group>"; };
 		8A4AA2B0222CC7550034929D /* SMRMatrixCalculatorTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRMatrixCalculatorTests.h; sourceTree = "<group>"; };
 		8A4AA2B1222CC7550034929D /* SMRMatrixCalculatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRMatrixCalculatorTests.m; sourceTree = "<group>"; };
 		8A4AA2C2222D2EA40034929D /* SMRModelTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRModelTests.h; sourceTree = "<group>"; };
@@ -421,6 +424,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8A2DE2382232635000E9A07E /* SMRIndexView */ = {
+			isa = PBXGroup;
+			children = (
+				8A2DE2392232635000E9A07E /* SMRIndexView.m */,
+				8A2DE23A2232635000E9A07E /* SMRIndexView.h */,
+			);
+			path = SMRIndexView;
+			sourceTree = "<group>";
+		};
 		8A4AA2C1222D2E760034929D /* SMRModelTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -514,6 +526,7 @@
 				8A814CD921F5CC3600D8AEB6 /* SMRTableAssistant */,
 				8AE49562220289F40055263E /* SMRButtonCate */,
 				8A914ED4221B9B2900E2F691 /* SMRTextView */,
+				8A2DE2382232635000E9A07E /* SMRIndexView */,
 				8A814CB721F5C74000D8AEB6 /* SMRUIKitBundle.h */,
 				8A814CB821F5C74000D8AEB6 /* SMRUIKitBundle.m */,
 				8A814CBC21F5C77400D8AEB6 /* SMRUIKitBundle.bundle */,
@@ -1405,6 +1418,7 @@
 				8A72B23222254A9300EDE6EF /* SMRUtils+YYText.m in Sources */,
 				8A914EDE221BA89500E2F691 /* SMRTextViewTests.m in Sources */,
 				8A814CD221F5CA6900D8AEB6 /* SMRNavigationItem.m in Sources */,
+				8A2DE23B2232635000E9A07E /* SMRIndexView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
