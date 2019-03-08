@@ -114,13 +114,13 @@ static NSString *_cookie = nil;
 
 static NSString *_session = nil;
 + (NSString *)getSession {
-    if ([self isNullOrEmptyString:_session]) {
+    if (![self isNullOrEmptyString:_session]) {
         return _session;
     }
     else {
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
         NSString *str = [ud objectForKey:@"session"];
-        if ([self isNullOrEmptyString:str]) {
+        if (![self isNullOrEmptyString:str]) {
             _session = str;
             return _session;
         } else {
