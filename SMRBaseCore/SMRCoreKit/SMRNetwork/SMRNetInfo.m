@@ -19,8 +19,8 @@
         NSLog(@"请求失败或收接到非 NSHTTPURLResponse 对象,无法同步NetInfo.");
         return;
     }
-    NSString *cookieString = response.allHeaderFields[@"Date"];
-    NSString *rfcDateString = response.allHeaderFields[@"Set-Cookie"];
+    NSString *rfcDateString = response.allHeaderFields[@"Date"];
+    NSString *cookieString = response.allHeaderFields[@"Set-Cookie"];
     
     if(rfcDateString) {
         NSDate *serverDate = [SMRNetInfo dateFromRFC1123:rfcDateString];
