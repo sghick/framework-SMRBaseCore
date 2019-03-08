@@ -85,7 +85,7 @@
         // 同步时间和Cookie
         [SMRNetInfo syncNetInfoWithResponse:(NSHTTPURLResponse *)task.response];
         // 保存网络请求失败的结果
-        [api fillResponse:nil error:error];
+        [api fillResponse:response error:error];
         // 重试
         BOOL willRetry = NO;
         if ([self.retryDelegate respondsToSelector:@selector(willRetryWithError:api:)]) {
