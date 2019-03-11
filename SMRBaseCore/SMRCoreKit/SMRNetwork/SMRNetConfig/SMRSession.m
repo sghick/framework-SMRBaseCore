@@ -22,6 +22,7 @@
     _config = config;
     
     self.requestSerializer = [AFJSONRequestSerializer serializer];
+    self.requestSerializer.HTTPMethodsEncodingParametersInURI = [self.config HTTPMethodsEncodingParametersInURI];
     self.responseSerializer = [AFJSONResponseSerializer serializer];
     self.responseSerializer.acceptableContentTypes = [config setForAcceptableContentTypes];
     self.responseSerializer.acceptableStatusCodes = [config setForAcceptableStatusCodes];

@@ -14,6 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol SMRRequestDelegate <NSObject>
 
 /**
+ 默认`GET`, `HEAD`, and `DELETE`使用URL参数类型,其余使用DataParam参数类型
+ */
+- (NSSet *)HTTPMethodsEncodingParametersInURI;
+
+/**
  可以在这里设置请求头
  */
 - (void)configRequestBeforeDataTask:(NSMutableURLRequest *)request api:(SMRNetAPI *)api;

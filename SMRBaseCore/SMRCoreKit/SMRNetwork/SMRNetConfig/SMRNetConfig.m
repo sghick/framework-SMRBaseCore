@@ -24,6 +24,10 @@
 
 #pragma mark - SMRRequestDelegate
 
+- (NSSet *)HTTPMethodsEncodingParametersInURI {
+    return [NSSet setWithObjects:@"GET", @"HEAD", @"DELETE", nil];
+}
+
 - (void)configRequestBeforeDataTask:(NSMutableURLRequest *)request api:(SMRNetAPI *)api {
     
 }
