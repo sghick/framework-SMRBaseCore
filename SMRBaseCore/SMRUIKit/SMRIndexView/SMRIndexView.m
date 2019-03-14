@@ -1,9 +1,9 @@
 //
 //  SMRIndexView.m
-//  Hermes
+//  SMRBaseCoreDemo
 //
 //  Created by 丁治文 on 2019/3/8.
-//  Copyright © 2019 ibaodashi. All rights reserved.
+//  Copyright © 2019 sumrise. All rights reserved.
 //
 
 #import "SMRIndexView.h"

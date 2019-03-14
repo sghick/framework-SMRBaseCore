@@ -16,6 +16,9 @@
 }
 
 + (instancetype)smr_instanceWithDictionary:(NSDictionary *)dict key:(NSString *)key {
+    if ([dict isKindOfClass:[NSArray class]]) {
+        return nil;
+    }
     NSDictionary *realDict = key ? dict[key] : dict;
     return [self yy_modelWithDictionary:realDict];
 }
@@ -25,6 +28,9 @@
 }
 
 + (NSArray *)smr_arrayWithDictionary:(NSDictionary *)dict key:(NSString *)key {
+    if ([dict isKindOfClass:[NSArray class]]) {
+        return [self smr_arrayWithArray:(NSArray *)dict];
+    }
     NSArray *realArray = key ? dict[key] : nil;
     return [NSArray yy_modelArrayWithClass:[self class] json:realArray];
 }

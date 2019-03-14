@@ -18,7 +18,7 @@ typedef void(^SMRYYTextRangeBlock)(NSString *string, NSString *text, NSRange ran
 @implementation SMRYYLabelTests
 
 - (id)begin {
-    NSArray<NSString *> *tags = @[@"Louis Vuitton", @"Hermès", @"Chanel", @"Dior", @"Bottega Veneta", @"Bvlgari", @"Chloé", @"Gucci"];
+    NSArray<NSString *> *tags = @[@"Louis Vuitton", @"Hermès", @"Chanel", @"Dior", @"Bottega Veneta", @"Bvlgari", @"Chloé", @"SMRBaseCoreDemo"];
     NSMutableAttributedString *text = [SMRUtils yy_attributedStringWithTags:tags
                                                                    textFont:[UIFont systemFontOfSize:12]
                                                                   textColor:[UIColor blackColor]
