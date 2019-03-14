@@ -33,6 +33,7 @@
 #import "NSError+SMRError.h"
 #import "SMRRanker.h"
 #import "SMRLayout.h"
+#import "SMRCache.h"
 
 /// SMRUIKit
 #import "SMRViewController.h"
