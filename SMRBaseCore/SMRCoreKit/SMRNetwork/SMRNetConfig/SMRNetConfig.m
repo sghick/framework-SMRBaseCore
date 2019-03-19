@@ -105,4 +105,14 @@
     return YES;
 }
 
+#pragma mark - SMRNetworkReachabilityDelegate
+
+- (BOOL)enableNetworkReachability {
+    return YES;
+}
+
+- (void)didChangedNetworkWithWithStatus:(SMRNetworkReachabilityStatus)status {
+    
+}
+
 @end

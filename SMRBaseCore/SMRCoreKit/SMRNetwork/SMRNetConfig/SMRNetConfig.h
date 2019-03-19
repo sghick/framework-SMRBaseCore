@@ -89,13 +89,31 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+typedef NS_ENUM(NSInteger, SMRNetworkReachabilityStatus) {
+    SMRNetworkReachabilityStatusUnknown          = -1,
+    SMRNetworkReachabilityStatusNotReachable     = 0,
+    SMRNetworkReachabilityStatusReachableViaWWAN = 1,
+    SMRNetworkReachabilityStatusReachableViaWiFi = 2,
+};
+
+@protocol SMRNetworkReachabilityDelegate <NSObject>
+
+/** 监听网络变化的开头,默认开:YES */
+- (BOOL)enableNetworkReachability;
+
+/** 网络状态变化时的回调 */
+- (void)didChangedNetworkWithWithStatus:(SMRNetworkReachabilityStatus)status;
+
+@end
+
 @class SMRNetAPI;
 @interface SMRNetConfig : NSObject<
 SMRRequestDelegate,
 SMRResponseDelegate,
 SMRAPIRetryDelegate,
 SMRAPIInitDelegate,
-SMRNetIndicatorDelegate>
+SMRNetIndicatorDelegate,
+SMRNetworkReachabilityDelegate>
 
 @property (assign, nonatomic) BOOL debugLog;                ///< 设置日志开关,默认NO
 @property (copy  , nonatomic) NSString *infoGroupID;        ///< 设置NetInfo存放的UD的groupID,默认为nil,使用默认UD

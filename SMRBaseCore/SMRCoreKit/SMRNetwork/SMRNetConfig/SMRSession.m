@@ -21,6 +21,14 @@
 - (void)configration:(SMRNetConfig *)config {
     _config = config;
     
+    if ([self.config enableNetworkReachability]) {
+        [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            SMRNetworkReachabilityStatus st = (SMRNetworkReachabilityStatus)status;
+            [self.config didChangedNetworkWithWithStatus:st];
+        }];
+        [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    }
+    
     self.requestSerializer = [AFJSONRequestSerializer serializer];
     self.requestSerializer.HTTPMethodsEncodingParametersInURI = [self.config HTTPMethodsEncodingParametersInURI];
     self.responseSerializer = [AFJSONResponseSerializer serializer];

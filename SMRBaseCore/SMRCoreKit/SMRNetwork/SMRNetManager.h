@@ -14,6 +14,9 @@
 @interface SMRNetManager : NSObject
 
 @property (assign, nonatomic, readonly) BOOL suspended;         ///< 挂起状态
+@property (assign, nonatomic, readonly) BOOL reachable;         ///< 网络是否可用
+@property (assign, nonatomic, readonly) BOOL reachableViaWWAN;  ///< WWAN网络(无线广域网)是否可用
+@property (assign, nonatomic, readonly) BOOL reachableViaWiFi;  ///< WiFi网络是否可用
 
 + (instancetype)sharedManager;
 - (void)startWithConfig:(SMRNetConfig *)config;

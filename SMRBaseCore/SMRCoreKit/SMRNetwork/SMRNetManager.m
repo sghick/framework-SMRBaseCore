@@ -164,6 +164,18 @@ SMRSessionAPIInitDelegate>
 
 #pragma mark - Getters
 
+- (BOOL)reachable {
+    return [AFNetworkReachabilityManager sharedManager].isReachable;
+}
+
+- (BOOL)reachableViaWWAN {
+    return [AFNetworkReachabilityManager sharedManager].isReachableViaWWAN;
+}
+
+- (BOOL)reachableViaWiFi {
+    return [AFNetworkReachabilityManager sharedManager].isReachableViaWiFi;
+}
+
 - (SMRNetAPIQueue *)netAPIQueue {
     if (!_netAPIQueue) {
         _netAPIQueue = [[SMRNetAPIQueue alloc] init];
