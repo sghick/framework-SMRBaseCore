@@ -8,6 +8,7 @@
 
 #import "SMRSliderBarContentView.h"
 #import "SMRMatrixCalculator.h"
+#import "SMRAdapter.h"
 #import "PureLayout.h"
 
 @interface SMRSliderBarContentView ()<
@@ -15,6 +16,8 @@ UIScrollViewDelegate>
 
 @property (assign, nonatomic) BOOL didLoadLayout;
 @property (assign, nonatomic) BOOL markNeedsAddSubviews;
+
+@property (strong, nonatomic) NSMutableArray<UIView *> *contentSubviews;
 
 @end
 
@@ -30,6 +33,7 @@ UIScrollViewDelegate>
 }
 
 - (void)createSubviews {
+    self.backgroundColor = [UIColor groupTableViewBackgroundColor];
     [self addSubview:self.scrollView];
     [self setNeedsUpdateConstraints];
 }
@@ -38,6 +42,9 @@ UIScrollViewDelegate>
     [super layoutSubviews];
     if (self.markNeedsAddSubviews) {
         self.markNeedsAddSubviews = NO;
+        for (UIView *view in self.contentSubviews) {
+            [view removeFromSuperview];
+        }
         [self addSubviewsForContent];
     }
 }
@@ -62,8 +69,12 @@ UIScrollViewDelegate>
     
     for (int i = 0; i < count; i++) {
         UIView *view = [self.delegate sliderBarContentView:self subviewForIndex:i];
+        if (!view) {
+            continue;
+        }
         view.frame = [calculator cellFrameWithIndex:i];
         [self.scrollView addSubview:view];
+        [self.contentSubviews addObject:view];
     }
 }
 
@@ -73,6 +84,7 @@ UIScrollViewDelegate>
 
 - (void)reloadView {
     self.markNeedsAddSubviews = YES;
+    [self setNeedsLayout];
     [self setNeedsUpdateConstraints];
 }
 
@@ -94,6 +106,13 @@ UIScrollViewDelegate>
         _scrollView.showsHorizontalScrollIndicator = NO;
     }
     return _scrollView;
+}
+
+- (NSMutableArray<UIView *> *)contentSubviews {
+    if (!_contentSubviews) {
+        _contentSubviews = [NSMutableArray array];
+    }
+    return _contentSubviews;
 }
 
 @end
