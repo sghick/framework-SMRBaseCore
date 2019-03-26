@@ -28,18 +28,82 @@
         }];
         [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     }
-    
-    self.requestSerializer = [AFJSONRequestSerializer serializer];
-    self.requestSerializer.HTTPMethodsEncodingParametersInURI = [self.config HTTPMethodsEncodingParametersInURI];
-    self.responseSerializer = [AFJSONResponseSerializer serializer];
-    self.responseSerializer.acceptableContentTypes = [config setForAcceptableContentTypes];
-    self.responseSerializer.acceptableStatusCodes = [config setForAcceptableStatusCodes];
     // 允许非正式颁发机构证书
     self.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
     // 开启'菊花'监测网络
     [AFNetworkActivityIndicatorManager sharedManager].enabled = [self.config enableForStatuBarIndicator];
     
     [config configPrepare];
+}
+
+- (AFHTTPRequestSerializer<AFURLRequestSerialization> *)requestSerializerWithAPI:(SMRNetAPI *)api {
+    AFHTTPRequestSerializer<AFURLRequestSerialization> *serializer = [AFJSONRequestSerializer serializer];
+    switch (api.reqeustType) {
+        case SMRReqeustSerializerTypeJSON: {
+            serializer = [AFJSONRequestSerializer serializer];
+            
+            serializer.HTTPMethodsEncodingParametersInURI = [self.config HTTPMethodsEncodingParametersInURI];
+        }
+            break;
+        case SMRReqeustSerializerTypeHTTP: {
+            serializer = [AFHTTPRequestSerializer serializer];
+        }
+            break;
+        case SMRReqeustSerializerTypePropertyList: {
+            serializer = [AFPropertyListRequestSerializer serializer];
+        }
+            break;
+            
+        default:
+            break;
+    }
+    // 设置超时时间
+    serializer.timeoutInterval = api.timeoutInterval;
+    return serializer;
+}
+
+- (AFHTTPResponseSerializer<AFURLResponseSerialization> *)responseSerializerWithAPI:(SMRNetAPI *)api {
+    AFHTTPResponseSerializer<AFURLResponseSerialization> *serializer = [AFJSONResponseSerializer serializer];
+    switch (api.responseType) {
+        case SMRResponseSerializerTypeJSON: {
+            serializer = [AFJSONResponseSerializer serializer];
+            
+            serializer.acceptableContentTypes = [self.config setForAcceptableContentTypes];
+            serializer.acceptableStatusCodes = [self.config setForAcceptableStatusCodes];
+        }
+            break;
+        case SMRResponseSerializerTypeHTTP: {
+            serializer = [AFHTTPResponseSerializer serializer];
+        }
+            break;
+        case SMRResponseSerializerTypeXMLParser: {
+            serializer = [AFXMLParserResponseSerializer serializer];
+        }
+            break;
+#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
+        case SMRResponseSerializerTypeXMLDocument: {
+            serializer = [AFXMLParserResponseSerializer serializer];
+        }
+            break;
+#endif
+        case SMRResponseSerializerTypePropertyList: {
+            serializer = [AFPropertyListResponseSerializer serializer];
+        }
+            break;
+        case SMRResponseSerializerTypeImage: {
+            serializer = [AFImageResponseSerializer serializer];
+        }
+            break;
+            
+        case SMRResponseSerializerTypeCompound: {
+            serializer = [AFCompoundResponseSerializer serializer];
+        }
+            break;
+            
+        default:
+            break;
+    }
+    return serializer;
 }
 
 #pragma mark - SMRSessionDelegate
@@ -142,8 +206,7 @@
                                       failure:(void (^)(NSURLSessionDataTask *, NSError *))failure {
     
     AFHTTPSessionManager *manager = self;
-    // 设置超时时间
-    manager.requestSerializer.timeoutInterval = api.timeoutInterval;
+    manager.requestSerializer = [self requestSerializerWithAPI:api];
     // 创建request对象
     NSError *serializationError = nil;
     NSString *apiURLStr = [NSString stringWithFormat:@"%@%@", api.host?:@"", api.url?:@""];
@@ -183,8 +246,7 @@
                                                   success:(void (^)(NSURLSessionDataTask *, id))success
                                                   failure:(void (^)(NSURLSessionDataTask *, NSError *))failure {
     AFHTTPSessionManager *manager = self;
-    // 设置超时时间
-    manager.requestSerializer.timeoutInterval = api.timeoutInterval;
+    manager.requestSerializer = [self requestSerializerWithAPI:api];
     // 创建request对象
     NSError *serializationError = nil;
     NSString *apiURLStr = [NSString stringWithFormat:@"%@%@", api.host?:@"", api.url?:@""];

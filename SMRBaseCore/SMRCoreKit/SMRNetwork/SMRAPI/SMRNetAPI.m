@@ -143,6 +143,8 @@ SMRReqeustMethod const SMRReqeustMethodDELETE   = @"DELETE";
     api.cachePolicy = useCache?[SMRNetCachePolicy policyWithIdentifier:identifier cacheKey:url]:nil;
     api.timeoutInterval = 30;
     api.maxRetryTime = 0;
+    api.reqeustType = SMRReqeustSerializerTypeJSON;
+    api.responseType = SMRResponseSerializerTypeJSON;
     return api;
 }
 

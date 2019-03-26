@@ -8,6 +8,7 @@
 
 #import "SMRNavigationAccessoriesBar.h"
 #import "PureLayout.h"
+#import "SMRAdapter.h"
 
 static NSString * const kTagForLeftViews = @"kTagForLeftViews";
 static NSString * const kTagForRightViews = @"kTagForRightViews";
@@ -86,6 +87,8 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
         [self addSubviews:@[centerView] tag:kTagForCenterViews];
         [self addLayoutConstraints:^{
             [centerView autoCenterInSuperview];
+            [centerView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:[SMRUIAdapter value:45] relation:NSLayoutRelationGreaterThanOrEqual];
+            [centerView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:[SMRUIAdapter value:45] relation:NSLayoutRelationGreaterThanOrEqual];
         } tag:kTagForCenterViews];
     }
 }

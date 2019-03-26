@@ -21,6 +21,7 @@ static CGRect _panBounds;
 static CGFloat _panBounce;
 
 - (void)addTapGestureWithTarget:(id)target action:(SEL)action {
+    self.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:target action:action];
     [self addGestureRecognizer:tap];
 }
@@ -32,6 +33,7 @@ static CGFloat _panBounce;
 - (void)addPinchGestureWithinMinScale:(CGFloat)minScale maxScale:(CGFloat)maxScale {
     _minScale = MIN(minScale, maxScale);
     _maxScale = MAX(minScale, maxScale);
+    self.userInteractionEnabled = YES;
     UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchGesture:)];
     [self addGestureRecognizer:pinch];
 }
@@ -40,11 +42,13 @@ static CGFloat _panBounce;
     _panBounds = bounds;
     _panBounce = bounce;
     _allowDirection = direction;
+    self.userInteractionEnabled = YES;
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
     [self addGestureRecognizer:pan];
 }
 
 - (void)addRotationGesture {
+    self.userInteractionEnabled = YES;
     UIRotationGestureRecognizer *rotation = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotationGesture:)];
     [self addGestureRecognizer:rotation];
 }

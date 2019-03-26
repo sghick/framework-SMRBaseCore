@@ -10,6 +10,7 @@
 #import "SMRNavigationController.h"
 #import "SDImageCache.h"
 #import "SMRNetwork.h"
+#import "IQKeyboardManager.h"
 
 @interface SMRViewController ()
 
@@ -143,6 +144,16 @@
         _UMPageName = NSStringFromClass([self class]);
     }
     return _UMPageName;
+}
+
+#pragma mark - IQKeyBoard
+
+- (BOOL)IQKeyBoardEnable {
+    return YES;
+}
+
+- (CGFloat)keyboardDistanceFromTextField {
+    return 10;
 }
 
 @end

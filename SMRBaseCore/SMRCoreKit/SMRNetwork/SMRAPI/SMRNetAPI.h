@@ -94,6 +94,24 @@ extern SMRReqeustMethod const SMRReqeustMethodPUT;
 extern SMRReqeustMethod const SMRReqeustMethodPATCH;
 extern SMRReqeustMethod const SMRReqeustMethodDELETE;
 
+typedef NS_ENUM(NSInteger, SMRReqeustSerializerType) {
+    SMRReqeustSerializerTypeJSON = 0,
+    SMRReqeustSerializerTypeHTTP,
+    SMRReqeustSerializerTypePropertyList,
+};
+
+typedef NS_ENUM(NSInteger, SMRResponseSerializerType) {
+    SMRResponseSerializerTypeJSON = 0,
+    SMRResponseSerializerTypeHTTP,
+    SMRResponseSerializerTypeXMLParser,
+#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
+    SMRResponseSerializerTypeXMLDocument,
+#endif
+    SMRResponseSerializerTypePropertyList,
+    SMRResponseSerializerTypeImage,
+    SMRResponseSerializerTypeCompound,
+};
+
 /**
  普通API
  */
@@ -110,10 +128,12 @@ extern SMRReqeustMethod const SMRReqeustMethodDELETE;
 @property (assign, nonatomic) NSInteger maxRetryTime;           ///< API最大重试次数
 
 @property (strong, nonatomic) SMRAPICallback *callback;         ///< 各种回调的集合对象
+@property (assign, nonatomic) SMRReqeustSerializerType reqeustType;     ///< 请求格式,默认JSON
+@property (assign, nonatomic) SMRResponseSerializerType responseType;   ///< 返回格式,默认JSON
 
-@property (strong, nonatomic, readonly) NSURLSessionTask *dataTask;     /// API创建的任务,API发起后才能获取到值
+@property (strong, nonatomic, readonly) NSURLSessionTask *dataTask;     ///< API创建的任务,API发起后才能获取到值
 @property (strong, nonatomic, readonly) id response;                    ///< API请求成功后的返回结果
-@property (strong, nonatomic, readonly) NSError *error;             ///< API请求失败后的错误
+@property (strong, nonatomic, readonly) NSError *error;                 ///< API请求失败后的错误
 
 - (void)fillDataTask:(NSURLSessionTask *)dataTask;
 - (void)fillResponse:(id)response error:(NSError *)error;

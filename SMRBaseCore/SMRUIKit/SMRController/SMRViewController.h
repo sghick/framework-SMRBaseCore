@@ -41,6 +41,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSString *)UMPageName;
 
+/**
+ 是否开启智能键盘,默认开启:YES
+ */
+- (BOOL)IQKeyBoardEnable;
+
+/**
+ 键盘与textField的距离,默认:10
+ */
+- (CGFloat)keyboardDistanceFromTextField;
+
 @end
 
 NS_ASSUME_NONNULL_END
