@@ -8,6 +8,13 @@
 
 #import "SMRUtils+Validate.h"
 
+NSString * const SMRValidateFormatRealName = @"^[a-zA-Z\u4e00-\u9fa5 ]+$";
+NSString * const SMRValidateFormatAccount = @"^[a-zA-Z0-9]{1,20}+$";
+NSString * const SMRValidateFormatPassword = @"^[a-zA-Z0-9]{1,20}+$";
+NSString * const SMRValidateFormatPhoneNumber = @"^(1)\\d{10}$";
+NSString * const SMRValidateFormatNumber4 = @"^[0-9]{4}$";
+NSString * const SMRValidateFormatNumber6 = @"^[0-9]{6}$";
+
 @implementation SMRUtils (Validate)
 
 + (NSArray<NSString *> *)matchFirstGroupsInString:(NSString *)content regex:(NSString *)regex {
@@ -99,15 +106,6 @@
             isValid = NO;
         }
     }
-    return isValid;
-}
-
-+ (BOOL)validateName:(NSString *)string {
-    if (!string) {
-        return NO;
-    }
-    BOOL isValid = NO;
-    isValid = [self validateString:string regex:@"^[a-zA-Z\u4e00-\u9fa5 ]+$"];
     return isValid;
 }
 

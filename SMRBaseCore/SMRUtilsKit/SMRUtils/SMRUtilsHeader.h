@@ -20,5 +20,6 @@
 #import "SMRUtils+Animation.h"
 #import "SMRUtils+Version.h"
 #import "SMRUtils+MBProgressHUD.h"
+#import "SMRUtils+Jump.h"
 
 #endif /* SMRUtilsHeader_h */

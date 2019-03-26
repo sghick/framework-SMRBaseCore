@@ -106,6 +106,8 @@
 		8A914F0B221D1D5100E2F691 /* SMRUtilsVersionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A914F0A221D1D5100E2F691 /* SMRUtilsVersionTests.m */; };
 		8A914F19221D532000E2F691 /* NSError+SMRNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A914F18221D532000E2F691 /* NSError+SMRNetwork.m */; };
 		8A914F1D221E46D100E2F691 /* SMRAdapterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A914F1C221E46D100E2F691 /* SMRAdapterTests.m */; };
+		8AA8B45A224A3CA600778320 /* SMRUtils+Jump.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA8B458224A3CA600778320 /* SMRUtils+Jump.m */; };
+		8AA8B45D224A3D3200778320 /* SMRWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA8B45C224A3D3200778320 /* SMRWebController.m */; };
 		8AD9C6E5223A32830028A871 /* SMRGlobalCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9C6E4223A32820028A871 /* SMRGlobalCache.m */; };
 		8AD9C709223FC03E0028A871 /* SMRSliderBarContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9C708223FC03E0028A871 /* SMRSliderBarContentView.m */; };
 		8AE02F5422154FBD006235BB /* SMRAlertViewContentTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE02F5322154FBD006235BB /* SMRAlertViewContentTextCell.m */; };
@@ -358,6 +360,10 @@
 		8A914F18221D532000E2F691 /* NSError+SMRNetwork.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSError+SMRNetwork.m"; sourceTree = "<group>"; };
 		8A914F1B221E46D100E2F691 /* SMRAdapterTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRAdapterTests.h; sourceTree = "<group>"; };
 		8A914F1C221E46D100E2F691 /* SMRAdapterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRAdapterTests.m; sourceTree = "<group>"; };
+		8AA8B458224A3CA600778320 /* SMRUtils+Jump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SMRUtils+Jump.m"; sourceTree = "<group>"; };
+		8AA8B459224A3CA600778320 /* SMRUtils+Jump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SMRUtils+Jump.h"; sourceTree = "<group>"; };
+		8AA8B45B224A3D3200778320 /* SMRWebController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRWebController.h; sourceTree = "<group>"; };
+		8AA8B45C224A3D3200778320 /* SMRWebController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRWebController.m; sourceTree = "<group>"; };
 		8AD9C6E2223A32820028A871 /* SMRGlobalCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRGlobalCache.h; sourceTree = "<group>"; };
 		8AD9C6E3223A32820028A871 /* SMRCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRCache.h; sourceTree = "<group>"; };
 		8AD9C6E4223A32820028A871 /* SMRGlobalCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRGlobalCache.m; sourceTree = "<group>"; };
@@ -810,6 +816,8 @@
 				8A814CC321F5C8F600D8AEB6 /* SMRViewController.m */,
 				8A814CC521F5C94200D8AEB6 /* SMRNavFatherController.h */,
 				8A814CC621F5C94200D8AEB6 /* SMRNavFatherController.m */,
+				8AA8B45B224A3D3200778320 /* SMRWebController.h */,
+				8AA8B45C224A3D3200778320 /* SMRWebController.m */,
 			);
 			path = SMRController;
 			sourceTree = "<group>";
@@ -966,6 +974,8 @@
 				8A72B23122254A9300EDE6EF /* SMRUtils+YYText.m */,
 				8A4AA2D6222E1E590034929D /* SMRUtils+MBProgressHUD.h */,
 				8A4AA2D7222E1E590034929D /* SMRUtils+MBProgressHUD.m */,
+				8AA8B459224A3CA600778320 /* SMRUtils+Jump.h */,
+				8AA8B458224A3CA600778320 /* SMRUtils+Jump.m */,
 			);
 			path = SMRUtils;
 			sourceTree = "<group>";
@@ -1386,6 +1396,7 @@
 				8A814B8C21F5B9D100D8AEB6 /* SMRDBMapper.m in Sources */,
 				8A814B9B21F5B9DC00D8AEB6 /* SMRDBGroupOption.m in Sources */,
 				8A814D3321F80B8F00D8AEB6 /* SMRRankerAction.m in Sources */,
+				8AA8B45D224A3D3200778320 /* SMRWebController.m in Sources */,
 				8A814CC421F5C8F600D8AEB6 /* SMRViewController.m in Sources */,
 				8A814B9E21F5B9DC00D8AEB6 /* SMRDBInsertOption.m in Sources */,
 				8A814D3221F80B8F00D8AEB6 /* SMRRankerManager.m in Sources */,
@@ -1406,6 +1417,7 @@
 				8A814A5D21F5B7BE00D8AEB6 /* main.m in Sources */,
 				8A814B7821F5B9BF00D8AEB6 /* SMRDataBase.m in Sources */,
 				8A914DEB2215A96900E2F691 /* SMRUtils.m in Sources */,
+				8AA8B45A224A3CA600778320 /* SMRUtils+Jump.m in Sources */,
 				8AE4955D21FFEF090055263E /* SMRLayoutTestController.m in Sources */,
 				8A814D3121F80B8F00D8AEB6 /* SMRRankerLifecycleManager.m in Sources */,
 				8A4AA2B2222CC7550034929D /* SMRMatrixCalculatorTests.m in Sources */,
