@@ -25,6 +25,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) UIStatusBarStyle statusBarStyle;
 
 /**
+ 当页面加载完成后,自动移除栈中的页面,为下标索引,默认为nil
+ */
+@property (strong, nonatomic) NSIndexSet *indexSetForRemoveWhenViewDidLoad;
+
+/**
  发起网络请求
  */
 - (void)query:(SMRNetAPI *)api callback:(nullable SMRAPICallback *)callback;

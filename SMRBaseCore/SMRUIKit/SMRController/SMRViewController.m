@@ -54,6 +54,13 @@
     // backgroundColor
     self.view.backgroundColor = [UIColor whiteColor];
     self.view.multipleTouchEnabled = NO;
+    
+    if (self.indexSetForRemoveWhenViewDidLoad) {
+        NSMutableArray *stack = [self.navigationController.viewControllers mutableCopy];
+        // 从栈中移除选择分类的页面
+        [stack removeObjectsAtIndexes:self.indexSetForRemoveWhenViewDidLoad];
+        self.navigationController.viewControllers = [stack copy];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
