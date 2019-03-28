@@ -12,29 +12,29 @@
 
 @implementation UIView (SMRAdapter)
 
-- (UIView *)addSafeAreaViewWithColor:(UIColor *)color {
-    return [self addSafeAreaViewWithColor:color height:BOTTOM_HEIGHT];
+- (UIView *)setSafeAreaViewWithColor:(UIColor *)color {
+    return [self setSafeAreaViewWithColor:color height:BOTTOM_HEIGHT];
 }
 
-- (UIView *)addSafeAreaViewWithColor:(UIColor *)color fromBottomOfView:(UIView *)fromBottomOfView {
+- (UIView *)setSafeAreaViewWithColor:(UIColor *)color fromBottomOfView:(UIView *)fromBottomOfView {
     NSArray<NSLayoutConstraint *> *layouts = nil;
-    return [self addSafeAreaViewWithColor:color orFromBottomOfView:fromBottomOfView orHeight:0 layouts:&layouts];
+    return [self setSafeAreaViewWithColor:color orFromBottomOfView:fromBottomOfView orHeight:0 layouts:&layouts];
 }
 
-- (UIView *)addSafeAreaViewWithColor:(UIColor *)color fromBottomOfView:(UIView *)fromBottomOfView layouts:(NSArray<NSLayoutConstraint *> *__autoreleasing *)layouts {
-    return [self addSafeAreaViewWithColor:color orFromBottomOfView:fromBottomOfView orHeight:0 layouts:layouts];
+- (UIView *)setSafeAreaViewWithColor:(UIColor *)color fromBottomOfView:(UIView *)fromBottomOfView layouts:(NSArray<NSLayoutConstraint *> *__autoreleasing *)layouts {
+    return [self setSafeAreaViewWithColor:color orFromBottomOfView:fromBottomOfView orHeight:0 layouts:layouts];
 }
 
-- (UIView *)addSafeAreaViewWithColor:(UIColor *)color height:(CGFloat)height {
+- (UIView *)setSafeAreaViewWithColor:(UIColor *)color height:(CGFloat)height {
     NSArray<NSLayoutConstraint *> *layouts = nil;
-    return [self addSafeAreaViewWithColor:color orFromBottomOfView:nil orHeight:height layouts:&layouts];
+    return [self setSafeAreaViewWithColor:color orFromBottomOfView:nil orHeight:height layouts:&layouts];
 }
 
-- (UIView *)addSafeAreaViewWithColor:(UIColor *)color height:(CGFloat)height layouts:(NSArray<NSLayoutConstraint *> **)layouts {
-    return [self addSafeAreaViewWithColor:color orFromBottomOfView:nil orHeight:height layouts:layouts];
+- (UIView *)setSafeAreaViewWithColor:(UIColor *)color height:(CGFloat)height layouts:(NSArray<NSLayoutConstraint *> **)layouts {
+    return [self setSafeAreaViewWithColor:color orFromBottomOfView:nil orHeight:height layouts:layouts];
 }
 
-- (UIView *)addSafeAreaViewWithColor:(UIColor *)color
+- (UIView *)setSafeAreaViewWithColor:(UIColor *)color
                   orFromBottomOfView:(UIView *)orFromBottomOfView
                             orHeight:(CGFloat)orHeight
                              layouts:(NSArray<NSLayoutConstraint *> **)layouts {
