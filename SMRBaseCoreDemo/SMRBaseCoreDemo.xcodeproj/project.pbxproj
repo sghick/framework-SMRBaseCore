@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3474ABA988B303EAE936A32D /* Pods_SMRBaseCoreDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEB68DCCB6F5224C71F40E77 /* Pods_SMRBaseCoreDemo.framework */; };
 		8A2DE23B2232635000E9A07E /* SMRIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE2392232635000E9A07E /* SMRIndexView.m */; };
+		8A3AB8E7225F10FF00CDBB8F /* SMRAppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3AB8E5225F10FF00CDBB8F /* SMRAppInfo.m */; };
 		8A4239EF22432C37002DF711 /* UIView+SMRGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4239EE22432C36002DF711 /* UIView+SMRGesture.m */; };
 		8A4AA2B2222CC7550034929D /* SMRMatrixCalculatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4AA2B1222CC7550034929D /* SMRMatrixCalculatorTests.m */; };
 		8A4AA2C4222D2EA40034929D /* SMRModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4AA2C3222D2EA40034929D /* SMRModelTests.m */; };
@@ -154,6 +155,8 @@
 		265B7E2F72042FFDB9545E7F /* Pods-SMRBaseCoreDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMRBaseCoreDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo.release.xcconfig"; sourceTree = "<group>"; };
 		8A2DE2392232635000E9A07E /* SMRIndexView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRIndexView.m; sourceTree = "<group>"; };
 		8A2DE23A2232635000E9A07E /* SMRIndexView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRIndexView.h; sourceTree = "<group>"; };
+		8A3AB8E5225F10FF00CDBB8F /* SMRAppInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRAppInfo.m; sourceTree = "<group>"; };
+		8A3AB8E6225F10FF00CDBB8F /* SMRAppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRAppInfo.h; sourceTree = "<group>"; };
 		8A4239ED22432C36002DF711 /* UIView+SMRGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SMRGesture.h"; sourceTree = "<group>"; };
 		8A4239EE22432C36002DF711 /* UIView+SMRGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SMRGesture.m"; sourceTree = "<group>"; };
 		8A4AA2B0222CC7550034929D /* SMRMatrixCalculatorTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRMatrixCalculatorTests.h; sourceTree = "<group>"; };
@@ -449,6 +452,15 @@
 			path = SMRIndexView;
 			sourceTree = "<group>";
 		};
+		8A3AB8E4225F10FF00CDBB8F /* SMRAppInfo */ = {
+			isa = PBXGroup;
+			children = (
+				8A3AB8E6225F10FF00CDBB8F /* SMRAppInfo.h */,
+				8A3AB8E5225F10FF00CDBB8F /* SMRAppInfo.m */,
+			);
+			path = SMRAppInfo;
+			sourceTree = "<group>";
+		};
 		8A4239EC22432C36002DF711 /* SMRGestureView */ = {
 			isa = PBXGroup;
 			children = (
@@ -564,6 +576,7 @@
 		8A814A8121F5B80B00D8AEB6 /* SMRUtilsKit */ = {
 			isa = PBXGroup;
 			children = (
+				8A3AB8E4225F10FF00CDBB8F /* SMRAppInfo */,
 				8A914DE82215A95900E2F691 /* SMRUtils */,
 				8AE495A32204225C0055263E /* SMRMatrixCalculator */,
 				8A814CF321F5CCD800D8AEB6 /* SMRPhoneInfo */,
@@ -1450,6 +1463,7 @@
 				8A814CD521F5CA9800D8AEB6 /* SMRNavigationAccessoriesBar.m in Sources */,
 				8A814CB921F5C74000D8AEB6 /* SMRUIKitBundle.m in Sources */,
 				8A814B6921F5B9BF00D8AEB6 /* NSObject+SMRDB.m in Sources */,
+				8A3AB8E7225F10FF00CDBB8F /* SMRAppInfo.m in Sources */,
 				8AF6B4FD22141E7800A56E51 /* SMRContentMaskView.m in Sources */,
 				8A814D1321F6F37900D8AEB6 /* SMRTableViewTests.m in Sources */,
 				8AE4956F22028CC30055263E /* SMRTests.m in Sources */,

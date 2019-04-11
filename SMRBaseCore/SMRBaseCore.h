@@ -49,6 +49,7 @@
 /// SMRUtilsKit
 #import "SMRMatrixCalculator.h"
 #import "SMRPhoneInfo.h"
+#import "SMRAppInfo.h"
 #import "SMRKeyChainManager.h"
 #import "SMRUtilsHeader.h"
 
