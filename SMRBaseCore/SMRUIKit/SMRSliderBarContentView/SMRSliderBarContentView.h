@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSInteger)numbersOfCountForSliderBarContentView:(SMRSliderBarContentView *)contentView;
 - (UIView *)sliderBarContentView:(SMRSliderBarContentView *)contentView subviewForIndex:(NSInteger)index;
+- (void)sliderBarContentView:(SMRSliderBarContentView *)contentView didScrollToIndex:(NSInteger)index;
 
 @end
 
@@ -23,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, readonly) UIScrollView *scrollView;
 
 @property (weak  , nonatomic) id<SMRSliderBarContentViewDelegate> delegate;
+@property (assign, nonatomic, readonly) NSInteger index;
 
 - (void)reloadView;
 - (void)scrollViewToIndex:(NSInteger)index animated:(BOOL)animated;

@@ -17,6 +17,8 @@ UIScrollViewDelegate>
 @property (assign, nonatomic) BOOL didLoadLayout;
 @property (assign, nonatomic) BOOL markNeedsAddSubviews;
 
+@property (nonatomic, assign) NSInteger numbersOfCount;
+
 @property (strong, nonatomic) NSMutableArray<UIView *> *contentSubviews;
 
 @end
@@ -59,6 +61,7 @@ UIScrollViewDelegate>
 
 - (void)addSubviewsForContent {
     NSInteger count = [self.delegate numbersOfCountForSliderBarContentView:self];
+    _numbersOfCount = count;
     self.scrollView.contentSize = CGSizeMake(count*CGRectGetWidth(self.scrollView.bounds),
                                              CGRectGetHeight(self.scrollView.bounds));
     CGRect bounds = CGRectMake(0, 0, self.scrollView.contentSize.width, self.scrollView.contentSize.height);
@@ -79,6 +82,30 @@ UIScrollViewDelegate>
 }
 
 #pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self prepareMoveTrackerFollowScrollView:scrollView];
+}
+
+- (void)prepareMoveTrackerFollowScrollView:(UIScrollView *)scrollView {
+    // 当滑到边界时，继续通过scrollView的bouces效果滑动时，直接return
+    if (scrollView.contentOffset.x < 0 ||
+        (scrollView.contentOffset.x > scrollView.contentSize.width - scrollView.bounds.size.width)) {
+        return;
+    }
+    // 当前偏移量
+    CGFloat currentOffSetX = scrollView.contentOffset.x;
+    CGFloat progress = currentOffSetX/scrollView.bounds.size.width;
+    NSInteger pIndex = (NSInteger)progress;
+    if (progress == pIndex) {
+        if (_index != pIndex) {
+            _index = pIndex;
+            if ([self.delegate respondsToSelector:@selector(sliderBarContentView:didScrollToIndex:)]) {
+                [self.delegate sliderBarContentView:self didScrollToIndex:self.index];
+            }
+        }
+    }
+}
 
 #pragma mark - Utils
 
