@@ -19,7 +19,8 @@ typedef void(^SMRNetAPIDownloadProgressBlock)(SMRNetAPI *api, NSProgress *downlo
 
 @interface SMRAPICallback : NSObject
 
-@property (assign, nonatomic) NSInteger retryCount;     ///< API重试次数记录
+@property (assign, nonatomic) NSTimeInterval groupTagForDedounce;   ///< 防止抖动的tag
+@property (assign, nonatomic) NSInteger retryCount;                 ///< API重试次数记录
 
 @property (copy  , nonatomic) SMRConstructingUploadBlock constructingBlock;
 @property (copy  , nonatomic) SMRNetAPICacheBlock cacheBlock;

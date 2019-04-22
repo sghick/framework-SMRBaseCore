@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class SMRNetAPI;
 @protocol SMRSessionAPIInitDelegate <NSObject>
 
-/// 是否需要初始化API
+/// 是否需要重试
 - (BOOL)willQueryInitAPIWithError:(NSError *)error api:(SMRNetAPI *)api;
 
 @end
@@ -29,17 +29,19 @@ NS_ASSUME_NONNULL_BEGIN
 @class SMRNetAPI;
 @protocol SMRSessionProtocol <NSObject>
 
-/** api.callback.cacheBlock will be called while create datatask */
+/** api.callback.cacheBlock will called while create datatask */
 - (NSURLSessionDataTask *)smr_dataTaskWithAPI:(SMRNetAPI *)api;
 
 @end
 
 @class SMRNetCache;
 @class SMRNetConfig;
+@class SMRNetDedouncer<SMRNetAPI>;
 @interface SMRSession : AFHTTPSessionManager<SMRSessionProtocol>
 
 @property (strong, nonatomic, readonly) SMRNetCache *netCache;
 @property (strong, nonatomic, readonly) SMRNetConfig *config;
+@property (strong, nonatomic, readonly) SMRNetDedouncer<SMRNetAPI *> *dedouncer;
 @property (weak  , nonatomic) id<SMRSessionRetryDelegate> retryDelegate;
 @property (weak  , nonatomic) id<SMRSessionAPIInitDelegate> initDelegate;
 

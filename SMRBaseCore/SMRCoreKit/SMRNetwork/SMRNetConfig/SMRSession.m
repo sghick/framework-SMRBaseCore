@@ -13,10 +13,18 @@
 #import "NSError+SMRNetwork.h"
 #import "SMRNetCache.h"
 #import "SMRNetInfo.h"
+#import "SMRNetDedouncer.h"
+
+@interface SMRSession ()
+
+@property (strong, nonatomic) NSLock *lock;
+
+@end
 
 @implementation SMRSession
 @synthesize netCache = _netCache;
 @synthesize config = _config;
+@synthesize dedouncer = _dedouncer;
 
 - (void)configration:(SMRNetConfig *)config {
     _config = config;
@@ -28,82 +36,17 @@
         }];
         [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     }
+    self.requestSerializer = [AFJSONRequestSerializer serializer];
+    self.requestSerializer.HTTPMethodsEncodingParametersInURI = [self.config HTTPMethodsEncodingParametersInURI];
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
+    self.responseSerializer.acceptableContentTypes = [config setForAcceptableContentTypes];
+    self.responseSerializer.acceptableStatusCodes = [config setForAcceptableStatusCodes];
     // 允许非正式颁发机构证书
     self.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
     // 开启'菊花'监测网络
     [AFNetworkActivityIndicatorManager sharedManager].enabled = [self.config enableForStatuBarIndicator];
     
     [config configPrepare];
-}
-
-- (AFHTTPRequestSerializer<AFURLRequestSerialization> *)requestSerializerWithAPI:(SMRNetAPI *)api {
-    AFHTTPRequestSerializer<AFURLRequestSerialization> *serializer = [AFJSONRequestSerializer serializer];
-    switch (api.reqeustType) {
-        case SMRReqeustSerializerTypeJSON: {
-            serializer = [AFJSONRequestSerializer serializer];
-            
-            serializer.HTTPMethodsEncodingParametersInURI = [self.config HTTPMethodsEncodingParametersInURI];
-        }
-            break;
-        case SMRReqeustSerializerTypeHTTP: {
-            serializer = [AFHTTPRequestSerializer serializer];
-        }
-            break;
-        case SMRReqeustSerializerTypePropertyList: {
-            serializer = [AFPropertyListRequestSerializer serializer];
-        }
-            break;
-            
-        default:
-            break;
-    }
-    // 设置超时时间
-    serializer.timeoutInterval = api.timeoutInterval;
-    return serializer;
-}
-
-- (AFHTTPResponseSerializer<AFURLResponseSerialization> *)responseSerializerWithAPI:(SMRNetAPI *)api {
-    AFHTTPResponseSerializer<AFURLResponseSerialization> *serializer = [AFJSONResponseSerializer serializer];
-    switch (api.responseType) {
-        case SMRResponseSerializerTypeJSON: {
-            serializer = [AFJSONResponseSerializer serializer];
-            
-            serializer.acceptableContentTypes = [self.config setForAcceptableContentTypes];
-            serializer.acceptableStatusCodes = [self.config setForAcceptableStatusCodes];
-        }
-            break;
-        case SMRResponseSerializerTypeHTTP: {
-            serializer = [AFHTTPResponseSerializer serializer];
-        }
-            break;
-        case SMRResponseSerializerTypeXMLParser: {
-            serializer = [AFXMLParserResponseSerializer serializer];
-        }
-            break;
-#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
-        case SMRResponseSerializerTypeXMLDocument: {
-            serializer = [AFXMLParserResponseSerializer serializer];
-        }
-            break;
-#endif
-        case SMRResponseSerializerTypePropertyList: {
-            serializer = [AFPropertyListResponseSerializer serializer];
-        }
-            break;
-        case SMRResponseSerializerTypeImage: {
-            serializer = [AFImageResponseSerializer serializer];
-        }
-            break;
-            
-        case SMRResponseSerializerTypeCompound: {
-            serializer = [AFCompoundResponseSerializer serializer];
-        }
-            break;
-            
-        default:
-            break;
-    }
-    return serializer;
 }
 
 #pragma mark - SMRSessionDelegate
@@ -133,9 +76,6 @@
             callback.downloadProgress(api, downloadProgress);
         }
     } success:^(NSURLSessionDataTask *task, id responseObject) {
-        if (self.config.debugLog) {
-            NSLog(@"API请求成功:%@,\n%@", api, responseObject);
-        }
         // 设置请求结束的标志
         didServiceResponse = YES;
         // 同步时间和Cookie
@@ -150,9 +90,24 @@
         if (callback.successBlock) {
             callback.successBlock(api, responseObject);
         }
+        // 处理防抖结果
+        NSArray<SMRNetAPI *> *dedouncedAPIs = [self.dedouncer objectForDedouncedWithIdentifier:api.identifier
+                                                                                      groupTag:api.callback.groupTagForDedounce];
+        for (SMRNetAPI *api in dedouncedAPIs) {
+            // 保存网络请求成功的结果
+            [api fillResponse:responseObject error:nil];
+            // 请求成功的回调
+            if (callback.successBlock) {
+                callback.successBlock(api, responseObject);
+            }
+        }
+        [self.dedouncer removeObjectForDedouncedWithIdentifier:api.identifier
+                                                      groupTag:api.callback.groupTagForDedounce];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         id response = [self.config responseObjectWithError:error];
-        NSLog(@"API请求错误:%@,\n\tresponse=%@,\n%@", api, response, error);
+        if (self.config.debugLog) {
+            NSLog(@"API请求错误:%@,\n\tresponse=%@,\n%@", api, response, error);
+        }
         // 设置请求结束的标志
         didServiceResponse = YES;
         // 同步时间和Cookie
@@ -173,6 +128,20 @@
         BOOL shouldCallback = (!willRetry && !willQueryInitAPI);
         if (shouldCallback && callback.faildBlock) {
             callback.faildBlock(api, response, error);
+            
+            // 处理防抖结果
+            NSArray<SMRNetAPI *> *dedouncedAPIs = [self.dedouncer objectForDedouncedWithIdentifier:api.identifier
+                                                                                          groupTag:api.callback.groupTagForDedounce];
+            for (SMRNetAPI *api in dedouncedAPIs) {
+                // 保存网络请求失败的结果
+                [api fillResponse:response error:error];
+                // 请求成功的回调
+                if (callback.successBlock) {
+                    callback.faildBlock(api, response, error);
+                }
+            }
+            [self.dedouncer removeObjectForDedouncedWithIdentifier:api.identifier
+                                                          groupTag:api.callback.groupTagForDedounce];
         }
     }];
     // 保存task
@@ -206,7 +175,8 @@
                                       failure:(void (^)(NSURLSessionDataTask *, NSError *))failure {
     
     AFHTTPSessionManager *manager = self;
-    manager.requestSerializer = [self requestSerializerWithAPI:api];
+    // 设置超时时间
+    manager.requestSerializer.timeoutInterval = api.timeoutInterval;
     // 创建request对象
     NSError *serializationError = nil;
     NSString *apiURLStr = [NSString stringWithFormat:@"%@%@", api.host?:@"", api.url?:@""];
@@ -246,7 +216,8 @@
                                                   success:(void (^)(NSURLSessionDataTask *, id))success
                                                   failure:(void (^)(NSURLSessionDataTask *, NSError *))failure {
     AFHTTPSessionManager *manager = self;
-    manager.requestSerializer = [self requestSerializerWithAPI:api];
+    // 设置超时时间
+    manager.requestSerializer.timeoutInterval = api.timeoutInterval;
     // 创建request对象
     NSError *serializationError = nil;
     NSString *apiURLStr = [NSString stringWithFormat:@"%@%@", api.host?:@"", api.url?:@""];
@@ -351,19 +322,39 @@
 
 #pragma mark - Getters
 
+- (NSLock *)lock {
+    if (!_lock) {
+        _lock = [[NSLock alloc] init];
+    }
+    return _lock;
+}
+
 - (SMRNetCache *)netCache {
+    [self.lock lock];
     if (!_netCache) {
         _netCache = [[SMRNetCache alloc] init];
     }
+    [self.lock unlock];
     return _netCache;
 }
 
 - (SMRNetConfig *)config {
+    [self.lock lock];
     if (!_config) {
         _config = [[SMRNetConfig alloc] init];
         [_config configPrepare];
     }
+    [self.lock unlock];
     return _config;
+}
+
+- (SMRNetDedouncer<SMRNetAPI *> *)dedouncer {
+    [self.lock lock];
+    if (!_dedouncer) {
+        _dedouncer = [[SMRNetDedouncer alloc] init];
+    }
+    [self.lock unlock];
+    return _dedouncer;
 }
 
 @end

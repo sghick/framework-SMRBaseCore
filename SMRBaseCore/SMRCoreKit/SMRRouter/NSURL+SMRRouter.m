@@ -11,7 +11,7 @@
 @implementation NSURL (SMRRouter)
 
 + (NSURL *)smr_URLWithString:(NSString *)string {
-    NSURL *url = [NSURL URLWithString:[self smr_encodeURLQueryStringWithString:string]];
+    NSURL *url = [NSURL URLWithString:[string stringByReplacingOccurrencesOfString:@" " withString:@""]];
     return url;
 }
 
@@ -51,18 +51,66 @@
 
 - (NSDictionary *)smr_parseredParams {
     NSString *urlQuery = self.query;
-    NSMutableDictionary *queryStringDictionary = [NSMutableDictionary dictionary];
-    NSArray *urlComponents = [urlQuery componentsSeparatedByString:@"&"];
-    for (NSString *keyValuePair in urlComponents) {
-        NSArray *pairComponents = [keyValuePair componentsSeparatedByString:@"="];
-        if (pairComponents.count >= 2) {
-            NSString *key = [pairComponents objectAtIndex:0];
-            NSString *value = [NSURL smr_decodeURLStringWithString:[pairComponents objectAtIndex:1]];
-            [queryStringDictionary setObject:value forKey:key];
+    if (urlQuery.length == 0) return nil;
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    if ([urlQuery containsString:@"&"]) {
+        NSArray *urlComponents = [urlQuery componentsSeparatedByString:@"&"];
+        
+        for (NSString *keyValuePair in urlComponents) {
+            NSArray *pairComponents = [keyValuePair componentsSeparatedByString:@"="];
+            NSString *key = [pairComponents.firstObject stringByRemovingPercentEncoding];
+            NSString *value = [pairComponents.lastObject stringByRemovingPercentEncoding];
+            
+            if (key == nil || value == nil) {
+                continue;
+            }
+            
+            id existValue = [parameters valueForKey:key];
+            if (existValue != nil) {
+                if ([existValue isKindOfClass:[NSArray class]]) {
+                    NSMutableArray *items = [NSMutableArray arrayWithArray:existValue];
+                    [items addObject:value];
+                    [parameters setValue:items forKey:key];
+                } else {
+                    [parameters setValue:@[existValue, value] forKey:key];
+                }
+            } else {
+                [parameters setValue:value forKey:key];
+            }
         }
+    } else {
+        NSArray *pairComponents = [urlQuery componentsSeparatedByString:@"="];
+        if (pairComponents.count == 1) {
+            return nil;
+        }
+        
+        NSString *key = [pairComponents.firstObject stringByRemovingPercentEncoding];
+        NSString *value = [pairComponents.lastObject stringByRemovingPercentEncoding];
+        
+        if (key == nil || value == nil) {
+            return nil;
+        }
+        [parameters setValue:value forKey:key];
     }
-    NSDictionary *params = [NSDictionary dictionaryWithDictionary:queryStringDictionary];
-    return params;
+    
+    return [parameters copy];
+}
+
++ (NSArray *)smr_buildArrayTypeWithParam:(id)param {
+    id rtn = param;
+    if (param && ![param isKindOfClass:[NSArray class]]) {
+        rtn = @[param];
+    }
+    return rtn;
+}
+
++ (id)smr_buildInstanceTypeWithParam:(id)param {
+    id rtn = param;
+    if (param && [param isKindOfClass:[NSArray class]]) {
+        rtn = ((NSArray *)param).lastObject;
+    }
+    return rtn;
 }
 
 @end

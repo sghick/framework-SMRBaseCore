@@ -10,7 +10,7 @@
 
 @interface NSURL (SMRRouter)
 
-/// 通过字符串创建一个正确格式的URL,自动去除空格,query部分自动encode
+/// 通过字符串创建一个正确格式的URL,自动去除空格
 + (NSURL *)smr_URLWithString:(NSString *)string;
 /// query部分encode
 + (NSString *)smr_encodeURLQueryStringWithString:(NSString *)string;
@@ -23,5 +23,10 @@
 - (NSURL *)smr_URLByAppendParam:(NSString *)param value:(NSString *)value;
 /// 获取url参数
 - (NSDictionary *)smr_parseredParams;
+
+/// 获取一个数据类型的参数
++ (NSArray *)smr_buildArrayTypeWithParam:(id)param;
+/// 获取一个 数字或者字符串 类型的参数
++ (id)smr_buildInstanceTypeWithParam:(id)param;
 
 @end

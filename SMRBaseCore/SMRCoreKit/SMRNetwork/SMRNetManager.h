@@ -22,16 +22,6 @@
 - (void)startWithConfig:(SMRNetConfig *)config;
 - (SMRNetConfig *)config;
 
-/**
- 挂起API,并将未完成的API入队,之后发起的都会进入队列中
- */
-- (void)suspendAllTask;
-
-/**
- 继续队列中的任务,并发的
- */
-- (void)resumeAllTask;
-
 #pragma mark - Query
 
 /** API请求 */

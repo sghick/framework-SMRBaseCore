@@ -11,14 +11,20 @@
 #import "SMRNetAPI.h"
 #import "SMRNetAPIQueue.h"
 #import "SMRSession.h"
+#import "SMRNetDedouncer.h"
 #import "NSError+SMRNetwork.h"
 
 @interface SMRNetManager ()<
 SMRSessionRetryDelegate,
 SMRSessionAPIInitDelegate>
 
+@property (strong, nonatomic) NSLock *lock;
 @property (strong, nonatomic) SMRNetAPIQueue *netAPIQueue;
 @property (strong, nonatomic) SMRSession *session;
+
+// API防抖处理
+@property (strong, nonatomic) NSMutableArray *dedounceIdentifier; ///< 存放'同时间内'的API标识
+@property (strong, nonatomic) NSMutableDictionary<NSString *, NSMutableArray<SMRNetAPI *> *> *dedounceList; ///< 某API标识中所有的api
 
 @end
 
@@ -29,23 +35,26 @@ SMRSessionAPIInitDelegate>
     static dispatch_once_t _sharedNetManagerOnceToken;
     dispatch_once(&_sharedNetManagerOnceToken, ^{
         _sharedNetManager = [[SMRNetManager alloc] init];
+        _sharedNetManager.lock = [[NSLock alloc] init];
     });
     return _sharedNetManager;
 }
 
 - (void)startWithConfig:(SMRNetConfig *)config {
     [self.session configration:config];
+    self.session.dedouncer.invalidateDuration = config.invalidateDuration;
 }
 
-- (void)suspendAllTask {
+- (void)p_suspendAllTask {
     _suspended = YES;
 }
 
-- (void)resumeAllTask {
+- (void)p_resumeAllTask {
     _suspended = NO;
     SMRNetAPI *api = [self.netAPIQueue dequeue];
     while (api) {
-        [self p_query:api callback:api.callback];
+        api.callback.retryCount++;
+        [self p_queryOnlyAPI:api];
         api = [self.netAPIQueue dequeue];
     }
 }
@@ -74,6 +83,18 @@ SMRSessionAPIInitDelegate>
 - (void)p_query:(SMRNetAPI *)api callback:(SMRAPICallback *)callback {
     // 设置callback
     api.callback = callback;
+    
+    NSTimeInterval timerIntervalForDedounce = [self.config timerIntervalForDedounce];
+    NSInteger maxCount = [self.config maxCountForDedounce];
+    [self.dedouncer dedounce:api identifier:api.identifier withinTime:timerIntervalForDedounce maxCount:maxCount resultBlock:^(SMRNetDedouncer *dedouncer, NSTimeInterval groupTag, SMRNetAPI *obj) {
+        // 设置防止抖动的tag
+        api.callback.groupTagForDedounce = groupTag;
+        [self p_queryOnlyAPI:api];
+    }];
+}
+
+- (void)p_queryOnlyAPI:(SMRNetAPI *)api {
+    NSLog(@"发起API:%@", api.identifier);
     // 创建task
     NSURLSessionTask *task = [self.session smr_dataTaskWithAPI:api];
     // 发起请求
@@ -93,7 +114,7 @@ SMRSessionAPIInitDelegate>
     BOOL shouldRetry = (canRetry && (callback.retryCount < api.maxRetryTime));
     if (shouldRetry) {
         callback.retryCount++;
-        [self p_query:api callback:callback];
+        [self p_queryOnlyAPI:api];
     }
     return shouldRetry;
 }
@@ -112,13 +133,11 @@ SMRSessionAPIInitDelegate>
         // 保证API请求过程中不会被重复请求初始化API
         if (!self.suspended) {
             SMRAPICallback *callback = [SMRAPICallback callbackWithConstructingBlock:nil cacheBlock:nil successBlock:^(SMRNetAPI *api, id response) {
+                // 向config发送api初始化成功的消息
                 BOOL successed = [self.config apiInitSuccessed:api response:response];
                 if (successed) {
-                    
-                    // 向config发送api初始化成功的消息
-                    [self.config apiInitSuccessed:api response:response];
                     // API初始化成功后开启其它API请求
-                    [self resumeAllTask];
+                    [self p_resumeAllTask];
                 } else {
                     
                     NSLog(@"初始化API失败,config中判断失败:%@", api.identifier);
@@ -139,9 +158,10 @@ SMRSessionAPIInitDelegate>
             
             NSLog(@"初始化API中:%@", initAPI.identifier);
             // 先发起本次初始化API
-            [self p_query:initAPI callback:callback];
+            initAPI.callback = callback;
+            [self p_queryOnlyAPI:initAPI];
             // 挂起其它API,直到API初始化API判定成功
-            [self suspendAllTask];
+            [self p_suspendAllTask];
         }
     }
     return shouldQueryInit;
@@ -177,18 +197,22 @@ SMRSessionAPIInitDelegate>
 }
 
 - (SMRNetAPIQueue *)netAPIQueue {
+    [self.lock lock];
     if (!_netAPIQueue) {
         _netAPIQueue = [[SMRNetAPIQueue alloc] init];
     }
+    [self.lock unlock];
     return _netAPIQueue;
 }
 
 - (SMRSession *)session {
+    [self.lock lock];
     if (!_session) {
         _session = [SMRSession manager];
         _session.retryDelegate = self;
         _session.initDelegate = self;
     }
+    [self.lock unlock];
     return _session;
 }
 
@@ -198,6 +222,10 @@ SMRSessionAPIInitDelegate>
 
 - (SMRNetCache *)netCache {
     return self.session.netCache;
+}
+
+- (SMRNetDedouncer<SMRNetAPI *> *)dedouncer {
+    return self.session.dedouncer;
 }
 
 @end
