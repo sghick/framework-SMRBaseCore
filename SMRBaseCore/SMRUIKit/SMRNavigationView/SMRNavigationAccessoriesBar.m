@@ -16,6 +16,14 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
 
 @implementation SMRNavigationAccessoriesBar
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _space = 10;
+    }
+    return self;
+}
+
 - (void)setLeftViews:(nullable NSArray<UIView *> *)leftViews {
     _leftViews = leftViews;
     _leftView = leftViews.firstObject;
@@ -27,7 +35,7 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
     [self addLayoutConstraints:^{
         for (UIView *leftView in leftViews) {
             if (lastView) {
-                [leftView autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:lastView];
+                [leftView autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:lastView withOffset:weakSelf.space];
             } else {
                 [leftView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:weakSelf.leftMargin];
             }
@@ -55,7 +63,7 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
     [self addLayoutConstraints:^{
         for (UIView *rightView in rightViews) {
             if (lastView) {
-                [rightView autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:lastView];
+                [rightView autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:lastView withOffset:weakSelf.space];
             } else {
                 [rightView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:weakSelf.rightMargin];
             }

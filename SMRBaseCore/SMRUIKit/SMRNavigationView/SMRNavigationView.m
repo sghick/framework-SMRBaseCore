@@ -8,6 +8,7 @@
 
 #import "SMRNavigationView.h"
 #import "PureLayout.h"
+#import "UIButton+SMR.h"
 #import "SMRUIKitBundle.h"
 
 @interface SMRNavigationView ()
@@ -176,6 +177,8 @@ static SMRNavigationView *_appearanceNavigationView = nil;
         UIButton *backBtn = [SMRNavigationView buttonOfOnlyImage:[SMRUIKitBundle imageWithName:@"nav_back@3x"]
                                                           target:self
                                                           action:@selector(backButtonDidTouched:)];
+        backBtn.frame = CGRectMake(0, 0, 15, 25);
+        [backBtn smr_enlargeTapEdge:UIEdgeInsetsMake(20, 25, 20, 25)];
         _backBtn = backBtn;
     }
     return _backBtn;
@@ -186,6 +189,8 @@ static SMRNavigationView *_appearanceNavigationView = nil;
         UIButton *closeBtn = [SMRNavigationView buttonOfOnlyImage:[SMRUIKitBundle imageWithName:@"nav_close@3x"]
                                                            target:self
                                                            action:@selector(closeButtonDidTouched:)];
+        closeBtn.frame = CGRectMake(0, 0, 24, 24);
+        [closeBtn smr_enlargeTapEdge:UIEdgeInsetsMake(20, 20, 20, 20)];
         closeBtn.hidden = YES;
         _closeBtn = closeBtn;
     }

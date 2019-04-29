@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) CGFloat leftMargin; ///< default:0
 @property (assign, nonatomic) CGFloat rightMargin; ///< default:0
 
+@property (assign, nonatomic) CGFloat space; ///< default:10
+
 @property (assign, nonatomic) CGSize leftViewSize;
 @property (assign, nonatomic) CGSize rightViewSize;
 @property (assign, nonatomic) CGSize centerViewSize;
