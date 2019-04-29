@@ -65,7 +65,7 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
     [self addLayoutConstraints:^{
         for (UIView *rightView in rightViews) {
             if (lastView) {
-                [rightView autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:lastView withOffset:weakSelf.space];
+                [rightView autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:lastView withOffset:-weakSelf.space];
             } else {
                 [rightView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:weakSelf.rightMargin];
             }
