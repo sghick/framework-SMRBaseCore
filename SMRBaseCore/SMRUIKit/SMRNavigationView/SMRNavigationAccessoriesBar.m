@@ -23,12 +23,13 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
     [self addSubviews:leftViews tag:kTagForLeftViews];
     __block UIView *lastView = nil;
     __block CGSize viewSize = self.leftViewSize;
+    typeof(self) weakSelf = self;
     [self addLayoutConstraints:^{
         for (UIView *leftView in leftViews) {
             if (lastView) {
                 [leftView autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:lastView];
             } else {
-                [leftView autoPinEdgeToSuperviewEdge:ALEdgeLeft];
+                [leftView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:weakSelf.leftMargin];
             }
             [leftView autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
             // 优先使用view的size
@@ -50,12 +51,13 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
     [self addSubviews:rightViews tag:kTagForRightViews];
     __block UIView *lastView = nil;
     __block CGSize viewSize = self.rightViewSize;
+    typeof(self) weakSelf = self;
     [self addLayoutConstraints:^{
         for (UIView *rightView in rightViews) {
             if (lastView) {
                 [rightView autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:lastView];
             } else {
-                [rightView autoPinEdgeToSuperviewEdge:ALEdgeRight];
+                [rightView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:weakSelf.rightMargin];
             }
             [rightView autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
             // 优先使用view的size

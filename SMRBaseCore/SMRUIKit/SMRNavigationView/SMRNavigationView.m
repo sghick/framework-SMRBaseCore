@@ -27,6 +27,15 @@
 @synthesize shadowView = _shadowView;
 @synthesize theme = _theme;
 
+static SMRNavigationView *_appearanceNavigationView = nil;
++ (instancetype)appearance {
+    static dispatch_once_t _appearanceNavigationViewOnceToken;
+    dispatch_once(&_appearanceNavigationViewOnceToken, ^{
+        _appearanceNavigationView = [[SMRNavigationView alloc] init];
+    });
+    return _appearanceNavigationView;
+}
+
 + (instancetype)navigationView {
     SMRNavigationView *navigationView = [[self alloc] init];
     return navigationView;
@@ -36,6 +45,9 @@
     self = [super init];
     if (self) {
         [self baseNavDefaultCreateTypeDefautlViews];
+        if (_appearanceNavigationView.appearanceBlock) {
+            _appearanceNavigationView.appearanceBlock(self);
+        }
     }
     return self;
 }

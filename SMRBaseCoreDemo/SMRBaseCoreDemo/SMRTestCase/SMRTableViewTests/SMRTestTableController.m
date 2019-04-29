@@ -8,6 +8,8 @@
 
 #import "SMRTestTableController.h"
 #import "SMRTableAssistant.h"
+#import "SMRNextTableController.h"
+#import "SMRRouter.h"
 
 @interface SMRTestTableController ()<
 UITableViewDelegate,
@@ -38,6 +40,12 @@ UITableViewDataSource>
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView smr_setSeparatorsWithFormat:@"F1|Cn" cell:cell indexPath:indexPath];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    SMRNextTableController *controller = [[SMRNextTableController alloc] init];
+    controller.navigationView.title = @"新的";
+    [SMRNavigator pushOrPresentToViewController:controller animated:YES];
 }
 
 #pragma mark - Setters/Getters

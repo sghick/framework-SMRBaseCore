@@ -49,6 +49,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, copy  ) NavigationViewGradationBlock gradationBlock;
 
+/**
+ 设置全局默认属性的block
+ */
+@property (nonatomic, copy  ) NavigationViewAppearanceBlock appearanceBlock;
+
 @property (nonatomic, copy  ) NSString *title;          ///< default:nil
 @property (nonatomic, assign) BOOL backBtnHidden;       ///< default:NO
 @property (nonatomic, assign) BOOL titleLabelHidden;    ///< default:NO
@@ -59,6 +64,13 @@ NS_ASSUME_NONNULL_BEGIN
  代理
  */
 @property (nonatomic, weak  ) id<SMRNavigationViewDelegate> delegate;
+
+
+
+/**
+ 用于创建全局样式的实例
+ */
++ (instancetype)appearance;
 
 /**
  *  快速创建对象

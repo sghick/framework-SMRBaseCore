@@ -71,5 +71,9 @@ typedef void(^NavigationViewGradationBlock)(SMRNavigationView *navigationView, C
  */
 typedef void(^NavigationViewResetToThemeBlock)(SMRNavigationTheme *theme);
 
+/**
+ *  设置全局默认属性的block
+ */
+typedef void(^NavigationViewAppearanceBlock)(SMRNavigationView *navigationView);
 
 #endif /* SMRNavigationDefine_h */
