@@ -19,7 +19,7 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _space = 10;
+        _space = 5;
     }
     return self;
 }
