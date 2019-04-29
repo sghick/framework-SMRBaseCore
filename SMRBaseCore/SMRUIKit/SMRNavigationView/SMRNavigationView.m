@@ -177,7 +177,7 @@ static SMRNavigationView *_appearanceNavigationView = nil;
         UIButton *backBtn = [SMRNavigationView buttonOfOnlyImage:[SMRUIKitBundle imageWithName:@"nav_back@3x"]
                                                           target:self
                                                           action:@selector(backButtonDidTouched:)];
-        backBtn.frame = CGRectMake(0, 0, 15, 25);
+        backBtn.frame = CGRectMake(0, 0, 10, 17);
         [backBtn smr_enlargeTapEdge:UIEdgeInsetsMake(20, 25, 20, 25)];
         _backBtn = backBtn;
     }
