@@ -12,8 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SMRNavigationAccessoriesBar : SMRNavigationBar
 
-@property (assign, nonatomic) CGFloat leftMargin; ///< default:0
-@property (assign, nonatomic) CGFloat rightMargin; ///< default:0
+@property (assign, nonatomic) CGFloat leftMargin; ///< default:20
+@property (assign, nonatomic) CGFloat rightMargin; ///< default:20
 
 @property (assign, nonatomic) CGFloat space; ///< default:10
 

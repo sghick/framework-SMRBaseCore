@@ -13,8 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 @class SMRSliderBarContentView;
 @protocol SMRSliderBarContentViewDelegate <NSObject>
 
+@required
 - (NSInteger)numbersOfCountForSliderBarContentView:(SMRSliderBarContentView *)contentView;
 - (UIView *)sliderBarContentView:(SMRSliderBarContentView *)contentView subviewForIndex:(NSInteger)index;
+
+@optional
 - (void)sliderBarContentView:(SMRSliderBarContentView *)contentView didScrollToIndex:(NSInteger)index;
 
 @end
