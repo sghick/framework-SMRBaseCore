@@ -111,6 +111,15 @@
 		8A914F1D221E46D100E2F691 /* SMRAdapterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A914F1C221E46D100E2F691 /* SMRAdapterTests.m */; };
 		8AA8B45A224A3CA600778320 /* SMRUtils+Jump.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA8B458224A3CA600778320 /* SMRUtils+Jump.m */; };
 		8AA8B45D224A3D3200778320 /* SMRWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA8B45C224A3D3200778320 /* SMRWebController.m */; };
+		8AC704F9227EE26C002821D3 /* CodeScan.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8AC704E7227EE26C002821D3 /* CodeScan.bundle */; };
+		8AC70500227EE26C002821D3 /* LBXScanTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC704F4227EE26C002821D3 /* LBXScanTypes.m */; };
+		8AC70501227EE26C002821D3 /* LBXScanNative.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC704F8227EE26C002821D3 /* LBXScanNative.m */; };
+		8AC7050E227EE286002821D3 /* LBXScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC70503227EE285002821D3 /* LBXScanViewController.m */; };
+		8AC7050F227EE286002821D3 /* LBXScanNetAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC70506227EE285002821D3 /* LBXScanNetAnimation.m */; };
+		8AC70510227EE286002821D3 /* LBXScanVideoZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC70508227EE285002821D3 /* LBXScanVideoZoomView.m */; };
+		8AC70511227EE286002821D3 /* LBXScanLineAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC70509227EE285002821D3 /* LBXScanLineAnimation.m */; };
+		8AC70512227EE286002821D3 /* LBXScanViewStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7050A227EE285002821D3 /* LBXScanViewStyle.m */; };
+		8AC70513227EE286002821D3 /* LBXScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7050B227EE285002821D3 /* LBXScanView.m */; };
 		8ACA4209227ECE8C0073BC44 /* LLSimpleCamera+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ACA4203227ECE8B0073BC44 /* LLSimpleCamera+Helper.m */; };
 		8ACA420A227ECE8C0073BC44 /* LLSimpleCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ACA4207227ECE8B0073BC44 /* LLSimpleCamera.m */; };
 		8ACA420B227ECE8C0073BC44 /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ACA4208227ECE8B0073BC44 /* UIImage+FixOrientation.m */; };
@@ -378,6 +387,23 @@
 		8AA8B459224A3CA600778320 /* SMRUtils+Jump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SMRUtils+Jump.h"; sourceTree = "<group>"; };
 		8AA8B45B224A3D3200778320 /* SMRWebController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRWebController.h; sourceTree = "<group>"; };
 		8AA8B45C224A3D3200778320 /* SMRWebController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRWebController.m; sourceTree = "<group>"; };
+		8AC704E7227EE26C002821D3 /* CodeScan.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CodeScan.bundle; sourceTree = "<group>"; };
+		8AC704F4227EE26C002821D3 /* LBXScanTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanTypes.m; sourceTree = "<group>"; };
+		8AC704F5227EE26C002821D3 /* LBXScanTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanTypes.h; sourceTree = "<group>"; };
+		8AC704F7227EE26C002821D3 /* LBXScanNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanNative.h; sourceTree = "<group>"; };
+		8AC704F8227EE26C002821D3 /* LBXScanNative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanNative.m; sourceTree = "<group>"; };
+		8AC70502227EE285002821D3 /* LBXScanLineAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanLineAnimation.h; sourceTree = "<group>"; };
+		8AC70503227EE285002821D3 /* LBXScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanViewController.m; sourceTree = "<group>"; };
+		8AC70504227EE285002821D3 /* LBXScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanViewController.h; sourceTree = "<group>"; };
+		8AC70505227EE285002821D3 /* LBXScanNetAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanNetAnimation.h; sourceTree = "<group>"; };
+		8AC70506227EE285002821D3 /* LBXScanNetAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanNetAnimation.m; sourceTree = "<group>"; };
+		8AC70507227EE285002821D3 /* LBXScanVideoZoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanVideoZoomView.h; sourceTree = "<group>"; };
+		8AC70508227EE285002821D3 /* LBXScanVideoZoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanVideoZoomView.m; sourceTree = "<group>"; };
+		8AC70509227EE285002821D3 /* LBXScanLineAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanLineAnimation.m; sourceTree = "<group>"; };
+		8AC7050A227EE285002821D3 /* LBXScanViewStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanViewStyle.m; sourceTree = "<group>"; };
+		8AC7050B227EE285002821D3 /* LBXScanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanView.m; sourceTree = "<group>"; };
+		8AC7050C227EE285002821D3 /* LBXScanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanView.h; sourceTree = "<group>"; };
+		8AC7050D227EE285002821D3 /* LBXScanViewStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanViewStyle.h; sourceTree = "<group>"; };
 		8ACA4203227ECE8B0073BC44 /* LLSimpleCamera+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LLSimpleCamera+Helper.m"; sourceTree = "<group>"; };
 		8ACA4204227ECE8B0073BC44 /* LLSimpleCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLSimpleCamera.h; sourceTree = "<group>"; };
 		8ACA4205227ECE8B0073BC44 /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixOrientation.h"; sourceTree = "<group>"; };
@@ -1073,6 +1099,46 @@
 			path = SMRAdapterTests;
 			sourceTree = "<group>";
 		};
+		8AC704E5227EE26C002821D3 /* LBXScan */ = {
+			isa = PBXGroup;
+			children = (
+				8AC704F5227EE26C002821D3 /* LBXScanTypes.h */,
+				8AC704F4227EE26C002821D3 /* LBXScanTypes.m */,
+				8AC704E6227EE26C002821D3 /* UI */,
+				8AC704F6227EE26C002821D3 /* LBXNative */,
+			);
+			path = LBXScan;
+			sourceTree = "<group>";
+		};
+		8AC704E6227EE26C002821D3 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				8AC70502227EE285002821D3 /* LBXScanLineAnimation.h */,
+				8AC70509227EE285002821D3 /* LBXScanLineAnimation.m */,
+				8AC70505227EE285002821D3 /* LBXScanNetAnimation.h */,
+				8AC70506227EE285002821D3 /* LBXScanNetAnimation.m */,
+				8AC70507227EE285002821D3 /* LBXScanVideoZoomView.h */,
+				8AC70508227EE285002821D3 /* LBXScanVideoZoomView.m */,
+				8AC7050C227EE285002821D3 /* LBXScanView.h */,
+				8AC7050B227EE285002821D3 /* LBXScanView.m */,
+				8AC70504227EE285002821D3 /* LBXScanViewController.h */,
+				8AC70503227EE285002821D3 /* LBXScanViewController.m */,
+				8AC7050D227EE285002821D3 /* LBXScanViewStyle.h */,
+				8AC7050A227EE285002821D3 /* LBXScanViewStyle.m */,
+				8AC704E7227EE26C002821D3 /* CodeScan.bundle */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		8AC704F6227EE26C002821D3 /* LBXNative */ = {
+			isa = PBXGroup;
+			children = (
+				8AC704F7227EE26C002821D3 /* LBXScanNative.h */,
+				8AC704F8227EE26C002821D3 /* LBXScanNative.m */,
+			);
+			path = LBXNative;
+			sourceTree = "<group>";
+		};
 		8ACA4201227ECE850073BC44 /* SMRSimpleCamera */ = {
 			isa = PBXGroup;
 			children = (
@@ -1100,6 +1166,7 @@
 			children = (
 				8ACA4212227ED2430073BC44 /* SMRLBXScanController.h */,
 				8ACA4213227ED2430073BC44 /* SMRLBXScanController.m */,
+				8AC704E5227EE26C002821D3 /* LBXScan */,
 			);
 			path = SMRLBXScanController;
 			sourceTree = "<group>";
@@ -1345,6 +1412,7 @@
 				8A814B0521F5B9A000D8AEB6 /* menu_bg_trangle@2x.png in Resources */,
 				8AE49574220292770055263E /* SMRButtonAssets.xcassets in Resources */,
 				8ACA4226227ED65B0073BC44 /* SMRBaseCore.podspec in Resources */,
+				8AC704F9227EE26C002821D3 /* CodeScan.bundle in Resources */,
 				8A814CBD21F5C77400D8AEB6 /* SMRUIKitBundle.bundle in Resources */,
 				8AE4955621FFEB4D0055263E /* item.plist in Resources */,
 				8A814A5A21F5B7BE00D8AEB6 /* LaunchScreen.storyboard in Resources */,
@@ -1407,7 +1475,6 @@
 				"${BUILT_PRODUCTS_DIR}/FLEX/FLEX.framework",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
-				"${BUILT_PRODUCTS_DIR}/LBXScan/LBXScan.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
@@ -1415,7 +1482,6 @@
 				"${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework",
 				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
 				"${BUILT_PRODUCTS_DIR}/YYText/YYText.framework",
-				"${BUILT_PRODUCTS_DIR}/ZBarSDK/ZBarSDK.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -1426,7 +1492,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLEX.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LBXScan.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
@@ -1434,7 +1499,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYModel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYText.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZBarSDK.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1463,6 +1527,8 @@
 				8A814C9521F5C3D000D8AEB6 /* SMRNetManager.m in Sources */,
 				8A4AA2C7222D2F1C0034929D /* SMRTestPersonModels.m in Sources */,
 				8AE4957222028D840055263E /* SMRButtonTestsController.m in Sources */,
+				8AC70501227EE26C002821D3 /* LBXScanNative.m in Sources */,
+				8AC7050E227EE286002821D3 /* LBXScanViewController.m in Sources */,
 				8A814B8B21F5B9D100D8AEB6 /* SMRDBSetter.m in Sources */,
 				8A814BCA21F5BA2100D8AEB6 /* NSURL+SMRRouter.m in Sources */,
 				8A814BCC21F5BA2100D8AEB6 /* SMRNavigator.m in Sources */,
@@ -1477,6 +1543,7 @@
 				8A914E0B221662F900E2F691 /* SMRUtilsAnimationTests.m in Sources */,
 				8A814CC721F5C94200D8AEB6 /* SMRNavFatherController.m in Sources */,
 				8A814B0621F5B9A000D8AEB6 /* SMRLogSys.m in Sources */,
+				8AC70510227EE286002821D3 /* LBXScanVideoZoomView.m in Sources */,
 				8A814BEB21F5BCCC00D8AEB6 /* SMRModel.m in Sources */,
 				8A914DF72215AA7600E2F691 /* SMRUtils+NSAttributedString.m in Sources */,
 				8A814B8C21F5B9D100D8AEB6 /* SMRDBMapper.m in Sources */,
@@ -1486,6 +1553,7 @@
 				8A814CC421F5C8F600D8AEB6 /* SMRViewController.m in Sources */,
 				8A814B9E21F5B9DC00D8AEB6 /* SMRDBInsertOption.m in Sources */,
 				8A814D3221F80B8F00D8AEB6 /* SMRRankerManager.m in Sources */,
+				8AC70511227EE286002821D3 /* LBXScanLineAnimation.m in Sources */,
 				8A814B0121F5B9A000D8AEB6 /* SMRDebug.m in Sources */,
 				8A814CB321F5C5F700D8AEB6 /* SMRAPICreator.m in Sources */,
 				8A814D3021F80B8F00D8AEB6 /* SMRRankerConfig.m in Sources */,
@@ -1495,12 +1563,14 @@
 				8A814BFA21F5BCF200D8AEB6 /* SMRLifecycle.m in Sources */,
 				8A814BC821F5BA2100D8AEB6 /* SMRRouterCenter+SMROpen.m in Sources */,
 				8A914E012215AB6D00E2F691 /* SMRUtils+Validate.m in Sources */,
+				8AC70513227EE286002821D3 /* LBXScanView.m in Sources */,
 				8AD9C709223FC03E0028A871 /* SMRSliderBarContentView.m in Sources */,
 				8AE4955A21FFEEA60055263E /* SMRLayoutTests.m in Sources */,
 				8AE02F5722154FE6006235BB /* SMRAlertViewButton.m in Sources */,
 				8A814D0621F5D08B00D8AEB6 /* UIFont+SMR.m in Sources */,
 				8A814CEB21F5CC4A00D8AEB6 /* UITableView+Separator.m in Sources */,
 				8A814A5D21F5B7BE00D8AEB6 /* main.m in Sources */,
+				8AC7050F227EE286002821D3 /* LBXScanNetAnimation.m in Sources */,
 				8A814B7821F5B9BF00D8AEB6 /* SMRDataBase.m in Sources */,
 				8A914DEB2215A96900E2F691 /* SMRUtils.m in Sources */,
 				8AA8B45A224A3CA600778320 /* SMRUtils+Jump.m in Sources */,
@@ -1509,6 +1579,7 @@
 				8A814D3121F80B8F00D8AEB6 /* SMRRankerLifecycleManager.m in Sources */,
 				8A4AA2B2222CC7550034929D /* SMRMatrixCalculatorTests.m in Sources */,
 				8A814CB621F5C66700D8AEB6 /* SMRNetAPIQueue.m in Sources */,
+				8AC70512227EE286002821D3 /* LBXScanViewStyle.m in Sources */,
 				8AF6B50122141F2C00A56E51 /* SMRAlertViewTests.m in Sources */,
 				8A814A4F21F5B7BD00D8AEB6 /* AppDelegate.m in Sources */,
 				8AF6B50E22142EC800A56E51 /* SMRTableAlertView.m in Sources */,
@@ -1530,6 +1601,7 @@
 				8A72B2262223DC6000EDE6EF /* SMRYYLabelTests.m in Sources */,
 				8AF6B504221423BF00A56E51 /* SMRUIAdapter.m in Sources */,
 				8A914DFA2215AAAA00E2F691 /* SMRUtils+UIImage.m in Sources */,
+				8AC70500227EE26C002821D3 /* LBXScanTypes.m in Sources */,
 				8A42E9B7226DCE2600F68AD6 /* SMRNextTableController.m in Sources */,
 				8A814BCD21F5BA2100D8AEB6 /* SMRRouterCenter.m in Sources */,
 				8A814CF621F5CCFB00D8AEB6 /* SMRPhoneInfo.m in Sources */,

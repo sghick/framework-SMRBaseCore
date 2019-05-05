@@ -19,8 +19,6 @@ target "SMRBaseCoreDemo" do
     #### SMRUIKit.SMRController
     pod 'MJRefresh', '3.1.15.7', :inhibit_warnings => true
     pod 'IQKeyboardManager', '~> 3.3.7', :inhibit_warnings => true
-    #### SMRUIKit.SMRLBXScanController
-    pod 'LBXScan', '2.3', :inhibit_warnings => true
     
     #### SMRUtilsKit.SMRUtils
     pod 'YYText', '1.0.7', :inhibit_warnings => true
