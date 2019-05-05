@@ -111,6 +111,10 @@
 		8A914F1D221E46D100E2F691 /* SMRAdapterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A914F1C221E46D100E2F691 /* SMRAdapterTests.m */; };
 		8AA8B45A224A3CA600778320 /* SMRUtils+Jump.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA8B458224A3CA600778320 /* SMRUtils+Jump.m */; };
 		8AA8B45D224A3D3200778320 /* SMRWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA8B45C224A3D3200778320 /* SMRWebController.m */; };
+		8ACA4209227ECE8C0073BC44 /* LLSimpleCamera+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ACA4203227ECE8B0073BC44 /* LLSimpleCamera+Helper.m */; };
+		8ACA420A227ECE8C0073BC44 /* LLSimpleCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ACA4207227ECE8B0073BC44 /* LLSimpleCamera.m */; };
+		8ACA420B227ECE8C0073BC44 /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ACA4208227ECE8B0073BC44 /* UIImage+FixOrientation.m */; };
+		8ACA4214227ED2430073BC44 /* SMRLBXScanController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ACA4213227ED2430073BC44 /* SMRLBXScanController.m */; };
 		8AD9C6E5223A32830028A871 /* SMRGlobalCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9C6E4223A32820028A871 /* SMRGlobalCache.m */; };
 		8AD9C709223FC03E0028A871 /* SMRSliderBarContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9C708223FC03E0028A871 /* SMRSliderBarContentView.m */; };
 		8AE02F5422154FBD006235BB /* SMRAlertViewContentTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE02F5322154FBD006235BB /* SMRAlertViewContentTextCell.m */; };
@@ -373,6 +377,15 @@
 		8AA8B459224A3CA600778320 /* SMRUtils+Jump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SMRUtils+Jump.h"; sourceTree = "<group>"; };
 		8AA8B45B224A3D3200778320 /* SMRWebController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRWebController.h; sourceTree = "<group>"; };
 		8AA8B45C224A3D3200778320 /* SMRWebController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRWebController.m; sourceTree = "<group>"; };
+		8ACA4203227ECE8B0073BC44 /* LLSimpleCamera+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LLSimpleCamera+Helper.m"; sourceTree = "<group>"; };
+		8ACA4204227ECE8B0073BC44 /* LLSimpleCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLSimpleCamera.h; sourceTree = "<group>"; };
+		8ACA4205227ECE8B0073BC44 /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixOrientation.h"; sourceTree = "<group>"; };
+		8ACA4206227ECE8B0073BC44 /* LLSimpleCamera+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LLSimpleCamera+Helper.h"; sourceTree = "<group>"; };
+		8ACA4207227ECE8B0073BC44 /* LLSimpleCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLSimpleCamera.m; sourceTree = "<group>"; };
+		8ACA4208227ECE8B0073BC44 /* UIImage+FixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FixOrientation.m"; sourceTree = "<group>"; };
+		8ACA420C227ECFB00073BC44 /* SMRSimpleCamera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRSimpleCamera.h; sourceTree = "<group>"; };
+		8ACA4212227ED2430073BC44 /* SMRLBXScanController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRLBXScanController.h; sourceTree = "<group>"; };
+		8ACA4213227ED2430073BC44 /* SMRLBXScanController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRLBXScanController.m; sourceTree = "<group>"; };
 		8AD9C6E2223A32820028A871 /* SMRGlobalCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRGlobalCache.h; sourceTree = "<group>"; };
 		8AD9C6E3223A32820028A871 /* SMRCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRCache.h; sourceTree = "<group>"; };
 		8AD9C6E4223A32820028A871 /* SMRGlobalCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRGlobalCache.m; sourceTree = "<group>"; };
@@ -570,6 +583,8 @@
 		8A814A8021F5B80B00D8AEB6 /* SMRUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				8ACA4211227ED2430073BC44 /* SMRLBXScanController */,
+				8ACA4201227ECE850073BC44 /* SMRSimpleCamera */,
 				8A4239EC22432C36002DF711 /* SMRGestureView */,
 				8A814CFA21F5CEC800D8AEB6 /* SMRAdapter */,
 				8AF6B5052214248600A56E51 /* SMRResponder */,
@@ -1055,6 +1070,37 @@
 			path = SMRAdapterTests;
 			sourceTree = "<group>";
 		};
+		8ACA4201227ECE850073BC44 /* SMRSimpleCamera */ = {
+			isa = PBXGroup;
+			children = (
+				8ACA420C227ECFB00073BC44 /* SMRSimpleCamera.h */,
+				8ACA4202227ECE8B0073BC44 /* LLSimpleCamera */,
+			);
+			path = SMRSimpleCamera;
+			sourceTree = "<group>";
+		};
+		8ACA4202227ECE8B0073BC44 /* LLSimpleCamera */ = {
+			isa = PBXGroup;
+			children = (
+				8ACA4204227ECE8B0073BC44 /* LLSimpleCamera.h */,
+				8ACA4207227ECE8B0073BC44 /* LLSimpleCamera.m */,
+				8ACA4206227ECE8B0073BC44 /* LLSimpleCamera+Helper.h */,
+				8ACA4203227ECE8B0073BC44 /* LLSimpleCamera+Helper.m */,
+				8ACA4205227ECE8B0073BC44 /* UIImage+FixOrientation.h */,
+				8ACA4208227ECE8B0073BC44 /* UIImage+FixOrientation.m */,
+			);
+			path = LLSimpleCamera;
+			sourceTree = "<group>";
+		};
+		8ACA4211227ED2430073BC44 /* SMRLBXScanController */ = {
+			isa = PBXGroup;
+			children = (
+				8ACA4212227ED2430073BC44 /* SMRLBXScanController.h */,
+				8ACA4213227ED2430073BC44 /* SMRLBXScanController.m */,
+			);
+			path = SMRLBXScanController;
+			sourceTree = "<group>";
+		};
 		8AD9C6E1223A32820028A871 /* SMRCache */ = {
 			isa = PBXGroup;
 			children = (
@@ -1357,6 +1403,7 @@
 				"${BUILT_PRODUCTS_DIR}/FLEX/FLEX.framework",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
+				"${BUILT_PRODUCTS_DIR}/LBXScan/LBXScan.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
@@ -1364,6 +1411,7 @@
 				"${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework",
 				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
 				"${BUILT_PRODUCTS_DIR}/YYText/YYText.framework",
+				"${BUILT_PRODUCTS_DIR}/ZBarSDK/ZBarSDK.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -1374,6 +1422,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLEX.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LBXScan.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
@@ -1381,6 +1430,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYModel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYText.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZBarSDK.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1400,6 +1450,7 @@
 				8A814CAD21F5C4AC00D8AEB6 /* SMRNetInfo.m in Sources */,
 				8A914E072216580600E2F691 /* SMRUtils+Animation.m in Sources */,
 				8AE02F5422154FBD006235BB /* SMRAlertViewContentTextCell.m in Sources */,
+				8ACA4214227ED2430073BC44 /* SMRLBXScanController.m in Sources */,
 				8AD9C6E5223A32830028A871 /* SMRGlobalCache.m in Sources */,
 				8A4AA2D8222E1E590034929D /* SMRUtils+MBProgressHUD.m in Sources */,
 				8A914E042216530A00E2F691 /* SMRUtils+Locations.m in Sources */,
@@ -1490,6 +1541,7 @@
 				8A814BC921F5BA2100D8AEB6 /* SMRURLProvider.m in Sources */,
 				8A914F19221D532000E2F691 /* NSError+SMRNetwork.m in Sources */,
 				8A814BCE21F5BA2100D8AEB6 /* SMRTarget.m in Sources */,
+				8ACA420A227ECE8C0073BC44 /* LLSimpleCamera.m in Sources */,
 				8A814CA421F5C40600D8AEB6 /* SMRNetCache.m in Sources */,
 				8A814BA121F5B9DC00D8AEB6 /* SMRDBDeleteOption.m in Sources */,
 				8AE4956C22028C9D0055263E /* SMRButtonTests.m in Sources */,
@@ -1498,8 +1550,10 @@
 				8A814B8921F5B9D100D8AEB6 /* SMRDBColumn.m in Sources */,
 				8A814B0321F5B9A000D8AEB6 /* SMRLogSideMenuView.m in Sources */,
 				8A814D0321F5D04A00D8AEB6 /* UIColor+SMR.m in Sources */,
+				8ACA4209227ECE8C0073BC44 /* LLSimpleCamera+Helper.m in Sources */,
 				8A814B8A21F5B9D100D8AEB6 /* SMRDBAdapter.m in Sources */,
 				8A814B9F21F5B9DC00D8AEB6 /* SMRDBSqlOption.m in Sources */,
+				8ACA420B227ECE8C0073BC44 /* UIImage+FixOrientation.m in Sources */,
 				8A814B7921F5B9BF00D8AEB6 /* SMRYYModelParser.m in Sources */,
 				8A814D0921F5D0BD00D8AEB6 /* UIView+SMRFrame.m in Sources */,
 				8A814CCF21F5CA5700D8AEB6 /* SMRNavigationBar.m in Sources */,

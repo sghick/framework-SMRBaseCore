@@ -45,6 +45,8 @@
 #import "SMRAlertView.h"
 #import "SMRTextView.h"
 #import "UIView+SMRGesture.h"
+#import "SMRSimpleCamera.h"
+#import "SMRLBXScanController.h"
 
 /// SMRUtilsKit
 #import "SMRMatrixCalculator.h"
