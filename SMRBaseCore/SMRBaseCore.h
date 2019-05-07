@@ -47,6 +47,7 @@
 #import "UIView+SMRGesture.h"
 #import "SMRSimpleCamera.h"
 #import "SMRLBXScanController.h"
+#import "SMRWeb.h"
 
 /// SMRUtilsKit
 #import "SMRMatrixCalculator.h"

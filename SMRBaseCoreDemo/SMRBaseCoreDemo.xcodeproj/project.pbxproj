@@ -119,6 +119,8 @@
 		8AC70511227EE286002821D3 /* LBXScanLineAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC70509227EE285002821D3 /* LBXScanLineAnimation.m */; };
 		8AC70512227EE286002821D3 /* LBXScanViewStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7050A227EE285002821D3 /* LBXScanViewStyle.m */; };
 		8AC70513227EE286002821D3 /* LBXScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7050B227EE285002821D3 /* LBXScanView.m */; };
+		8AC70559227FCD87002821D3 /* SMRBaseCoreConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC70558227FCD87002821D3 /* SMRBaseCoreConfig.m */; };
+		8AC70561227FDBC9002821D3 /* SMRWebConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC70560227FDBC9002821D3 /* SMRWebConfig.m */; };
 		8ACA4209227ECE8C0073BC44 /* LLSimpleCamera+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ACA4203227ECE8B0073BC44 /* LLSimpleCamera+Helper.m */; };
 		8ACA420A227ECE8C0073BC44 /* LLSimpleCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ACA4207227ECE8B0073BC44 /* LLSimpleCamera.m */; };
 		8ACA420B227ECE8C0073BC44 /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ACA4208227ECE8B0073BC44 /* UIImage+FixOrientation.m */; };
@@ -401,6 +403,11 @@
 		8AC7050B227EE285002821D3 /* LBXScanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanView.m; sourceTree = "<group>"; };
 		8AC7050C227EE285002821D3 /* LBXScanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanView.h; sourceTree = "<group>"; };
 		8AC7050D227EE285002821D3 /* LBXScanViewStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanViewStyle.h; sourceTree = "<group>"; };
+		8AC70557227FCD87002821D3 /* SMRBaseCoreConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRBaseCoreConfig.h; sourceTree = "<group>"; };
+		8AC70558227FCD87002821D3 /* SMRBaseCoreConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRBaseCoreConfig.m; sourceTree = "<group>"; };
+		8AC7055B227FDB62002821D3 /* SMRWeb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRWeb.h; sourceTree = "<group>"; };
+		8AC7055F227FDBC9002821D3 /* SMRWebConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRWebConfig.h; sourceTree = "<group>"; };
+		8AC70560227FDBC9002821D3 /* SMRWebConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRWebConfig.m; sourceTree = "<group>"; };
 		8ACA4203227ECE8B0073BC44 /* LLSimpleCamera+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LLSimpleCamera+Helper.m"; sourceTree = "<group>"; };
 		8ACA4204227ECE8B0073BC44 /* LLSimpleCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLSimpleCamera.h; sourceTree = "<group>"; };
 		8ACA4205227ECE8B0073BC44 /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixOrientation.h"; sourceTree = "<group>"; };
@@ -598,6 +605,8 @@
 			isa = PBXGroup;
 			children = (
 				8AE4957C2202C1F00055263E /* SMRBaseCore.h */,
+				8AC70557227FCD87002821D3 /* SMRBaseCoreConfig.h */,
+				8AC70558227FCD87002821D3 /* SMRBaseCoreConfig.m */,
 				8A814A8221F5B80B00D8AEB6 /* SMRCoreKit */,
 				8A814A8021F5B80B00D8AEB6 /* SMRUIKit */,
 				8A814A8121F5B80B00D8AEB6 /* SMRUtilsKit */,
@@ -609,10 +618,11 @@
 		8A814A8021F5B80B00D8AEB6 /* SMRUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				8A814CFA21F5CEC800D8AEB6 /* SMRAdapter */,
+				8AC7055A227FDB37002821D3 /* SMRWebController */,
 				8ACA4211227ED2430073BC44 /* SMRLBXScanController */,
 				8ACA4201227ECE850073BC44 /* SMRSimpleCamera */,
 				8A4239EC22432C36002DF711 /* SMRGestureView */,
-				8A814CFA21F5CEC800D8AEB6 /* SMRAdapter */,
 				8AF6B5052214248600A56E51 /* SMRResponder */,
 				8AF6B4FA22141E5500A56E51 /* SMRAlertView */,
 				8A814CBE21F5C80C00D8AEB6 /* SMRController */,
@@ -886,8 +896,6 @@
 				8A814CC321F5C8F600D8AEB6 /* SMRViewController.m */,
 				8A814CC521F5C94200D8AEB6 /* SMRNavFatherController.h */,
 				8A814CC621F5C94200D8AEB6 /* SMRNavFatherController.m */,
-				8AA8B45B224A3D3200778320 /* SMRWebController.h */,
-				8AA8B45C224A3D3200778320 /* SMRWebController.m */,
 			);
 			path = SMRController;
 			sourceTree = "<group>";
@@ -1132,6 +1140,18 @@
 				8AC704F8227EE26C002821D3 /* LBXScanNative.m */,
 			);
 			path = LBXNative;
+			sourceTree = "<group>";
+		};
+		8AC7055A227FDB37002821D3 /* SMRWebController */ = {
+			isa = PBXGroup;
+			children = (
+				8AC7055B227FDB62002821D3 /* SMRWeb.h */,
+				8AC7055F227FDBC9002821D3 /* SMRWebConfig.h */,
+				8AC70560227FDBC9002821D3 /* SMRWebConfig.m */,
+				8AA8B45B224A3D3200778320 /* SMRWebController.h */,
+				8AA8B45C224A3D3200778320 /* SMRWebController.m */,
+			);
+			path = SMRWebController;
 			sourceTree = "<group>";
 		};
 		8ACA4201227ECE850073BC44 /* SMRSimpleCamera */ = {
@@ -1532,6 +1552,7 @@
 				8A914DF42215AA2A00E2F691 /* SMRUtils+File.m in Sources */,
 				8A814CA121F5C40000D8AEB6 /* SMRNetConfig.m in Sources */,
 				8A814CB021F5C5A900D8AEB6 /* SMRSession.m in Sources */,
+				8AC70561227FDBC9002821D3 /* SMRWebConfig.m in Sources */,
 				8A814CC121F5C8DB00D8AEB6 /* SMRNavigationController.m in Sources */,
 				8A814B8721F5B9D100D8AEB6 /* SMRDBOption.m in Sources */,
 				8A914E0B221662F900E2F691 /* SMRUtilsAnimationTests.m in Sources */,
@@ -1602,6 +1623,7 @@
 				8A814B0221F5B9A000D8AEB6 /* SMRLogScreen.m in Sources */,
 				8AF6B50B221424A800A56E51 /* UIView+SMRResponder.m in Sources */,
 				8A814CD521F5CA9800D8AEB6 /* SMRNavigationAccessoriesBar.m in Sources */,
+				8AC70559227FCD87002821D3 /* SMRBaseCoreConfig.m in Sources */,
 				8A814CB921F5C74000D8AEB6 /* SMRUIKitBundle.m in Sources */,
 				8A814B6921F5B9BF00D8AEB6 /* NSObject+SMRDB.m in Sources */,
 				8A3AB8E7225F10FF00CDBB8F /* SMRAppInfo.m in Sources */,

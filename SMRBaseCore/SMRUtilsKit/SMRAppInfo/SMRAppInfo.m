@@ -33,7 +33,7 @@ static NSNumber *_logined;
     if (!_logined) {
         _logined = [[self appUserDefaults] objectForKey:kUDForAppLogined];
     }
-    return _logined;
+    return _logined.boolValue;
 }
 
 #pragma mark - UserDefaults

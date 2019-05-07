@@ -28,6 +28,8 @@
 }
 
 - (void)createSubviews {
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     [self.contentView addSubview:self.contentLabel];
     [self setNeedsUpdateConstraints];
 }
