@@ -23,6 +23,8 @@ typedef NS_ENUM(NSInteger, SMRContentMaskViewContentAlignment) {
 - (CGFloat)widthOfContentView;
 /** 定义了contentView的位置,默认居中 */
 - (SMRContentMaskViewContentAlignment)contentAlignmentOfMaskView;
+/** 背景与内容视图的insets,随内容定 */
+- (UIEdgeInsets)contentInsetsOfBackgroundImageView;
 
 @end
 
@@ -31,6 +33,7 @@ typedef void(^SMRContentMaskViewTouchedBlock)(id maskView);
 @interface SMRContentMaskView : UIView<SMRContentMaskViewProtocol>
 
 @property (assign, nonatomic, readonly) BOOL didLoadLayout;     ///< 是否已设置过一次约束
+@property (strong, nonatomic, readonly) UIImageView *backgroundImageView; ///< 内容背景,默认白色
 @property (strong, nonatomic, readonly) UIView *contentView;    ///< 内容视频载体,默认白色
 
 @property (copy  , nonatomic) SMRContentMaskViewTouchedBlock backgroundTouchedBlock;    ///< 背景的点击事件

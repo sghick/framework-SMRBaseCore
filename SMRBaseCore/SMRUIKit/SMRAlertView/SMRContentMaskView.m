@@ -23,6 +23,7 @@ UIGestureRecognizerDelegate>
 @implementation SMRContentMaskView
 
 @synthesize didLoadLayout = _didLoadLayout;
+@synthesize backgroundImageView = _backgroundImageView;
 @synthesize contentView = _contentView;
 
 - (void)dealloc {
@@ -45,6 +46,7 @@ UIGestureRecognizerDelegate>
     self.alpha = 1;
     self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
     [self addSubview:self.backControl];
+    [self addSubview:self.backgroundImageView];
     [self addSubview:self.contentView];
     [self setNeedsUpdateConstraints];
 }
@@ -54,6 +56,12 @@ UIGestureRecognizerDelegate>
         _didLoadLayout = YES;
         [self.backControl autoPinEdgesToSuperviewMargins];
         [self.contentControl autoPinEdgesToSuperviewMargins];
+        
+        UIEdgeInsets insets1 = [self contentInsetsOfBackgroundImageView];
+        [self.backgroundImageView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.contentView withOffset:-insets1.top];
+        [self.backgroundImageView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.contentView withOffset:-insets1.left];
+        [self.backgroundImageView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.contentView withOffset:insets1.bottom];
+        [self.backgroundImageView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self.contentView withOffset:insets1.right];
         
         SMRContentMaskViewContentAlignment alignment = [self contentAlignmentOfMaskView];
         if (alignment == SMRContentMaskViewContentAlignmentCenter) {
@@ -90,6 +98,10 @@ UIGestureRecognizerDelegate>
 
 - (SMRContentMaskViewContentAlignment)contentAlignmentOfMaskView {
     return SMRContentMaskViewContentAlignmentCenter;
+}
+
+- (UIEdgeInsets)contentInsetsOfBackgroundImageView {
+    return UIEdgeInsetsZero;
 }
 
 #pragma mark - Actions
@@ -197,6 +209,13 @@ UIGestureRecognizerDelegate>
 }
 
 #pragma mark - Getters
+
+- (UIImageView *)backgroundImageView {
+    if (!_backgroundImageView) {
+        _backgroundImageView = [[UIImageView alloc] init];
+    }
+    return _backgroundImageView;
+}
 
 - (UIView *)contentView {
     if (!_contentView) {

@@ -19,6 +19,7 @@ UITableViewDelegate>
 @end
 
 @implementation SMRTableAlertView
+@synthesize tableView = _tableView;
 
 - (void)removeOldNeedsRemoveSubviews {
     [self.titleBar removeFromSuperview];
@@ -29,14 +30,17 @@ UITableViewDelegate>
     // 获取内容的边框
     UIEdgeInsets insets = [self smr_insetsOfContent];
     // 获取titleBar的高
+    CGFloat marginOfTitleBar = [self smr_marginOfTitleBar];
     CGFloat heightOfTitleBar = 0;
     if ([self respondsToSelector:@selector(smr_heightOfTitleBar)]) {
         heightOfTitleBar = [self smr_heightOfTitleBar];
     }
     // 获取tableView的高
     BOOL overflow = NO;
+    CGFloat marginOfTableView = [self smr_marginOfTableView];
     CGFloat heightOfTableView = [self p_caculateheightOfTableViewAndOverflow:&overflow];
     // 获取bottomBar的高
+    CGFloat marginOfBottomBar = [self smr_marginOfBottomBar];
     CGFloat heightOfBottomBar = 0;
     if ([self respondsToSelector:@selector(smr_heightOfBottomBar)]) {
         heightOfBottomBar = [self smr_heightOfBottomBar];
@@ -51,26 +55,26 @@ UITableViewDelegate>
         _titleBar = [self smr_titleBarOfTableAlertView];
         if (_titleBar) {
             [self.contentView addSubview:_titleBar];
-            _titleBar.frame = CGRectMake(insets.left,
+            _titleBar.frame = CGRectMake(insets.left + marginOfTitleBar,
                                          insets.top,
-                                         [self widthOfContentView] - insets.left - insets.right,
+                                         [self widthOfContentView] - insets.left - insets.right - 2*marginOfTitleBar,
                                          heightOfTitleBar);
         }
     }
     // 添加tableView
     [self.contentView addSubview:self.tableView];
-    self.tableView.frame = CGRectMake(insets.left,
+    self.tableView.frame = CGRectMake(insets.left + marginOfTableView,
                                       insets.top + heightOfTitleBar,
-                                      [self widthOfContentView] - insets.left - insets.right,
+                                      [self widthOfContentView] - insets.left - insets.right - 2*marginOfTableView,
                                       heightOfTableView);
     // 添加bottomBar
     if ((heightOfBottomBar > 0) && [self respondsToSelector:@selector(smr_bottomBarOfTableAlertView)]) {
         _bottomBar = [self smr_bottomBarOfTableAlertView];
         if (_bottomBar) {
             [self.contentView addSubview:_bottomBar];
-            _bottomBar.frame = CGRectMake(insets.left,
+            _bottomBar.frame = CGRectMake(insets.left + marginOfBottomBar,
                                           insets.top + heightOfTitleBar + heightOfTableView,
-                                          [self widthOfContentView] - insets.left - insets.right,
+                                          [self widthOfContentView] - insets.left - insets.right - 2*marginOfBottomBar,
                                           heightOfBottomBar);
         }
     }
@@ -139,6 +143,9 @@ UITableViewDelegate>
     return UIEdgeInsetsZero;
 }
 
+- (CGFloat)smr_marginOfTitleBar {
+    return 0;
+}
 - (CGFloat)smr_heightOfTitleBar {
     return 0;
 }
@@ -146,6 +153,9 @@ UITableViewDelegate>
     return nil;
 }
 
+- (CGFloat)smr_marginOfBottomBar {
+    return 0;
+}
 - (CGFloat)smr_heightOfBottomBar {
     return 0;
 }
@@ -153,6 +163,9 @@ UITableViewDelegate>
     return nil;
 }
 
+- (CGFloat)smr_marginOfTableView {
+    return 0;
+}
 - (CGFloat)smr_heightOfTableView:(UITableView *)tableView {
     return self.contentView.bounds.size.height;
 }
@@ -185,6 +198,15 @@ UITableViewDelegate>
     [self.tableView reloadData];
 }
 
+#pragma mark - Setters
+
+- (void)setTableView:(UITableView *)tableView {
+    if (_tableView != tableView) {
+        [_tableView removeFromSuperview];
+    }
+    _tableView = tableView;
+    
+}
 
 #pragma mark - Getters
 

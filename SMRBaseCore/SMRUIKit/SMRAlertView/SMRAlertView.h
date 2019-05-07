@@ -10,6 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSInteger, SMRAlertViewStyle) {
+    SMRAlertViewStyleWhite      = 0,    ///< 白色经典样式
+    SMRAlertViewStyleOrange     = 1,    ///< 橙色经典样式
+    
+    SMRAlertViewStyleConfig     = 64,   ///< 使用config配置
+};
+
 /** 定义深色按钮 */
 typedef NS_OPTIONS(NSInteger, SMRAlertViewButtonDeepColorType) {
     SMRAlertViewButtonDeepColorTypeNone     = 0,
@@ -20,6 +27,7 @@ typedef NS_OPTIONS(NSInteger, SMRAlertViewButtonDeepColorType) {
 @interface SMRAlertView : SMRTableAlertView
 
 @property (copy  , nonatomic, readonly) NSString *imageURL;
+@property (copy  , nonatomic, readonly) NSString *title;
 @property (copy  , nonatomic, readonly) NSString *content;
 @property (copy  , nonatomic, readonly) NSArray<NSString *> *buttonTitles;
 @property (assign, nonatomic, readonly) SMRAlertViewButtonDeepColorType deepColorType;
@@ -30,6 +38,11 @@ typedef NS_OPTIONS(NSInteger, SMRAlertViewButtonDeepColorType) {
 + (instancetype)alertViewWithContent:(NSString *)content
                         buttonTitles:(NSArray<NSString *> *)buttonTitles
                        deepColorType:(SMRAlertViewButtonDeepColorType)deepColorType;
+
++ (instancetype)alertViewWithTitle:(NSString *)title
+                           content:(NSString *)content
+                      buttonTitles:(NSArray<NSString *> *)buttonTitles
+                     deepColorType:(SMRAlertViewButtonDeepColorType)deepColorType;
 
 @end
 

@@ -15,9 +15,10 @@ typedef void(^SMRAlertViewButtonBlock)(SMRAlertViewButton *button);
 
 @interface SMRAlertViewButton : UIView
 
-- (instancetype)initWithButtons:(NSArray<UIView *> *)buttons space:(CGFloat)space;
+- (instancetype)initWithButtons:(NSArray<UIView *> *)buttons height:(CGFloat)height space:(CGFloat)space;
 
-+ (UIButton *)buttonWithTitle:(NSString *)title target:(id)target action:(SEL)action deepColor:(BOOL)deepColor;
++ (UIButton *)whiteButtonWithTitle:(NSString *)title target:(id)target action:(SEL)action deepColor:(BOOL)deepColor;
++ (UIButton *)orangeButtonWithTitle:(NSString *)title target:(id)target action:(SEL)action deepColor:(BOOL)deepColor;
 
 @end
 

@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "SMRBaseCoreConfig.h"
 
 @interface ViewController ()
 
@@ -24,7 +25,7 @@
 }
 
 - (void)testBtnAction:(UIButton *)sender {
-    NSString *testClass = @"SMRTableViewTests";
+    NSString *testClass = @"SMRAlertViewTests";
     
     Class cls = NSClassFromString(testClass);
     if (cls) {
@@ -44,6 +45,10 @@
         [_testBtn addTarget:self action:@selector(testBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _testBtn;
+}
+
+- (void)configInit {
+    [[SMRBaseCoreConfig sharedInstance] configInitialization];
 }
 
 @end

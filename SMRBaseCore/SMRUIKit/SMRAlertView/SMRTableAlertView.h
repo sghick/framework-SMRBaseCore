@@ -17,14 +17,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIEdgeInsets)smr_insetsOfContent;
 
 @optional
+- (CGFloat)smr_marginOfTitleBar;
 - (CGFloat)smr_heightOfTitleBar;
 - (UIView *)smr_titleBarOfTableAlertView;
 
 @optional
+- (CGFloat)smr_marginOfBottomBar;
 - (CGFloat)smr_heightOfBottomBar;
 - (UIView *)smr_bottomBarOfTableAlertView;
 
 @optional
+- (CGFloat)smr_marginOfTableView;
 - (CGFloat)smr_heightOfTableView:(UITableView *)tableView;
 @optional
 - (NSInteger)smr_numberOfSectionsInTableView:(UITableView *)tableView;
