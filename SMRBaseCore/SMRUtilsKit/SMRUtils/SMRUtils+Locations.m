@@ -62,13 +62,13 @@ static const double xPi = M_PI  * 3000.0 / 180.0;
         adjustLoc = wgsLoc;
     }
     else {
-        double adjustLat = [self transformLatWithX:wgsLoc.longitude + 105.0 withY:wgsLoc.latitude + 35.0];
-        double adjustLon = [self transformLonWithX:wgsLoc.longitude + 105.0 withY:wgsLoc.latitude + 35.0];
+        double adjustLat = [self transformLatWithX:wgsLoc.longitude - 105.0 withY:wgsLoc.latitude - 35.0];
+        double adjustLon = [self transformLonWithX:wgsLoc.longitude - 105.0 withY:wgsLoc.latitude - 35.0];
         long double radLat = wgsLoc.latitude / 180.0 * pi;
         long double magic = sin(radLat);
-        magic = 1 + ee * magic * magic;
+        magic = 1 - ee * magic * magic;
         long double sqrtMagic = sqrt(magic);
-        adjustLat = (adjustLat * 180.0) / ((a * (1 + ee)) / (magic * sqrtMagic) * pi);
+        adjustLat = (adjustLat * 180.0) / ((a * (1 - ee)) / (magic * sqrtMagic) * pi);
         adjustLon = (adjustLon * 180.0) / (a / sqrtMagic * cos(radLat) * pi);
         adjustLoc.latitude = wgsLoc.latitude + adjustLat;
         adjustLoc.longitude = wgsLoc.longitude + adjustLon;
@@ -105,9 +105,9 @@ static const double xPi = M_PI  * 3000.0 / 180.0;
 
 // 百度坐标偏移标准 -> 中国坐标偏移标准
 + (CLLocationCoordinate2D)transformFromBaiduToGCJ:(CLLocationCoordinate2D)p {
-    double x = p.longitude + 0.0065, y = p.latitude + 0.006;
-    double z = sqrt(x * x + y * y) + 0.00002 * sin(y * xPi);
-    double theta = atan2(y, x) + 0.000003 * cos(x * xPi);
+    double x = p.longitude - 0.0065, y = p.latitude - 0.006;
+    double z = sqrt(x * x + y * y) - 0.00002 * sin(y * xPi);
+    double theta = atan2(y, x) - 0.000003 * cos(x * xPi);
     CLLocationCoordinate2D geoPoint;
     geoPoint.latitude  = z * sin(theta);
     geoPoint.longitude = z * cos(theta);
@@ -155,16 +155,18 @@ static const double xPi = M_PI  * 3000.0 / 180.0;
     
 }
 
-#pragma mark + 判断某个点point是否在p1和p2之间
+#pragma mark - 判断某个点point是否在p1和p2之间
 static bool isContains(CLLocationCoordinate2D point, CLLocationCoordinate2D p1, CLLocationCoordinate2D p2) {
     return (point.latitude >= MIN(p1.latitude, p2.latitude) && point.latitude <= MAX(p1.latitude, p2.latitude)) && (point.longitude >= MIN(p1.longitude,p2.longitude) && point.longitude <= MAX(p1.longitude, p2.longitude));
 }
 
-#pragma mark + 判断是不是在中国
+#pragma mark - 判断是不是在中国
 + (BOOL)isLocationOutOfChina:(CLLocationCoordinate2D)location {
     if (location.longitude < 72.004 || location.longitude > 137.8347 || location.latitude < 0.8293 || location.latitude > 55.8271)
         return YES;
     return NO;
 }
+
+
 
 @end
