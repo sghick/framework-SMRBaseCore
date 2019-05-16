@@ -107,6 +107,9 @@
 
 - (void)setNeedsBackGestureUpdated {
     SMRNavigationController *nav = (SMRNavigationController *)self.navigationController;
+    if (![nav isKindOfClass:[SMRNavigationController class]]) {
+        return;
+    }
     if ([self allowBackByGesture]) {
         (!nav.backGesture) ? [nav addSupportBackGesture] : NULL;
     } else {
