@@ -246,10 +246,20 @@ static const char BDSGestureItemPropertyKey = '\0';
         [UIView animateWithDuration:0.35 delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.transform = CGAffineTransformMakeScale(1, 1);
             self.center = self.safeGestureItem.center;
+            self.safeGestureItem.panFrame = [BDSGestureItem smr_coverFrameWithViewSize:self.safeGestureItem.originalViewSize
+                                                                             innerRect:self.safeGestureItem.originalPanFrame];
+            if (self.safeGestureItem.scaleChangedBlock) {
+                self.safeGestureItem.scaleChangedBlock(self.transform, self);
+            }
         } completion:nil];
     } else {
         self.transform = CGAffineTransformMakeScale(1, 1);
         self.center = self.safeGestureItem.center;
+        self.safeGestureItem.panFrame = [BDSGestureItem smr_coverFrameWithViewSize:self.safeGestureItem.originalViewSize
+                                                                         innerRect:self.safeGestureItem.originalPanFrame];
+        if (self.safeGestureItem.scaleChangedBlock) {
+            self.safeGestureItem.scaleChangedBlock(self.transform, self);
+        }
     }
 }
 
