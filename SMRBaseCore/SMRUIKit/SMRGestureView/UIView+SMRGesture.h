@@ -10,17 +10,54 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIView (SMRGesture)
+typedef void(^BDSGestureScaleChangedBlock)(CGAffineTransform transform, UIView *view);
+
+@interface BDSGestureItem : NSObject
+
+@property (assign, nonatomic) CGPoint center;
+@property (assign, nonatomic) CGFloat minScale;
+@property (assign, nonatomic) CGFloat maxScale;
+@property (assign, nonatomic) CGFloat lastScale;
+@property (assign, nonatomic) CGVector allowDirection;
+@property (assign, nonatomic) CGFloat lastRotation;
+@property (assign, nonatomic) CGRect originalPanFrame;  ///< 原始的panFrame
+@property (assign, nonatomic) CGSize originalViewSize;  ///< 原始的viewSize,BDSGesturePanTypeLite时会有此值
+@property (assign, nonatomic) CGRect panFrame;          ///< 非原始的panFrame,可以理解为变化后的
+@property (assign, nonatomic) CGFloat panBounce;
+@property (copy  , nonatomic) BDSGestureScaleChangedBlock scaleChangedBlock;
+
+- (void)itemForAddPinGestureWithMinScale:(CGFloat)minScale
+                                maxScale:(CGFloat)maxScale
+                       scaleChangedBlock:(nullable BDSGestureScaleChangedBlock)scaleChangedBlock;
+
+- (void)itemForAddPanGestureWithinFrame:(CGRect)frame
+                               viewSize:(CGSize)viewSize
+                                 bounce:(CGFloat)bounce
+                         allowDirection:(CGVector)direction;
+
+/** 对于移动手势,如果需要计算移动位置,可以使用此方法来计算,使用必须将innerRect覆盖 */
++ (CGRect)smr_coverFrameWithViewSize:(CGSize)viewSize innerRect:(CGRect)innerRect;
+
+@end
+
+@interface UIView (BDSGesture)
+
+- (BDSGestureItem *)safeGestureItem;
 
 /** 添加点击手势 */
 - (void)addTapGestureWithTarget:(id)target action:(SEL)action;
 
 /** 添加点击还原功能 */
 - (void)addTapGesture;
+
 /** 添加缩放功能 */
 - (void)addPinchGestureWithinMinScale:(CGFloat)minScale maxScale:(CGFloat)maxScale;
+- (void)addPinchGestureWithinMinScale:(CGFloat)minScale maxScale:(CGFloat)maxScale scaleChangedBlock:(nullable BDSGestureScaleChangedBlock)scaleChangedBlock;
+
 /** 添加移动功能 */
-- (void)addPanGestureWithinBounds:(CGRect)bounds bounce:(CGFloat)bounce allowDirection:(CGVector)direction;
+- (void)addPanGestureWithinFrame:(CGRect)frame bounce:(CGFloat)bounce allowDirection:(CGVector)direction;
+- (void)addPanGestureWithinFrame:(CGRect)frame viewSize:(CGSize)viewSize bounce:(CGFloat)bounce allowDirection:(CGVector)direction;
+
 /** 添加旋转功能 */
 - (void)addRotationGesture;
 
