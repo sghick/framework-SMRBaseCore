@@ -16,17 +16,23 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SMRPhoneInfo : NSObject
 
 /**
+ 存在keychain中的UUID
+ */
++ (NSString *)originalUUID;
+
+/**
  IDFA
+ 与其它厂商App进行沟通的标识
  需要用户打开广告追踪开关,并且需要为Apple提供使用原因
- 如果未获取到,将会返回一个随机生成的uuid,并且这个uuid将保存在系统keychain中
  */
 + (NSString *)imeiString;
 
 /**
  IDFV
+ 与本账号下其它App进行沟通的标识
  [注意]对于运行在同一个设备，并且来自同一个供应商的所有App，这个值都是相同的。
  这个值首次执行app时会被保存在系统keychain中
- 如果未获取到,将会返回一个随机生成的uuid,并且这个uuid将保存在系统keychain中
+ 如果未获取到,将会返回一个随机生成的uuid,并且这个uuid将保存在系统keychain中,之后如果有需要可以使用originalUUID来代替
  */
 + (NSString *)imsiString;
 

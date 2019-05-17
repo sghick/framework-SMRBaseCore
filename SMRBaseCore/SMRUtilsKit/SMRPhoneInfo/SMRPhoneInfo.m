@@ -27,19 +27,14 @@ static NSString *const kSMRForIDFVStringInKeyChain = @"kSMRForIDFVStringInKeyCha
 
 @implementation SMRPhoneInfo
 
++ (NSString *)originalUUID {
+    return [SMRKeyChainManager UUIDString];
+}
+
 // private
 + (NSString *)IDFAString {
 #if IDFA_AVAILABLE && !TARGET_OS_WATCH
-    NSString *uuid = [SMRKeyChainManager readKeyChainValueFromKey:kSMRForIDFAStringInKeyChain];
-    if (!uuid && !uuid.length) {
-        //生成一个uuid的方法
-        uuid = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-        if (!uuid && !uuid.length) {
-            uuid = [NSUUID UUID].UUIDString;
-        }
-        //将该uuid保存到keychain
-        [SMRKeyChainManager saveKeyChainValue:uuid key:kSMRForIDFAStringInKeyChain];
-    }
+    NSString *uuid = uuid = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
     NSLog(@"IDFA:%@", uuid);
     return uuid;
 #else
@@ -49,16 +44,7 @@ static NSString *const kSMRForIDFVStringInKeyChain = @"kSMRForIDFVStringInKeyCha
 
 // private
 + (NSString *)IDFVString {
-    NSString *uuid = [SMRKeyChainManager readKeyChainValueFromKey:kSMRForIDFVStringInKeyChain];
-    if (!uuid || !uuid.length) {
-        //生成一个uuid的方法
-        uuid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-        if (!uuid && !uuid.length) {
-            uuid = [NSUUID UUID].UUIDString;
-        }
-        //将该uuid保存到keychain
-        [SMRKeyChainManager saveKeyChainValue:uuid key:kSMRForIDFVStringInKeyChain];
-    }
+    NSString *uuid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     NSLog(@"IDFV:%@", uuid);
     return uuid;
 }
