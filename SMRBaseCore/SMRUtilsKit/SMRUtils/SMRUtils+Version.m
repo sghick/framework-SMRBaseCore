@@ -15,7 +15,14 @@
 }
 
 + (NSComparisonResult)compareVersion:(NSString *)version toVersion:(NSString *)toVersion buildNumber:(BOOL)buildNumber {
-    return [self convertToCodeWithVersion:version buildNumber:buildNumber] - [self convertToCodeWithVersion:toVersion buildNumber:buildNumber];
+    int32_t result = [self convertToCodeWithVersion:version buildNumber:buildNumber] - [self convertToCodeWithVersion:toVersion buildNumber:buildNumber];
+    if (result > 0) {
+        return NSOrderedDescending;
+    } else if (result < 0) {
+        return NSOrderedAscending;
+    } else {
+        return NSOrderedSame;
+    }
 }
 
 + (int32_t)convertToCodeWithVersion:(NSString *)version {
