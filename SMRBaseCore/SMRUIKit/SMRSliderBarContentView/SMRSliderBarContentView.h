@@ -25,9 +25,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SMRSliderBarContentView : UIView
 
 @property (strong, nonatomic, readonly) UIScrollView *scrollView;
+@property (assign, nonatomic, readonly) NSInteger index;
+
+@property (assign, nonatomic) BOOL sorption; ///< 中间卡片吸附效果,默认NO
 
 @property (weak  , nonatomic) id<SMRSliderBarContentViewDelegate> delegate;
-@property (assign, nonatomic, readonly) NSInteger index;
 
 - (void)reloadView;
 - (void)scrollViewToIndex:(NSInteger)index animated:(BOOL)animated;

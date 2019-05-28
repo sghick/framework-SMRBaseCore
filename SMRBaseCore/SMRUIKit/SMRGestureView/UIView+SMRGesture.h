@@ -10,9 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^BDSGestureScaleChangedBlock)(CGAffineTransform transform, UIView *view);
+typedef void(^SMRGestureScaleChangedBlock)(CGAffineTransform transform, UIView *view);
 
-@interface BDSGestureItem : NSObject
+@interface SMRGestureItem : NSObject
 
 @property (assign, nonatomic) CGPoint center;
 @property (assign, nonatomic) CGFloat minScale;
@@ -21,14 +21,14 @@ typedef void(^BDSGestureScaleChangedBlock)(CGAffineTransform transform, UIView *
 @property (assign, nonatomic) CGVector allowDirection;
 @property (assign, nonatomic) CGFloat lastRotation;
 @property (assign, nonatomic) CGRect originalPanFrame;  ///< 原始的panFrame
-@property (assign, nonatomic) CGSize originalViewSize;  ///< 原始的viewSize,BDSGesturePanTypeLite时会有此值
+@property (assign, nonatomic) CGSize originalViewSize;  ///< 原始的viewSize,SMRGesturePanTypeLite时会有此值
 @property (assign, nonatomic) CGRect panFrame;          ///< 非原始的panFrame,可以理解为变化后的
 @property (assign, nonatomic) CGFloat panBounce;
-@property (copy  , nonatomic) BDSGestureScaleChangedBlock scaleChangedBlock;
+@property (copy  , nonatomic) SMRGestureScaleChangedBlock scaleChangedBlock;
 
 - (void)itemForAddPinGestureWithMinScale:(CGFloat)minScale
                                 maxScale:(CGFloat)maxScale
-                       scaleChangedBlock:(nullable BDSGestureScaleChangedBlock)scaleChangedBlock;
+                       scaleChangedBlock:(nullable SMRGestureScaleChangedBlock)scaleChangedBlock;
 
 - (void)itemForAddPanGestureWithinFrame:(CGRect)frame
                                viewSize:(CGSize)viewSize
@@ -40,9 +40,9 @@ typedef void(^BDSGestureScaleChangedBlock)(CGAffineTransform transform, UIView *
 
 @end
 
-@interface UIView (BDSGesture)
+@interface UIView (SMRGesture)
 
-- (BDSGestureItem *)safeGestureItem;
+- (SMRGestureItem *)safeGestureItem;
 
 /** 添加点击手势 */
 - (void)addTapGestureWithTarget:(id)target action:(SEL)action;
@@ -52,7 +52,7 @@ typedef void(^BDSGestureScaleChangedBlock)(CGAffineTransform transform, UIView *
 
 /** 添加缩放功能 */
 - (void)addPinchGestureWithinMinScale:(CGFloat)minScale maxScale:(CGFloat)maxScale;
-- (void)addPinchGestureWithinMinScale:(CGFloat)minScale maxScale:(CGFloat)maxScale scaleChangedBlock:(nullable BDSGestureScaleChangedBlock)scaleChangedBlock;
+- (void)addPinchGestureWithinMinScale:(CGFloat)minScale maxScale:(CGFloat)maxScale scaleChangedBlock:(nullable SMRGestureScaleChangedBlock)scaleChangedBlock;
 
 /** 添加移动功能 */
 - (void)addPanGestureWithinFrame:(CGRect)frame bounce:(CGFloat)bounce allowDirection:(CGVector)direction;

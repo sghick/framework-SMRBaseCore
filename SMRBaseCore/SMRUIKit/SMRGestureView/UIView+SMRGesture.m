@@ -9,9 +9,9 @@
 #import "UIView+SMRGesture.h"
 #import <objc/runtime.h>
 
-@implementation BDSGestureItem
+@implementation SMRGestureItem
 
-- (void)itemForAddPinGestureWithMinScale:(CGFloat)minScale maxScale:(CGFloat)maxScale scaleChangedBlock:(nullable BDSGestureScaleChangedBlock)scaleChangedBlock {
+- (void)itemForAddPinGestureWithMinScale:(CGFloat)minScale maxScale:(CGFloat)maxScale scaleChangedBlock:(nullable SMRGestureScaleChangedBlock)scaleChangedBlock {
     self.minScale = MIN(minScale, maxScale);
     self.maxScale = MAX(minScale, maxScale);
     self.scaleChangedBlock = scaleChangedBlock;
@@ -40,26 +40,26 @@
 
 @end
 
-@implementation UIView (BDSGesture)
+@implementation UIView (SMRGesture)
 
 #pragma mark - Getters/Setters
 // sections
-static const char BDSGestureItemPropertyKey = '\0';
-- (void)setGestureItem:(BDSGestureItem *)gestureItem {
+static const char SMRGestureItemPropertyKey = '\0';
+- (void)setGestureItem:(SMRGestureItem *)gestureItem {
     if (gestureItem != self.gestureItem) {
-        objc_setAssociatedObject(self, &BDSGestureItemPropertyKey, gestureItem, OBJC_ASSOCIATION_RETAIN);
+        objc_setAssociatedObject(self, &SMRGestureItemPropertyKey, gestureItem, OBJC_ASSOCIATION_RETAIN);
     }
 }
 
-- (BDSGestureItem *)gestureItem {
-    BDSGestureItem *gestureItem = objc_getAssociatedObject(self, &BDSGestureItemPropertyKey);
+- (SMRGestureItem *)gestureItem {
+    SMRGestureItem *gestureItem = objc_getAssociatedObject(self, &SMRGestureItemPropertyKey);
     return gestureItem;
 }
 
-- (BDSGestureItem *)safeGestureItem {
-    BDSGestureItem *item = self.gestureItem;
+- (SMRGestureItem *)safeGestureItem {
+    SMRGestureItem *item = self.gestureItem;
     if (!item) {
-        item = [[BDSGestureItem alloc] init];
+        item = [[SMRGestureItem alloc] init];
         self.gestureItem = item;
     }
     return item;
@@ -81,7 +81,7 @@ static const char BDSGestureItemPropertyKey = '\0';
 
 - (void)addPinchGestureWithinMinScale:(CGFloat)minScale
                              maxScale:(CGFloat)maxScale
-                    scaleChangedBlock:(nullable BDSGestureScaleChangedBlock)scaleChangedBlock{
+                    scaleChangedBlock:(nullable SMRGestureScaleChangedBlock)scaleChangedBlock{
     [self.safeGestureItem itemForAddPinGestureWithMinScale:minScale
                                                   maxScale:maxScale
                                          scaleChangedBlock:scaleChangedBlock];
@@ -137,7 +137,7 @@ static const char BDSGestureItemPropertyKey = '\0';
             
             CGAffineTransform scaleTransform = CGAffineTransformMakeScale(view.transform.a, view.transform.a);
             // lite类型需要转化一下
-            self.safeGestureItem.panFrame = [BDSGestureItem smr_coverFrameWithViewSize:view.frame.size
+            self.safeGestureItem.panFrame = [SMRGestureItem smr_coverFrameWithViewSize:view.frame.size
                                                                              innerRect:self.safeGestureItem.originalPanFrame];
             if (self.safeGestureItem.scaleChangedBlock) {
                 self.safeGestureItem.scaleChangedBlock(scaleTransform, view);
@@ -246,7 +246,7 @@ static const char BDSGestureItemPropertyKey = '\0';
         [UIView animateWithDuration:0.35 delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.transform = CGAffineTransformMakeScale(1, 1);
             self.center = self.safeGestureItem.center;
-            self.safeGestureItem.panFrame = [BDSGestureItem smr_coverFrameWithViewSize:self.safeGestureItem.originalViewSize
+            self.safeGestureItem.panFrame = [SMRGestureItem smr_coverFrameWithViewSize:self.safeGestureItem.originalViewSize
                                                                              innerRect:self.safeGestureItem.originalPanFrame];
             if (self.safeGestureItem.scaleChangedBlock) {
                 self.safeGestureItem.scaleChangedBlock(self.transform, self);
@@ -255,7 +255,7 @@ static const char BDSGestureItemPropertyKey = '\0';
     } else {
         self.transform = CGAffineTransformMakeScale(1, 1);
         self.center = self.safeGestureItem.center;
-        self.safeGestureItem.panFrame = [BDSGestureItem smr_coverFrameWithViewSize:self.safeGestureItem.originalViewSize
+        self.safeGestureItem.panFrame = [SMRGestureItem smr_coverFrameWithViewSize:self.safeGestureItem.originalViewSize
                                                                          innerRect:self.safeGestureItem.originalPanFrame];
         if (self.safeGestureItem.scaleChangedBlock) {
             self.safeGestureItem.scaleChangedBlock(self.transform, self);
