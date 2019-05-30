@@ -56,10 +56,15 @@
     // 设置标志位,如果服务器获取到结果后,此标志将变为YES,UI层可以根据此标志控制是否相并新页面
     __block BOOL didServiceResponse = NO;
     // cache
-    if (callback.cacheBlock) {
+    if (callback.cacheBlock || callback.cacheOrSuccessBlock) {
         id object = [self.netCache objectWithPolicy:api.cachePolicy];
         if (!didServiceResponse) {
-            callback.cacheBlock(api, object);
+            if (callback.cacheBlock) {
+                callback.cacheBlock(api, object);
+            }
+            if (callback.cacheOrSuccessBlock) {
+                callback.cacheOrSuccessBlock(api, object, YES);
+            }
         }
     }
     // 创建task
@@ -90,6 +95,9 @@
         if (callback.successBlock) {
             callback.successBlock(api, responseObject);
         }
+        if (callback.cacheOrSuccessBlock) {
+            callback.cacheOrSuccessBlock(api, responseObject, NO);
+        }
         // 处理防抖结果
         NSArray<SMRNetAPI *> *dedouncedAPIs = [self.dedouncer objectForDedouncedWithIdentifier:api.identifier
                                                                                       groupTag:api.callback.groupTagForDedounce];
@@ -99,6 +107,9 @@
             // 请求成功的回调
             if (callback.successBlock) {
                 callback.successBlock(api, responseObject);
+            }
+            if (callback.cacheOrSuccessBlock) {
+                callback.cacheOrSuccessBlock(api, responseObject, NO);
             }
         }
         [self.dedouncer removeObjectForDedouncedWithIdentifier:api.identifier
@@ -136,7 +147,7 @@
                 // 保存网络请求失败的结果
                 [api fillResponse:response error:error];
                 // 请求成功的回调
-                if (callback.successBlock) {
+                if (callback.faildBlock) {
                     callback.faildBlock(api, response, error);
                 }
             }

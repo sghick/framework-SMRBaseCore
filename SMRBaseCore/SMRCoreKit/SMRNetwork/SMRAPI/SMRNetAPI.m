@@ -18,20 +18,26 @@
     _faildBlock = nil;
     _uploadProgress = nil;
     _downloadProgress = nil;
-    NSLog(@"释放对象:<%@: %p>", self.class, self);
+//    NSLog(@"释放对象:<%@: %p>", self.class, self);
 }
 
 /** 常用请求的回调方式1 */
 + (instancetype)callbackWithSuccessBlock:(SMRNetAPISuccessBlock)successBlock
                              faildBlock:(SMRNetAPIFaildBlock)faildBlock {
-    return [self callbackWithConstructingBlock:nil cacheBlock:nil successBlock:successBlock faildBlock:faildBlock uploadProgress:nil downloadProgress:nil];
+    return [self callbackWithConstructingBlock:nil cacheOrSuccessBlock:nil cacheBlock:nil successBlock:successBlock faildBlock:faildBlock uploadProgress:nil downloadProgress:nil];
 }
 
 /** 常用请求的回调方式2 */
 + (instancetype)callbackWithCacheBlock:(SMRNetAPICacheBlock)cacheBlock
                          successBlock:(SMRNetAPISuccessBlock)successBlock
                            faildBlock:(SMRNetAPIFaildBlock)faildBlock {
-    return [self callbackWithConstructingBlock:nil cacheBlock:cacheBlock successBlock:successBlock faildBlock:faildBlock uploadProgress:nil downloadProgress:nil];
+    return [self callbackWithConstructingBlock:nil cacheOrSuccessBlock:nil cacheBlock:cacheBlock successBlock:successBlock faildBlock:faildBlock uploadProgress:nil downloadProgress:nil];
+}
+
+/** 常用请求的回调方式3 */
++ (instancetype)callbackWithCacheOrSuccessBlock:(SMRNetAPICacheOrSuccessBlock)cacheOrSuccessBlock
+                                     faildBlock:(SMRNetAPIFaildBlock)faildBlock {
+    return [self callbackWithConstructingBlock:nil cacheOrSuccessBlock:cacheOrSuccessBlock cacheBlock:nil successBlock:nil faildBlock:faildBlock uploadProgress:nil downloadProgress:nil];
 }
 
 /** GET请求的回调方式 */
@@ -39,14 +45,14 @@
                                 successBlock:(SMRNetAPISuccessBlock)successBlock
                                   faildBlock:(SMRNetAPIFaildBlock)faildBlock
                             downloadProgress:(SMRNetAPIDownloadProgressBlock)downloadProgress {
-    return [self callbackWithConstructingBlock:nil cacheBlock:cacheBlock successBlock:successBlock faildBlock:faildBlock uploadProgress:nil downloadProgress:downloadProgress];
+    return [self callbackWithConstructingBlock:nil cacheOrSuccessBlock:nil cacheBlock:cacheBlock successBlock:successBlock faildBlock:faildBlock uploadProgress:nil downloadProgress:downloadProgress];
 }
 
 /** HEAD请求的回调方式 */
 + (instancetype)callbackForHEADWithCacheBlock:(SMRNetAPICacheBlock)cacheBlock
                                  successBlock:(SMRNetAPISuccessBlock)successBlock
                                    faildBlock:(SMRNetAPIFaildBlock)faildBlock {
-    return [self callbackWithConstructingBlock:nil cacheBlock:cacheBlock successBlock:successBlock faildBlock:faildBlock uploadProgress:nil downloadProgress:nil];
+    return [self callbackWithConstructingBlock:nil cacheOrSuccessBlock:nil cacheBlock:cacheBlock successBlock:successBlock faildBlock:faildBlock uploadProgress:nil downloadProgress:nil];
 }
 
 /** POST请求的回调方式 */
@@ -54,7 +60,7 @@
                                  successBlock:(SMRNetAPISuccessBlock)successBlock
                                    faildBlock:(SMRNetAPIFaildBlock)faildBlock
                                uploadProgress:(SMRNetAPIDownloadProgressBlock)uploadProgress {
-    return [self callbackWithConstructingBlock:nil cacheBlock:cacheBlock successBlock:successBlock faildBlock:faildBlock uploadProgress:uploadProgress downloadProgress:nil];
+    return [self callbackWithConstructingBlock:nil cacheOrSuccessBlock:nil cacheBlock:cacheBlock successBlock:successBlock faildBlock:faildBlock uploadProgress:uploadProgress downloadProgress:nil];
 }
 
 /** POST请求的回调方式,MuiltPart形式 */
@@ -63,31 +69,32 @@
                                         successBlock:(SMRNetAPISuccessBlock)successBlock
                                           faildBlock:(SMRNetAPIFaildBlock)faildBlock
                                       uploadProgress:(SMRNetAPIUploadProgressBlock)uploadProgress {
-    return [self callbackWithConstructingBlock:constructingBlock cacheBlock:cacheBlock successBlock:successBlock faildBlock:faildBlock uploadProgress:uploadProgress downloadProgress:nil];
+    return [self callbackWithConstructingBlock:constructingBlock cacheOrSuccessBlock:nil cacheBlock:cacheBlock successBlock:successBlock faildBlock:faildBlock uploadProgress:uploadProgress downloadProgress:nil];
 }
 
 /** PUT请求的回调方式 */
 + (instancetype)callbackForPUTWithCacheBlock:(SMRNetAPICacheBlock)cacheBlock
                                 successBlock:(SMRNetAPISuccessBlock)successBlock
                                   faildBlock:(SMRNetAPIFaildBlock)faildBlock {
-    return [self callbackWithConstructingBlock:nil cacheBlock:cacheBlock successBlock:successBlock faildBlock:faildBlock uploadProgress:nil downloadProgress:nil];
+    return [self callbackWithConstructingBlock:nil cacheOrSuccessBlock:nil cacheBlock:cacheBlock successBlock:successBlock faildBlock:faildBlock uploadProgress:nil downloadProgress:nil];
 }
 
 /** PATCH请求的回调方式 */
 + (instancetype)callbackForPATCHWithCacheBlock:(SMRNetAPICacheBlock)cacheBlock
                                   successBlock:(SMRNetAPISuccessBlock)successBlock
                                     faildBlock:(SMRNetAPIFaildBlock)faildBlock {
-    return [self callbackWithConstructingBlock:nil cacheBlock:cacheBlock successBlock:successBlock faildBlock:faildBlock uploadProgress:nil downloadProgress:nil];
+    return [self callbackWithConstructingBlock:nil cacheOrSuccessBlock:nil cacheBlock:cacheBlock successBlock:successBlock faildBlock:faildBlock uploadProgress:nil downloadProgress:nil];
 }
 
 /** DELETE请求的回调方式 */
 + (instancetype)callbackForDELETEWithCacheBlock:(SMRNetAPICacheBlock)cacheBlock
                                    successBlock:(SMRNetAPISuccessBlock)successBlock
                                      faildBlock:(SMRNetAPIFaildBlock)faildBlock {
-    return [self callbackWithConstructingBlock:nil cacheBlock:cacheBlock successBlock:successBlock faildBlock:faildBlock uploadProgress:nil downloadProgress:nil];
+    return [self callbackWithConstructingBlock:nil cacheOrSuccessBlock:nil cacheBlock:cacheBlock successBlock:successBlock faildBlock:faildBlock uploadProgress:nil downloadProgress:nil];
 }
 
 + (instancetype)callbackWithConstructingBlock:(SMRConstructingUploadBlock)constructingBlock
+                          cacheOrSuccessBlock:(SMRNetAPICacheOrSuccessBlock)cacheOrSuccessBlock
                                    cacheBlock:(SMRNetAPICacheBlock)cacheBlock
                                  successBlock:(SMRNetAPISuccessBlock)successBlock
                                    faildBlock:(SMRNetAPIFaildBlock)faildBlock
@@ -100,6 +107,7 @@
     callback.faildBlock = faildBlock;
     callback.uploadProgress = uploadProgress;
     callback.downloadProgress = downloadProgress;
+    callback.cacheOrSuccessBlock = cacheOrSuccessBlock;
     return callback;
 }
 
@@ -116,9 +124,11 @@ SMRReqeustMethod const SMRReqeustMethodDELETE   = @"DELETE";
 @synthesize dataTask = _dataTask;
 @synthesize response = _response;
 @synthesize error = _error;
+@synthesize whilteErrorCodes = _whilteErrorCodes;
+@synthesize blackErrorCodes = _blackErrorCodes;
 
 - (void)dealloc {
-    NSLog(@"释放对象:<%@: %p>", self.class, self);
+//    NSLog(@"释放对象:<%@: %p>", self.class, self);
 }
 
 - (void)fillDataTask:(NSURLSessionTask *)dataTask {
@@ -130,7 +140,7 @@ SMRReqeustMethod const SMRReqeustMethodDELETE   = @"DELETE";
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@:\n\tidentifier=%@,\n\tmethod=%@,\n\thost=%@,\n\turl=%@,\n\tparams=%@,\n\tmaxReetryTime=%@\n", [super description], self.identifier, self.method, self.host, self.url, self.params, @(self.maxRetryTime)];
+    return [NSString stringWithFormat:@"%@:\n\tidentifier=%@,\n\tmethod=%@,\n\thost=%@,\n\turl=%@,\n\tparams=%@,\n\tmaxRetryTime=%@\n", [super description], self.identifier, self.method, self.host, self.url, self.params, @(self.maxRetryTime)];
 }
 
 + (instancetype)apiWithIdentifier:(NSString *)identifier method:(SMRReqeustMethod)method host:(NSString *)host url:(NSString *)url params:(NSDictionary *)params useCache:(BOOL)useCache {
@@ -153,6 +163,20 @@ SMRReqeustMethod const SMRReqeustMethodDELETE   = @"DELETE";
         _callback = [[SMRAPICallback alloc] init];
     }
     return _callback;
+}
+
+- (NSMutableIndexSet *)whilteErrorCodes {
+    if (!_whilteErrorCodes) {
+        _whilteErrorCodes = [NSMutableIndexSet indexSet];
+    }
+    return _whilteErrorCodes;
+}
+
+- (NSMutableIndexSet *)blackErrorCodes {
+    if (!_blackErrorCodes) {
+        _blackErrorCodes = [NSMutableIndexSet indexSet];
+    }
+    return _blackErrorCodes;
 }
 
 @end

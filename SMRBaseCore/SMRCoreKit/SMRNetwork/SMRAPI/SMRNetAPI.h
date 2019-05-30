@@ -16,6 +16,7 @@ typedef void(^SMRNetAPISuccessBlock)(SMRNetAPI *api, id response);
 typedef void(^SMRNetAPIFaildBlock)(SMRNetAPI *api, id response, NSError *error);
 typedef void(^SMRNetAPIUploadProgressBlock)(SMRNetAPI *api, NSProgress *uploadProgress);
 typedef void(^SMRNetAPIDownloadProgressBlock)(SMRNetAPI *api, NSProgress *downloadProgress);
+typedef void(^SMRNetAPICacheOrSuccessBlock)(SMRNetAPI *api, id response, BOOL fromCache);
 
 @interface SMRAPICallback : NSObject
 
@@ -28,6 +29,7 @@ typedef void(^SMRNetAPIDownloadProgressBlock)(SMRNetAPI *api, NSProgress *downlo
 @property (copy  , nonatomic) SMRNetAPIFaildBlock faildBlock;
 @property (copy  , nonatomic) SMRNetAPIUploadProgressBlock uploadProgress;
 @property (copy  , nonatomic) SMRNetAPIDownloadProgressBlock downloadProgress;
+@property (copy  , nonatomic) SMRNetAPICacheOrSuccessBlock cacheOrSuccessBlock;
 
 /** 常用请求的回调方式1 */
 + (instancetype)callbackWithSuccessBlock:(SMRNetAPISuccessBlock)successBlock
@@ -35,8 +37,12 @@ typedef void(^SMRNetAPIDownloadProgressBlock)(SMRNetAPI *api, NSProgress *downlo
 
 /** 常用请求的回调方式2 */
 + (instancetype)callbackWithCacheBlock:(SMRNetAPICacheBlock)cacheBlock
-                         successBlock:(SMRNetAPISuccessBlock)successBlock
-                           faildBlock:(SMRNetAPIFaildBlock)faildBlock;
+                          successBlock:(SMRNetAPISuccessBlock)successBlock
+                            faildBlock:(SMRNetAPIFaildBlock)faildBlock;
+
+/** 常用请求的回调方式3 */
++ (instancetype)callbackWithCacheOrSuccessBlock:(SMRNetAPICacheOrSuccessBlock)cacheOrSuccessBlock
+                                     faildBlock:(SMRNetAPIFaildBlock)faildBlock;
 
 /** GET请求的回调方式 */
 + (instancetype)callbackForGETWithCacheBlock:(SMRNetAPICacheBlock)cacheBlock
@@ -80,6 +86,7 @@ typedef void(^SMRNetAPIDownloadProgressBlock)(SMRNetAPI *api, NSProgress *downlo
 
 /** 获取所有的回调方式 */
 + (instancetype)callbackWithConstructingBlock:(SMRConstructingUploadBlock)constructingBlock
+                          cacheOrSuccessBlock:(SMRNetAPICacheOrSuccessBlock)cacheOrSuccessBlock
                                    cacheBlock:(SMRNetAPICacheBlock)cacheBlock
                                  successBlock:(SMRNetAPISuccessBlock)successBlock
                                    faildBlock:(SMRNetAPIFaildBlock)faildBlock
@@ -127,10 +134,12 @@ typedef NS_ENUM(NSInteger, SMRResponseSerializerType) {
 @property (strong, nonatomic) SMRNetCachePolicy *cachePolicy;   ///< 缓存策略,默认nil
 @property (assign, nonatomic) NSTimeInterval timeoutInterval;   ///< 超时时间(s),默认0
 @property (assign, nonatomic) NSInteger maxRetryTime;           ///< API最大重试次数
+@property (strong, nonatomic, readonly) NSMutableIndexSet *whilteErrorCodes; ///< 白名单列表,可用作error的toast处理逻辑
+@property (strong, nonatomic, readonly) NSMutableIndexSet *blackErrorCodes;  ///< 黑名单列表,可用作error的toast处理逻辑
 
-@property (strong, nonatomic) SMRAPICallback *callback;         ///< 各种回调的集合对象
-@property (assign, nonatomic) SMRReqeustSerializerType reqeustType;     ///< 请求格式,默认JSON
-@property (assign, nonatomic) SMRResponseSerializerType responseType;   ///< 返回格式,默认JSON
+@property (strong, nonatomic) SMRAPICallback *callback;         ///< 各种回调的集合对象,不能为空,默认会自动创建一个
+@property (assign, nonatomic) SMRReqeustSerializerType reqeustType;     ///< 请求格式,默认JSON,暂时不支持
+@property (assign, nonatomic) SMRResponseSerializerType responseType;   ///< 返回格式,默认JSON,暂时不支持
 
 @property (strong, nonatomic, readonly) NSURLSessionTask *dataTask;     ///< API创建的任务,API发起后才能获取到值
 @property (strong, nonatomic, readonly) id response;                    ///< API请求成功后的返回结果

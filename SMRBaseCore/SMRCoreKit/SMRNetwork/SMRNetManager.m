@@ -132,7 +132,7 @@ SMRSessionAPIInitDelegate>
         [self.netAPIQueue enqueue:api];
         // 保证API请求过程中不会被重复请求初始化API
         if (!self.suspended) {
-            SMRAPICallback *callback = [SMRAPICallback callbackWithConstructingBlock:nil cacheBlock:nil successBlock:^(SMRNetAPI *api, id response) {
+            SMRAPICallback *callback = [SMRAPICallback callbackWithConstructingBlock:nil cacheOrSuccessBlock:nil cacheBlock:nil successBlock:^(SMRNetAPI *api, id response) {
                 // 向config发送api初始化成功的消息
                 BOOL successed = [self.config apiInitSuccessed:api response:response];
                 if (successed) {
