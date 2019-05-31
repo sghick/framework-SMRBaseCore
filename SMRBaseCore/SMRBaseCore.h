@@ -48,6 +48,10 @@
 #import "SMRSimpleCamera.h"
 #import "SMRLBXScanController.h"
 #import "SMRWeb.h"
+#import "UIImage+SMRGif.h"
+#import "UITabBar+SMRBadge.h"
+#import "UITabBar+SMRImage.h"
+#import "UITabBar+SMRTabBarInfo.h"
 
 /// SMRUtilsKit
 #import "SMRMatrixCalculator.h"
@@ -55,5 +59,6 @@
 #import "SMRAppInfo.h"
 #import "SMRKeyChainManager.h"
 #import "SMRUtilsHeader.h"
+#import "SMRUpdateStatusManager.h"
 
 #endif /* SMRBaseCore_h */

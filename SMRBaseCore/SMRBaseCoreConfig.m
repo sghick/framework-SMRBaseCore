@@ -56,4 +56,9 @@
 
 #pragma mark - Setters BaseUtils
 
+- (void)setUpdateStatusManagerConfig:(id<SMRUpdateStatusManagerConfig>)updateStatusManagerConfig {
+    _updateStatusManagerConfig = updateStatusManagerConfig;
+    [[SMRUpdateStatusManager sharedManager] startWithConfig:updateStatusManagerConfig];
+}
+
 @end

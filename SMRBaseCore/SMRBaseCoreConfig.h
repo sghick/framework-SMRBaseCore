@@ -40,6 +40,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - BaseUtils部分
 
+/** 更新状态管理器配置 */
+@property (strong, nonatomic) id<SMRUpdateStatusManagerConfig> updateStatusManagerConfig;
+
+#pragma mark - ConfigInti
+
 /** 单例 */
 + (instancetype)sharedInstance;
 

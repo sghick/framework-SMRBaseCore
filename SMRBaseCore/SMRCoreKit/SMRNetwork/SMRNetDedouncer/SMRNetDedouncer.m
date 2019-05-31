@@ -3,7 +3,7 @@
 //  SMRBaseCoreDemo
 //
 //  Created by 丁治文 on 2019/4/12.
-//  Copyright © 2019 ibaodashi. All rights reserved.
+//  Copyright © 2019 sumrise. All rights reserved.
 //
 
 #import "SMRNetDedouncer.h"

@@ -142,6 +142,11 @@
 		8AE4957222028D840055263E /* SMRButtonTestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4957122028D840055263E /* SMRButtonTestsController.m */; };
 		8AE49574220292770055263E /* SMRButtonAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AE49573220292770055263E /* SMRButtonAssets.xcassets */; };
 		8AE495A6220422680055263E /* SMRMatrixCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE495A5220422680055263E /* SMRMatrixCalculator.m */; };
+		8AF1989A22A135FA0045CBCF /* UITabBar+SMRBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF1989322A135FA0045CBCF /* UITabBar+SMRBadge.m */; };
+		8AF1989B22A135FA0045CBCF /* SMRUpdateStatusManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF1989522A135FA0045CBCF /* SMRUpdateStatusManager.m */; };
+		8AF1989C22A135FA0045CBCF /* UITabBar+SMRTabBarInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF1989722A135FA0045CBCF /* UITabBar+SMRTabBarInfo.m */; };
+		8AF1989E22A135FA0045CBCF /* UITabBar+SMRImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF1989922A135FA0045CBCF /* UITabBar+SMRImage.m */; };
+		8AF198A722A136760045CBCF /* UIImage+SMRGif.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF198A522A136760045CBCF /* UIImage+SMRGif.m */; };
 		8AF6B4FD22141E7800A56E51 /* SMRContentMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF6B4FC22141E7800A56E51 /* SMRContentMaskView.m */; };
 		8AF6B50122141F2C00A56E51 /* SMRAlertViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF6B50022141F2C00A56E51 /* SMRAlertViewTests.m */; };
 		8AF6B504221423BF00A56E51 /* SMRUIAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF6B503221423BF00A56E51 /* SMRUIAdapter.m */; };
@@ -450,6 +455,16 @@
 		8AE4957C2202C1F00055263E /* SMRBaseCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRBaseCore.h; sourceTree = "<group>"; };
 		8AE495A4220422680055263E /* SMRMatrixCalculator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRMatrixCalculator.h; sourceTree = "<group>"; };
 		8AE495A5220422680055263E /* SMRMatrixCalculator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRMatrixCalculator.m; sourceTree = "<group>"; };
+		8AF1989122A135FA0045CBCF /* SMRUpdateStatusManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRUpdateStatusManager.h; sourceTree = "<group>"; };
+		8AF1989222A135FA0045CBCF /* UITabBar+SMRImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+SMRImage.h"; sourceTree = "<group>"; };
+		8AF1989322A135FA0045CBCF /* UITabBar+SMRBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+SMRBadge.m"; sourceTree = "<group>"; };
+		8AF1989422A135FA0045CBCF /* UITabBar+SMRTabBarInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+SMRTabBarInfo.h"; sourceTree = "<group>"; };
+		8AF1989522A135FA0045CBCF /* SMRUpdateStatusManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRUpdateStatusManager.m; sourceTree = "<group>"; };
+		8AF1989622A135FA0045CBCF /* UITabBar+SMRBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+SMRBadge.h"; sourceTree = "<group>"; };
+		8AF1989722A135FA0045CBCF /* UITabBar+SMRTabBarInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+SMRTabBarInfo.m"; sourceTree = "<group>"; };
+		8AF1989922A135FA0045CBCF /* UITabBar+SMRImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+SMRImage.m"; sourceTree = "<group>"; };
+		8AF198A522A136760045CBCF /* UIImage+SMRGif.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SMRGif.m"; sourceTree = "<group>"; };
+		8AF198A622A136760045CBCF /* UIImage+SMRGif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SMRGif.h"; sourceTree = "<group>"; };
 		8AF6B4FB22141E7800A56E51 /* SMRContentMaskView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRContentMaskView.h; sourceTree = "<group>"; };
 		8AF6B4FC22141E7800A56E51 /* SMRContentMaskView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRContentMaskView.m; sourceTree = "<group>"; };
 		8AF6B4FF22141F2C00A56E51 /* SMRAlertViewTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRAlertViewTests.h; sourceTree = "<group>"; };
@@ -618,6 +633,8 @@
 		8A814A8021F5B80B00D8AEB6 /* SMRUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				8AF198A422A136760045CBCF /* SMRGifImage */,
+				8AF1988022A135D50045CBCF /* SMRTabBar */,
 				8A814CFA21F5CEC800D8AEB6 /* SMRAdapter */,
 				8AC7055A227FDB37002821D3 /* SMRWebController */,
 				8ACA4211227ED2430073BC44 /* SMRLBXScanController */,
@@ -642,6 +659,7 @@
 		8A814A8121F5B80B00D8AEB6 /* SMRUtilsKit */ = {
 			isa = PBXGroup;
 			children = (
+				8AF1989F22A1361C0045CBCF /* SMRUpdateStatusManager */,
 				8A3AB8E4225F10FF00CDBB8F /* SMRAppInfo */,
 				8A914DE82215A95900E2F691 /* SMRUtils */,
 				8AE495A32204225C0055263E /* SMRMatrixCalculator */,
@@ -1266,6 +1284,37 @@
 			path = SMRMatrixCalculator;
 			sourceTree = "<group>";
 		};
+		8AF1988022A135D50045CBCF /* SMRTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				8AF1989622A135FA0045CBCF /* UITabBar+SMRBadge.h */,
+				8AF1989322A135FA0045CBCF /* UITabBar+SMRBadge.m */,
+				8AF1989222A135FA0045CBCF /* UITabBar+SMRImage.h */,
+				8AF1989922A135FA0045CBCF /* UITabBar+SMRImage.m */,
+				8AF1989422A135FA0045CBCF /* UITabBar+SMRTabBarInfo.h */,
+				8AF1989722A135FA0045CBCF /* UITabBar+SMRTabBarInfo.m */,
+			);
+			path = SMRTabBar;
+			sourceTree = "<group>";
+		};
+		8AF1989F22A1361C0045CBCF /* SMRUpdateStatusManager */ = {
+			isa = PBXGroup;
+			children = (
+				8AF1989122A135FA0045CBCF /* SMRUpdateStatusManager.h */,
+				8AF1989522A135FA0045CBCF /* SMRUpdateStatusManager.m */,
+			);
+			path = SMRUpdateStatusManager;
+			sourceTree = "<group>";
+		};
+		8AF198A422A136760045CBCF /* SMRGifImage */ = {
+			isa = PBXGroup;
+			children = (
+				8AF198A622A136760045CBCF /* UIImage+SMRGif.h */,
+				8AF198A522A136760045CBCF /* UIImage+SMRGif.m */,
+			);
+			path = SMRGifImage;
+			sourceTree = "<group>";
+		};
 		8AF6B4FA22141E5500A56E51 /* SMRAlertView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1570,6 +1619,7 @@
 				8A814D3221F80B8F00D8AEB6 /* SMRRankerManager.m in Sources */,
 				8AC70511227EE286002821D3 /* LBXScanLineAnimation.m in Sources */,
 				8A814B0121F5B9A000D8AEB6 /* SMRDebug.m in Sources */,
+				8AF1989B22A135FA0045CBCF /* SMRUpdateStatusManager.m in Sources */,
 				8A814CB321F5C5F700D8AEB6 /* SMRAPICreator.m in Sources */,
 				8A814D3021F80B8F00D8AEB6 /* SMRRankerConfig.m in Sources */,
 				8A814A5221F5B7BD00D8AEB6 /* ViewController.m in Sources */,
@@ -1579,6 +1629,7 @@
 				8A814BC821F5BA2100D8AEB6 /* SMRRouterCenter+SMROpen.m in Sources */,
 				8A914E012215AB6D00E2F691 /* SMRUtils+Validate.m in Sources */,
 				8AC70513227EE286002821D3 /* LBXScanView.m in Sources */,
+				8AF1989E22A135FA0045CBCF /* UITabBar+SMRImage.m in Sources */,
 				8AD9C709223FC03E0028A871 /* SMRSliderBarContentView.m in Sources */,
 				8AE4955A21FFEEA60055263E /* SMRLayoutTests.m in Sources */,
 				8AE02F5722154FE6006235BB /* SMRAlertViewButton.m in Sources */,
@@ -1598,6 +1649,8 @@
 				8AF6B50122141F2C00A56E51 /* SMRAlertViewTests.m in Sources */,
 				8A814A4F21F5B7BD00D8AEB6 /* AppDelegate.m in Sources */,
 				8AF6B50E22142EC800A56E51 /* SMRTableAlertView.m in Sources */,
+				8AF198A722A136760045CBCF /* UIImage+SMRGif.m in Sources */,
+				8AF1989A22A135FA0045CBCF /* UITabBar+SMRBadge.m in Sources */,
 				8A814CED21F5CC4A00D8AEB6 /* UITableView+SMRSections.m in Sources */,
 				8A4239EF22432C37002DF711 /* UIView+SMRGesture.m in Sources */,
 				8A814BA021F5B9DC00D8AEB6 /* SMRDBSelectOption.m in Sources */,
@@ -1605,6 +1658,7 @@
 				8A914F0B221D1D5100E2F691 /* SMRUtilsVersionTests.m in Sources */,
 				8A914ED7221B9B8C00E2F691 /* SMRTextView.m in Sources */,
 				8A814BCB21F5BA2100D8AEB6 /* SMRRouterConfig.m in Sources */,
+				8AF1989C22A135FA0045CBCF /* UITabBar+SMRTabBarInfo.m in Sources */,
 				8A814B8821F5B9D100D8AEB6 /* SMRDBTableOption.m in Sources */,
 				FE77761D22187F8300F6416F /* SMRUtilsValidateTests.m in Sources */,
 				8A814C9D21F5C3D900D8AEB6 /* SMRNetAPI.m in Sources */,
