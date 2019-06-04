@@ -19,6 +19,7 @@ NSString * const _kDebugStatusForScreen = @"kDgStForSMRScreen";
 + (void)startDebugIfNeeded {
     BOOL status = [[NSUserDefaults standardUserDefaults] boolForKey:_kDebugStatusForScreen];
     if (status) {
+        [SMRLogScreen sharedScreen].enableOnlyWhenShow = NO;
         [SMRLogScreen show];
         [SMRLogSys setDebug:YES];
         [[FLEXManager sharedManager] showExplorer];
