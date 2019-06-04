@@ -8,6 +8,7 @@
 
 #import "SMRDebug.h"
 #import "SMRLogScreen.h"
+#import "FLEX.h"
 #import "SMRNetInfo.h"
 #import "NSURL+SMRRouter.h"
 
@@ -19,6 +20,9 @@ NSString * const _kDebugStatusForScreen = @"kDgStForSMRScreen";
     BOOL status = [[NSUserDefaults standardUserDefaults] boolForKey:_kDebugStatusForScreen];
     if (status) {
         [SMRLogScreen show];
+        [SMRLogSys setDebug:YES];
+        [[FLEXManager sharedManager] showExplorer];
+        [[FLEXManager sharedManager] setNetworkDebuggingEnabled:YES];
     } else {
         [SMRLogScreen hide];
     }
