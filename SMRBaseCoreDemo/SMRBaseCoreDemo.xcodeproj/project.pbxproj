@@ -126,6 +126,7 @@
 		8ACA420B227ECE8C0073BC44 /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ACA4208227ECE8B0073BC44 /* UIImage+FixOrientation.m */; };
 		8ACA4214227ED2430073BC44 /* SMRLBXScanController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ACA4213227ED2430073BC44 /* SMRLBXScanController.m */; };
 		8ACA4226227ED65B0073BC44 /* SMRBaseCore.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 8ACA4225227ED65B0073BC44 /* SMRBaseCore.podspec */; };
+		8ACDC03822A75423005784AA /* SMRWebParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ACDC03722A75423005784AA /* SMRWebParameter.m */; };
 		8AD9C6E5223A32830028A871 /* SMRGlobalCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9C6E4223A32820028A871 /* SMRGlobalCache.m */; };
 		8AD9C709223FC03E0028A871 /* SMRSliderBarContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9C708223FC03E0028A871 /* SMRSliderBarContentView.m */; };
 		8AE02F5422154FBD006235BB /* SMRAlertViewContentTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE02F5322154FBD006235BB /* SMRAlertViewContentTextCell.m */; };
@@ -423,6 +424,8 @@
 		8ACA4212227ED2430073BC44 /* SMRLBXScanController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRLBXScanController.h; sourceTree = "<group>"; };
 		8ACA4213227ED2430073BC44 /* SMRLBXScanController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRLBXScanController.m; sourceTree = "<group>"; };
 		8ACA4225227ED65B0073BC44 /* SMRBaseCore.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SMRBaseCore.podspec; path = ../SMRBaseCore.podspec; sourceTree = "<group>"; };
+		8ACDC03622A75422005784AA /* SMRWebParameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRWebParameter.h; sourceTree = "<group>"; };
+		8ACDC03722A75423005784AA /* SMRWebParameter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRWebParameter.m; sourceTree = "<group>"; };
 		8AD9C6E2223A32820028A871 /* SMRGlobalCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRGlobalCache.h; sourceTree = "<group>"; };
 		8AD9C6E3223A32820028A871 /* SMRCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRCache.h; sourceTree = "<group>"; };
 		8AD9C6E4223A32820028A871 /* SMRGlobalCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRGlobalCache.m; sourceTree = "<group>"; };
@@ -1168,6 +1171,8 @@
 				8AC70560227FDBC9002821D3 /* SMRWebConfig.m */,
 				8AA8B45B224A3D3200778320 /* SMRWebController.h */,
 				8AA8B45C224A3D3200778320 /* SMRWebController.m */,
+				8ACDC03622A75422005784AA /* SMRWebParameter.h */,
+				8ACDC03722A75423005784AA /* SMRWebParameter.m */,
 			);
 			path = SMRWebController;
 			sourceTree = "<group>";
@@ -1629,6 +1634,7 @@
 				8A814BC821F5BA2100D8AEB6 /* SMRRouterCenter+SMROpen.m in Sources */,
 				8A914E012215AB6D00E2F691 /* SMRUtils+Validate.m in Sources */,
 				8AC70513227EE286002821D3 /* LBXScanView.m in Sources */,
+				8ACDC03822A75423005784AA /* SMRWebParameter.m in Sources */,
 				8AF1989E22A135FA0045CBCF /* UITabBar+SMRImage.m in Sources */,
 				8AD9C709223FC03E0028A871 /* SMRSliderBarContentView.m in Sources */,
 				8AE4955A21FFEEA60055263E /* SMRLayoutTests.m in Sources */,

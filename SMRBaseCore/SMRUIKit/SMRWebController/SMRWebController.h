@@ -10,11 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class WKWebView, SMRWebParameter;
 @interface SMRWebController : SMRNavFatherController
 
-@property (copy, nonatomic) NSString *url;
+@property (strong, nonatomic, readonly) WKWebView *webView;
+@property (strong, nonatomic) SMRWebParameter *webParameter;
+@property (copy  , nonatomic) NSString *url;
 
-+ (BOOL)pushWithURL:(NSString *)url title:(nullable NSString *)title;
++ (void)filterUrl:(NSString *)url
+  completionBlock:(void (^)(NSString *url, BOOL allowLoad))completionBlock;
 
 @end
 
