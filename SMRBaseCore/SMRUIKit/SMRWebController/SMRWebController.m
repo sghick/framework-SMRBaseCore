@@ -29,6 +29,7 @@ WKNavigationDelegate>
 @implementation SMRWebController
 
 @synthesize webView = _webView;
+@synthesize webParameter = _webParameter;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -228,7 +229,20 @@ WKNavigationDelegate>
     }
 }
 
-#pragma mark - lazy
+#pragma mark - Setters
+
+- (void)setUrl:(NSString *)url {
+    _url = url;
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL smr_URLWithString:url]];
+    [self.webView loadRequest:request];
+}
+
+- (void)setWebParameter:(SMRWebParameter *)webParameter {
+    _webParameter = webParameter;
+    self.navigationView.title = webParameter.title;
+}
+
+#pragma mark - Getters
 
 - (WKUserContentController *)userController {
     if (!_userController) {
@@ -251,9 +265,6 @@ WKNavigationDelegate>
         _webView.UIDelegate = self;
         _webView.navigationDelegate = self;
         _webView.allowsBackForwardNavigationGestures = YES;
-        NSURL *url = [NSURL URLWithString:self.url];
-        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-        [_webView loadRequest:request];
         [_webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
         [_webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
     }

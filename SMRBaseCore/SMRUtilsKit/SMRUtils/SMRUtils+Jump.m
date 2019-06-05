@@ -8,28 +8,34 @@
 
 #import "SMRUtils+Jump.h"
 #import "SMRRouterCenter+SMROpen.h"
-#import "SMRWebController.h"
+#import "SMRWeb.h"
 #import "SMRNavigator.h"
 
 @implementation SMRUtils (Jump)
 
 + (void)jumpToAnyURL:(NSString *)url {
-    [self jumpToAnyURL:url webTitle:nil forceToApp:YES];
+    SMRWebParameter *params = [[SMRWebParameter alloc] init];
+    [self jumpToAnyURL:url webParameter:params forceToApp:YES];
 }
 
-+ (void)jumpToAnyURL:(NSString *)url webTitle:(NSString *)webTitle forceToApp:(BOOL)forceToApp {
++ (void)jumpToAnyURL:(NSString *)url webParameter:(SMRWebParameter *)webParameter {
+    [self jumpToAnyURL:url webParameter:webParameter forceToApp:YES];
+}
+
++ (void)jumpToAnyURL:(NSString *)url webParameter:(SMRWebParameter *)webParameter forceToApp:(BOOL)forceToApp {
     if (!url.length) {
         return;
     }
     // 为web链接
     if ([self checkWebURL:url]) {
-        [self jumpToWeb:url title:webTitle];
+        [self jumpToWeb:url webParameter:webParameter];
         return;
     }
     NSURL *jURL = [NSURL URLWithString:url];
     // 为navtive链接
     if ([SMRRouterCenter canResponseWithUrl:jURL]) {
-        [SMRRouterCenter openWithUrl:jURL params:nil];
+        NSDictionary *params = @{@"webParameter":webParameter};
+        [SMRRouterCenter openWithUrl:jURL params:params];
         return;
     }
     // 为其它链接
@@ -42,8 +48,14 @@
     }
 }
 
-+ (void)jumpToWeb:(NSString *)url title:(nullable NSString *)title {
-    [SMRWebController pushWithURL:url title:title];
++ (void)jumpToWeb:(NSString *)url webParameter:(SMRWebParameter *)webParameter {
+    [SMRWebController filterUrl:url completionBlock:^(NSString * _Nonnull url, BOOL allowLoad) {
+        SMRWebController *web = [[SMRWebController alloc] init];
+        web.url = url;
+        web.webParameter = webParameter;
+        [SMRNavigator pushOrPresentToViewController:web animated:YES];
+    }];
+    
 }
 
 + (BOOL)checkWebURL:(NSString *)url {

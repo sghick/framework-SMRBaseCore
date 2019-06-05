@@ -13,6 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class SMRWebController;
+@class SMRNavigationView;
 @protocol SMRNavigationViewConfig <NSObject>
 
 - (SMRNavigationView *)navigationViewOfWebController:(SMRWebController *)controller;

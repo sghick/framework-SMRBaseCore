@@ -127,6 +127,7 @@
 		8ACA4214227ED2430073BC44 /* SMRLBXScanController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ACA4213227ED2430073BC44 /* SMRLBXScanController.m */; };
 		8ACA4226227ED65B0073BC44 /* SMRBaseCore.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 8ACA4225227ED65B0073BC44 /* SMRBaseCore.podspec */; };
 		8ACDC03822A75423005784AA /* SMRWebParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ACDC03722A75423005784AA /* SMRWebParameter.m */; };
+		8ACDC03F22A78CC1005784AA /* SMRNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ACDC03E22A78CC1005784AA /* SMRNotificationManager.m */; };
 		8AD9C6E5223A32830028A871 /* SMRGlobalCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9C6E4223A32820028A871 /* SMRGlobalCache.m */; };
 		8AD9C709223FC03E0028A871 /* SMRSliderBarContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9C708223FC03E0028A871 /* SMRSliderBarContentView.m */; };
 		8AE02F5422154FBD006235BB /* SMRAlertViewContentTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE02F5322154FBD006235BB /* SMRAlertViewContentTextCell.m */; };
@@ -426,6 +427,8 @@
 		8ACA4225227ED65B0073BC44 /* SMRBaseCore.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SMRBaseCore.podspec; path = ../SMRBaseCore.podspec; sourceTree = "<group>"; };
 		8ACDC03622A75422005784AA /* SMRWebParameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRWebParameter.h; sourceTree = "<group>"; };
 		8ACDC03722A75423005784AA /* SMRWebParameter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRWebParameter.m; sourceTree = "<group>"; };
+		8ACDC03D22A78CC1005784AA /* SMRNotificationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRNotificationManager.h; sourceTree = "<group>"; };
+		8ACDC03E22A78CC1005784AA /* SMRNotificationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRNotificationManager.m; sourceTree = "<group>"; };
 		8AD9C6E2223A32820028A871 /* SMRGlobalCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRGlobalCache.h; sourceTree = "<group>"; };
 		8AD9C6E3223A32820028A871 /* SMRCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRCache.h; sourceTree = "<group>"; };
 		8AD9C6E4223A32820028A871 /* SMRGlobalCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRGlobalCache.m; sourceTree = "<group>"; };
@@ -662,6 +665,7 @@
 		8A814A8121F5B80B00D8AEB6 /* SMRUtilsKit */ = {
 			isa = PBXGroup;
 			children = (
+				8ACDC03922A78CA2005784AA /* SMRNotificationManager */,
 				8AF1989F22A1361C0045CBCF /* SMRUpdateStatusManager */,
 				8A3AB8E4225F10FF00CDBB8F /* SMRAppInfo */,
 				8A914DE82215A95900E2F691 /* SMRUtils */,
@@ -1209,6 +1213,15 @@
 			path = SMRLBXScanController;
 			sourceTree = "<group>";
 		};
+		8ACDC03922A78CA2005784AA /* SMRNotificationManager */ = {
+			isa = PBXGroup;
+			children = (
+				8ACDC03D22A78CC1005784AA /* SMRNotificationManager.h */,
+				8ACDC03E22A78CC1005784AA /* SMRNotificationManager.m */,
+			);
+			path = SMRNotificationManager;
+			sourceTree = "<group>";
+		};
 		8AD9C6E1223A32820028A871 /* SMRCache */ = {
 			isa = PBXGroup;
 			children = (
@@ -1588,6 +1601,7 @@
 				8A914E072216580600E2F691 /* SMRUtils+Animation.m in Sources */,
 				8AE02F5422154FBD006235BB /* SMRAlertViewContentTextCell.m in Sources */,
 				8ACA4214227ED2430073BC44 /* SMRLBXScanController.m in Sources */,
+				8ACDC03F22A78CC1005784AA /* SMRNotificationManager.m in Sources */,
 				8AD9C6E5223A32830028A871 /* SMRGlobalCache.m in Sources */,
 				8A4AA2D8222E1E590034929D /* SMRUtils+MBProgressHUD.m in Sources */,
 				8A914E042216530A00E2F691 /* SMRUtils+Locations.m in Sources */,
