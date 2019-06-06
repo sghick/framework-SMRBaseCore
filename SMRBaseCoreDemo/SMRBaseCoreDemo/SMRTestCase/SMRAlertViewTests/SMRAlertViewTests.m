@@ -13,6 +13,10 @@
 @implementation SMRAlertViewTests
 
 - (id)begin {
+    return self;
+}
+
+- (void)testGlobalConfig {
     static NSInteger touchIdx = 0;
     NSArray<NSNumber *> *stls = @[@(SMRAlertViewStyleWhite),
                                   @(SMRAlertViewStyleOrange),
@@ -22,7 +26,6 @@
     
     [self testContentMaskView_001];
     touchIdx++;
-    return self;
 }
 
 - (void)testContentMaskView_001 {
@@ -65,6 +68,10 @@
     [view setSureButtonTouchedBlock:^(id  _Nonnull maskView) {
         NSLog(@"我知道了");
     }];
+}
+
+- (void)testAlertNavigation {
+    
 }
 
 - (void)testSafeAreaView {

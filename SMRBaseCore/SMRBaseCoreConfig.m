@@ -44,7 +44,7 @@
 
 - (void)setWebReplaceConfig:(id<SMRWebReplaceConfig>)webReplaceConfig {
     _webReplaceConfig = webReplaceConfig;
-    [SMRWebConfig sharedInstance].webReplaceConfig = webReplaceConfig;
+    [SMRWebConfig shareConfig].webReplaceConfig = webReplaceConfig;
 }
 
 #pragma mark - Setters BaseUI
