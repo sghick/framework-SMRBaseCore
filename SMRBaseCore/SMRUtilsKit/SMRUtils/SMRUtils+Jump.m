@@ -34,7 +34,8 @@
     NSURL *jURL = [NSURL URLWithString:url];
     // 为navtive链接
     if ([SMRRouterCenter canResponseWithUrl:jURL]) {
-        NSDictionary *params = @{@"webParameter":webParameter};
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        params[@"webParameter"] = webParameter;
         [SMRRouterCenter openWithUrl:jURL params:params];
         return;
     }
