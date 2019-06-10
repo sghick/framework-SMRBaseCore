@@ -18,6 +18,10 @@ UIGestureRecognizerDelegate>
 @property (assign, nonatomic) CGFloat heightOfContentView;
 @property (strong, nonatomic) NSLayoutConstraint *heightOfContentViewLayout;
 
+@property (weak  , nonatomic) SMRContentMaskView *superMaskView;
+@property (strong, nonatomic) UIColor *superMaskViewBackColor;
+@property (assign, nonatomic) BOOL superMaskViewContentHidden;
+
 @end
 
 @implementation SMRContentMaskView
@@ -27,7 +31,7 @@ UIGestureRecognizerDelegate>
 @synthesize contentView = _contentView;
 
 - (void)dealloc {
-    NSLog(@"成功释放对象:<%@: %p>", [self class], &self);
+//    NSLog(@"成功释放对象:<%@: %p>", [self class], &self);
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -43,6 +47,7 @@ UIGestureRecognizerDelegate>
 
 - (void)createContentMaskSubviews {
     _heightOfContentView = 40;
+    _autoAdjustIfShowInMaskView = YES;
     self.alpha = 1;
     self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
     [self addSubview:self.backControl];
@@ -151,6 +156,15 @@ UIGestureRecognizerDelegate>
     if (!view) {
         return;
     }
+    if (self.autoAdjustIfShowInMaskView && [view isKindOfClass:[SMRContentMaskView class]]) {
+        // show的时候,需要隐藏back和content,hide的时候需要展示其父类的back和content
+        self.superMaskView = (SMRContentMaskView *)view;
+        // 保存原来的color
+        self.superMaskViewBackColor = self.superMaskView.backgroundColor;
+        self.superMaskViewContentHidden = self.superMaskView.contentView.hidden;
+        self.superMaskView.backgroundColor = [UIColor clearColor];
+        self.superMaskView.contentView.hidden = YES;
+    }
     [view addSubview:self];
     if (animated) {
         // show back
@@ -179,6 +193,8 @@ UIGestureRecognizerDelegate>
     [self hideAnimated:YES];
 }
 - (void)hideAnimated:(BOOL)animated {
+    // 恢复父类的样式属性
+    [self recoverSuperViewIfNeeded];
     if (animated) {
         SMRContentMaskViewContentAlignment alignment = [self contentAlignmentOfMaskView];
         if (alignment == SMRContentMaskViewContentAlignmentCenter) {
@@ -205,6 +221,23 @@ UIGestureRecognizerDelegate>
         }
     } else {
         [self removeFromSuperview];
+    }
+}
+
+- (void)hideAllMaskViewWithAnimated:(BOOL)animated {
+    // 遍历至最根部的maskView
+    SMRContentMaskView *sp = self;
+    while ([sp.superview isKindOfClass:[SMRContentMaskView class]]) {
+        sp = (SMRContentMaskView *)sp.superview;
+    }
+    [sp hideAnimated:animated];
+}
+
+- (void)recoverSuperViewIfNeeded {
+    if (self.superMaskView && [self.superMaskView isKindOfClass:[SMRContentMaskView class]]) {
+        self.superMaskView.backgroundColor = self.superMaskViewBackColor;
+        self.superMaskView.contentView.hidden = self.superMaskViewContentHidden;
+        self.superMaskView = nil;
     }
 }
 
