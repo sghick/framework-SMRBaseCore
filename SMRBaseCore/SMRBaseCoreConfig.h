@@ -16,6 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface SMRBaseCoreConfig : NSObject
 
+#pragma mark - Switch开关
+
+@property (assign, nonatomic) BOOL assertOffAtNetDedouncer; ///< default:NO
+
 #pragma mark - BaseCore部分
 
 /** 路由配置 */

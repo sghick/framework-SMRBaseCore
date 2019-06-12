@@ -101,15 +101,15 @@
         // 处理防抖结果
         NSArray<SMRNetAPI *> *dedouncedAPIs = [self.dedouncer objectForDedouncedWithIdentifier:api.identifier
                                                                                       groupTag:api.callback.groupTagForDedounce];
-        for (SMRNetAPI *api in dedouncedAPIs) {
+        for (SMRNetAPI *deapi in dedouncedAPIs) {
             // 保存网络请求成功的结果
-            [api fillResponse:responseObject error:nil];
+            [deapi fillResponse:responseObject error:nil];
             // 请求成功的回调
-            if (callback.successBlock) {
-                callback.successBlock(api, responseObject);
+            if (deapi.callback.successBlock) {
+                deapi.callback.successBlock(deapi, responseObject);
             }
-            if (callback.cacheOrSuccessBlock) {
-                callback.cacheOrSuccessBlock(api, responseObject, NO);
+            if (deapi.callback.cacheOrSuccessBlock) {
+                deapi.callback.cacheOrSuccessBlock(deapi, responseObject, NO);
             }
         }
         [self.dedouncer removeObjectForDedouncedWithIdentifier:api.identifier
@@ -143,12 +143,12 @@
             // 处理防抖结果
             NSArray<SMRNetAPI *> *dedouncedAPIs = [self.dedouncer objectForDedouncedWithIdentifier:api.identifier
                                                                                           groupTag:api.callback.groupTagForDedounce];
-            for (SMRNetAPI *api in dedouncedAPIs) {
+            for (SMRNetAPI *deapi in dedouncedAPIs) {
                 // 保存网络请求失败的结果
-                [api fillResponse:response error:error];
+                [deapi fillResponse:response error:error];
                 // 请求成功的回调
-                if (callback.faildBlock) {
-                    callback.faildBlock(api, response, error);
+                if (deapi.callback.faildBlock) {
+                    deapi.callback.faildBlock(deapi, response, error);
                 }
             }
             [self.dedouncer removeObjectForDedouncedWithIdentifier:api.identifier
