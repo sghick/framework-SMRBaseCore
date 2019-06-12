@@ -35,11 +35,20 @@ UIGestureRecognizerDelegate>
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
+    return [self initWithFrame:frame contentAlignment:SMRContentMaskViewContentAlignmentCenter];
+}
+
+- (instancetype)initWithContentAlignment:(SMRContentMaskViewContentAlignment)contentAlignment {
+    return [self initWithFrame:CGRectZero contentAlignment:contentAlignment];
+}
+
+- (instancetype)initWithFrame:(CGRect)frame contentAlignment:(SMRContentMaskViewContentAlignment)contentAlignment {
     if (CGRectEqualToRect(frame, CGRectZero)) {
         frame = [UIScreen mainScreen].bounds;
     }
     self = [super initWithFrame:frame];
     if (self) {
+        _contentAlignment = contentAlignment;
         [self createContentMaskSubviews];
     }
     return self;
@@ -98,11 +107,14 @@ UIGestureRecognizerDelegate>
 }
 
 - (CGFloat)widthOfContentView {
-    return CGRectGetWidth([UIScreen mainScreen].bounds) - 2*[SMRUIAdapter value:43.0];
+    if (self.contentAlignment == SMRContentMaskViewContentAlignmentCenter) {
+        return CGRectGetWidth([UIScreen mainScreen].bounds) - 2*[SMRUIAdapter value:43.0];
+    }
+    return CGRectGetWidth([UIScreen mainScreen].bounds);
 }
 
 - (SMRContentMaskViewContentAlignment)contentAlignmentOfMaskView {
-    return SMRContentMaskViewContentAlignmentCenter;
+    return self.contentAlignment;
 }
 
 - (UIEdgeInsets)contentInsetsOfBackgroundImageView {
