@@ -44,6 +44,8 @@ typedef void(^SMRContentMaskViewTouchedBlock)(id maskView);
 /** 初始化方法,默认SMRContentMaskViewContentAlignmentCenter */
 - (instancetype)init;
 - (instancetype)initWithContentAlignment:(SMRContentMaskViewContentAlignment)contentAlignment;
+/** 推荐子类重写此方法 */
+- (instancetype)initWithFrame:(CGRect)frame contentAlignment:(BDSContentMaskViewContentAlignment)contentAlignment;
 
 /** 更新contentView的高 */
 - (void)updateHeightOfContentView:(CGFloat)heightOfContentView;
