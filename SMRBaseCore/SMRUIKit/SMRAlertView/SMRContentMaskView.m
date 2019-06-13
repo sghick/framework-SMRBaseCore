@@ -162,9 +162,10 @@ UIGestureRecognizerDelegate>
     [self showAnimated:YES];
 }
 - (void)showAnimated:(BOOL)animated {
-    [self showInView:[UIApplication sharedApplication].delegate.window animated:animated];
+    [self showInView:nil animated:animated];
 }
-- (void)showInView:(UIView *)view animated:(BOOL)animated {
+- (void)showInView:(nullable UIView *)inView animated:(BOOL)animated {
+    UIView *view = inView ?: [UIApplication sharedApplication].delegate.window;
     if (!view) {
         return;
     }
