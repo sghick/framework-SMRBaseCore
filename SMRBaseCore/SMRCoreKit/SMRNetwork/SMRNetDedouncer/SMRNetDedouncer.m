@@ -96,7 +96,7 @@ static dispatch_queue_t smr_netdedouncer_creation_queue() {
             } else {
                 // 超出容量,预警,开启暴力刷子防护
                 self.blackList[identifier] = @(nowTime + self.invalidateDuration);
-                if (![BDSBaseCoreConfig sharedInstance].assertOffAtNetDedouncer) {
+                if (![SMRBaseCoreConfig sharedInstance].assertOffAtNetDedouncer) {
                     NSAssert(NO, @"检测到异常:%@, 请检查同一标识是否有重复.", identifier);
                 }
             }
