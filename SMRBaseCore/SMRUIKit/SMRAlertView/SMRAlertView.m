@@ -36,8 +36,8 @@ UITableViewSectionsDelegate>
 
 @implementation SMRAlertView
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
+- (instancetype)initWithFrame:(CGRect)frame contentAlignment:(SMRContentMaskViewContentAlignment)contentAlignment {
+    self = [super initWithFrame:frame contentAlignment:contentAlignment];
     if (self) {
         if ([SMRBaseCoreConfig sharedInstance].alertViewStyle != SMRAlertViewStyleConfig) {
             // 使用config配置的样式
