@@ -206,7 +206,11 @@ WKNavigationDelegate>
         NSString *userAgent = [replaceConfig customUserAgentWithWebController:self url:url];
         if (userAgent) {
             // >= iOS9,设置UA
-            webView.customUserAgent = userAgent;
+            if (@available(iOS 9.0, *)) {
+                webView.customUserAgent = userAgent;
+            } else {
+                // Fallback on earlier versions
+            }
         }
     }
 }
