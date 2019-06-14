@@ -50,6 +50,8 @@ typedef void(^SMRWKScriptMessageRecivedBlock)(SMRWebController *webController, W
 @optional
 /** YES为url有参数需要替换 */
 - (BOOL)replaceUrl:(NSString *)url completionBlock:(void (^)(NSString *url))completionBlock;
+/** 根据具体情况设置对应的UA */
+- (NSString *)customUserAgentWithWebController:(SMRWebController *)webController url:(NSURL *)url;
 
 @end
 

@@ -13,9 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SMRAppInfo : NSObject
 
 /**
- deviceToken的设置方法,需要设置后才能值
+ deviceToken的设置方法,需要设置后才能有值
  */
-+ (void)setDeviceToken:(NSString *)deviceToken;
++ (void)setDeviceToken:(nullable NSString *)deviceToken;
 + (NSString *)deviceToken;
 
 /**
@@ -23,6 +23,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)setLogined:(BOOL)logined;
 + (BOOL)logined;
+
+/**
+ Web中默认的UserAgent,需要在启动时设置后才能有值
+ */
++ (void)setWebPureUserAgent:(nullable NSString *)userAgent;
++ (NSString *)webPureUserAgent;
++ (NSString *)webPureUserAgentByAppendings:(NSArray<NSString *> *)appendings;
 
 @end
 

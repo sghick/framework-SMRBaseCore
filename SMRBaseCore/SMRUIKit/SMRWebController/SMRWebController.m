@@ -121,7 +121,7 @@ WKNavigationDelegate>
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     NSURL *url = navigationAction.request.URL;
-    
+    [self fillUserAgentWithWebView:webView url:url];
     id<SMRWebReplaceConfig> replaceConfig = [SMRWebConfig shareConfig].webReplaceConfig;
     if ([replaceConfig respondsToSelector:@selector(replaceUrl:completionBlock:)]) {
         if ([replaceConfig replaceUrl:url.absoluteString completionBlock:^(NSString * _Nonnull url) {
@@ -198,6 +198,19 @@ WKNavigationDelegate>
     [self removeScriptMessageHandlers];
 }
 
+#pragma mark - UserAgent
+
+- (void)fillUserAgentWithWebView:(WKWebView *)webView url:(NSURL *)url {
+    id<SMRWebReplaceConfig> replaceConfig = [SMRWebConfig shareConfig].webReplaceConfig;
+    if ([replaceConfig respondsToSelector:@selector(customUserAgentWithWebController:url:)]) {
+        NSString *userAgent = [replaceConfig customUserAgentWithWebController:self url:url];
+        if (userAgent) {
+            // >= iOS9,设置UA
+            webView.customUserAgent = userAgent;
+        }
+    }
+}
+
 #pragma mark - Utils
 
 + (void)filterUrl:(NSString *)url
@@ -234,6 +247,7 @@ WKNavigationDelegate>
 - (void)setUrl:(NSString *)url {
     _url = url;
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL smr_URLWithString:url]];
+    [self fillUserAgentWithWebView:self.webView url:request.URL];
     [self.webView loadRequest:request];
 }
 

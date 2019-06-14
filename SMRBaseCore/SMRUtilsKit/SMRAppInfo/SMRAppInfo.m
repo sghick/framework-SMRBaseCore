@@ -12,7 +12,7 @@
 
 static NSString *kUDForAppDeviceToken = @"kUDForAppDeviceToken";
 static NSString *_deviceToken;
-+ (void)setDeviceToken:(NSString *)deviceToken {
++ (void)setDeviceToken:(nullable NSString *)deviceToken {
     _deviceToken = deviceToken;
     [[self appUserDefaults] setObject:deviceToken forKey:kUDForAppDeviceToken];
 }
@@ -34,6 +34,26 @@ static NSNumber *_logined;
         _logined = [[self appUserDefaults] objectForKey:kUDForAppLogined];
     }
     return _logined.boolValue;
+}
+
+static NSString *kUDForWebPureUserAgent = @"kUDForWebPureUserAgent";
+static NSString *_webPureUserAgent;
++ (void)setWebPureUserAgent:(nullable NSString *)userAgent {
+    _webPureUserAgent = userAgent;
+    [[self appUserDefaults] setObject:_webPureUserAgent forKey:kUDForWebPureUserAgent];
+}
++ (NSString *)webPureUserAgent {
+    if (!_webPureUserAgent) {
+        _webPureUserAgent = [[self appUserDefaults] objectForKey:kUDForWebPureUserAgent];
+    }
+    return _webPureUserAgent;
+}
++ (NSString *)webPureUserAgentByAppendings:(NSArray<NSString *> *)appendings {
+    NSString *userAgent = [self webPureUserAgent];
+    for (NSString *append in appendings) {
+        userAgent = [userAgent stringByAppendingFormat:@" %@", append];
+    }
+    return userAgent;
 }
 
 #pragma mark - UserDefaults

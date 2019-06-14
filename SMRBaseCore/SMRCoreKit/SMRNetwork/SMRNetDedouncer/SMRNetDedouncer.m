@@ -7,6 +7,7 @@
 //
 
 #import "SMRNetDedouncer.h"
+#import "SMRBaseCoreConfig.h"
 
 static dispatch_queue_t smr_netdedouncer_creation_queue() {
     static dispatch_queue_t t_smr_netdedouncer_creation_queue;

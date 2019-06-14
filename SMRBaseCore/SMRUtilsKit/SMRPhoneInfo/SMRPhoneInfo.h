@@ -67,6 +67,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (NSString *)webUserAgent;
 
+/**
+ app的UserAgent
+ */
++ (NSString *)appUserAgent;
+
 @end
 
 NS_ASSUME_NONNULL_END
