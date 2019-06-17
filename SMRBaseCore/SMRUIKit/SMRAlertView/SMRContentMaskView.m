@@ -21,6 +21,9 @@ UIGestureRecognizerDelegate>
 @property (weak  , nonatomic) SMRContentMaskView *superMaskView;
 @property (strong, nonatomic) UIColor *superMaskViewBackColor;
 @property (assign, nonatomic) BOOL superMaskViewContentHidden;
+@property (strong, nonatomic) UIColor *thisMaskViewContentBackColor;
+
+@property (assign, nonatomic) CGFloat animationDuration; ///< default:0.35
 
 @end
 
@@ -31,7 +34,11 @@ UIGestureRecognizerDelegate>
 @synthesize contentView = _contentView;
 
 - (void)dealloc {
-//    NSLog(@"成功释放对象:<%@: %p>", [self class], &self);
+    //    NSLog(@"成功释放对象:<%@: %p>", [self class], &self);
+}
+
+- (instancetype)init {
+    return [super init];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -48,6 +55,7 @@ UIGestureRecognizerDelegate>
     }
     self = [super initWithFrame:frame];
     if (self) {
+        _animationDuration = 0.35;
         _contentAlignment = contentAlignment;
         [self createContentMaskSubviews];
     }
@@ -169,6 +177,10 @@ UIGestureRecognizerDelegate>
     if (!view) {
         return;
     }
+    // 恢复因之前关闭时改变的颜色
+    if (self.thisMaskViewContentBackColor) {
+        self.backgroundColor = self.thisMaskViewContentBackColor;
+    }
     if (self.autoAdjustIfShowInMaskView && [view isKindOfClass:[SMRContentMaskView class]]) {
         // show的时候,需要隐藏back和content,hide的时候需要展示其父类的back和content
         self.superMaskView = (SMRContentMaskView *)view;
@@ -177,11 +189,14 @@ UIGestureRecognizerDelegate>
         self.superMaskViewContentHidden = self.superMaskView.contentView.hidden;
         self.superMaskView.backgroundColor = [UIColor clearColor];
         self.superMaskView.contentView.hidden = YES;
+        self.alpha = 1;
+    } else {
+        self.alpha = 0;
     }
     [view addSubview:self];
     if (animated) {
         // show back
-        [UIView animateWithDuration:0.25 animations:^{
+        [UIView animateWithDuration:self.animationDuration animations:^{
             self.alpha = 1;
         }];
         
@@ -192,8 +207,7 @@ UIGestureRecognizerDelegate>
         } else {
             CGFloat offsetY = self.heightOfContentViewLayout.constant;
             self.contentView.transform = CGAffineTransformMakeTranslation(0, offsetY);
-            [UIView animateWithDuration:0.25 animations:^{
-                self.contentView.alpha = 1;
+            [UIView animateWithDuration:self.animationDuration animations:^{
                 self.contentView.transform = CGAffineTransformMakeTranslation(0, 0);
             }];
         }
@@ -212,7 +226,7 @@ UIGestureRecognizerDelegate>
         SMRContentMaskViewContentAlignment alignment = [self contentAlignmentOfMaskView];
         if (alignment == SMRContentMaskViewContentAlignmentCenter) {
             // hide back
-            [UIView animateWithDuration:0.25 animations:^{
+            [UIView animateWithDuration:self.animationDuration animations:^{
                 self.alpha = 0;
             } completion:^(BOOL finished) {
                 [self removeFromSuperview];
@@ -220,14 +234,13 @@ UIGestureRecognizerDelegate>
         } else {
             // hide content
             CGFloat offsetY = self.heightOfContentViewLayout.constant;
-            [UIView animateWithDuration:0.25 animations:^{
+            [UIView animateWithDuration:self.animationDuration animations:^{
                 self.contentView.transform = CGAffineTransformMakeTranslation(0, offsetY);
             }];
             
             // hide back
-            [UIView animateWithDuration:0.25 animations:^{
+            [UIView animateWithDuration:self.animationDuration animations:^{
                 self.alpha = 0;
-                self.contentView.alpha = 0;
             } completion:^(BOOL finished) {
                 [self removeFromSuperview];
             }];
@@ -251,6 +264,10 @@ UIGestureRecognizerDelegate>
         self.superMaskView.backgroundColor = self.superMaskViewBackColor;
         self.superMaskView.contentView.hidden = self.superMaskViewContentHidden;
         self.superMaskView = nil;
+        
+        // 保存关闭时的颜色
+        self.thisMaskViewContentBackColor = self.backgroundColor;
+        self.backgroundColor = [UIColor clearColor];
     }
 }
 
