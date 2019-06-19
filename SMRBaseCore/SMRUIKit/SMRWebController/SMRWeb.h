@@ -9,7 +9,7 @@
 #ifndef SMRWeb_h
 #define SMRWeb_h
 
-#import "SMRWebConfig.h"
 #import "SMRWebController.h"
+#import "SMRWebConfig.h"
 
 #endif /* SMRWeb_h */

@@ -14,15 +14,14 @@
 @implementation SMRUtils (Jump)
 
 + (void)jumpToAnyURL:(NSString *)url {
-    SMRWebParameter *params = [[SMRWebParameter alloc] init];
-    [self jumpToAnyURL:url webParameter:params forceToApp:YES];
+    [self jumpToAnyURL:url webParameter:nil forceToApp:YES];
 }
 
-+ (void)jumpToAnyURL:(NSString *)url webParameter:(SMRWebParameter *)webParameter {
++ (void)jumpToAnyURL:(NSString *)url webParameter:(nullable SMRWebControllerParameter *)webParameter {
     [self jumpToAnyURL:url webParameter:webParameter forceToApp:YES];
 }
 
-+ (void)jumpToAnyURL:(NSString *)url webParameter:(SMRWebParameter *)webParameter forceToApp:(BOOL)forceToApp {
++ (void)jumpToAnyURL:(NSString *)url webParameter:(nullable SMRWebControllerParameter *)webParameter forceToApp:(BOOL)forceToApp {
     if (!url.length) {
         return;
     }
@@ -49,11 +48,10 @@
     }
 }
 
-+ (void)jumpToWeb:(NSString *)url webParameter:(SMRWebParameter *)webParameter {
++ (void)jumpToWeb:(NSString *)url webParameter:(SMRWebControllerParameter *)webParameter {
     [SMRWebController filterUrl:url completionBlock:^(NSString * _Nonnull url, BOOL allowLoad) {
         SMRWebController *web = [[SMRWebController alloc] init];
         web.url = url;
-        web.webParameter = webParameter;
         [SMRNavigator pushOrPresentToViewController:web animated:YES];
     }];
     

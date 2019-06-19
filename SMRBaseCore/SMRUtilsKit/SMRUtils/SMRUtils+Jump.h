@@ -10,15 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class SMRWebParameter;
+@class SMRWebControllerParameter;
 @interface SMRUtils (Jump)
 
 /**
  对所有URL的响应方法[推荐使用此方法]
  */
 + (void)jumpToAnyURL:(NSString *)url;
-+ (void)jumpToAnyURL:(NSString *)url webParameter:(nullable SMRWebParameter *)webParameter;
-+ (void)jumpToAnyURL:(NSString *)url webParameter:(nullable SMRWebParameter *)webParameter forceToApp:(BOOL)forceToApp;
++ (void)jumpToAnyURL:(NSString *)url webParameter:(nullable SMRWebControllerParameter *)webParameter;
++ (void)jumpToAnyURL:(NSString *)url webParameter:(nullable SMRWebControllerParameter *)webParameter forceToApp:(BOOL)forceToApp;
 
 
 /**
@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param url web URL
  @param webParameter web需要的参数 如分享相关参数
  */
-+ (void)jumpToWeb:(NSString *)url webParameter:(nullable SMRWebParameter*)webParameter;
++ (void)jumpToWeb:(NSString *)url webParameter:(nullable SMRWebControllerParameter*)webParameter;
 
 /**
  是否为web的URL

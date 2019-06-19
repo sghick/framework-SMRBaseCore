@@ -12,7 +12,19 @@
 #import "SMRRouterCenter+SMROpen.h"
 #import "SMRWebConfig.h"
 #import "NSURL+SMRRouter.h"
-#import "SMRUIKitBundle.h"
+
+/** 允许所有请求通过 */
+@implementation NSURLRequest (WECWebViewController)
+
++ (BOOL)allowsAnyHTTPSCertificateForHost:(NSString *)host {
+    return YES;
+}
+
+@end
+
+@implementation SMRWebControllerParameter
+
+@end
 
 @interface SMRWebController () <
 WKUIDelegate,
@@ -20,7 +32,6 @@ WKNavigationDelegate>
 
 @property (strong, nonatomic) UIProgressView *progressView;
 @property (strong, nonatomic) WKWebViewConfiguration *config;
-@property (strong, nonatomic) UIButton *shareBtn;
 @property (strong, nonatomic) WKUserContentController *userController;
 @property (strong, nonatomic) NSArray<SMRWKScriptMessageHandler *> *messageHandlers;
 
@@ -29,7 +40,6 @@ WKNavigationDelegate>
 @implementation SMRWebController
 
 @synthesize webView = _webView;
-@synthesize webParameter = _webParameter;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,17 +47,20 @@ WKNavigationDelegate>
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.webView];
     [self.view addSubview:self.progressView];
+    self.navigationView.title = self.webParameter.navTitle;
     [self addScriptMessageHandlers];
+    [self reloadWeb];
 }
 
 - (SMRNavigationView *)navigationViewInitialization {
-    if ([[SMRWebConfig shareConfig].navigationViewConfig respondsToSelector:@selector(navigationViewOfWebController:)]) {
-        return [[SMRWebConfig shareConfig].navigationViewConfig navigationViewOfWebController:self];
+    id<SMRWebNavigationViewConfig> navigationViewConfig = [SMRWebConfig shareConfig].webNavigationViewConfig;
+    if ([navigationViewConfig respondsToSelector:@selector(navigationViewOfWebController:)]) {
+        return [navigationViewConfig navigationViewOfWebController:self];
     }
     return [super navigationViewInitialization];
 }
 
-#pragma mark - 交互相关(注册js方法,以便web通过js调用)
+#pragma mark - JS-Native(交互相关,注册js方法,以便web通过js调用)
 
 /// 添加需要交互使用的方法的方法名
 - (void)addScriptMessageHandlers {
@@ -68,6 +81,82 @@ WKNavigationDelegate>
     }
 }
 
+#pragma mark - URLReplace
+
+#pragma mark - UserAgent
+
+- (NSString *)userAgentWithWebView:(WKWebView *)webView url:(NSURL *)url {
+    id<SMRWebReplaceConfig> replaceConfig = [SMRWebConfig shareConfig].webReplaceConfig;
+    if ([replaceConfig respondsToSelector:@selector(customUserAgentWithWebController:url:)]) {
+        return [replaceConfig customUserAgentWithWebController:self url:url];
+    }
+    return nil;
+}
+
+- (void)p_fillUserAgentWithWebView:(WKWebView *)webView url:(NSURL *)url {
+    id<SMRWebReplaceConfig> replaceConfig = [SMRWebConfig shareConfig].webReplaceConfig;
+    if ([replaceConfig respondsToSelector:@selector(customUserAgentWithWebController:url:)]) {
+        NSString *userAgent = [replaceConfig customUserAgentWithWebController:self url:url];
+        if (userAgent) {
+            // >= iOS9,设置UA
+            if (@available(iOS 9.0, *)) {
+                webView.customUserAgent = userAgent;
+            } else {
+                // Fallback on earlier versions
+                [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"UserAgent":userAgent}];
+            }
+        }
+    }
+}
+
+#pragma mark - Cookies
+
+- (NSArray<NSHTTPCookie *> *)userCookiesWithWebView:(WKWebView *)webView url:(NSURL *)url {
+    id<SMRWebReplaceConfig> replaceConfig = [SMRWebConfig shareConfig].webReplaceConfig;
+    if ([replaceConfig respondsToSelector:@selector(customUserCookiesWithWebController:url:)]) {
+        return [replaceConfig customUserCookiesWithWebController:self url:url];
+    }
+    return nil;
+}
+
+- (void)p_fillUserCookiesWithWebView:(WKWebView *)webView request:(NSMutableURLRequest *)request {
+    NSArray<NSHTTPCookie *> *cookies = [self userCookiesWithWebView:webView url:request.URL];
+    /** 给webView注入cookie */
+    if (@available(iOS 11.0, *)) {
+        WKHTTPCookieStore *cookieStore = self.webView.configuration.websiteDataStore.httpCookieStore;
+        [cookies enumerateObjectsUsingBlock:^(NSHTTPCookie * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [cookieStore setCookie:obj completionHandler:nil];
+        }];
+    } else {
+        NSDictionary *cookieHeaders = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+        [cookieHeaders enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            [request addValue:obj forHTTPHeaderField:key];
+        }];
+    }
+}
+
+- (void)p_fillUserCookiesWithWebView:(WKWebView *)webView url:(NSURL *)url content:(WKUserContentController *)content {
+    NSArray<NSHTTPCookie *> *cookies = [self userCookiesWithWebView:webView url:url];
+    /** 给webView注入cookie */
+    if (@available(iOS 11.0, *)) {
+        // None
+    } else {
+        NSDictionary *cookieHeaders = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+        NSString *cookieStr = cookieHeaders[@"Cookie"];
+        WKUserScript *cookieScript = [[WKUserScript alloc] initWithSource:cookieStr injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+        [content addUserScript:cookieScript];
+    }
+}
+
+#pragma mark - JSInvoke
+
+- (void)p_fillJSWithWebView:(WKWebView *)webView url:(NSURL *)url {
+    id<SMRWebReplaceConfig> replaceConfig = [SMRWebConfig shareConfig].webReplaceConfig;
+    if ([replaceConfig respondsToSelector:@selector(customJSTextToInvokeWithWebController:url:)]) {
+        [replaceConfig customJSTextToInvokeWithWebController:self url:url];
+    }
+}
+
 #pragma mark - WKNavigationDelegate
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
@@ -76,6 +165,8 @@ WKNavigationDelegate>
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self hiddenProgressView];
+    // JS注入时机
+    [self p_fillJSWithWebView:webView url:webView.URL];
 }
 
 //  页面加载失败时调用 ( 【web视图加载内容时】发生错误)
@@ -117,11 +208,33 @@ WKNavigationDelegate>
     });
 }
 
+/// 允许自建证书的校验逻辑（同时新增了扩展类:重写其信任证书的方法 NSURLRequest(SMRWebViewController)）
+- (void)webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(nonnull NSURLAuthenticationChallenge *)challenge completionHandler:(nonnull void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler {
+    
+    if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
+        NSURLCredential *card = [[NSURLCredential alloc] initWithTrust:challenge.protectionSpace.serverTrust];
+        if (completionHandler) {
+            completionHandler(NSURLSessionAuthChallengeUseCredential, card);
+        }
+    }
+    else {
+        if (completionHandler) {
+            completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
+        }
+    }
+}
+
 #pragma mark -  WKUIDelegate
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     NSURL *url = navigationAction.request.URL;
-    [self fillUserAgentWithWebView:webView url:url];
+    // 设置UA
+    [self p_fillUserAgentWithWebView:webView url:url];
+    // 加载cookie
+    // 通过 document.cookie 设置 Cookie 解决后续页面(同域)Ajax、iframe 请求的 Cookie 问题; [document.cookie()无法跨域设置 cookie]
+    [self p_fillUserCookiesWithWebView:webView url:url content:self.userController];
+    
+    // 替换参数
     id<SMRWebReplaceConfig> replaceConfig = [SMRWebConfig shareConfig].webReplaceConfig;
     if ([replaceConfig respondsToSelector:@selector(replaceUrl:completionBlock:)]) {
         if ([replaceConfig replaceUrl:url.absoluteString completionBlock:^(NSString * _Nonnull url) {
@@ -198,24 +311,7 @@ WKNavigationDelegate>
     [self removeScriptMessageHandlers];
 }
 
-#pragma mark - UserAgent
-
-- (void)fillUserAgentWithWebView:(WKWebView *)webView url:(NSURL *)url {
-    id<SMRWebReplaceConfig> replaceConfig = [SMRWebConfig shareConfig].webReplaceConfig;
-    if ([replaceConfig respondsToSelector:@selector(customUserAgentWithWebController:url:)]) {
-        NSString *userAgent = [replaceConfig customUserAgentWithWebController:self url:url];
-        if (userAgent) {
-            // >= iOS9,设置UA
-            if (@available(iOS 9.0, *)) {
-                webView.customUserAgent = userAgent;
-            } else {
-                // Fallback on earlier versions
-            }
-        }
-    }
-}
-
-#pragma mark - Utils
+#pragma mark - ReplaceURL
 
 + (void)filterUrl:(NSString *)url
   completionBlock:(void (^)(NSString * _Nonnull, BOOL))completionBlock {
@@ -246,18 +342,21 @@ WKNavigationDelegate>
     }
 }
 
-#pragma mark - Setters
+#pragma mark - Utils
 
-- (void)setUrl:(NSString *)url {
-    _url = url;
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL smr_URLWithString:url]];
-    [self fillUserAgentWithWebView:self.webView url:request.URL];
+- (void)reloadWeb {
+    if (!_url) {
+        return;
+    }
+    NSURL *url = [NSURL smr_URLWithString:self.url];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    // 设置UA
+    [self p_fillUserAgentWithWebView:self.webView url:url];
+    // 加载cookie
+    [self p_fillUserCookiesWithWebView:self.webView request:request];
+    
+    // 加载请求
     [self.webView loadRequest:request];
-}
-
-- (void)setWebParameter:(SMRWebParameter *)webParameter {
-    _webParameter = webParameter;
-    self.navigationView.title = webParameter.title;
 }
 
 #pragma mark - Getters
@@ -298,9 +397,9 @@ WKNavigationDelegate>
     return _progressView;
 }
 
-- (SMRWebParameter *)webParameter {
+- (SMRWebControllerParameter *)webParameter {
     if (!_webParameter) {
-        _webParameter = [[SMRWebParameter alloc] init];
+        _webParameter = [[SMRWebControllerParameter alloc] init];
     }
     return _webParameter;
 }

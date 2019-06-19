@@ -8,15 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
-#import "SMRWebParameter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class SMRWebController;
 @class SMRNavigationView;
-@protocol SMRNavigationViewConfig <NSObject>
+@protocol SMRWebNavigationViewConfig <NSObject>
 
-- (SMRNavigationView *)navigationViewOfWebController:(SMRWebController *)controller;
+@optional
+/** 返回一个自定义的navigationView */
+- (SMRNavigationView *)navigationViewOfWebController:(SMRWebController *)webController;
 
 @end
 
@@ -37,7 +38,6 @@ typedef void(^SMRWKScriptMessageRecivedBlock)(SMRWebController *webController, W
 
 @end
 
-@class SMRWebController;
 @protocol SMRWebJSRegisterConfig <NSObject>
 
 @optional
@@ -52,12 +52,16 @@ typedef void(^SMRWKScriptMessageRecivedBlock)(SMRWebController *webController, W
 - (BOOL)replaceUrl:(NSString *)url completionBlock:(void (^)(NSString *url))completionBlock;
 /** 根据具体情况设置对应的UA */
 - (NSString *)customUserAgentWithWebController:(SMRWebController *)webController url:(NSURL *)url;
+/** 需要加载的cookie */
+- (NSArray<NSHTTPCookie *> *)customUserCookiesWithWebController:(SMRWebController *)webController url:(NSURL *)url;
+/** 可在这里注入的JS代码 */
+- (void)customJSTextToInvokeWithWebController:(SMRWebController *)webController url:(NSURL *)url;
 
 @end
 
 @interface SMRWebConfig : NSObject
 
-@property (strong, nonatomic) id<SMRNavigationViewConfig> navigationViewConfig;
+@property (strong, nonatomic) id<SMRWebNavigationViewConfig> webNavigationViewConfig;
 @property (strong, nonatomic) id<SMRWebJSRegisterConfig> webJSRegisterConfig;
 @property (strong, nonatomic) id<SMRWebReplaceConfig> webReplaceConfig;
 
