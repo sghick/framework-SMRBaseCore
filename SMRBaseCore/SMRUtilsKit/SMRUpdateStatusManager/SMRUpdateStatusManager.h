@@ -10,16 +10,23 @@
 
 @interface SMRUpdateStatus : NSObject
 
-@property (copy  , nonatomic) NSString *key;
-@property (assign, nonatomic) NSTimeInterval updateTime;
+@property (nonatomic, assign) BOOL              isNotEmpty;         /**< 是否为空,不存在缓存中,用于判断是否是从缓存中取出 */
 
-@property (assign, nonatomic) NSInteger type;
-@property (assign, nonatomic) NSInteger count;
-@property (copy  , nonatomic) NSString *text;
-@property (strong, nonatomic) NSDictionary *userInfo;
+@property (nonatomic, assign) BOOL              discrimination;     /**< 是否显示区分用户,if NO:用户名为'',程序员不用关心 */
+@property (nonatomic, copy  ) NSString          *local_username;    /**< 用户名 */
+@property (nonatomic, copy  ) NSString          *key;               /**< 标识更新的类型值 */
+@property (nonatomic, assign) NSTimeInterval    update_time;        /**< 更新时间 */
+@property (nonatomic, assign) BOOL              has_new;            /**< 是否显示红点 */
+@property (nonatomic, assign) BOOL              main_has_new;       /**< optional,首页是否显示红点 */
+@property (nonatomic, assign) NSTimeInterval    read_time;          /**< optional,读取时间 */
+@property (nonatomic, assign) int32_t           count;              /**< optional,更新数量 */
+@property (nonatomic, assign) int32_t           type;               /**< optional,更新类型 */
+@property (nonatomic, copy  ) NSString          *title;             /**< optional,更新标题 */
+@property (nonatomic, copy  ) NSString          *detail;            /**< optional,更新详情 */
+@property (nonatomic, copy  ) NSString          *user_info;         /**< optional,其它信息 */
 
-@property (assign, nonatomic) BOOL hasNew;
-@property (assign, nonatomic) BOOL hasMainNew;
+/** 如果has_new为YES，按照update_time排序，has_new为NO视为小于 */
+- (NSComparisonResult)compareUpdateStatusUpdateTimeWhenHasNew:(SMRUpdateStatus *)object;
 
 @end
 
@@ -31,7 +38,12 @@ typedef NS_ENUM(NSInteger,kUpdateStatusType) {
 
 @protocol SMRUpdateStatusManagerConfig <NSObject>
 
+@optional
+/** 返回账户名,可空 */
 - (NSString *)userName;
+
+/** 返回YES,将会在此刻被自动标记为已读状态 */
+- (BOOL)shouldAutoReadWithStatus:(SMRUpdateStatus *)status;
 
 @end
 

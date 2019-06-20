@@ -109,6 +109,7 @@
 		8A914F0B221D1D5100E2F691 /* SMRUtilsVersionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A914F0A221D1D5100E2F691 /* SMRUtilsVersionTests.m */; };
 		8A914F19221D532000E2F691 /* NSError+SMRNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A914F18221D532000E2F691 /* NSError+SMRNetwork.m */; };
 		8A914F1D221E46D100E2F691 /* SMRAdapterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A914F1C221E46D100E2F691 /* SMRAdapterTests.m */; };
+		8A9C394222BB78C3000692E2 /* SMRUpdateStatusTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A9C394122BB78C3000692E2 /* SMRUpdateStatusTests.m */; };
 		8AA8B45A224A3CA600778320 /* SMRUtils+Jump.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA8B458224A3CA600778320 /* SMRUtils+Jump.m */; };
 		8AA8B45D224A3D3200778320 /* SMRWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA8B45C224A3D3200778320 /* SMRWebController.m */; };
 		8AC704F9227EE26C002821D3 /* CodeScan.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8AC704E7227EE26C002821D3 /* CodeScan.bundle */; };
@@ -390,6 +391,8 @@
 		8A914F18221D532000E2F691 /* NSError+SMRNetwork.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSError+SMRNetwork.m"; sourceTree = "<group>"; };
 		8A914F1B221E46D100E2F691 /* SMRAdapterTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRAdapterTests.h; sourceTree = "<group>"; };
 		8A914F1C221E46D100E2F691 /* SMRAdapterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRAdapterTests.m; sourceTree = "<group>"; };
+		8A9C394022BB78C3000692E2 /* SMRUpdateStatusTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRUpdateStatusTests.h; sourceTree = "<group>"; };
+		8A9C394122BB78C3000692E2 /* SMRUpdateStatusTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRUpdateStatusTests.m; sourceTree = "<group>"; };
 		8AA8B458224A3CA600778320 /* SMRUtils+Jump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SMRUtils+Jump.m"; sourceTree = "<group>"; };
 		8AA8B459224A3CA600778320 /* SMRUtils+Jump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SMRUtils+Jump.h"; sourceTree = "<group>"; };
 		8AA8B45B224A3D3200778320 /* SMRWebController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRWebController.h; sourceTree = "<group>"; };
@@ -994,6 +997,7 @@
 				8A814D0B21F5D1FA00D8AEB6 /* SMRTestsDelegate.h */,
 				8AE4956D22028CC30055263E /* SMRTests.h */,
 				8AE4956E22028CC30055263E /* SMRTests.m */,
+				8A9C393F22BB77C1000692E2 /* SMRUpdateStatusTests */,
 				8A4AA2C1222D2E760034929D /* SMRModelTests */,
 				8A914F1A221E46A800E2F691 /* SMRAdapterTests */,
 				8A914EDB221BA87A00E2F691 /* SMRTextViewTests */,
@@ -1124,6 +1128,15 @@
 				8A914F1C221E46D100E2F691 /* SMRAdapterTests.m */,
 			);
 			path = SMRAdapterTests;
+			sourceTree = "<group>";
+		};
+		8A9C393F22BB77C1000692E2 /* SMRUpdateStatusTests */ = {
+			isa = PBXGroup;
+			children = (
+				8A9C394022BB78C3000692E2 /* SMRUpdateStatusTests.h */,
+				8A9C394122BB78C3000692E2 /* SMRUpdateStatusTests.m */,
+			);
+			path = SMRUpdateStatusTests;
 			sourceTree = "<group>";
 		};
 		8AC704E5227EE26C002821D3 /* LBXScan */ = {
@@ -1605,6 +1618,7 @@
 				8A814C9521F5C3D000D8AEB6 /* SMRNetManager.m in Sources */,
 				8A4AA2C7222D2F1C0034929D /* SMRTestPersonModels.m in Sources */,
 				8AE4957222028D840055263E /* SMRButtonTestsController.m in Sources */,
+				8A9C394222BB78C3000692E2 /* SMRUpdateStatusTests.m in Sources */,
 				8AC70501227EE26C002821D3 /* LBXScanNative.m in Sources */,
 				8A814B8B21F5B9D100D8AEB6 /* SMRDBSetter.m in Sources */,
 				8A814BCA21F5BA2100D8AEB6 /* NSURL+SMRRouter.m in Sources */,
@@ -1896,7 +1910,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4U92X5J5QF;
+				DEVELOPMENT_TEAM = 8QXHGXQB5D;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SMRBaseCoreDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1904,7 +1918,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sumrise.test104837;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ibaodashi.coredemo0088;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1918,7 +1932,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4U92X5J5QF;
+				DEVELOPMENT_TEAM = 8QXHGXQB5D;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SMRBaseCoreDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1926,7 +1940,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sumrise.test104837;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ibaodashi.coredemo0088;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
