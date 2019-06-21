@@ -12,17 +12,17 @@
 #define SMRToString(a...)        ([NSString stringWithFormat:a])
 
 #define SMRLog0(desc, lbl) \
-([SMRLogSys outputSMRLogToFile:SMRToString(desc) fcName:SMRFunctionName label:lbl])
+({if ([SMRLogSys debug]) {[SMRLogSys outputSMRLogToFile:SMRToString(desc) fcName:SMRFunctionName label:lbl];}})
 #define SMRLog1(desc, arg1, lbl) \
-            ([SMRLogSys outputSMRLogToFile:SMRToString(desc, arg1) fcName:SMRFunctionName label:lbl])
+({if ([SMRLogSys debug]) {[SMRLogSys outputSMRLogToFile:SMRToString(desc, arg1) fcName:SMRFunctionName label:lbl];}})
 #define SMRLog2(desc, arg1, arg2, lbl) \
-            ([SMRLogSys outputSMRLogToFile:SMRToString(desc, arg1, arg2) fcName:SMRFunctionName label:lbl])
+({if ([SMRLogSys debug]) {[SMRLogSys outputSMRLogToFile:SMRToString(desc, arg1, arg2) fcName:SMRFunctionName label:lbl];}})
 #define SMRLog3(desc, arg1, arg2, arg3, lbl) \
-            ([SMRLogSys outputSMRLogToFile:SMRToString(desc, arg1, arg2, arg3) fcName:SMRFunctionName label:lbl])
+({if ([SMRLogSys debug]) {[SMRLogSys outputSMRLogToFile:SMRToString(desc, arg1, arg2, arg3) fcName:SMRFunctionName label:lbl];}})
 #define SMRLog4(desc, arg1, arg2, arg3, arg4, lbl) \
-            ([SMRLogSys outputSMRLogToFile:SMRToString(desc, arg1, arg2, arg3, arg4) fcName:SMRFunctionName label:lbl])
+({if ([SMRLogSys debug]) {[SMRLogSys outputSMRLogToFile:SMRToString(desc, arg1, arg2, arg3, arg4) fcName:SMRFunctionName label:lbl];}})
 #define SMRLog5(desc, arg1, arg2, arg3, arg4, arg5, lbl) \
-            ([SMRLogSys outputSMRLogToFile:SMRToString(desc, arg1, arg2, arg3, arg4, arg5) fcName:SMRFunctionName label:lbl])
+({if ([SMRLogSys debug]) {[SMRLogSys outputSMRLogToFile:SMRToString(desc, arg1, arg2, arg3, arg4, arg5) fcName:SMRFunctionName label:lbl];}})
 
 @interface SMRLogSys : NSObject
 

@@ -30,6 +30,15 @@
 @implementation SMRUpdateStatusTests
 
 - (id)begin {
+    [SMRDebug setDebug:2];
+    NSString *aaa = @"";
+    SMRLog0(@"aaaa", @[aaa][0]);
+    SMRLog1(@"bbb%@", @"111", @[aaa][0]);
+    SMRLog2(@"cccc%@%@", @"111", @"222", @[aaa][0]);
+    SMRLog3(@"dddd%@%@%@", @"111", @"222", @"333", @[aaa][0]);
+    SMRLog4(@"eee%@%@%@%@", @"111", @"222", @"333", @"444", @[aaa][0]);
+    SMRLog5(@"eee%@%@%@%@%@", @"111", @"222", @"333", @"444", @"555", @[aaa][0]);
+    
     [self testNoConfig];
     SMRUpdateStatusConfig *config = [[SMRUpdateStatusConfig alloc] init];
     [[SMRUpdateStatusManager sharedManager] startWithConfig:config];

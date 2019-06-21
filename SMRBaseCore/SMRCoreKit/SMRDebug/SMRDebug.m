@@ -17,15 +17,31 @@
 NSString * const _kDebugStatusForScreen = @"kDgStForSMRScreen";
 
 + (void)startDebugIfNeeded {
-    BOOL status = [[NSUserDefaults standardUserDefaults] boolForKey:_kDebugStatusForScreen];
-    if (status) {
-        [SMRLogScreen sharedScreen].enableOnlyWhenShow = NO;
-        [SMRLogScreen show];
-        [SMRLogSys setDebug:YES];
-        [[FLEXManager sharedManager] showExplorer];
-        [[FLEXManager sharedManager] setNetworkDebuggingEnabled:YES];
-    } else {
-        [SMRLogScreen hide];
+    NSInteger status = [[NSUserDefaults standardUserDefaults] integerForKey:_kDebugStatusForScreen];
+    switch (status) {
+        case 0: {
+            [SMRLogScreen sharedScreen].enableOnlyWhenShow = NO;
+            [SMRLogScreen hide];
+            [SMRLogSys setDebug:NO];
+            [[FLEXManager sharedManager] hideExplorer];
+            [[FLEXManager sharedManager] setNetworkDebuggingEnabled:NO];
+        }
+            break;
+        case 1: {
+            [SMRLogScreen sharedScreen].enableOnlyWhenShow = NO;
+            [SMRLogScreen show];
+            [SMRLogSys setDebug:YES];
+            [[FLEXManager sharedManager] showExplorer];
+            [[FLEXManager sharedManager] setNetworkDebuggingEnabled:YES];
+        }
+            break;
+        case 2: {
+            [SMRLogScreen hide];
+            [[FLEXManager sharedManager] hideExplorer];
+        }
+            break;
+        default:
+            break;
     }
 }
 
@@ -45,7 +61,7 @@ NSString * const _kDebugStatusForScreen = @"kDgStForSMRScreen";
         // 验证身份,如果代码中使用uk,则打开的链接中必须有uk且对应上才能打开.
         if (!uk || (uk && [uk isEqualToString:puk])) {
             if ([ck isEqualToString:[self createCheckCodeWithKey:uk date:[SMRNetInfo syncedDate]]]) {
-                [[NSUserDefaults standardUserDefaults] setBool:status.boolValue forKey:_kDebugStatusForScreen];
+                [[NSUserDefaults standardUserDefaults] setInteger:status.integerValue forKey:_kDebugStatusForScreen];
                 [self startDebugIfNeeded];
             }
         }
@@ -53,8 +69,8 @@ NSString * const _kDebugStatusForScreen = @"kDgStForSMRScreen";
     return YES;
 }
 
-+ (void)setDebug:(BOOL)debug {
-    [[NSUserDefaults standardUserDefaults] setBool:debug forKey:_kDebugStatusForScreen];
++ (void)setDebug:(NSInteger)debug {
+    [[NSUserDefaults standardUserDefaults] setInteger:debug forKey:_kDebugStatusForScreen];
     [self startDebugIfNeeded];
 }
 

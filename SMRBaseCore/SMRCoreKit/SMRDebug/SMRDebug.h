@@ -27,9 +27,9 @@
 + (BOOL)setDebugModelWithURL:(NSURL *)url allowScheme:(NSString *)allowScheme uk:(NSString *)uk;
 
 /**
- 直接打开/关闭调试模式
+ 直接打开/关闭调试模式(0:关闭所有 1:开启所有 2:关闭浮窗)
  */
-+ (void)setDebug:(BOOL)debug;
++ (void)setDebug:(NSInteger)debug;
 
 /**
  生成令牌
