@@ -14,10 +14,29 @@
 #import "NSURL+SMRRouter.h"
 
 /** 允许所有请求通过 */
-@implementation NSURLRequest (WECWebViewController)
+@implementation NSURLRequest (SMRWebViewController)
 
 + (BOOL)allowsAnyHTTPSCertificateForHost:(NSString *)host {
     return YES;
+}
+
+@end
+
+@implementation NSHTTPCookie (SMRWebViewController)
+
+- (NSString *)javaScriptValue {
+    return [NSString stringWithFormat:@"document.cookie='%@=%@';", self.name, self.value];
+}
+
++ (NSString *)javaScriptValueWithCookies:(NSArray<NSHTTPCookie *> *)cookies {
+    if (!cookies.count) {
+        return nil;
+    }
+    NSString *str = @"";
+    for (NSHTTPCookie *cookie in cookies) {
+        str = [str stringByAppendingString:[cookie javaScriptValue]];
+    }
+    return str;
 }
 
 @end
@@ -121,31 +140,36 @@ WKNavigationDelegate>
 
 - (void)p_fillUserCookiesWithWebView:(WKWebView *)webView request:(NSMutableURLRequest *)request {
     NSArray<NSHTTPCookie *> *cookies = [self userCookiesWithWebView:webView url:request.URL];
-    /** 给webView注入cookie */
-    if (@available(iOS 11.0, *)) {
-        WKHTTPCookieStore *cookieStore = self.webView.configuration.websiteDataStore.httpCookieStore;
-        [cookies enumerateObjectsUsingBlock:^(NSHTTPCookie * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [cookieStore setCookie:obj completionHandler:nil];
-        }];
-    } else {
-        NSDictionary *cookieHeaders = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
-        [cookieHeaders enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            [request addValue:obj forHTTPHeaderField:key];
-        }];
-    }
+    NSDictionary *cookieHeaders = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+    [cookieHeaders enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        [request addValue:obj forHTTPHeaderField:key];
+    }];
+    
+    // 将cookie保存在NSHTTPCookieStorage中
+//    NSHTTPCookieStorage *cookieStore = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+//    [cookies enumerateObjectsUsingBlock:^(NSHTTPCookie * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        [cookieStore setCookie:obj];
+//    }];
+//    // 给webView注入cookie
+//    if (@available(iOS 11.0, *)) {
+//        WKHTTPCookieStore *cookieStore = self.webView.configuration.websiteDataStore.httpCookieStore;
+//        [cookies enumerateObjectsUsingBlock:^(NSHTTPCookie * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            [cookieStore setCookie:obj completionHandler:nil];
+//        }];
+//    } else {
+//        NSDictionary *cookieHeaders = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+//        [cookieHeaders enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+//            [request addValue:obj forHTTPHeaderField:key];
+//        }];
+//    }
 }
 
 - (void)p_fillUserCookiesWithWebView:(WKWebView *)webView url:(NSURL *)url content:(WKUserContentController *)content {
     NSArray<NSHTTPCookie *> *cookies = [self userCookiesWithWebView:webView url:url];
     /** 给webView注入cookie */
-    if (@available(iOS 11.0, *)) {
-        // None
-    } else {
-        NSDictionary *cookieHeaders = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
-        NSString *cookieStr = cookieHeaders[@"Cookie"];
-        WKUserScript *cookieScript = [[WKUserScript alloc] initWithSource:cookieStr injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
-        [content addUserScript:cookieScript];
-    }
+    NSString *cookieStr = [NSHTTPCookie javaScriptValueWithCookies:cookies];
+    WKUserScript *cookieScript = [[WKUserScript alloc] initWithSource:cookieStr injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+    [content addUserScript:cookieScript];
 }
 
 #pragma mark - JSInvoke
@@ -231,9 +255,9 @@ WKNavigationDelegate>
     // 设置UA
     [self p_fillUserAgentWithWebView:webView url:url];
     // 加载cookie
-    // 通过 document.cookie 设置 Cookie 解决后续页面(同域)Ajax、iframe 请求的 Cookie 问题; [document.cookie()无法跨域设置 cookie]
-    [self p_fillUserCookiesWithWebView:webView url:url content:self.userController];
-    
+//    // 通过 document.cookie 设置 Cookie 解决后续页面(同域)Ajax、iframe 请求的 Cookie 问题; [document.cookie()无法跨域设置 cookie]
+//    [self p_fillUserCookiesWithWebView:webView url:url content:self.userController];
+
     // 替换参数
     id<SMRWebReplaceConfig> replaceConfig = [SMRWebConfig shareConfig].webReplaceConfig;
     if ([replaceConfig respondsToSelector:@selector(replaceUrl:completionBlock:)]) {
@@ -354,6 +378,7 @@ WKNavigationDelegate>
     [self p_fillUserAgentWithWebView:self.webView url:url];
     // 加载cookie
     [self p_fillUserCookiesWithWebView:self.webView request:request];
+    [self p_fillUserCookiesWithWebView:self.webView url:request.URL content:self.userController];
     
     // 加载请求
     [self.webView loadRequest:request];
