@@ -23,30 +23,23 @@
 //}
 
 + (CLLocationCoordinate2D)transformFromGPSToGDWithCoordinate:(CLLocationCoordinate2D)coordinate {
-    CLLocationCoordinate2D coor = [self transformFromWGSToGCJ:CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude)];
-    return CLLocationCoordinate2DMake(coor.latitude, coor.longitude);
+    return [self transformFromWGSToGCJ:coordinate];
 }
 
 + (CLLocationCoordinate2D)transformFromGDToBDWithCoordinate:(CLLocationCoordinate2D)coordinate {
-    CLLocationCoordinate2D coor = [self transformFromGCJToBaidu:CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude)];
-    return CLLocationCoordinate2DMake(coor.latitude, coor.longitude);
+    return [self transformFromGCJToBaidu:coordinate];
 }
 
 + (CLLocationCoordinate2D)transformFromBDToGDWithCoordinate:(CLLocationCoordinate2D)coordinate {
-    CLLocationCoordinate2D coor = [self transformFromBaiduToGCJ:CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude)];
-    return CLLocationCoordinate2DMake(coor.latitude, coor.longitude);
+    return [self transformFromBaiduToGCJ:coordinate];
 }
 
 + (CLLocationCoordinate2D)transformFromGDToGPSWithCoordinate:(CLLocationCoordinate2D)coordinate {
-    CLLocationCoordinate2D coor = [self transformFromGCJToWGS:CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude)];
-    return CLLocationCoordinate2DMake(coor.latitude, coor.longitude);
+    return [self transformFromGCJToWGS:coordinate];
 }
 
 + (CLLocationCoordinate2D)transformFromBDToGPSWithCoordinate:(CLLocationCoordinate2D)coordinate {
-    //先把百度转化为高德
-    CLLocationCoordinate2D start_coor = [self transformFromBaiduToGCJ:CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude)];
-    CLLocationCoordinate2D end_coor = [self transformFromGCJToWGS:CLLocationCoordinate2DMake(start_coor.latitude, start_coor.longitude)];
-    return CLLocationCoordinate2DMake(end_coor.latitude, end_coor.longitude);
+    return [self transformFromGCJToWGS:[self transformFromBaiduToGCJ:coordinate]];
 }
 
 static const double a = 6378245.0;

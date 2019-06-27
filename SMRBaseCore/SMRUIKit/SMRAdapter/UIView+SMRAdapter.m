@@ -16,32 +16,11 @@
     return [self setSafeAreaViewWithColor:color height:BOTTOM_HEIGHT];
 }
 
-- (UIView *)setSafeAreaViewWithColor:(UIColor *)color fromBottomOfView:(UIView *)fromBottomOfView {
-    NSArray<NSLayoutConstraint *> *layouts = nil;
-    return [self setSafeAreaViewWithColor:color orFromBottomOfView:fromBottomOfView orHeight:0 layouts:&layouts];
-}
-
-- (UIView *)setSafeAreaViewWithColor:(UIColor *)color fromBottomOfView:(UIView *)fromBottomOfView layouts:(NSArray<NSLayoutConstraint *> *__autoreleasing *)layouts {
-    return [self setSafeAreaViewWithColor:color orFromBottomOfView:fromBottomOfView orHeight:0 layouts:layouts];
-}
-
 - (UIView *)setSafeAreaViewWithColor:(UIColor *)color height:(CGFloat)height {
-    NSArray<NSLayoutConstraint *> *layouts = nil;
-    return [self setSafeAreaViewWithColor:color orFromBottomOfView:nil orHeight:height layouts:&layouts];
-}
-
-- (UIView *)setSafeAreaViewWithColor:(UIColor *)color height:(CGFloat)height layouts:(NSArray<NSLayoutConstraint *> **)layouts {
-    return [self setSafeAreaViewWithColor:color orFromBottomOfView:nil orHeight:height layouts:layouts];
-}
-
-- (UIView *)setSafeAreaViewWithColor:(UIColor *)color
-                  orFromBottomOfView:(UIView *)orFromBottomOfView
-                            orHeight:(CGFloat)orHeight
-                             layouts:(NSArray<NSLayoutConstraint *> **)layouts {
-    if (!orFromBottomOfView && (orHeight == 0)) {
+    if (height == 0) {
         return nil;
     }
-    UIView *view = [self viewWithTag:kTagForSMRAdapterBottomView];
+    UIView *view = [self safeAreaView];
     if (view) {
         view.backgroundColor = color;
         return view;
@@ -51,23 +30,27 @@
     view.tag = kTagForSMRAdapterBottomView;
     [self addSubview:view];
     
-    *layouts = [NSLayoutConstraint autoCreateAndInstallConstraints:^{
-        [view autoPinEdgeToSuperviewEdge:ALEdgeBottom];
-        [view autoPinEdgeToSuperviewEdge:ALEdgeLeft];
-        [view autoPinEdgeToSuperviewEdge:ALEdgeRight];
-        if (orFromBottomOfView) {
-            NSAssert(orFromBottomOfView.superview, @"请为它设置一个父类");
-            [view autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:orFromBottomOfView];
-        } else {
-            [view autoSetDimension:ALDimensionHeight toSize:orHeight];
-        }
-    }];
-    
+    [view autoPinEdgeToSuperviewEdge:ALEdgeBottom];
+    [view autoPinEdgeToSuperviewEdge:ALEdgeLeft];
+    [view autoPinEdgeToSuperviewEdge:ALEdgeRight];
+    [view autoSetDimension:ALDimensionHeight toSize:height];
     return view;
 }
 
-- (void)updateSafeAreaViewColor:(UIColor *)color {
+- (UIView *)safeAreaView {
     UIView *view = [self viewWithTag:kTagForSMRAdapterBottomView];
+    return view;
+}
+
+- (void)bringSafeAreaViewToFront {
+    UIView *view = [self safeAreaView];
+    if (view) {
+        [self bringSubviewToFront:view];
+    }
+}
+
+- (void)updateSafeAreaViewColor:(UIColor *)color {
+    UIView *view = [self safeAreaView];
     if (view) {
         view.backgroundColor = color;
     }

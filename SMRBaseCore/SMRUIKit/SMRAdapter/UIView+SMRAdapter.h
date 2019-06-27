@@ -17,15 +17,14 @@ static NSInteger const kTagForSMRAdapterBottomView = 541608;
 /** 给view的底部添加一个定高定色的view */
 - (UIView *)setSafeAreaViewWithColor:(UIColor *)color;
 
-/** 给view的底部添加一个定高定色的view,指定从哪个view开始 */
-- (UIView *)setSafeAreaViewWithColor:(UIColor *)color fromBottomOfView:(UIView *)fromBottomOfView;
-/** 给view的底部添加一个定高定色的view,指定从哪个view开始,可取得view的约束 */
-- (UIView *)setSafeAreaViewWithColor:(UIColor *)color fromBottomOfView:(UIView *)fromBottomOfView layouts:(NSArray<NSLayoutConstraint *> **)layouts;
-
 /** 给view的底部添加一个定高定色的view,指定高 */
 - (UIView *)setSafeAreaViewWithColor:(UIColor *)color height:(CGFloat)height;
-/** 给view的底部添加一个定高定色的view,可取得view的约束 */
-- (UIView *)setSafeAreaViewWithColor:(UIColor *)color height:(CGFloat)height layouts:(NSArray<NSLayoutConstraint *> **)layouts;
+
+/** 获取safeAreaView */
+- (nullable UIView *)safeAreaView;
+
+/** 将safeAreaView层级上提 */
+- (void)bringSafeAreaViewToFront;
 
 /** 给view的底部view更换颜色 */
 - (void)updateSafeAreaViewColor:(UIColor *)color;
