@@ -24,7 +24,16 @@ typedef NS_OPTIONS(NSInteger, SMRAlertViewButtonDeepColorType) {
     SMRAlertViewButtonDeepColorTypeSure     = 1 << 1,
 };
 
-@interface SMRAlertView : SMRTableAlertView
+@protocol SMRAlertViewBottomButtonProtocol <NSObject>
+
+/** 确定按钮的响应action,子类自定义按钮样式时可以用做按钮的action */
+- (void)sureBtnAction:(UIButton *)sender;
+/** 取消按钮的响应action,子类自定义按钮样式时可以用做按钮的action */
+- (void)cancelBtnAction:(UIButton *)sender;
+
+@end
+
+@interface SMRAlertView : SMRTableAlertView<SMRAlertViewBottomButtonProtocol>
 
 @property (copy  , nonatomic, readonly) NSString *imageURL;
 @property (copy  , nonatomic, readonly) NSString *title;

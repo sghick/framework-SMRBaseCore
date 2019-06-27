@@ -103,6 +103,9 @@ UIGestureRecognizerDelegate>
             }];
         }
     }
+    
+    self.heightOfContentViewLayout.constant = self.heightOfContentView;
+    
     [super updateConstraints];
 }
 
@@ -158,12 +161,19 @@ UIGestureRecognizerDelegate>
 #pragma mark - Utils
 
 - (void)updateHeightOfContentView:(CGFloat)heightOfContentView {
-    _heightOfContentView = heightOfContentView;
-    [self.heightOfContentViewLayout autoRemove];
-    [NSLayoutConstraint autoSetPriority:UILayoutPriorityDefaultLow forConstraints:^{
-        self.heightOfContentViewLayout = [self.contentView autoSetDimension:ALDimensionHeight toSize:heightOfContentView relation:NSLayoutRelationGreaterThanOrEqual];
-    }];
+    [self updateHeightOfContentView:heightOfContentView aniamted:NO];
+}
+
+- (void)updateHeightOfContentView:(CGFloat)heightOfContentView aniamted:(BOOL)animated {
+    self.heightOfContentView = heightOfContentView;
     [self setNeedsUpdateConstraints];
+    [self updateConstraintsIfNeeded];
+    
+    if (animated) {
+        [UIView animateWithDuration:0.35 animations:^{
+            [self layoutIfNeeded];
+        } completion:nil];
+    }
 }
 
 - (void)show {

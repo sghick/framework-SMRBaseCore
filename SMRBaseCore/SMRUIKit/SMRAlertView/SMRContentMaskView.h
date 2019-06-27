@@ -49,6 +49,7 @@ typedef void(^SMRContentMaskViewTouchedBlock)(id maskView);
 
 /** 更新contentView的高 */
 - (void)updateHeightOfContentView:(CGFloat)heightOfContentView;
+- (void)updateHeightOfContentView:(CGFloat)heightOfContentView aniamted:(BOOL)animated;
 
 - (void)show;
 - (void)showAnimated:(BOOL)animated;
