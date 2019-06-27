@@ -165,11 +165,13 @@ UIGestureRecognizerDelegate>
 }
 
 - (void)updateHeightOfContentView:(CGFloat)heightOfContentView aniamted:(BOOL)animated {
-    self.heightOfContentView = heightOfContentView;
-    [self setNeedsUpdateConstraints];
-    [self updateConstraintsIfNeeded];
+    _heightOfContentView = heightOfContentView;
     
-    if (animated) {
+    // 当layout被加载过一次之后
+    [self setNeedsUpdateConstraints];
+    // 仅当约束被执行过之后动画效果才有效
+    if (animated && self.didLoadLayout) {
+        [self updateConstraintsIfNeeded];
         [UIView animateWithDuration:0.35 animations:^{
             [self layoutIfNeeded];
         } completion:nil];
