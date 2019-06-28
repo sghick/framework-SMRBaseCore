@@ -90,6 +90,7 @@ UIGestureRecognizerDelegate>
             // 默认居中
             [self.contentView autoCenterInSuperview];
             [self.contentView autoSetDimension:ALDimensionWidth toSize:[self widthOfContentView]];
+            [self.heightOfContentViewLayout autoRemove];
             [NSLayoutConstraint autoSetPriority:UILayoutPriorityDefaultLow forConstraints:^{
                 self.heightOfContentViewLayout = [self.contentView autoSetDimension:ALDimensionHeight toSize:self.heightOfContentView relation:NSLayoutRelationGreaterThanOrEqual];
             }];
@@ -98,6 +99,7 @@ UIGestureRecognizerDelegate>
             [self.contentView autoAlignAxisToSuperviewAxis:ALAxisVertical];
             [self.contentView autoPinEdgeToSuperviewEdge:ALEdgeBottom];
             [self.contentView autoSetDimension:ALDimensionWidth toSize:[self widthOfContentView]];
+            [self.heightOfContentViewLayout autoRemove];
             [NSLayoutConstraint autoSetPriority:UILayoutPriorityDefaultLow forConstraints:^{
                 self.heightOfContentViewLayout = [self.contentView autoSetDimension:ALDimensionHeight toSize:self.heightOfContentView relation:NSLayoutRelationGreaterThanOrEqual];
             }];
