@@ -109,4 +109,22 @@ NSString * const SMRValidateFormatNumber6 = @"^[0-9]{6}$";
     return isValid;
 }
 
++ (NSString *)trimQuickTypePhoneNumber:(NSString *)phoneNumber {
+    NSString *curText = phoneNumber;
+    // 兼容键盘QuickType Bar以+86开头的号码
+    curText = [curText stringByReplacingOccurrencesOfString:@"+" withString:@""];
+    // 兼容英文键盘前后空格
+    curText = [curText stringByReplacingOccurrencesOfString:@" " withString:@""];
+    // 去掉中间'-'
+    curText = [curText stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    // 兼容号码数字键盘
+    if (curText.length == 13) {
+        if ([curText hasPrefix:@"861"]) {
+            // 当字符串长度为13位，并以861开头时，截取86，余下则为11位手机号
+            curText = [curText substringFromIndex:2];
+        }
+    }
+    return curText;
+}
+
 @end

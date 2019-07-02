@@ -59,6 +59,9 @@ extern NSString * const SMRValidateFormatNumber6;       ///< 6位纯数字
 /** 验证身份证号(支持15位和18位) */
 + (BOOL)validateIdWithString:(NSString *)string;
 
+/** 将各种格式的手机号(仅支持中国区11位)矫正成纯数字的 */
++ (NSString *)trimQuickTypePhoneNumber:(NSString *)phoneNumber;
+
 @end
 
 NS_ASSUME_NONNULL_END
