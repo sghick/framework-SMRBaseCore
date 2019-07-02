@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 - (CGFloat)smr_marginOfTableView;
 - (CGFloat)smr_heightOfTableView:(UITableView *)tableView;
+- (CGFloat)smr_maxHeightOfTableView:(UITableView *)tableView;
 @optional
 - (NSInteger)smr_numberOfSectionsInTableView:(UITableView *)tableView;
 - (CGFloat)smr_tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;

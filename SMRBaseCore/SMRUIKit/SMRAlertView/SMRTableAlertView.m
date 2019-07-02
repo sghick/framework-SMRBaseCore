@@ -39,6 +39,8 @@ UITableViewDelegate>
     BOOL overflow = NO;
     CGFloat marginOfTableView = [self smr_marginOfTableView];
     CGFloat heightOfTableView = [self p_caculateheightOfTableViewAndOverflow:&overflow];
+    // 超出最大值后可以滚动
+    self.tableView.scrollEnabled = overflow;
     // 获取bottomBar的高
     CGFloat marginOfBottomBar = [self smr_marginOfBottomBar];
     CGFloat heightOfBottomBar = 0;
@@ -88,10 +90,9 @@ UITableViewDelegate>
     if ([self respondsToSelector:@selector(smr_heightOfTableView:)]) {
         heightOfTableView = [self smr_heightOfTableView:self.tableView];
     }
-    CGFloat maxHeight = CGRectGetHeight(self.bounds);
+    CGFloat maxHeight = [self smr_maxHeightOfTableView:self.tableView];
     if (heightOfTableView > maxHeight) {
         heightOfTableView = maxHeight;
-        self.tableView.scrollEnabled = YES;
         *overflow = YES;
     } else {
         *overflow = NO;
@@ -168,6 +169,11 @@ UITableViewDelegate>
 }
 - (CGFloat)smr_heightOfTableView:(UITableView *)tableView {
     return self.contentView.bounds.size.height;
+}
+- (CGFloat)smr_maxHeightOfTableView:(UITableView *)tableView {
+    UIEdgeInsets inset = [self smr_insetsOfContent];
+    CGFloat max = CGRectGetHeight(self.bounds) - [self smr_heightOfTitleBar] - [self smr_heightOfBottomBar] - inset.top - inset.bottom - 64 - 49;
+    return max;
 }
 - (NSInteger)smr_numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
