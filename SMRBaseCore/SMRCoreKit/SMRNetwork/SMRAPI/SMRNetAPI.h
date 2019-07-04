@@ -20,7 +20,6 @@ typedef void(^SMRNetAPICacheOrSuccessBlock)(SMRNetAPI *api, id response, BOOL fr
 
 @interface SMRAPICallback : NSObject
 
-@property (assign, nonatomic) NSTimeInterval groupTagForDedounce;   ///< 防止抖动的tag
 @property (assign, nonatomic) NSInteger retryCount;                 ///< API重试次数记录
 
 @property (copy  , nonatomic) SMRConstructingUploadBlock constructingBlock;

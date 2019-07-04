@@ -99,8 +99,7 @@
             callback.cacheOrSuccessBlock(api, responseObject, NO);
         }
         // 处理防抖结果
-        NSArray<SMRNetAPI *> *dedouncedAPIs = [self.dedouncer objectForDedouncedWithIdentifier:api.identifier
-                                                                                      groupTag:api.callback.groupTagForDedounce];
+        NSArray<SMRNetAPI *> *dedouncedAPIs = [self.dedouncer objectForDedouncedWithIdentifier:api.identifier];
         for (SMRNetAPI *deapi in dedouncedAPIs) {
             // 保存网络请求成功的结果
             [deapi fillResponse:responseObject error:nil];
@@ -112,8 +111,7 @@
                 deapi.callback.cacheOrSuccessBlock(deapi, responseObject, NO);
             }
         }
-        [self.dedouncer removeObjectForDedouncedWithIdentifier:api.identifier
-                                                      groupTag:api.callback.groupTagForDedounce];
+        [self.dedouncer removeObjectForDedouncedWithIdentifier:api.identifier];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         id response = [self.config responseObjectWithError:error];
         if (self.config.debugLog) {
@@ -141,8 +139,7 @@
             callback.faildBlock(api, response, error);
             
             // 处理防抖结果
-            NSArray<SMRNetAPI *> *dedouncedAPIs = [self.dedouncer objectForDedouncedWithIdentifier:api.identifier
-                                                                                          groupTag:api.callback.groupTagForDedounce];
+            NSArray<SMRNetAPI *> *dedouncedAPIs = [self.dedouncer objectForDedouncedWithIdentifier:api.identifier];
             for (SMRNetAPI *deapi in dedouncedAPIs) {
                 // 保存网络请求失败的结果
                 [deapi fillResponse:response error:error];
@@ -151,8 +148,7 @@
                     deapi.callback.faildBlock(deapi, response, error);
                 }
             }
-            [self.dedouncer removeObjectForDedouncedWithIdentifier:api.identifier
-                                                          groupTag:api.callback.groupTagForDedounce];
+            [self.dedouncer removeObjectForDedouncedWithIdentifier:api.identifier];
         }
     }];
     // 保存task

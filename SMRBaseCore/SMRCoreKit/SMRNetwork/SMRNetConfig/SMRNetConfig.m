@@ -32,16 +32,8 @@
     
 }
 
-- (NSTimeInterval)timerIntervalForDedounce {
-    return 1.0;
-}
-
 - (NSInteger)maxCountForDedounce {
-    return 1;
-}
-
-- (NSTimeInterval)invalidateDuration {
-    return 60;
+    return -1;
 }
 
 #pragma mark - SMRResponseDelegate

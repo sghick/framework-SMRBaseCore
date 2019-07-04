@@ -80,7 +80,7 @@
     btview.backgroundColor = [UIColor blueColor];
     [[UIApplication sharedApplication].delegate.window addSubview:btview];
     
-    [[UIApplication sharedApplication].delegate.window setSafeAreaViewWithColor:[UIColor redColor] fromBottomOfView:btview];
+    [[UIApplication sharedApplication].delegate.window setSafeAreaViewWithColor:[UIColor redColor]];
 
 }
 

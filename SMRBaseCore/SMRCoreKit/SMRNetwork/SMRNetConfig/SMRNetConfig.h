@@ -24,19 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)configRequestBeforeDataTask:(NSMutableURLRequest *)request api:(SMRNetAPI *)api;
 
 /**
- 防止抖动频率设置(s),默认1.0s
- */
-- (NSTimeInterval)timerIntervalForDedounce;
-
-/**
- 防止抖动容量设置,默认1个
+ 防止抖动容量设置,默认无限制
  */
 - (NSInteger)maxCountForDedounce;
-
-/**
- 暴力刷子禁止时间,默认60s
- */
-- (NSTimeInterval)invalidateDuration;
 
 @end
 

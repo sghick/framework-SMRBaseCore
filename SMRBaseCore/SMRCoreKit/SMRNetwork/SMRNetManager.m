@@ -42,7 +42,6 @@ SMRSessionAPIInitDelegate>
 
 - (void)startWithConfig:(SMRNetConfig *)config {
     [self.session configration:config];
-    self.session.dedouncer.invalidateDuration = config.invalidateDuration;
 }
 
 - (void)p_suspendAllTask {
@@ -84,11 +83,9 @@ SMRSessionAPIInitDelegate>
     // 设置callback
     api.callback = callback;
     
-    NSTimeInterval timerIntervalForDedounce = [self.config timerIntervalForDedounce];
     NSInteger maxCount = [self.config maxCountForDedounce];
-    [self.dedouncer dedounce:api identifier:api.identifier withinTime:timerIntervalForDedounce maxCount:maxCount resultBlock:^(SMRNetDedouncer *dedouncer, NSTimeInterval groupTag, SMRNetAPI *obj) {
+    [self.dedouncer dedounce:api identifier:api.identifier maxCount:maxCount resultBlock:^(SMRNetDedouncer *dedouncer, SMRNetAPI *obj) {
         // 设置防止抖动的tag
-        api.callback.groupTagForDedounce = groupTag;
         [self p_queryOnlyAPI:api];
     }];
 }
