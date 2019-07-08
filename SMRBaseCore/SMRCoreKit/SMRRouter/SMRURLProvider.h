@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-typedef NSDictionary<NSString *,NSString *> *(^SMRURLRouterParserTargetBondingBlock)(void);
 typedef NSString *(^SMRURLRouterParserTargetBlock)(NSString *target);
 @interface SMRRouterURLParser : NSObject
 

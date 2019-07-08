@@ -30,6 +30,9 @@
 @implementation SMRUpdateStatusTests
 
 - (id)begin {
+    [SMRUtils jumpToAnyURL:@"https://www.75txt.org/1/1300/27514007_2.html"];
+    return self;
+    
     [SMRDebug setDebug:2];
     NSString *aaa = @"";
     SMRLog0(@"aaaa", @[aaa][0]);

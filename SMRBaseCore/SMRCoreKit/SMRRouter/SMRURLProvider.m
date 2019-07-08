@@ -8,6 +8,7 @@
 
 #import "SMRURLProvider.h"
 #import "NSURL+SMRRouter.h"
+#import "SMRActionAlias.h"
 
 @implementation SMRURLParserItem
 
@@ -70,9 +71,26 @@
     }
     NSString *action = [url.path stringByReplacingOccurrencesOfString:@"/" withString:@""];
     NSString *target = url.host;
+    // 替换绑定的target
+    NSString *bonding = nil;
+    NSDictionary *bondingParams = nil;
+    if (self.targetParserBlock) {
+        bonding = self.targetParserBlock(target);
+    } else {
+        bonding = [SMRActionAlias sharedAlias].alias[target];
+    }
+    if (bonding.length) {
+        NSURL *bondingURL = [NSURL URLWithString:[@"bonding://" stringByAppendingString:bonding]];
+        action = [bondingURL.path stringByReplacingOccurrencesOfString:@"/" withString:@""];
+        target = bondingURL.host;
+        bondingParams = [bondingURL smr_parseredParams];
+    }
     // 添加url参数和附加参数
     NSDictionary *urlParams = [url smr_parseredParams];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if (bondingParams) {
+        [params addEntriesFromDictionary:bondingParams];
+    }
     if (urlParams) {
         [params addEntriesFromDictionary:urlParams];
     }

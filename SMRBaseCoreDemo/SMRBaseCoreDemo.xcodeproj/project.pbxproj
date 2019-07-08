@@ -112,6 +112,7 @@
 		8A9C394222BB78C3000692E2 /* SMRUpdateStatusTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A9C394122BB78C3000692E2 /* SMRUpdateStatusTests.m */; };
 		8AA8B45A224A3CA600778320 /* SMRUtils+Jump.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA8B458224A3CA600778320 /* SMRUtils+Jump.m */; };
 		8AA8B45D224A3D3200778320 /* SMRWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA8B45C224A3D3200778320 /* SMRWebController.m */; };
+		8AB3BED822D30EBF000B5E84 /* SMRActionAlias.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB3BED622D30EBF000B5E84 /* SMRActionAlias.m */; };
 		8AC704F9227EE26C002821D3 /* CodeScan.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8AC704E7227EE26C002821D3 /* CodeScan.bundle */; };
 		8AC70500227EE26C002821D3 /* LBXScanTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC704F4227EE26C002821D3 /* LBXScanTypes.m */; };
 		8AC70501227EE26C002821D3 /* LBXScanNative.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC704F8227EE26C002821D3 /* LBXScanNative.m */; };
@@ -397,6 +398,8 @@
 		8AA8B459224A3CA600778320 /* SMRUtils+Jump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SMRUtils+Jump.h"; sourceTree = "<group>"; };
 		8AA8B45B224A3D3200778320 /* SMRWebController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRWebController.h; sourceTree = "<group>"; };
 		8AA8B45C224A3D3200778320 /* SMRWebController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRWebController.m; sourceTree = "<group>"; };
+		8AB3BED622D30EBF000B5E84 /* SMRActionAlias.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRActionAlias.m; sourceTree = "<group>"; };
+		8AB3BED722D30EBF000B5E84 /* SMRActionAlias.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRActionAlias.h; sourceTree = "<group>"; };
 		8AC704E7227EE26C002821D3 /* CodeScan.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CodeScan.bundle; sourceTree = "<group>"; };
 		8AC704F4227EE26C002821D3 /* LBXScanTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanTypes.m; sourceTree = "<group>"; };
 		8AC704F5227EE26C002821D3 /* LBXScanTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanTypes.h; sourceTree = "<group>"; };
@@ -825,6 +828,8 @@
 				8A814BC321F5BA2100D8AEB6 /* SMRRouterConfig.m */,
 				8A814BBB21F5BA2100D8AEB6 /* SMRTarget.h */,
 				8A814BC721F5BA2100D8AEB6 /* SMRTarget.m */,
+				8AB3BED722D30EBF000B5E84 /* SMRActionAlias.h */,
+				8AB3BED622D30EBF000B5E84 /* SMRActionAlias.m */,
 				8A814BBC21F5BA2100D8AEB6 /* SMRURLProvider.h */,
 				8A814BBA21F5BA2100D8AEB6 /* SMRURLProvider.m */,
 			);
@@ -1679,6 +1684,7 @@
 				8AF6B50E22142EC800A56E51 /* SMRTableAlertView.m in Sources */,
 				8AF198A722A136760045CBCF /* UIImage+SMRGif.m in Sources */,
 				8AF1989A22A135FA0045CBCF /* UITabBar+SMRBadge.m in Sources */,
+				8AB3BED822D30EBF000B5E84 /* SMRActionAlias.m in Sources */,
 				8A814CED21F5CC4A00D8AEB6 /* UITableView+SMRSections.m in Sources */,
 				8A4239EF22432C37002DF711 /* UIView+SMRGesture.m in Sources */,
 				8A814BA021F5B9DC00D8AEB6 /* SMRDBSelectOption.m in Sources */,

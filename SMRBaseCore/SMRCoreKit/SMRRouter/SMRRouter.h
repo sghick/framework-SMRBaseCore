@@ -15,5 +15,6 @@
 #import "SMRRouterConfig.h"
 #import "NSURL+SMRRouter.h"
 #import "SMRTarget.h"
+#import "SMRActionAlias.h"
 
 #endif /* SMRRouter_h */
