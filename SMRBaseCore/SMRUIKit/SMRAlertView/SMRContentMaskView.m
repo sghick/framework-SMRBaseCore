@@ -121,7 +121,7 @@ UIGestureRecognizerDelegate>
 
 - (CGFloat)widthOfContentView {
     if (self.contentAlignment == SMRContentMaskViewContentAlignmentCenter) {
-        return CGRectGetWidth([UIScreen mainScreen].bounds) - 2*[SMRUIAdapter value:43.0];
+        return CGRectGetWidth([UIScreen mainScreen].bounds) - 2*[SMRUIAdapter value:30.0];
     }
     return CGRectGetWidth([UIScreen mainScreen].bounds);
 }

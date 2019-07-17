@@ -19,7 +19,7 @@ typedef NS_ENUM(NSInteger, SMRContentMaskViewContentAlignment) {
 
 /** 定义了maskView的contentView部分 */
 - (UIView *)contentViewOfMaskView;
-/** 定义了contentView的左右缩进后的宽,默认左右缩进了各43 */
+/** 定义了contentView的左右缩进后的宽,默认左右缩进了各30 */
 - (CGFloat)widthOfContentView;
 /** 定义了contentView的位置,默认居中 */
 - (SMRContentMaskViewContentAlignment)contentAlignmentOfMaskView;

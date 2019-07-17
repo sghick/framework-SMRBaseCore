@@ -59,6 +59,13 @@ UITableViewSectionsDelegate>
     [self makeCornerWithStyle:self.alertViewStyle];
 }
 
+- (CGFloat)widthOfContentView {
+    if (self.contentAlignment == SMRContentMaskViewContentAlignmentCenter) {
+        return CGRectGetWidth([UIScreen mainScreen].bounds) - 2*[SMRUIAdapter value:43.0];
+    }
+    return [super widthOfContentView];
+}
+
 #pragma mark - Utils
 
 + (instancetype)alertViewWithContent:(NSString *)content
@@ -222,7 +229,7 @@ UITableViewSectionsDelegate>
             if (self.content.length) {
                 UIEdgeInsets insets = [self smr_insetsOfContent];
                 return [SMRAlertViewContentTextCell heightOfCellWithAttributeText:[SMRAlertViewContentTextCell defaultAttributeText:self.content]
-                                                                         fitWidth:([self widthOfContentView] - insets.left - insets.right)];
+                                                                         fitWidth:([self widthOfContentView] - 2*[self smr_marginOfTableView] - insets.left - insets.right)];
             }
             return 0;
         }
