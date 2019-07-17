@@ -155,7 +155,7 @@
 }
 + (BOOL)pushOrPresentToViewController:(UIViewController *)viewController animated:(BOOL)animated {
     UIViewController *base = [SMRNavigator getMainwindowTopController];
-    return [self pushOrPresentToViewController:viewController baseController:base.navigationController?:base animated:YES];
+    return [self pushOrPresentToViewController:viewController baseController:base.navigationController?:base animated:animated];
 }
 + (BOOL)pushOrPresentToViewController:(UIViewController *)viewController baseController:(UIViewController *)baseController animated:(BOOL)animated {
     if ([self pushToViewController:viewController baseController:(UINavigationController *)baseController animated:animated]) {

@@ -61,10 +61,10 @@
 NSString * const k_perform_open = @"k_perform_open";
 @implementation SMRTarget (SMROpen)
 
-- (void)supportedActionWithParams:(NSDictionary *)params
-                 toOpenController:(UIViewController *)controller
-                  openActionBlock:(void (^)(UIViewController *))openActionBlock
-              openPathActionBlock:(void (^)(UIViewController *))openPathActionBlock {
+- (void)supportedActionWithParams:(nullable NSDictionary *)params
+                 toOpenController:(nullable UIViewController *)controller
+                  openActionBlock:(nullable void (^)(UIViewController *))openActionBlock
+              openPathActionBlock:(nullable void (^)(UIViewController *))openPathActionBlock {
     NSString *supported = params[k_perform_open];
     switch (supported.integerValue) {
         case SMRTargetOpenTypeOpen: {
@@ -89,14 +89,14 @@ NSString * const k_perform_open = @"k_perform_open";
     }
 }
 
-- (void)supportedActionWithParams:(NSDictionary *)params
+- (void)supportedActionWithParams:(nullable NSDictionary *)params
                       toChangeTab:(NSInteger)toChangeTab
-                 toOpenController:(UIViewController *)controller
-                  openActionBlock:(void (^)(UIViewController * _Nonnull))openActionBlock
-              openPathActionBlock:(void (^)(UIViewController * _Nonnull))openPathActionBlock {
+                 toOpenController:(nullable UIViewController *)controller
+                  openActionBlock:(nullable void (^)(UIViewController *))openActionBlock
+              openPathActionBlock:(nullable void (^)(UIViewController *))openPathActionBlock {
     [self supportedActionWithParams:params
                    toOpenController:controller
-                    openActionBlock:^(UIViewController * _Nonnull controller) {
+                    openActionBlock:^(UIViewController *controller) {
                         UINavigationController *main = [SMRNavigator getRootTabNavigationControllerWithTab:toChangeTab];
                         if (main) {
                             // 如果目前控制器存在于目标Tab中,并且为栈顶,直接切换;否则,强行重置切换至对应Tab,并在当前tab打开目标控制器
@@ -113,7 +113,7 @@ NSString * const k_perform_open = @"k_perform_open";
                                                openBlock:openActionBlock];
                         }
                     }
-                openPathActionBlock:^(UIViewController * _Nonnull controller) {
+                openPathActionBlock:^(UIViewController *controller) {
                     UINavigationController *main = [SMRNavigator getRootTabNavigationControllerWithTab:toChangeTab];
                     if (main) {
                         // 如果目前控制器存在于目标Tab中,并且为栈顶,直接切换;否则,强行重置切换至对应Tab,并在当前tab打开目标控制器
@@ -132,14 +132,14 @@ NSString * const k_perform_open = @"k_perform_open";
                 }];
 }
 
-- (void)supportedMainTabActionWithParams:(NSDictionary *)params
+- (void)supportedMainTabActionWithParams:(nullable NSDictionary *)params
                              toChangeTab:(NSInteger)toChangeTab
-                        toOpenController:(UIViewController *)controller
-                         openActionBlock:(void (^)(UIViewController * _Nonnull))openActionBlock
-                     openPathActionBlock:(void (^)(UIViewController * _Nonnull))openPathActionBlock {
+                        toOpenController:(nullable UIViewController *)controller
+                         openActionBlock:(nullable void (^)(UIViewController *))openActionBlock
+                     openPathActionBlock:(nullable void (^)(UIViewController *))openPathActionBlock {
     [self supportedActionWithParams:params
                    toOpenController:controller
-                    openActionBlock:^(UIViewController * _Nonnull controller) {
+                    openActionBlock:^(UIViewController *controller) {
                         // 如果目前控制器存在于目标Tab中,直接切换;否则,不切换Tab,仅在当前位置直接打开目标控制器
                         UIViewController *main = [SMRNavigator getRootTabNavigationControllerWithTab:toChangeTab];
                         [self p_changeTabIfCondition:(BOOL)main
@@ -160,7 +160,7 @@ NSString * const k_perform_open = @"k_perform_open";
 - (void)p_changeTabIfCondition:(BOOL)condition
                    toChangeTab:(NSInteger)toChangeTab
                     forceReset:(BOOL)forceReset
-                    controller:(UIViewController *)controller
+                    controller:(nullable UIViewController *)controller
                      openBlock:(nullable void (^)(UIViewController *controller))openBlock {
     if (condition) {
         [SMRNavigator resetToRootViewControllerWithCompletion:nil];

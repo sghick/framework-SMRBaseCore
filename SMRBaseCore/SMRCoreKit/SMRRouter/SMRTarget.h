@@ -36,7 +36,7 @@ typedef NS_ENUM(NSInteger, SMRTargetOpenType) {
  */
 - (void)supportedActionWithParams:(nullable NSDictionary *)params
                       toChangeTab:(NSInteger)toChangeTab
-                 toOpenController:(UIViewController *)controller
+                 toOpenController:(nullable UIViewController *)controller
                   openActionBlock:(nullable void (^)(UIViewController *controller))openActionBlock
               openPathActionBlock:(nullable void (^)(UIViewController *controller))openPathActionBlock;
 
@@ -52,7 +52,7 @@ typedef NS_ENUM(NSInteger, SMRTargetOpenType) {
  */
 - (void)supportedMainTabActionWithParams:(nullable NSDictionary *)params
                              toChangeTab:(NSInteger)toChangeTab
-                        toOpenController:(UIViewController *)controller
+                        toOpenController:(nullable UIViewController *)controller
                          openActionBlock:(nullable void (^)(UIViewController *))openActionBlock
                      openPathActionBlock:(nullable void (^)(UIViewController *))openPathActionBlock;
 
