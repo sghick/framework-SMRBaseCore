@@ -23,6 +23,7 @@
     }
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:inView animated:YES];
     hud.mode = MBProgressHUDModeText;
+    hud.label.numberOfLines = 0;
     hud.label.text = toast;
     hud.offset = CGPointMake(0.f, MBProgressMaxOffset);
     [hud hideAnimated:YES afterDelay:2.f];

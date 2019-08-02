@@ -158,6 +158,7 @@
 		8AF6B50B221424A800A56E51 /* UIView+SMRResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF6B50A221424A800A56E51 /* UIView+SMRResponder.m */; };
 		8AF6B50E22142EC800A56E51 /* SMRTableAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF6B50D22142EC800A56E51 /* SMRTableAlertView.m */; };
 		8AF6B51122142EFB00A56E51 /* SMRAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF6B51022142EFB00A56E51 /* SMRAlertView.m */; };
+		8AFCD4D022F40DEA000CDA29 /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AFCD4CF22F40DEA000CDA29 /* JSBadgeView.m */; };
 		FE77761D22187F8300F6416F /* SMRUtilsValidateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FE77761C22187F8300F6416F /* SMRUtilsValidateTests.m */; };
 /* End PBXBuildFile section */
 
@@ -492,6 +493,8 @@
 		8AF6B50D22142EC800A56E51 /* SMRTableAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRTableAlertView.m; sourceTree = "<group>"; };
 		8AF6B50F22142EFB00A56E51 /* SMRAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRAlertView.h; sourceTree = "<group>"; };
 		8AF6B51022142EFB00A56E51 /* SMRAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRAlertView.m; sourceTree = "<group>"; };
+		8AFCD4CE22F40DEA000CDA29 /* JSBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBadgeView.h; sourceTree = "<group>"; };
+		8AFCD4CF22F40DEA000CDA29 /* JSBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBadgeView.m; sourceTree = "<group>"; };
 		A6320258A49093D592CC8E60 /* Pods-SMRBaseCoreDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMRBaseCoreDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		BEB68DCCB6F5224C71F40E77 /* Pods_SMRBaseCoreDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SMRBaseCoreDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE77761B22187F8300F6416F /* SMRUtilsValidateTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRUtilsValidateTests.h; sourceTree = "<group>"; };
@@ -583,6 +586,8 @@
 		8A80B41B22D5F8CF00091796 /* SMRBadge */ = {
 			isa = PBXGroup;
 			children = (
+				8AFCD4CE22F40DEA000CDA29 /* JSBadgeView.h */,
+				8AFCD4CF22F40DEA000CDA29 /* JSBadgeView.m */,
 				8A80B41D22D5F8CF00091796 /* UIView+SMRBadge.h */,
 				8A80B41C22D5F8CF00091796 /* UIView+SMRBadge.m */,
 			);
@@ -1724,6 +1729,7 @@
 				FE77761D22187F8300F6416F /* SMRUtilsValidateTests.m in Sources */,
 				8A814C9D21F5C3D900D8AEB6 /* SMRNetAPI.m in Sources */,
 				8A914F08221D02D600E2F691 /* SMRUtils+Version.m in Sources */,
+				8AFCD4D022F40DEA000CDA29 /* JSBadgeView.m in Sources */,
 				8A914DEE2215AA0B00E2F691 /* SMRUtils+NSString.m in Sources */,
 				8A814CEC21F5CC4A00D8AEB6 /* SMRSections.m in Sources */,
 				8A914F1D221E46D100E2F691 /* SMRAdapterTests.m in Sources */,

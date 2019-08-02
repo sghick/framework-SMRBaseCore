@@ -44,6 +44,12 @@ typedef NS_ENUM(NSInteger, SMRMatrixCalculatorType) {
                                     spaceOfColumn:(CGFloat)spaceOfColumn
                                          cellSize:(CGSize)cellSize;
 
+/** 计算底部位置 */
+- (CGFloat)bottomWithIndex:(NSInteger)index;
+
+/** 计算右边位置 */
+- (CGFloat)rightWithIndex:(NSInteger)index;
+
 /** 根据序号计算每个cell的frame */
 - (CGRect)cellFrameWithIndex:(NSInteger)index;
 

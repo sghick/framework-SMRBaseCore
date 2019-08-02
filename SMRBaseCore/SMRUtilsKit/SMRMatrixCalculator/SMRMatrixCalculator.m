@@ -51,6 +51,16 @@
     return calculator;
 }
 
+- (CGFloat)bottomWithIndex:(NSInteger)index {
+    CGRect frame = [self cellFrameWithIndex:index];
+    return frame.origin.y + frame.size.height;
+}
+
+- (CGFloat)rightWithIndex:(NSInteger)index {
+    CGRect frame = [self cellFrameWithIndex:index];
+    return frame.origin.x + frame.size.width;
+}
+
 - (CGRect)cellFrameWithIndex:(NSInteger)index {
     CGRect frame = {[self cellOriginWithIndex:index], self.cellSize};
     return frame;

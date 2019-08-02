@@ -6,7 +6,7 @@
 //  Copyright © 2019 ibaodashi. All rights reserved.
 //
 
-#import "UIView+BDSBadge.h"
+#import "UIView+SMRBadge.h"
 #import "JSBadgeView.h"
 
 @implementation BDSBadgeItem
