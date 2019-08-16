@@ -8,6 +8,12 @@
 
 #import "SMRSections.h"
 
+@interface SMRSections ()
+
+@property (nonatomic, strong) NSMutableDictionary<NSNumber *, SMRSection *> *sectionsDict;
+
+@end
+
 @implementation SMRSections
 
 - (instancetype)init {
@@ -36,60 +42,24 @@
 }
 
 - (SMRSection *)sectionWithIndexPathSection:(NSInteger)section {
-    NSInteger index = [self p_indexOfSectionsWithIndexPathSection:section];
-    if (self.sections.count > index) {
-        SMRSection *sec = self.sections[index];
-        sec.sectionSamesIndex = [self p_sectionSamesIndexWithIndexPathSection:section];
-        return sec;
-    }
-    return nil;
-}
-
-- (SMRRow *)rowWithSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey {
-    SMRSection *sec = [self sectionWithSectionKey:sectionKey];
-    for (SMRRow *row in sec.rows) {
-        if (row.rowKey == rowKey) {
-            return row;
-        }
-    }
-    return nil;
-}
-
-- (SMRSection *)sectionWithSectionKey:(NSInteger)sectionKey {
+    NSInteger sumSection = 0;
     for (SMRSection *sec in self.sections) {
-        if (sec.sectionKey == sectionKey) {
+        sumSection += sec.sectionSamesCount;
+        if (sumSection > section) {
+            sec.sectionSamesIndex = section - (sumSection - sec.sectionSamesCount);
             return sec;
         }
     }
     return nil;
 }
 
-// private
-- (NSInteger)p_indexOfSectionsWithIndexPathSection:(NSInteger)section {
-    NSInteger index = 0;
-    NSInteger sumSection = 0;
-    for (SMRSection *sec in self.sections) {
-        sumSection += sec.sectionSamesCount;
-        if (sumSection > section) {
-            return index;
-        }
-        index++;
-    }
-    return -1;
+- (SMRRow *)rowWithSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey {
+    SMRSection *sec = [self sectionWithSectionKey:sectionKey];
+    return [sec rowWithRowKey:rowKey];
 }
 
-// private
-- (NSInteger)p_sectionSamesIndexWithIndexPathSection:(NSInteger)section {
-    NSInteger sectionSamesIndex = 0;
-    NSInteger sumSection = 0;
-    for (SMRSection *sec in self.sections) {
-        sumSection += sec.sectionSamesCount;
-        if (sumSection > section) {
-            sectionSamesIndex = section - (sumSection - sec.sectionSamesCount);
-            return sectionSamesIndex;
-        }
-    }
-    return -1;
+- (SMRSection *)sectionWithSectionKey:(NSInteger)sectionKey {
+    return self.sectionsDict[@(sectionKey)];
 }
 
 - (NSIndexPath *)indexPathWithRowKey:(NSInteger)rowKey {
@@ -99,13 +69,12 @@
 - (NSIndexPath *)indexPathWithRowKey:(NSInteger)rowKey rowSamesIndex:(NSInteger)rowSamesIndex {
     for (int s = 0; s < self.sections.count; s++) {
         SMRSection *sec = self.sections[s];
-        for (int r = 0; r < sec.rows.count; r++) {
-            SMRRow *row = sec.rows[r];
-            if (row.rowKey == rowKey) {
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(r + rowSamesIndex) inSection:s];
-                return indexPath;
-            }
+        NSIndexPath *indexPath = [self indexPathWithSectionKey:sec.sectionKey rowKey:rowKey rowSamesIndex:rowSamesIndex];
+        if (indexPath) {
+            // 找到后立即返回
+            return indexPath;
         }
+        // 继续遍历
     }
     return nil;
 }
@@ -115,15 +84,13 @@
 }
 
 - (NSIndexPath *)indexPathWithSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey rowSamesIndex:(NSInteger)rowSamesIndex {
-    for (int s = 0; s < self.sections.count; s++) {
-        SMRSection *sec = self.sections[s];
-        for (int r = 0; r < sec.rows.count; r++) {
-            SMRRow *row = sec.rows[r];
-            if ((row.sectionKey == sectionKey) && (row.rowKey == rowKey)) {
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(r + rowSamesIndex) inSection:s];
-                return indexPath;
-            }
-        }
+    SMRSection *sec = [self sectionWithSectionKey:sectionKey];
+    SMRRow *row = [sec rowWithRowKey:rowKey];
+    if (sec && row && (row.rowSamesCount > rowSamesIndex)) {
+        NSInteger s = [self.sections indexOfObject:sec];
+        NSInteger r = [sec.rows indexOfObject:row];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(r + rowSamesIndex) inSection:s];
+        return indexPath;
     }
     return nil;
 }
@@ -133,17 +100,17 @@
 }
 
 - (NSInteger)indexPathSectionWithSectionKey:(NSInteger)sectionKey sectionSamesIndex:(NSInteger)sectionSamesIndex {
-    for (int s = 0; s < self.sections.count; s++) {
-        SMRSection *sec = self.sections[s];
-        if (sec.sectionKey == sectionKey) {
-            return (s + sectionSamesIndex);
-        }
+    SMRSection *sec = [self sectionWithSectionKey:sectionKey];
+    if (sec && (sec.sectionSamesCount > sectionSamesIndex)) {
+        NSInteger s = [self.sections indexOfObject:sec];
+        return (s + sectionSamesIndex);
     }
     return -1;
 }
 
 - (void)addSection:(SMRSection *)section {
     [self.sections addObject:section];
+    self.sectionsDict[@(section.sectionKey)] = section;
 }
 
 - (void)addSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey {
@@ -173,6 +140,7 @@
         sec = [[SMRSection alloc] initWithSectionKey:sectionKey];
         [sec addRowKey:rowKey sectionSamesCount:sectionSamesCount rowSamesCount:rowSamesCount];
         [self.sections addObject:sec];
+        self.sectionsDict[@(sectionKey)] = sec;
     }
 }
 
@@ -183,6 +151,19 @@
     }
     return sectionCount;
 }
+
+- (NSMutableDictionary<NSNumber *,SMRSection *> *)sectionsDict {
+    if (!_sectionsDict) {
+        _sectionsDict = [NSMutableDictionary dictionary];
+    }
+    return _sectionsDict;
+}
+
+@end
+
+@interface SMRSection ()
+
+@property (nonatomic, strong) NSMutableDictionary<NSNumber *, SMRRow *> *rowsDict;
 
 @end
 
@@ -204,48 +185,29 @@
     row.sectionKey = self.sectionKey;
     row.rowKey = rowKey;
     [self.rows addObject:row];
+    self.rowsDict[@(rowKey)] = row;
 }
 
 - (SMRRow *)rowAtIndexPathRow:(NSInteger)row {
-    NSInteger index = [self p_indexOfRowsAtIndexPathRow:row];
-    if (self.rows.count > index) {
-        SMRRow *rw = self.rows[index];
-        rw.rowSamesIndex = [self p_rowSamesIndexAtIndexPathRow:row];
-        return rw;
-    }
-    return nil;
-}
-
-// private
-- (NSInteger)p_indexOfRowsAtIndexPathRow:(NSInteger)row {
     NSInteger index = 0;
     NSInteger sumRow = 0;
     for (SMRRow *rw in self.rows) {
         sumRow += rw.rowSamesCount;
         if (sumRow > row) {
-            return index;
+            rw.rowSamesIndex = row - (sumRow - rw.rowSamesCount);
+            return rw;
         }
         index++;
     }
-    return -1;
+    return nil;
 }
 
-// private
-- (NSInteger)p_rowSamesIndexAtIndexPathRow:(NSInteger)row {
-    NSInteger rowSamesIndex = 0;
-    NSInteger sumRow = 0;
-    for (SMRRow *rw in self.rows) {
-        sumRow += rw.rowSamesCount;
-        if (sumRow > row) {
-            rowSamesIndex = row - (sumRow - rw.rowSamesCount);
-            return rowSamesIndex;
-        }
-    }
-    return -1;
+- (SMRRow *)rowWithRowKey:(NSInteger)rowKey {
+    return self.rowsDict[@(rowKey)];
 }
 
 - (NSInteger)rowKeyAtIndexPathRow:(NSInteger)row {
-    if (self.rows.count > row) {
+    if ((row >= 0) && (self.rows.count > row)) {
         return self.rows[row].rowKey;
     }
     return -1;
@@ -262,6 +224,13 @@
 
 - (NSString *)identifier {
     return [NSString stringWithFormat:@"sk%@si%@", @(self.sectionKey), @(self.sectionSamesIndex)];
+}
+
+- (NSMutableDictionary<NSNumber *,SMRRow *> *)rowsDict {
+    if (!_rowsDict) {
+        _rowsDict = [NSMutableDictionary dictionary];
+    }
+    return _rowsDict;
 }
 
 @end
