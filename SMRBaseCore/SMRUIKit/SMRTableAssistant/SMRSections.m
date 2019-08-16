@@ -36,17 +36,36 @@
 }
 
 - (SMRSection *)sectionWithIndexPathSection:(NSInteger)section {
-    NSInteger index = [self indexOfSectionsWithIndexPathSection:section];
+    NSInteger index = [self p_indexOfSectionsWithIndexPathSection:section];
     if (self.sections.count > index) {
         SMRSection *sec = self.sections[index];
-        sec.sectionSamesIndex = [self sectionSamesIndexWithIndexPathSection:section];
+        sec.sectionSamesIndex = [self p_sectionSamesIndexWithIndexPathSection:section];
         return sec;
     }
     return nil;
 }
 
+- (SMRRow *)rowWithSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey {
+    SMRSection *sec = [self sectionWithSectionKey:sectionKey];
+    for (SMRRow *row in sec.rows) {
+        if (row.rowKey == rowKey) {
+            return row;
+        }
+    }
+    return nil;
+}
+
+- (SMRSection *)sectionWithSectionKey:(NSInteger)sectionKey {
+    for (SMRSection *sec in self.sections) {
+        if (sec.sectionKey == sectionKey) {
+            return sec;
+        }
+    }
+    return nil;
+}
+
 // private
-- (NSInteger)indexOfSectionsWithIndexPathSection:(NSInteger)section {
+- (NSInteger)p_indexOfSectionsWithIndexPathSection:(NSInteger)section {
     NSInteger index = 0;
     NSInteger sumSection = 0;
     for (SMRSection *sec in self.sections) {
@@ -60,7 +79,7 @@
 }
 
 // private
-- (NSInteger)sectionSamesIndexWithIndexPathSection:(NSInteger)section {
+- (NSInteger)p_sectionSamesIndexWithIndexPathSection:(NSInteger)section {
     NSInteger sectionSamesIndex = 0;
     NSInteger sumSection = 0;
     for (SMRSection *sec in self.sections) {
@@ -128,19 +147,19 @@
 }
 
 - (void)addSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey {
-    [self addSectionKey:sectionKey rowKey:rowKey sectionSamesCount:1 rowSamesCount:1];
+    [self p_addSectionKey:sectionKey rowKey:rowKey sectionSamesCount:1 rowSamesCount:1];
 }
 
 - (void)addSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey sectionSamesCount:(NSInteger)sectionSamesCount {
-    [self addSectionKey:sectionKey rowKey:rowKey sectionSamesCount:sectionSamesCount rowSamesCount:1];
+    [self p_addSectionKey:sectionKey rowKey:rowKey sectionSamesCount:sectionSamesCount rowSamesCount:1];
 }
 
 - (void)addSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey rowSamesCount:(NSInteger)rowSamesCount {
-    [self addSectionKey:sectionKey rowKey:rowKey sectionSamesCount:1 rowSamesCount:rowSamesCount];
+    [self p_addSectionKey:sectionKey rowKey:rowKey sectionSamesCount:1 rowSamesCount:rowSamesCount];
 }
 
 // private
-- (void)addSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey sectionSamesCount:(NSInteger)sectionSamesCount rowSamesCount:(NSInteger)rowSamesCount {
+- (void)p_addSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey sectionSamesCount:(NSInteger)sectionSamesCount rowSamesCount:(NSInteger)rowSamesCount {
     if (sectionSamesCount == 0) {
         return;
     }
@@ -153,17 +172,8 @@
     } else {
         sec = [[SMRSection alloc] initWithSectionKey:sectionKey];
         [sec addRowKey:rowKey sectionSamesCount:sectionSamesCount rowSamesCount:rowSamesCount];
-        [self addSection:sec];
+        [self.sections addObject:sec];
     }
-}
-
-- (SMRSection *)sectionWithSectionKey:(NSInteger)sectionKey {
-    for (SMRSection *sec in self.sections) {
-        if (sec.sectionKey == sectionKey) {
-            return sec;
-        }
-    }
-    return nil;
 }
 
 - (NSInteger)sectionSamesCountOfAll {
@@ -197,17 +207,17 @@
 }
 
 - (SMRRow *)rowAtIndexPathRow:(NSInteger)row {
-    NSInteger index = [self indexOfRowsAtIndexPathRow:row];
+    NSInteger index = [self p_indexOfRowsAtIndexPathRow:row];
     if (self.rows.count > index) {
         SMRRow *rw = self.rows[index];
-        rw.rowSamesIndex = [self rowSamesIndexAtIndexPathRow:row];
+        rw.rowSamesIndex = [self p_rowSamesIndexAtIndexPathRow:row];
         return rw;
     }
     return nil;
 }
 
 // private
-- (NSInteger)indexOfRowsAtIndexPathRow:(NSInteger)row {
+- (NSInteger)p_indexOfRowsAtIndexPathRow:(NSInteger)row {
     NSInteger index = 0;
     NSInteger sumRow = 0;
     for (SMRRow *rw in self.rows) {
@@ -221,7 +231,7 @@
 }
 
 // private
-- (NSInteger)rowSamesIndexAtIndexPathRow:(NSInteger)row {
+- (NSInteger)p_rowSamesIndexAtIndexPathRow:(NSInteger)row {
     NSInteger rowSamesIndex = 0;
     NSInteger sumRow = 0;
     for (SMRRow *rw in self.rows) {

@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  返回一个row
- @return 未找到:若section存在，返回rowKey = -99999的row对象，否则返回nil
+ @return 未找到:若section存在，返回rowKey = -1的row对象，否则返回nil
  */
 - (nullable SMRRow *)rowWithIndexPath:(NSIndexPath *)indexPath;
 /**
@@ -28,12 +28,23 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable SMRSection *)sectionWithIndexPathSection:(NSInteger)section;
 
 /**
+ 返回一个row
+ @return 未找到返回nil
+ */
+- (nullable SMRRow *)rowWithSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey;
+/**
+ 返回一个section
+ @return 未找到返回nil
+ */
+- (nullable SMRSection *)sectionWithSectionKey:(NSInteger)sectionKey;
+
+/**
  返回对应的indexPath
  如果rowKey没有重复的，推荐用此方法
  @return 未找到返回nil
  */
-- (nullable NSIndexPath *)indexPathWithRowKey:(NSInteger)rowKey;
-- (nullable NSIndexPath *)indexPathWithRowKey:(NSInteger)rowKey rowSamesIndex:(NSInteger)rowSamesIndex;
+- (nullable NSIndexPath *)indexPathWithRowKey:(NSInteger)rowKey __deprecated_msg("使用-indexPathWithSectionKey:rowKey:方法代替");
+- (nullable NSIndexPath *)indexPathWithRowKey:(NSInteger)rowKey rowSamesIndex:(NSInteger)rowSamesIndex __deprecated_msg("使用-indexPathWithSectionKey:rowKey:rowSamesIndex:方法代替");
 /**
  返回对应的indexPath
  如果rowKey有重复的，推荐用此方法
@@ -48,16 +59,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSInteger)indexPathSectionWithSectionKey:(NSInteger)sectionKey;
 - (NSInteger)indexPathSectionWithSectionKey:(NSInteger)sectionKey sectionSamesIndex:(NSInteger)sectionSamesIndex;
-/**
- 返回一个section
- @return 未找到返回nil
- */
-- (nullable SMRSection *)sectionWithSectionKey:(NSInteger)sectionKey;
 
 /**
  添加section
  */
-- (void)addSection:(SMRSection *)section;
+- (void)addSection:(SMRSection *)section __deprecated_msg("使用-addSectionKey:rowKey:等方法代替");
 /**
  添加section，推荐使用本方法
  */
