@@ -85,11 +85,10 @@
 
 - (NSIndexPath *)indexPathWithSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey rowSamesIndex:(NSInteger)rowSamesIndex {
     SMRSection *sec = [self sectionWithSectionKey:sectionKey];
-    SMRRow *row = [sec rowWithRowKey:rowKey];
-    if (sec && row && (row.rowSamesCount > rowSamesIndex)) {
-        NSInteger s = [self.sections indexOfObject:sec];
-        NSInteger r = [sec.rows indexOfObject:row];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(r + rowSamesIndex) inSection:s];
+    NSInteger s = [self indexPathSectionWithSectionKey:sectionKey];
+    NSInteger r = [sec indexPathRowWithRowKey:rowKey rowSamesIndex:rowSamesIndex];
+    if ((s != -1) && (r != -1)) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:r inSection:s];
         return indexPath;
     }
     return nil;
@@ -100,10 +99,12 @@
 }
 
 - (NSInteger)indexPathSectionWithSectionKey:(NSInteger)sectionKey sectionSamesIndex:(NSInteger)sectionSamesIndex {
-    SMRSection *sec = [self sectionWithSectionKey:sectionKey];
-    if (sec && (sec.sectionSamesCount > sectionSamesIndex)) {
-        NSInteger s = [self.sections indexOfObject:sec];
-        return (s + sectionSamesIndex);
+    NSInteger sumSection = 0;
+    for (SMRSection *sec in self.sections) {
+        if (sec.sectionKey == sectionKey) {
+            return sumSection + sectionSamesIndex;
+        }
+        sumSection += sec.sectionSamesCount;
     }
     return -1;
 }
@@ -210,13 +211,20 @@
     return self.rowsDict[@(rowKey)];
 }
 
-- (NSInteger)rowKeyAtIndexPathRow:(NSInteger)row {
-    if ((row >= 0) && (self.rows.count > row)) {
-        return self.rows[row].rowKey;
+- (NSInteger)indexPathRowWithRowKey:(NSInteger)rowKey {
+    return [self indexPathRowWithRowKey:rowKey rowSamesIndex:0];
+}
+
+- (NSInteger)indexPathRowWithRowKey:(NSInteger)rowKey rowSamesIndex:(NSInteger)rowSamesIndex {
+    NSInteger sumRow = 0;
+    for (SMRRow *row in self.rows) {
+        if (row.rowKey == rowKey) {
+            return sumRow + rowSamesIndex;
+        }
+        sumRow += row.rowSamesCount;
     }
     return -1;
 }
-
 
 - (NSInteger)rowSamesCountOfAll {
     NSInteger rowCount = 0;

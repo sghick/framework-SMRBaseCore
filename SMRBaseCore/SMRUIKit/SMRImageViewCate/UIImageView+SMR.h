@@ -10,6 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class PHAsset;
+@class PHImageRequestOptions;
 @interface UIImageView (SMR)
 
 /** 设置动图 */

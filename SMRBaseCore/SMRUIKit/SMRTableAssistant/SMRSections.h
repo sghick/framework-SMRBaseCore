@@ -97,7 +97,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addRowKey:(NSInteger)rowKey sectionSamesCount:(NSInteger)sectionSamesCount rowSamesCount:(NSInteger)rowSamesCount;
 - (nullable SMRRow *)rowAtIndexPathRow:(NSInteger)row;  /**< 未找到返回nil */
 - (nullable SMRRow *)rowWithRowKey:(NSInteger)rowKey;   /**< 未找到返回nil */
-- (NSInteger)rowKeyAtIndexPathRow:(NSInteger)row;       /**< 未找到返回-1 */
+- (NSInteger)indexPathRowWithRowKey:(NSInteger)rowKey;  /**< 未找到返回-1 */
+- (NSInteger)indexPathRowWithRowKey:(NSInteger)rowKey rowSamesIndex:(NSInteger)rowSamesIndex;   /**< 未找到返回-1 */
 
 /** 返回一个跟此section位置相关的唯一表示 */
 - (NSString *)identifier;
