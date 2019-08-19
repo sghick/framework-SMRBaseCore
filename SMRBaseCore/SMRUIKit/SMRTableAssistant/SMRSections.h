@@ -76,6 +76,10 @@ NS_ASSUME_NONNULL_BEGIN
  添加section，这个section-row对应多个相同时可用
  */
 - (void)addSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey rowSamesCount:(NSInteger)rowSamesCount;
+/**
+ 添加section，这个section对应多个相同时 且 每个section对应的相同row个数都是相同时可用
+ */
+- (void)addSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey sectionSamesCount:(NSInteger)sectionSamesCount rowSamesCount:(NSInteger)rowSamesCount;
 
 @end
 

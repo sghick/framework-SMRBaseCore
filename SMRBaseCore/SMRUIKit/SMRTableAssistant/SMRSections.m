@@ -125,6 +125,10 @@
     [self p_addSectionKey:sectionKey rowKey:rowKey sectionSamesCount:1 rowSamesCount:rowSamesCount];
 }
 
+- (void)addSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey sectionSamesCount:(NSInteger)sectionSamesCount rowSamesCount:(NSInteger)rowSamesCount {
+    [self p_addSectionKey:sectionKey rowKey:rowKey sectionSamesCount:sectionSamesCount rowSamesCount:rowSamesCount];
+}
+
 // private
 - (void)p_addSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey sectionSamesCount:(NSInteger)sectionSamesCount rowSamesCount:(NSInteger)rowSamesCount {
     if (sectionSamesCount == 0) {
