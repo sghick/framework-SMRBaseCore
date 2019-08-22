@@ -29,6 +29,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (strong, nonatomic) NSIndexSet *indexSetForRemoveWhenViewDidLoad;
 
+/** 记录一次性移除个数,与indexSetForRemoveWhenViewDidLoad配合使用,默认为1,需要手动累加 */
+@property (assign, nonatomic) NSInteger recentyCount;
+
+/** 栈中recentyCount个控制器 */
+- (NSIndexSet *)recentyIndexSet;
+
 /**
  发起网络请求
  */

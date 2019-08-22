@@ -35,6 +35,7 @@
     self = [super init];
     if (self) {
         self.hidesBottomBarWhenPushed = YES;
+        _recentyCount = 1;
         _isMainPage = NO;
         _statusBarStyle = UIStatusBarStyleDefault;
     }
@@ -97,6 +98,19 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
+}
+
+#pragma mark - RemoveWhenViewDidLoad
+
+- (NSIndexSet *)recentyIndexSet {
+    return [self recentyIndexSetWithCount:self.recentyCount];
+}
+
+- (NSIndexSet *)recentyIndexSetWithCount:(NSInteger)count {
+    if (self.navigationController.viewControllers.count > count) {
+        return [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(self.navigationController.viewControllers.count - count, count)];
+    }
+    return nil;
 }
 
 #pragma mark - RightSwiptBack

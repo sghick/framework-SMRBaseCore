@@ -95,11 +95,11 @@ NSString * const _kDebugStatusForScreen = @"kDgStForSMRScreen";
     NSCalendar *calendar = [NSCalendar currentCalendar];
     unsigned unitFlags = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond;
     NSDateComponents *compt = [calendar components:unitFlags fromDate:nowDate];
-    double up = ((compt.year+[self k:key i:compt.year])%100)*10000000+
-    (compt.month+[self k:key i:compt.month])%12*100000+
-    (compt.day+[self k:key i:compt.day])%31*1000+
-    (compt.hour+[self k:key i:compt.hour])%24*10+
-    (compt.minute+[self k:key i:compt.minute])%60/10;
+    double up = ((compt.year+[self k:key j:compt.year])%100)*10000000+
+    (compt.month+[self k:key j:compt.month])%12*100000+
+    (compt.day+[self k:key j:compt.day])%31*1000+
+    (compt.hour+[self k:key j:compt.hour])%24*10+
+    (compt.minute+[self k:key j:compt.minute])%60/10;
     NSInteger dp = compt.minute%10+10;
     double ud = 0;
     double va = 0;
@@ -113,13 +113,13 @@ NSString * const _kDebugStatusForScreen = @"kDgStForSMRScreen";
     return [NSString stringWithFormat:@"%06.0f", va];
 }
 
-+ (NSInteger)k:(NSString *)k i:(NSInteger)i {
++ (NSInteger)k:(NSString *)k j:(NSInteger)j {
     NSInteger a = 0;
     const char *charNum = [k cStringUsingEncoding:NSUTF8StringEncoding];
     for (int i = 0; i < k.length; i++) {
-        a += i*charNum[i];
-        a *= i;
-        a -= charNum[i]%i;
+        a += j*charNum[i];
+        a *= j;
+        a -= charNum[i]%j;
     }
     return a;
 }
