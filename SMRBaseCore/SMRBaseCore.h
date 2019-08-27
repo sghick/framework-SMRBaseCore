@@ -53,6 +53,7 @@
 #import "UITabBar+SMRImage.h"
 #import "UITabBar+SMRTabBarInfo.h"
 #import "UIImageView+SMR.h"
+#import "SMRImageUploadService.h"
 
 /// SMRUtilsKit
 #import "SMRMatrixCalculator.h"

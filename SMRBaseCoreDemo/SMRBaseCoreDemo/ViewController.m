@@ -25,7 +25,7 @@
 }
 
 - (void)testBtnAction:(UIButton *)sender {
-    NSString *testClass = @"SMRSectionsTests";
+    NSString *testClass = @"SMRCarouselViewTests";
     
     Class cls = NSClassFromString(testClass);
     if (cls) {

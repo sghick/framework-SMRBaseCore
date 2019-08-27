@@ -1,5 +1,5 @@
 //
-//  UIView+BDSBadge.m
+//  UIView+SMRBadge.m
 //  Hermes
 //
 //  Created by 丁治文 on 2019/7/10.
@@ -9,13 +9,13 @@
 #import "UIView+SMRBadge.h"
 #import "JSBadgeView.h"
 
-@implementation BDSBadgeItem
+@implementation SMRBadgeItem
 
 @end
 
-@implementation UIView (BDSBadge)
+@implementation UIView (SMRBadge)
 
-- (JSBadgeView *)badgeViewWithParentView:(UIView *)parentView alingment:(BDSBadgeAlignment)alingment badgeItem:(BDSBadgeItem *)badgeItem tag:(NSInteger)tag {
+- (JSBadgeView *)badgeViewWithParentView:(UIView *)parentView alingment:(SMRBadgeAlignment)alingment badgeItem:(SMRBadgeItem *)badgeItem tag:(NSInteger)tag {
     JSBadgeView *badgeView = [self viewWithTag:tag];
     if (!badgeView || ![badgeView isKindOfClass:[JSBadgeView class]]) {
         JSBadgeViewAlignment jsalingment = (JSBadgeViewAlignment)alingment;
@@ -29,7 +29,7 @@
     return badgeView;
 }
 
-- (void)showBadgeText:(NSString *)text alingment:(BDSBadgeAlignment)alingment badgeItem:(BDSBadgeItem *)badgeItem {
+- (void)showBadgeText:(NSString *)text alingment:(SMRBadgeAlignment)alingment badgeItem:(SMRBadgeItem *)badgeItem {
     JSBadgeView *badgeView = [self badgeViewWithParentView:self alingment:alingment badgeItem:badgeItem tag:kTagForDefaultBDSBadgeText];
     badgeView.badgeText = text;
 }

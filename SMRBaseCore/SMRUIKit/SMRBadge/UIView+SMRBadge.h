@@ -1,5 +1,5 @@
 //
-//  UIView+BDSBadge.h
+//  UIView+SMRBadge.h
 //  Hermes
 //
 //  Created by 丁治文 on 2019/7/10.
@@ -12,19 +12,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSInteger const kTagForDefaultBDSBadgeText = 384723;
 
-typedef NS_ENUM(NSUInteger, BDSBadgeAlignment) {
-    BDSBadgeAlignmentTopLeft = 1,
-    BDSBadgeAlignmentTopRight,
-    BDSBadgeAlignmentTopCenter,
-    BDSBadgeAlignmentCenterLeft,
-    BDSBadgeAlignmentCenterRight,
-    BDSBadgeAlignmentBottomLeft,
-    BDSBadgeAlignmentBottomRight,
-    BDSBadgeAlignmentBottomCenter,
-    BDSBadgeAlignmentCenter,
+typedef NS_ENUM(NSUInteger, SMRBadgeAlignment) {
+    SMRBadgeAlignmentTopLeft = 1,
+    SMRBadgeAlignmentTopRight,
+    SMRBadgeAlignmentTopCenter,
+    SMRBadgeAlignmentCenterLeft,
+    SMRBadgeAlignmentCenterRight,
+    SMRBadgeAlignmentBottomLeft,
+    SMRBadgeAlignmentBottomRight,
+    SMRBadgeAlignmentBottomCenter,
+    SMRBadgeAlignmentCenter,
 };
 
-@interface BDSBadgeItem : NSObject
+@interface SMRBadgeItem : NSObject
 
 @property (strong, nonatomic) UIColor *textColor;
 @property (strong, nonatomic) UIFont *textFont;
@@ -33,9 +33,9 @@ typedef NS_ENUM(NSUInteger, BDSBadgeAlignment) {
 
 @end
 
-@interface UIView (BDSBadge)
+@interface UIView (SMRBadge)
 
-- (void)showBadgeText:(NSString *)text alingment:(BDSBadgeAlignment)alingment badgeItem:(BDSBadgeItem *)badgeItem;
+- (void)showBadgeText:(NSString *)text alingment:(SMRBadgeAlignment)alingment badgeItem:(SMRBadgeItem *)badgeItem;
 - (void)removeBadge;
 
 @end
