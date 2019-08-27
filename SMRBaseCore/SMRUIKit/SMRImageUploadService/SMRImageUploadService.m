@@ -129,16 +129,27 @@ SMRImageTaskObserverDelegate>
 }
 
 - (void)imageTask:(SMRImageTask *)imageTask didRecivedProgressWithCompletedBytesCount:(int64_t)completedBytesCount totalBytesCount:(int64_t)totalBytesCount {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kSMRImageTaskProgressChangedNotification object:imageTask];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:kSMRImageTaskProgressChangedNotification object:imageTask];
+    });
 }
 - (void)imageTask:(SMRImageTask *)imageTask didRecivedSuccessWithImageURL:(NSString *)imageURL {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kSMRImageTaskSuccessNotification object:imageTask];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:kSMRImageTaskSuccessNotification object:imageTask];
+    });
+    [self postImageUploadTaskChangedNotification];
 }
 - (void)imageTask:(SMRImageTask *)imageTask didRecivedFaildWithError:(NSError *)error {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kSMRImageTaskFaildNotification object:imageTask];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:kSMRImageTaskFaildNotification object:imageTask];
+    });
+    [self postImageUploadTaskChangedNotification];
 }
 - (void)imageTask:(SMRImageTask *)imageTask didRecivedCanceledWithError:(NSError *)error {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kSMRImageTaskCanceledNotification object:imageTask];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:kSMRImageTaskCanceledNotification object:imageTask];
+    });
+    [self postImageUploadTaskChangedNotification];
 }
 
 #pragma mark - SMRImageTaskObserverDelegate
@@ -155,7 +166,9 @@ SMRImageTaskObserverDelegate>
 #pragma mark - Utils
 
 - (void)postImageUploadTaskChangedNotification {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kImageUploadTaskChangedNotification object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:kImageUploadTaskChangedNotification object:self];
+    });
 }
 
 #pragma mark - Getters
