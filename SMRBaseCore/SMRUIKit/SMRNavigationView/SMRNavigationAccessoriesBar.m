@@ -7,8 +7,26 @@
 //
 
 #import "SMRNavigationAccessoriesBar.h"
+#import <objc/runtime.h>
 #import "PureLayout.h"
-#import "SMRAdapter.h"
+#import "SMRUIAdapter.h"
+
+@implementation UIView (SMRNavigationAccessories)
+
+// nav_accessories_space
+static const char SMRAccessoriesSpacePropertyKey = '\0';
+- (void)setNav_accessories_space:(CGFloat)nav_accessories_space {
+    if (nav_accessories_space != self.nav_accessories_space) {
+        objc_setAssociatedObject(self, &SMRAccessoriesSpacePropertyKey, @(nav_accessories_space), OBJC_ASSOCIATION_RETAIN);
+    }
+}
+
+- (CGFloat)nav_accessories_space {
+    NSNumber *nav_accessories_space = objc_getAssociatedObject(self, &SMRAccessoriesSpacePropertyKey);
+    return nav_accessories_space.doubleValue;
+}
+
+@end
 
 static NSString * const kTagForLeftViews = @"kTagForLeftViews";
 static NSString * const kTagForRightViews = @"kTagForRightViews";
@@ -37,7 +55,8 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
     [self addLayoutConstraints:^{
         for (UIView *leftView in leftViews) {
             if (lastView) {
-                [leftView autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:lastView withOffset:weakSelf.space];
+                CGFloat space = leftView.nav_accessories_space ?: weakSelf.space;
+                [leftView autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:lastView withOffset:space];
             } else {
                 [leftView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:weakSelf.leftMargin];
             }
@@ -65,7 +84,8 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
     [self addLayoutConstraints:^{
         for (UIView *rightView in rightViews) {
             if (lastView) {
-                [rightView autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:lastView withOffset:-weakSelf.space];
+                CGFloat space = rightView.nav_accessories_space ?: weakSelf.space;
+                [rightView autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:lastView withOffset:-space];
             } else {
                 [rightView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:weakSelf.rightMargin];
             }
@@ -93,14 +113,18 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
 }
 
 - (void)setCenterView:(UIView *)centerView {
+    [self setCenterView:centerView margin:[SMRUIAdapter value:65]];
+}
+
+- (void)setCenterView:(UIView *)centerView margin:(CGFloat)margin {
     _centerView = centerView;
     [self removeSubviewsWithTag:kTagForCenterViews];
     if (centerView) {
         [self addSubviews:@[centerView] tag:kTagForCenterViews];
         [self addLayoutConstraints:^{
             [centerView autoCenterInSuperview];
-            [centerView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:[SMRUIAdapter value:45] relation:NSLayoutRelationGreaterThanOrEqual];
-            [centerView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:[SMRUIAdapter value:45] relation:NSLayoutRelationGreaterThanOrEqual];
+            [centerView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:margin relation:NSLayoutRelationGreaterThanOrEqual];
+            [centerView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:margin relation:NSLayoutRelationGreaterThanOrEqual];
         } tag:kTagForCenterViews];
     }
 }

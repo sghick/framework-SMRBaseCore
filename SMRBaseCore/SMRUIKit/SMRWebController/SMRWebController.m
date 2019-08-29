@@ -60,6 +60,11 @@ WKNavigationDelegate>
 
 @synthesize webView = _webView;
 
+- (void)dealloc {
+    [self removeScriptMessageHandlers];
+    [self removeObserverForProperties];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -67,6 +72,7 @@ WKNavigationDelegate>
     [self.view addSubview:self.webView];
     [self.view addSubview:self.progressView];
     self.navigationView.title = self.webParameter.navTitle;
+    [self addObserverForProperties];
     [self addScriptMessageHandlers];
     [self reloadWeb];
 }
@@ -77,6 +83,49 @@ WKNavigationDelegate>
         return [navigationViewConfig navigationViewOfWebController:self];
     }
     return [super navigationViewInitialization];
+}
+
+- (void)navigationView:(SMRNavigationView *)nav didBackBtnTouched:(UIButton *)sender {
+    if (self.webView.canGoBack) {
+        [self.webView goBack];
+    } else {
+        [super navigationView:nav didBackBtnTouched:sender];
+    }
+}
+
+- (void)navigationView:(SMRNavigationView *)nav didCloseBtnTouched:(UIButton *)sender {
+    [super navigationView:nav didBackBtnTouched:sender];
+}
+
+#pragma mark - Observer
+
+- (void)removeObserverForProperties {
+    [self.webView removeObserver:self forKeyPath:NSStringFromSelector(@selector(canGoBack))];
+    [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
+    [self.webView removeObserver:self forKeyPath:@"title"];
+}
+
+- (void)addObserverForProperties {
+    [self.webView addObserver:self forKeyPath:NSStringFromSelector(@selector(canGoBack)) options:NSKeyValueObservingOptionNew context:nil];
+    [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
+    [self.webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if ([keyPath isEqualToString:NSStringFromSelector(@selector(canGoBack))] && object == self.webView) {
+        NSNumber *canGoBack = change[NSKeyValueChangeNewKey];
+        self.navigationView.closeBtnShow = canGoBack.boolValue;
+    } else if ([keyPath isEqual:@"estimatedProgress"] && object == self.webView) {
+        self.progressView.hidden = NO;
+        [self.progressView setProgress:self.webView.estimatedProgress animated:YES];
+        if (self.webView.estimatedProgress  >= 1.0f) {
+            [self hiddenProgressView];
+        }
+    } else if ([keyPath isEqual:@"title"] && object == self.webView) {
+        self.title = self.webView.title;
+    } else{
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 #pragma mark - JS-Native(交互相关,注册js方法,以便web通过js调用)
@@ -146,22 +195,22 @@ WKNavigationDelegate>
     }];
     
     // 将cookie保存在NSHTTPCookieStorage中
-//    NSHTTPCookieStorage *cookieStore = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-//    [cookies enumerateObjectsUsingBlock:^(NSHTTPCookie * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        [cookieStore setCookie:obj];
-//    }];
-//    // 给webView注入cookie
-//    if (@available(iOS 11.0, *)) {
-//        WKHTTPCookieStore *cookieStore = self.webView.configuration.websiteDataStore.httpCookieStore;
-//        [cookies enumerateObjectsUsingBlock:^(NSHTTPCookie * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//            [cookieStore setCookie:obj completionHandler:nil];
-//        }];
-//    } else {
-//        NSDictionary *cookieHeaders = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
-//        [cookieHeaders enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-//            [request addValue:obj forHTTPHeaderField:key];
-//        }];
-//    }
+    //    NSHTTPCookieStorage *cookieStore = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    //    [cookies enumerateObjectsUsingBlock:^(NSHTTPCookie * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    //        [cookieStore setCookie:obj];
+    //    }];
+    //    // 给webView注入cookie
+    //    if (@available(iOS 11.0, *)) {
+    //        WKHTTPCookieStore *cookieStore = self.webView.configuration.websiteDataStore.httpCookieStore;
+    //        [cookies enumerateObjectsUsingBlock:^(NSHTTPCookie * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    //            [cookieStore setCookie:obj completionHandler:nil];
+    //        }];
+    //    } else {
+    //        NSDictionary *cookieHeaders = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+    //        [cookieHeaders enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+    //            [request addValue:obj forHTTPHeaderField:key];
+    //        }];
+    //    }
 }
 
 - (void)p_fillUserCookiesWithWebView:(WKWebView *)webView url:(NSURL *)url content:(WKUserContentController *)content {
@@ -212,20 +261,6 @@ WKNavigationDelegate>
     self.progressView.alpha = 0.0f;
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if ([keyPath isEqual:@"estimatedProgress"] && object == self.webView) {
-        self.progressView.hidden = NO;
-        [self.progressView setProgress:self.webView.estimatedProgress animated:YES];
-        if (self.webView.estimatedProgress  >= 1.0f) {
-            [self hiddenProgressView];
-        }
-    } else if ([keyPath isEqual:@"title"] && object == self.webView) {
-        self.title = self.webView.title;
-    } else{
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
-}
-
 - (void)hiddenProgressView {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.progressView.hidden = YES;
@@ -255,9 +290,9 @@ WKNavigationDelegate>
     // 设置UA
     [self p_fillUserAgentWithWebView:webView url:url];
     // 加载cookie
-//    // 通过 document.cookie 设置 Cookie 解决后续页面(同域)Ajax、iframe 请求的 Cookie 问题; [document.cookie()无法跨域设置 cookie]
-//    [self p_fillUserCookiesWithWebView:webView url:url content:self.userController];
-
+    //    // 通过 document.cookie 设置 Cookie 解决后续页面(同域)Ajax、iframe 请求的 Cookie 问题; [document.cookie()无法跨域设置 cookie]
+    //    [self p_fillUserCookiesWithWebView:webView url:url content:self.userController];
+    
     // 替换参数
     id<SMRWebReplaceConfig> replaceConfig = [SMRWebConfig shareConfig].webReplaceConfig;
     if ([replaceConfig respondsToSelector:@selector(replaceUrl:completionBlock:)]) {
@@ -327,12 +362,6 @@ WKNavigationDelegate>
     }];
     [alertController addAction:action];
     [self presentViewController:alertController animated:YES completion:nil];
-}
-
-- (void)dealloc {
-    [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
-    [self.webView removeObserver:self forKeyPath:@"title"];
-    [self removeScriptMessageHandlers];
 }
 
 #pragma mark - ReplaceURL
@@ -407,8 +436,6 @@ WKNavigationDelegate>
         _webView.UIDelegate = self;
         _webView.navigationDelegate = self;
         _webView.allowsBackForwardNavigationGestures = YES;
-        [_webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
-        [_webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
     }
     return _webView;
 }

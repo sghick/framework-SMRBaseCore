@@ -10,6 +10,7 @@
 #import "PureLayout.h"
 #import "UIButton+SMR.h"
 #import "SMRUIKitBundle.h"
+#import "SMRUIAdapter.h"
 
 @interface SMRNavigationView ()
 
@@ -89,22 +90,26 @@ static SMRNavigationView *_appearanceNavigationView = nil;
 
 - (void)showOrHideBaseAccessories {
     // 如果没有左挂件,自动显示返回按钮和关闭按钮
-    NSMutableArray *leftarr = [NSMutableArray array];
+    NSMutableArray *leftarr = [NSMutableArray arrayWithArray:self.leftViews];
     // 恢复显示返回按钮
-    if (!self.backBtnHidden && ![self.leftViews containsObject:self.backBtn]) {
+    if (!self.backBtnHidden && ![leftarr containsObject:self.backBtn]) {
         [leftarr addObject:self.backBtn];
     }
     // 恢复显示关闭按钮
-    if (self.closeBtnShow && ![self.leftViews containsObject:self.closeBtn]) {
+    if (self.closeBtnShow && ![leftarr containsObject:self.closeBtn]) {
         [leftarr addObject:self.closeBtn];
     }
-    [super setLeftViews:[leftarr arrayByAddingObjectsFromArray:self.leftViews]];
+    [super setLeftViews:leftarr];
     
     // 如果没有中间挂件,自动显示标题
     if (!self.centerView) {
+        CGFloat margin = [SMRUIAdapter value:45];
+        if (leftarr.count >= 2) {
+            margin = [SMRUIAdapter value:65];
+        }
         // 恢复显示标题
         if (!self.titleLabelHidden) {
-            [super setCenterView:self.titleLabel];
+            [super setCenterView:self.titleLabel margin:margin];
         }
     }
 }
@@ -177,8 +182,8 @@ static SMRNavigationView *_appearanceNavigationView = nil;
         UIButton *backBtn = [SMRNavigationView buttonOfOnlyImage:[SMRUIKitBundle imageWithName:@"nav_back@3x"]
                                                           target:self
                                                           action:@selector(backButtonDidTouched:)];
-        backBtn.frame = CGRectMake(0, 0, 10, 17);
-        [backBtn smr_enlargeTapEdge:UIEdgeInsetsMake(20, 25, 20, 25)];
+        backBtn.frame = CGRectMake(0, 0, 24, 24);
+        [backBtn smr_enlargeTapEdge:UIEdgeInsetsMake(20, 20, 20, 0)];
         _backBtn = backBtn;
     }
     return _backBtn;
@@ -189,7 +194,7 @@ static SMRNavigationView *_appearanceNavigationView = nil;
         UIButton *closeBtn = [SMRNavigationView buttonOfOnlyImage:[SMRUIKitBundle imageWithName:@"nav_close@3x"]
                                                            target:self
                                                            action:@selector(closeButtonDidTouched:)];
-        closeBtn.frame = CGRectMake(0, 0, 24, 24);
+        closeBtn.frame = CGRectMake(0, 0, 16, 16);
         [closeBtn smr_enlargeTapEdge:UIEdgeInsetsMake(20, 20, 20, 20)];
         closeBtn.hidden = YES;
         _closeBtn = closeBtn;

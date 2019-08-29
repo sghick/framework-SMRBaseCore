@@ -10,6 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface UIView (SMRNavigationAccessories)
+
+/** 设置以下属性值,则会忽视SMRNavigationAccessoriesBar.space的值 */
+@property (assign, nonatomic) CGFloat nav_accessories_space;
+
+@end
+
 @interface SMRNavigationAccessoriesBar : SMRNavigationBar
 
 @property (assign, nonatomic) CGFloat leftMargin; ///< default:20
@@ -27,6 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) UIView *leftView;
 @property (nonatomic, strong, nullable) UIView *rightView;
 @property (nonatomic, strong, nullable) UIView *centerView;
+
+/** 设置centerView,同时指定margin */
+- (void)setCenterView:(UIView * _Nullable)centerView margin:(CGFloat)margin;
 
 /** 单纯只能移除某个view,不会刷新UI */
 - (void)removeViewFromLeftViews:(UIView *)view;
