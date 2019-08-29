@@ -39,13 +39,15 @@
         return;
     }
     // 为其它链接
-    if (!forceToApp && [[UIApplication sharedApplication] canOpenURL:jURL]) {
-        [[UIApplication sharedApplication] openURL:jURL];
-        return;
-    } else {
-        [[UIApplication sharedApplication] openURL:jURL];
-        return;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (!forceToApp && [[UIApplication sharedApplication] canOpenURL:jURL]) {
+            [[UIApplication sharedApplication] openURL:jURL];
+            return;
+        } else {
+            [[UIApplication sharedApplication] openURL:jURL];
+            return;
+        }
+    });
 }
 
 + (void)jumpToWeb:(NSString *)url webParameter:(SMRWebControllerParameter *)webParameter {
