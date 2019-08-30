@@ -195,7 +195,8 @@ static SMRNavigationView *_appearanceNavigationView = nil;
                                                            target:self
                                                            action:@selector(closeButtonDidTouched:)];
         closeBtn.frame = CGRectMake(0, 0, 16, 16);
-        [closeBtn smr_enlargeTapEdge:UIEdgeInsetsMake(20, 20, 20, 20)];
+        closeBtn.nav_accessories_space = 5;
+        [closeBtn smr_enlargeTapEdge:UIEdgeInsetsMake(20, 5, 20, 20)];
         closeBtn.hidden = YES;
         _closeBtn = closeBtn;
     }

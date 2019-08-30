@@ -100,9 +100,9 @@ WKNavigationDelegate>
 #pragma mark - Observer
 
 - (void)removeObserverForProperties {
-    [self.webView removeObserver:self forKeyPath:NSStringFromSelector(@selector(canGoBack))];
-    [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
-    [self.webView removeObserver:self forKeyPath:@"title"];
+    [_webView removeObserver:self forKeyPath:NSStringFromSelector(@selector(canGoBack))];
+    [_webView removeObserver:self forKeyPath:@"estimatedProgress"];
+    [_webView removeObserver:self forKeyPath:@"title"];
 }
 
 - (void)addObserverForProperties {
@@ -114,7 +114,11 @@ WKNavigationDelegate>
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:NSStringFromSelector(@selector(canGoBack))] && object == self.webView) {
         NSNumber *canGoBack = change[NSKeyValueChangeNewKey];
-        self.navigationView.closeBtnShow = canGoBack.boolValue;
+        if (self.isMainPage) {
+            self.navigationView.backBtnHidden = !canGoBack.boolValue;
+        } else {
+            self.navigationView.closeBtnShow = canGoBack.boolValue;
+        }
     } else if ([keyPath isEqual:@"estimatedProgress"] && object == self.webView) {
         self.progressView.hidden = NO;
         [self.progressView setProgress:self.webView.estimatedProgress animated:YES];
