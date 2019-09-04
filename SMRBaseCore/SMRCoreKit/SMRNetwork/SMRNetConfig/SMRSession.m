@@ -91,6 +91,9 @@
         if (api.cachePolicy) {
             [self.netCache addObject:responseObject policy:api.cachePolicy];
         }
+        // 处理防抖结果
+        NSArray<SMRNetAPI *> *dedouncedAPIs = [self.dedouncer objectForDedouncedWithIdentifier:api.identifier];
+        [self.dedouncer removeObjectForDedouncedWithIdentifier:api.identifier];
         // 请求成功的回调
         if (callback.successBlock) {
             callback.successBlock(api, responseObject);
@@ -98,8 +101,6 @@
         if (callback.cacheOrSuccessBlock) {
             callback.cacheOrSuccessBlock(api, responseObject, NO);
         }
-        // 处理防抖结果
-        NSArray<SMRNetAPI *> *dedouncedAPIs = [self.dedouncer objectForDedouncedWithIdentifier:api.identifier];
         for (SMRNetAPI *deapi in dedouncedAPIs) {
             // 保存网络请求成功的结果
             [deapi fillResponse:responseObject error:nil];
@@ -111,7 +112,6 @@
                 deapi.callback.cacheOrSuccessBlock(deapi, responseObject, NO);
             }
         }
-        [self.dedouncer removeObjectForDedouncedWithIdentifier:api.identifier];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         id response = [self.config responseObjectWithError:error];
         if (self.config.debugLog) {
@@ -136,10 +136,11 @@
         // 如果不需要重试,并且不需要初始化API,则进行回调,否则将在内部处理
         BOOL shouldCallback = (!willRetry && !willQueryInitAPI);
         if (shouldCallback && callback.faildBlock) {
-            callback.faildBlock(api, response, error);
-            
             // 处理防抖结果
             NSArray<SMRNetAPI *> *dedouncedAPIs = [self.dedouncer objectForDedouncedWithIdentifier:api.identifier];
+            [self.dedouncer removeObjectForDedouncedWithIdentifier:api.identifier];
+            
+            callback.faildBlock(api, response, error);
             for (SMRNetAPI *deapi in dedouncedAPIs) {
                 // 保存网络请求失败的结果
                 [deapi fillResponse:response error:error];
@@ -148,7 +149,6 @@
                     deapi.callback.faildBlock(deapi, response, error);
                 }
             }
-            [self.dedouncer removeObjectForDedouncedWithIdentifier:api.identifier];
         }
     }];
     // 保存task
