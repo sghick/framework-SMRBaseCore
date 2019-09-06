@@ -119,6 +119,25 @@ WKNavigationDelegate>
         } else {
             self.navigationView.closeBtnShow = canGoBack.boolValue;
         }
+        if (self.isMainPage && self.autoAdjustTabBarByMainPage) {
+            if (canGoBack.boolValue) {
+                // 自动隐藏TabBar
+                [UIView animateWithDuration:0.25 animations:^{
+                    self.tabBarController.tabBar.top = SCREEN_HEIGHT;
+                }];
+                // Web设置全屏
+                CGFloat webHeight = SCREEN_HEIGHT - self.navigationView.bottom - BOTTOM_HEIGHT;
+                self.webView.frame = CGRectMake(0, self.navigationView.bottom, SCREEN_WIDTH, webHeight);
+            } else {
+                // 自动显示TabBar
+                [UIView animateWithDuration:0.25 animations:^{
+                    self.tabBarController.tabBar.top = SCREEN_HEIGHT - BOTTOMWITHTABBAR_HEIGHT;
+                }];
+                // Web设置非全屏
+                CGFloat webHeight = SCREEN_HEIGHT - self.navigationView.bottom - BOTTOMWITHTABBAR_HEIGHT;
+                self.webView.frame = CGRectMake(0, self.navigationView.bottom, SCREEN_WIDTH, webHeight);
+            }
+        }
     } else if ([keyPath isEqual:@"estimatedProgress"] && object == self.webView) {
         self.progressView.hidden = NO;
         [self.progressView setProgress:self.webView.estimatedProgress animated:YES];

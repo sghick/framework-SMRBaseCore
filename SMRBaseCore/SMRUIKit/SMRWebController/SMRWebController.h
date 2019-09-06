@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class WKWebView, SMRWebControllerParameter;
 @interface SMRWebController : SMRNavFatherController
 
+@property (assign, nonatomic) BOOL autoAdjustTabBarByMainPage; // default:NO
 @property (strong, nonatomic, readonly) WKWebView *webView;
 @property (strong, nonatomic) SMRWebControllerParameter *webParameter;
 @property (copy  , nonatomic) NSString *url;
