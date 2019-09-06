@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSInteger const kTagForDefaultBDSBadgeText = 384723;
+static NSInteger const kTagForDefaultSMRBadgeText = 384723;
 
 typedef NS_ENUM(NSUInteger, SMRBadgeAlignment) {
     SMRBadgeAlignmentTopLeft = 1,

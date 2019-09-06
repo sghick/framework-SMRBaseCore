@@ -76,23 +76,11 @@
 
 - (CGPoint)cellSubscriptWithIndex:(NSInteger)index {
     if (self.type == SMRMatrixCalculatorTypeVertical) {
-        /**
-         公式1: x = floor(i*1.0/columns)
-         公式2: i = columns*x + y
-         */
-        CGFloat x = floor(index*1.0/self.columnsCount);
-        CGFloat y = index - self.columnsCount*x;
-        CGPoint point = CGPointMake(x, y);
-        return point;
+        SMRMatrix matrix = SMRMatrixMake(index, self.columnsCount);
+        return CGPointMake(matrix.x, matrix.y);
     } else {
-        /**
-         公式1: y = floor(i*1.0/rows)
-         公式2: i = rows*y + x
-         */
-        CGFloat y = floor(index*1.0/self.rowsCount);
-        CGFloat x = index - self.rowsCount*y;
-        CGPoint point = CGPointMake(x, y);
-        return point;
+        SMRMatrix matrix = SMRMatrixMakeHorizontal(index, self.rowsCount);
+        return CGPointMake(matrix.x, matrix.y);
     }
 }
 

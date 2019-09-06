@@ -30,12 +30,12 @@
 }
 
 - (void)showBadgeText:(NSString *)text alingment:(SMRBadgeAlignment)alingment badgeItem:(SMRBadgeItem *)badgeItem {
-    JSBadgeView *badgeView = [self badgeViewWithParentView:self alingment:alingment badgeItem:badgeItem tag:kTagForDefaultBDSBadgeText];
+    JSBadgeView *badgeView = [self badgeViewWithParentView:self alingment:alingment badgeItem:badgeItem tag:kTagForDefaultSMRBadgeText];
     badgeView.badgeText = text;
 }
 
 - (void)removeBadge {
-    JSBadgeView *badgeView = [self viewWithTag:kTagForDefaultBDSBadgeText];
+    JSBadgeView *badgeView = [self viewWithTag:kTagForDefaultSMRBadgeText];
     if (badgeView && [badgeView isKindOfClass:[JSBadgeView class]]) {
         [badgeView removeFromSuperview];
     }

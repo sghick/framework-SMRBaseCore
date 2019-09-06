@@ -23,7 +23,7 @@ s.dependency 'YYModel', '1.0.4'
 s.dependency 'FLEX', '2.4.0'
 #### SMRUIKit.SMRNavigationView
 s.dependency 'PureLayout', '3.1.4'
-s.dependency 'SDWebImage', '4.4.3'
+s.dependency 'SDWebImage', '5.1.0'
 #### SMRUIKit.SMRController
 s.dependency 'MJRefresh', '3.1.15.7'
 s.dependency 'IQKeyboardManager', '~> 3.3.7'

@@ -10,6 +10,55 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef struct SMRMatrix {
+    NSUInteger index;  ///< 线性索引
+    NSUInteger length; ///< 矩阵长度
+    NSUInteger x;      ///< 矩阵x
+    NSUInteger y;      ///< 矩阵y
+} SMRMatrix;
+/** 判断是否相等 */
+NS_INLINE bool SMRMatrixEqualToMatrix(SMRMatrix matrix1, SMRMatrix matrix2) {
+    bool rtn =
+    (matrix1.index == matrix2.index) &&
+    (matrix1.length == matrix2.length) &&
+    (matrix1.x == matrix2.x) &&
+    (matrix1.y == matrix2.y);
+    return rtn;
+}
+/** 将线性结构转换成矩阵结构 */
+NS_INLINE SMRMatrix SMRMatrixMake(NSUInteger index, NSUInteger length) {
+    SMRMatrix matrix;
+    matrix.index = index;
+    matrix.length = length;
+    matrix.x = (index + length)/length - 1;
+    matrix.y = index%length;
+    return matrix;
+}
+NS_INLINE SMRMatrix SMRMatrixMakeHorizontal(NSUInteger index, NSUInteger length) {
+    SMRMatrix matrix;
+    matrix.index = index;
+    matrix.length = length;
+    matrix.x = index%length;
+    matrix.y = (index + length)/length - 1;
+    return matrix;
+}
+/** 获取矩阵在线性位置中的range */
+NS_INLINE NSString *NSStringFromMatrix(SMRMatrix matrix) {
+    NSString *string = [NSString stringWithFormat:@"{%@, %@, %@, %@}",
+                        @(matrix.index), @(matrix.length), @(matrix.x), @(matrix.y)];
+    return string;
+}
+/** 获取当前矩阵元在线性结构中的位置 */
+NS_INLINE NSRange SMRMatrixGetRangeFromMatrix(SMRMatrix matrix) {
+    NSRange range = NSMakeRange(matrix.x*matrix.length, matrix.length);
+    return range;
+}
+/** 获取矩阵在线性位置中的range */
+NS_INLINE NSRange SMRMatrixGetRange(NSUInteger groupX, NSUInteger groupY, NSUInteger length) {
+    NSRange range = NSMakeRange(groupX*length, groupY);
+    return range;
+}
+
 typedef NS_ENUM(NSInteger, SMRMatrixCalculatorType) {
     SMRMatrixCalculatorTypeVertical     = 0,    ///< 纵向矩阵
     SMRMatrixCalculatorTypeHorizontal   = 1,    ///< 横向矩阵
