@@ -436,7 +436,9 @@ WKNavigationDelegate>
 
 - (WKWebView *)webView {
     if (!_webView) {
-        _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, self.navigationView.bottom, SCREEN_WIDTH, SCREEN_HEIGHT - self.navigationView.bottom - BOTTOM_HEIGHT) configuration:self.config];
+        CGFloat webHeight= SCREEN_HEIGHT - self.navigationView.bottom - BOTTOM_HEIGHT;
+        webHeight = self.isMainPage ? (webHeight - 49) : webHeight;
+        _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, self.navigationView.bottom, SCREEN_WIDTH, webHeight) configuration:self.config];
         _webView.UIDelegate = self;
         _webView.navigationDelegate = self;
         _webView.allowsBackForwardNavigationGestures = YES;
