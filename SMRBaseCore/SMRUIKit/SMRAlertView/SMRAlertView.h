@@ -41,6 +41,8 @@ typedef NS_OPTIONS(NSInteger, SMRAlertViewButtonDeepColorType) {
 @property (copy  , nonatomic, readonly) NSArray<NSString *> *buttonTitles;
 @property (assign, nonatomic, readonly) SMRAlertViewButtonDeepColorType deepColorType;
 
+@property (assign, nonatomic) NSTextAlignment contentTextAlignment; ///< 文字内容的对齐方式,默认居中对齐
+
 @property (copy  , nonatomic) SMRContentMaskViewTouchedBlock cancelButtonTouchedBlock;  ///< 取消按钮的点击事件,left
 @property (copy  , nonatomic) SMRContentMaskViewTouchedBlock sureButtonTouchedBlock;    ///< 确定按钮的点击事件,right/center
 

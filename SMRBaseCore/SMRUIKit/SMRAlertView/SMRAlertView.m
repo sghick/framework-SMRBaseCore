@@ -46,6 +46,7 @@ UITableViewSectionsDelegate>
             // 默认使用此样式
             _alertViewStyle = SMRAlertViewStyleWhite;
         }
+        _contentTextAlignment = NSTextAlignmentCenter;
         
         [self.tableView registerClass:[SMRAlertViewContentTextCell class] forCellReuseIdentifier:identifierOfAlertViewContentTextCell];
         self.tableView.sectionsDelegate = self;
@@ -90,6 +91,15 @@ UITableViewSectionsDelegate>
     alertView.deepColorType = deepColorType;
     [alertView smr_reloadData];
     return alertView;
+}
+
+- (NSAttributedString *)attributedStringWithText:(NSString *)text {
+    NSMutableAttributedString *attr = [[SMRAlertViewContentTextCell defaultAttributeText:text] mutableCopy];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineSpacing:15];
+    [paragraphStyle setAlignment:self.contentTextAlignment];
+    [attr addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, text.length)];
+    return [attr copy];
 }
 
 #pragma mark - UITableViewSectionsDelegate
@@ -212,10 +222,10 @@ UITableViewSectionsDelegate>
 
 - (CGFloat)smr_heightOfTableView:(UITableView *)tableView {
     CGFloat heightOfTableView = 0;
-    NSIndexPath *indexPathForContentText = [tableView.sections indexPathWithRowKey:kRowTypeContentText];
+    NSIndexPath *indexPathForContentText = [tableView.sections indexPathWithSectionKey:kSectionTypeContent rowKey:kRowTypeContentText];
     CGFloat heightOfContentText = indexPathForContentText ? [self smr_tableView:tableView heightForRowAtIndexPath:indexPathForContentText] : 0;
     
-    NSIndexPath *indexPathForContentImage = [tableView.sections indexPathWithRowKey:kRowTypeContentImage];
+    NSIndexPath *indexPathForContentImage = [tableView.sections indexPathWithSectionKey:kSectionTypeContent rowKey:kRowTypeContentImage];
     CGFloat heightOfContentImage = indexPathForContentImage ? [self smr_tableView:tableView heightForRowAtIndexPath:indexPathForContentImage] : 0;
     
     heightOfTableView = heightOfContentText + heightOfContentImage;
@@ -257,7 +267,7 @@ UITableViewSectionsDelegate>
     switch (row.rowKey) {
         case kRowTypeContentText: {
             SMRAlertViewContentTextCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierOfAlertViewContentTextCell];
-            cell.attributeText = [SMRAlertViewContentTextCell defaultAttributeText:self.content];
+            cell.attributeText = [self attributedStringWithText:self.content];
             return cell;
         }
             break;
@@ -367,6 +377,11 @@ UITableViewSectionsDelegate>
 
 - (void)setDeepColorType:(SMRAlertViewButtonDeepColorType)deepColorType {
     _deepColorType = deepColorType;
+}
+
+- (void)setContentTextAlignment:(NSTextAlignment)contentTextAlignment {
+    _contentTextAlignment = contentTextAlignment;
+    [self.tableView smr_reloadData];
 }
 
 @end
