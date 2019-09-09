@@ -181,7 +181,9 @@ static const char SPRightMarginKey = '\0';
     if ([rg containsString:@"{"] && [rg containsString:@"}"]) {
         return NSRangeFromString(rg);
     }
-    if (!rg.integerValue) {
+    // 判断是否为数字开头
+    NSRange range = [rg rangeOfString:@"^[-]{0,}[0-9]{1,}$" options:NSRegularExpressionSearch];
+    if (range.location == NSNotFound) {
         return NSMakeRange(0, 0);
     }
     return NSMakeRange(ABS(rg.integerValue), 1);
@@ -229,40 +231,6 @@ static const char SPRightMarginKey = '\0';
 - (UIEdgeInsets)insetForNone {
     NSAssert(self.style == UITableViewStylePlain, @"暂时不支持非StylePlain形式的使用方式");
     return UIEdgeInsetsMake(0, [UIScreen mainScreen].bounds.size.width, 0, 0);
-}
-
-#pragma mark - Unit Test Case
-
-- (void)testRangeFromFormat {
-    NSAssert(NSEqualRanges([self rangeFromFormat:nil], NSMakeRange(0, 0)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@""], NSMakeRange(0, 0)), @"error");
-    
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"y"], NSMakeRange(0, 0)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"#"], NSMakeRange(0, 0)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"cden"], NSMakeRange(0, 0)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@":"], NSMakeRange(0, 0)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"n:"], NSMakeRange(0, 0)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"C"], NSMakeRange(0, 0)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"O"], NSMakeRange(0, 0)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"F:"], NSMakeRange(0, 0)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"On"], NSMakeRange(0, 0)), @"error");
-    
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"On:"], NSMakeRange(0, 0)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"Fn:"], NSMakeRange(0, 0)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"Ln:"], NSMakeRange(0, 0)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"Rn:"], NSMakeRange(0, 0)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"Cn:"], NSMakeRange(0, 0)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"On{3}"], NSMakeRange(3, 0)), @"error");
-    
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"C2"], NSMakeRange(2, 1)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"C-3"], NSMakeRange(3, 1)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"F{1,1}"], NSMakeRange(1, 1)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"L{2,2}"], NSMakeRange(2, 2)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"O-{4,4}"], NSMakeRange(4, 4)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"E{5,-5}"], NSMakeRange(5, 5)), @"error");
-    NSAssert(NSEqualRanges([self rangeFromFormat:@"E{-6,6}"], NSMakeRange(6, 6)), @"error");
-    
-    NSLog(@"test finished");
 }
 
 @end
