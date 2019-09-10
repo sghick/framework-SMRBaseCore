@@ -257,31 +257,57 @@ WKNavigationDelegate>
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
     self.progressView.hidden = NO;
+    // web回调
+    id<SMRWebReplaceConfig> replaceConfig = [SMRWebConfig shareConfig].webReplaceConfig;
+    if ([replaceConfig respondsToSelector:@selector(webView:didStartProvisionalNavigation:)]) {
+        [replaceConfig webView:webView didStartProvisionalNavigation:navigation];
+    }
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self hiddenProgressView];
     // JS注入时机
     [self p_fillJSWithWebView:webView url:webView.URL];
+    // web回调
+    id<SMRWebReplaceConfig> replaceConfig = [SMRWebConfig shareConfig].webReplaceConfig;
+    if ([replaceConfig respondsToSelector:@selector(webView:didFinishNavigation:)]) {
+        [replaceConfig webView:webView didFinishNavigation:navigation];
+    }
 }
 
 //  页面加载失败时调用 ( 【web视图加载内容时】发生错误)
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(nonnull NSError *)error {
     [self hiddenProgressView];
+    // web回调
+    id<SMRWebReplaceConfig> replaceConfig = [SMRWebConfig shareConfig].webReplaceConfig;
+    if ([replaceConfig respondsToSelector:@selector(webView:didFailProvisionalNavigation:withError:)]) {
+        [replaceConfig webView:webView didFailProvisionalNavigation:navigation withError:error];
+    }
 }
 
 // 【web视图导航过程中发生错误】时调用。
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
     [self hiddenProgressView];
-    // 如果请求被取消
-    if (error.code == NSURLErrorCancelled) {
-        return;
+    // web回调
+    id<SMRWebReplaceConfig> replaceConfig = [SMRWebConfig shareConfig].webReplaceConfig;
+    if ([replaceConfig respondsToSelector:@selector(webView:didFailNavigation:withError:)]) {
+        [replaceConfig webView:webView didFailNavigation:navigation withError:error];
+    } else {
+        // 如果请求被取消
+        if (error.code == NSURLErrorCancelled) {
+            // None
+        }
     }
 }
 
 // 当Web视图的Web内容进程终止时调用。
 - (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView {
     self.progressView.alpha = 0.0f;
+    // web回调
+    id<SMRWebReplaceConfig> replaceConfig = [SMRWebConfig shareConfig].webReplaceConfig;
+    if ([replaceConfig respondsToSelector:@selector(webViewWebContentProcessDidTerminate:)]) {
+        [replaceConfig webViewWebContentProcessDidTerminate:webView];
+    }
 }
 
 - (void)hiddenProgressView {
@@ -292,16 +318,21 @@ WKNavigationDelegate>
 
 /// 允许自建证书的校验逻辑（同时新增了扩展类:重写其信任证书的方法 NSURLRequest(SMRWebViewController)）
 - (void)webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(nonnull NSURLAuthenticationChallenge *)challenge completionHandler:(nonnull void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler {
-    
-    if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
-        NSURLCredential *card = [[NSURLCredential alloc] initWithTrust:challenge.protectionSpace.serverTrust];
-        if (completionHandler) {
-            completionHandler(NSURLSessionAuthChallengeUseCredential, card);
+    // web回调
+    id<SMRWebReplaceConfig> replaceConfig = [SMRWebConfig shareConfig].webReplaceConfig;
+    if ([replaceConfig respondsToSelector:@selector(webView:didReceiveAuthenticationChallenge:completionHandler:)]) {
+        [replaceConfig webView:webView didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
+    } else {
+        if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
+            NSURLCredential *card = [[NSURLCredential alloc] initWithTrust:challenge.protectionSpace.serverTrust];
+            if (completionHandler) {
+                completionHandler(NSURLSessionAuthChallengeUseCredential, card);
+            }
         }
-    }
-    else {
-        if (completionHandler) {
-            completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
+        else {
+            if (completionHandler) {
+                completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
+            }
         }
     }
 }
@@ -309,6 +340,12 @@ WKNavigationDelegate>
 #pragma mark -  WKUIDelegate
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    // web回调
+    id<SMRWebReplaceConfig> replaceConfig = [SMRWebConfig shareConfig].webReplaceConfig;
+    if ([replaceConfig respondsToSelector:@selector(webView:decidePolicyForNavigationAction:decisionHandler:)]) {
+        [replaceConfig webView:webView decidePolicyForNavigationAction:navigationAction decisionHandler:decisionHandler];
+    }
+    
     NSURL *url = navigationAction.request.URL;
     // 设置UA
     [self p_fillUserAgentWithWebView:webView url:url];
@@ -317,7 +354,6 @@ WKNavigationDelegate>
     //    [self p_fillUserCookiesWithWebView:webView url:url content:self.userController];
     
     // 替换参数
-    id<SMRWebReplaceConfig> replaceConfig = [SMRWebConfig shareConfig].webReplaceConfig;
     if ([replaceConfig respondsToSelector:@selector(replaceUrl:completionBlock:)]) {
         if ([replaceConfig replaceUrl:url.absoluteString completionBlock:^(NSString * _Nonnull url) {
             [webView loadRequest:[NSURLRequest requestWithURL:[NSURL smr_URLWithString:url]]];
@@ -455,7 +491,7 @@ WKNavigationDelegate>
 
 - (WKWebView *)webView {
     if (!_webView) {
-        CGFloat webHeight= SCREEN_HEIGHT - self.navigationView.bottom - BOTTOM_HEIGHT;
+        CGFloat webHeight = SCREEN_HEIGHT - self.navigationView.bottom - BOTTOM_HEIGHT;
         webHeight = self.isMainPage ? (webHeight - 49) : webHeight;
         _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, self.navigationView.bottom, SCREEN_WIDTH, webHeight) configuration:self.config];
         _webView.UIDelegate = self;

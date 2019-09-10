@@ -45,7 +45,7 @@ typedef void(^SMRWKScriptMessageRecivedBlock)(SMRWebController *webController, W
 
 @end
 
-@protocol SMRWebReplaceConfig <NSObject>
+@protocol SMRWebReplaceConfig <WKNavigationDelegate>
 
 @optional
 /** YES为url有参数需要替换 */
