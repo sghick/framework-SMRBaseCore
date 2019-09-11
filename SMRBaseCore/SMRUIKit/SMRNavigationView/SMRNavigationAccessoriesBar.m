@@ -54,6 +54,10 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
     typeof(self) weakSelf = self;
     [self addLayoutConstraints:^{
         for (UIView *leftView in leftViews) {
+            // 自动忽略隐藏的view
+            if (leftView.hidden) {
+                continue;
+            }
             if (lastView) {
                 CGFloat space = leftView.nav_accessories_space ?: weakSelf.space;
                 [leftView autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:lastView withOffset:space];
@@ -83,6 +87,10 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
     typeof(self) weakSelf = self;
     [self addLayoutConstraints:^{
         for (UIView *rightView in rightViews) {
+            // 自动忽略隐藏的view
+            if (rightView.hidden) {
+                continue;
+            }
             if (lastView) {
                 CGFloat space = rightView.nav_accessories_space ?: weakSelf.space;
                 [rightView autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:lastView withOffset:-space];

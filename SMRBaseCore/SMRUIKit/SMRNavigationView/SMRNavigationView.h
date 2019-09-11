@@ -65,7 +65,19 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, weak  ) id<SMRNavigationViewDelegate> delegate;
 
+#pragma mark - For SubClass
 
+/**
+ 子类设置item隐藏显示的方法
+ */
+- (void)layoutNavigationAccessories NS_REQUIRES_SUPER;
+
+/**
+ 子类设置主题变化时的方法
+ */
+- (void)navigationViewNeedResetToTheme:(SMRNavigationTheme *)theme NS_REQUIRES_SUPER;
+
+#pragma mark - For Custom
 
 /**
  用于创建全局样式的实例

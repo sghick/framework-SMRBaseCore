@@ -85,18 +85,18 @@ static SMRNavigationView *_appearanceNavigationView = nil;
 - (void)layoutSubviews {
     [self navigationViewNeedResetToTheme:self.theme];
     [super layoutSubviews];
-    [self showOrHideBaseAccessories];
+    [self layoutNavigationAccessories];
 }
 
-- (void)showOrHideBaseAccessories {
+- (void)layoutNavigationAccessories {
     // 如果没有左挂件,自动显示返回按钮和关闭按钮
     NSMutableArray *leftarr = [NSMutableArray arrayWithArray:self.leftViews];
     // 恢复显示返回按钮
-    if (!self.backBtnHidden && ![leftarr containsObject:self.backBtn]) {
+    if (![leftarr containsObject:self.backBtn]) {
         [leftarr addObject:self.backBtn];
     }
     // 恢复显示关闭按钮
-    if (self.closeBtnShow && ![leftarr containsObject:self.closeBtn]) {
+    if (![leftarr containsObject:self.closeBtn]) {
         [leftarr addObject:self.closeBtn];
     }
     [super setLeftViews:leftarr];
