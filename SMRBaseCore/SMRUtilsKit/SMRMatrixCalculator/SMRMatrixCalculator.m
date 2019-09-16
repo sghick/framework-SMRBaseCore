@@ -52,21 +52,33 @@
 }
 
 - (CGFloat)bottomWithIndex:(NSInteger)index {
+    if (index < 0) {
+        return 0;
+    }
     CGRect frame = [self cellFrameWithIndex:index];
     return frame.origin.y + frame.size.height;
 }
 
 - (CGFloat)rightWithIndex:(NSInteger)index {
+    if (index < 0) {
+        return 0;
+    }
     CGRect frame = [self cellFrameWithIndex:index];
     return frame.origin.x + frame.size.width;
 }
 
 - (CGRect)cellFrameWithIndex:(NSInteger)index {
+    if (index < 0) {
+        return CGRectZero;
+    }
     CGRect frame = {[self cellOriginWithIndex:index], self.cellSize};
     return frame;
 }
 
 - (CGPoint)cellOriginWithIndex:(NSInteger)index {
+    if (index < 0) {
+        return CGPointZero;
+    }
     CGPoint subscript = [self cellSubscriptWithIndex:index];
     CGFloat x = self.bounds.origin.x + (self.cellSize.width + self.spaceOfColumn)*subscript.y;
     CGFloat y = self.bounds.origin.y + (self.cellSize.height + self.spaceOfRow)*subscript.x;
@@ -75,6 +87,9 @@
 }
 
 - (CGPoint)cellSubscriptWithIndex:(NSInteger)index {
+    if (index < 0) {
+        return CGPointZero;
+    }
     if (self.type == SMRMatrixCalculatorTypeVertical) {
         SMRMatrix matrix = SMRMatrixMake(index, self.columnsCount);
         return CGPointMake(matrix.x, matrix.y);
