@@ -46,6 +46,7 @@ UITableViewSectionsDelegate>
             // 默认使用此样式
             _alertViewStyle = SMRAlertViewStyleWhite;
         }
+        
         _contentTextAlignment = NSTextAlignmentCenter;
         
         [self.tableView registerClass:[SMRAlertViewContentTextCell class] forCellReuseIdentifier:identifierOfAlertViewContentTextCell];
@@ -74,6 +75,7 @@ UITableViewSectionsDelegate>
                        deepColorType:(SMRAlertViewButtonDeepColorType)deepColorType {
     SMRAlertView *alertView = [[self alloc] init];
     alertView.content = content;
+    alertView.attributeContent = [[NSAttributedString alloc] initWithString:content];
     alertView.buttonTitles = buttonTitles;
     alertView.deepColorType = deepColorType;
     [alertView smr_reloadData];
@@ -87,19 +89,37 @@ UITableViewSectionsDelegate>
     SMRAlertView *alertView = [[self alloc] init];
     alertView.title = title;
     alertView.content = content;
+    alertView.attributeContent = [[NSAttributedString alloc] initWithString:content];
     alertView.buttonTitles = buttonTitles;
     alertView.deepColorType = deepColorType;
     [alertView smr_reloadData];
     return alertView;
 }
 
-- (NSAttributedString *)attributedStringWithText:(NSString *)text {
-    NSMutableAttributedString *attr = [[SMRAlertViewContentTextCell defaultAttributeText:text] mutableCopy];
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    [paragraphStyle setLineSpacing:15];
-    [paragraphStyle setAlignment:self.contentTextAlignment];
-    [attr addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, text.length)];
-    return [attr copy];
++ (instancetype)alertViewWithAttributeContent:(NSAttributedString *)attributeContent
+                                 buttonTitles:(NSArray<NSString *> *)buttonTitles
+                                deepColorType:(SMRAlertViewButtonDeepColorType)deepColorType {
+    SMRAlertView *alertView = [[self alloc] init];
+    alertView.attributeContent = attributeContent;
+    alertView.content = attributeContent.string;
+    alertView.buttonTitles = buttonTitles;
+    alertView.deepColorType = deepColorType;
+    [alertView smr_reloadData];
+    return alertView;
+}
+
++ (instancetype)alertViewWithTitle:(NSString *)title
+                  attributeContent:(NSAttributedString *)attributeContent
+                      buttonTitles:(NSArray<NSString *> *)buttonTitles
+                     deepColorType:(SMRAlertViewButtonDeepColorType)deepColorType {
+    SMRAlertView *alertView = [[self alloc] init];
+    alertView.title = title;
+    alertView.attributeContent = attributeContent;
+    alertView.content = attributeContent.string;
+    alertView.buttonTitles = buttonTitles;
+    alertView.deepColorType = deepColorType;
+    [alertView smr_reloadData];
+    return alertView;
 }
 
 #pragma mark - UITableViewSectionsDelegate
@@ -238,7 +258,8 @@ UITableViewSectionsDelegate>
         case kRowTypeContentText: {
             if (self.content.length) {
                 UIEdgeInsets insets = [self smr_insetsOfContent];
-                return [SMRAlertViewContentTextCell heightOfCellWithAttributeText:[SMRAlertViewContentTextCell defaultAttributeText:self.content]
+                NSAttributedString *attr = [SMRAlertViewContentTextCell attributeStringWithAttributedContent:self.attributeContent alignment:self.contentTextAlignment];
+                return [SMRAlertViewContentTextCell heightOfCellWithAttributeText:attr
                                                                          fitWidth:([self widthOfContentView] - 2*[self smr_marginOfTableView] - insets.left - insets.right)];
             }
             return 0;
@@ -267,7 +288,8 @@ UITableViewSectionsDelegate>
     switch (row.rowKey) {
         case kRowTypeContentText: {
             SMRAlertViewContentTextCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierOfAlertViewContentTextCell];
-            cell.attributeText = [self attributedStringWithText:self.content];
+            NSAttributedString *attr = [SMRAlertViewContentTextCell attributeStringWithAttributedContent:self.attributeContent alignment:self.contentTextAlignment];
+            cell.attributeText = attr;
             return cell;
         }
             break;
@@ -373,6 +395,10 @@ UITableViewSectionsDelegate>
 
 - (void)setContent:(NSString * _Nonnull)content {
     _content = content;
+}
+
+- (void)setAttributeContent:(NSAttributedString * _Nonnull)attributeContent {
+    _attributeContent = attributeContent;
 }
 
 - (void)setDeepColorType:(SMRAlertViewButtonDeepColorType)deepColorType {

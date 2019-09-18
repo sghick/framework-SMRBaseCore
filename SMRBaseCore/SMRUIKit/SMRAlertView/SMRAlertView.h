@@ -38,6 +38,7 @@ typedef NS_OPTIONS(NSInteger, SMRAlertViewButtonDeepColorType) {
 @property (copy  , nonatomic, readonly) NSString *imageURL;
 @property (copy  , nonatomic, readonly) NSString *title;
 @property (copy  , nonatomic, readonly) NSString *content;
+@property (copy  , nonatomic, readonly) NSAttributedString *attributeContent;
 @property (copy  , nonatomic, readonly) NSArray<NSString *> *buttonTitles;
 @property (assign, nonatomic, readonly) SMRAlertViewButtonDeepColorType deepColorType;
 
@@ -46,12 +47,21 @@ typedef NS_OPTIONS(NSInteger, SMRAlertViewButtonDeepColorType) {
 @property (copy  , nonatomic) SMRContentMaskViewTouchedBlock cancelButtonTouchedBlock;  ///< 取消按钮的点击事件,left
 @property (copy  , nonatomic) SMRContentMaskViewTouchedBlock sureButtonTouchedBlock;    ///< 确定按钮的点击事件,right/center
 
+/// NString content
 + (instancetype)alertViewWithContent:(NSString *)content
                         buttonTitles:(NSArray<NSString *> *)buttonTitles
                        deepColorType:(SMRAlertViewButtonDeepColorType)deepColorType;
-
 + (instancetype)alertViewWithTitle:(NSString *)title
                            content:(NSString *)content
+                      buttonTitles:(NSArray<NSString *> *)buttonTitles
+                     deepColorType:(SMRAlertViewButtonDeepColorType)deepColorType;
+
+/// NString attributeContent
++ (instancetype)alertViewWithAttributeContent:(NSAttributedString *)attributeContent
+                                 buttonTitles:(NSArray<NSString *> *)buttonTitles
+                                deepColorType:(SMRAlertViewButtonDeepColorType)deepColorType;
++ (instancetype)alertViewWithTitle:(NSString *)title
+                  attributeContent:(NSAttributedString *)attributeContent
                       buttonTitles:(NSArray<NSString *> *)buttonTitles
                      deepColorType:(SMRAlertViewButtonDeepColorType)deepColorType;
 

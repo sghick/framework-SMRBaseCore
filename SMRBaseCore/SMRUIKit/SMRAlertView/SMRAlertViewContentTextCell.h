@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (CGFloat)heightOfCellWithAttributeText:(NSAttributedString *)attributeText fitWidth:(CGFloat)fitWidth;
 
-+ (NSAttributedString *)defaultAttributeText:(NSString *)text;
++ (NSAttributedString *)attributeStringWithAttributedContent:(NSAttributedString *)attributedContent alignment:(NSTextAlignment)alignment;
 
 @end
 

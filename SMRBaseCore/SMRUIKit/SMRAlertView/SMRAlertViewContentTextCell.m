@@ -43,13 +43,13 @@
     [super updateConstraints];
 }
 
-#pragma mark - Privates
+#pragma mark - Utils
 
-+ (NSAttributedString *)p_attributeStringWithAttributedContent:(NSAttributedString *)attributedContent {
++ (NSAttributedString *)attributeStringWithAttributedContent:(NSAttributedString *)attributedContent alignment:(NSTextAlignment)alignment {
     NSMutableAttributedString *attributeContentString = [[NSMutableAttributedString alloc] initWithString:attributedContent.string];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    [paragraphStyle setLineSpacing:15];
-    [paragraphStyle setAlignment:NSTextAlignmentCenter];
+    [paragraphStyle setLineSpacing:[SMRUIAdapter value:6]];
+    [paragraphStyle setAlignment:alignment];
     [attributeContentString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, attributedContent.length)];
     [attributeContentString addAttribute:NSFontAttributeName value:[UIFont smr_systemFontOfSize:16.0] range:NSMakeRange(0, attributedContent.length)];
     [attributeContentString addAttribute:NSForegroundColorAttributeName value:[UIColor smr_colorWithHexRGB:@"#333333"] range:NSMakeRange(0, attributedContent.length)];
@@ -61,8 +61,6 @@
     return attributeContentString;
 }
 
-#pragma mark - Utils
-
 + (CGFloat)heightOfCellWithAttributeText:(NSAttributedString *)attributeText fitWidth:(CGFloat)fitWidth {
     SMRAlertViewContentTextCell *cell = [[SMRAlertViewContentTextCell alloc] init];
     cell.attributeText = attributeText;
@@ -70,17 +68,11 @@
     return height;
 }
 
-+ (NSAttributedString *)defaultAttributeText:(NSString *)text {
-    NSAttributedString *attr = [[NSAttributedString alloc] initWithString:text];
-    attr = [self p_attributeStringWithAttributedContent:attr];
-    return attr;
-}
-
 #pragma mark - Setters
 
 - (void)setAttributeText:(NSAttributedString *)attributeText {
     _attributeText = attributeText;
-    self.contentLabel.attributedText = [SMRAlertViewContentTextCell p_attributeStringWithAttributedContent:attributeText];
+    self.contentLabel.attributedText = [SMRAlertViewContentTextCell attributeStringWithAttributedContent:attributeText alignment:NSTextAlignmentCenter];
 }
 
 #pragma mark - Getters
