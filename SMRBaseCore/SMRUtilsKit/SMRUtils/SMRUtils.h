@@ -13,6 +13,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SMRUtils : NSObject
 
++ (NSMutableAttributedString *)yy_attributedStringWithTags:(NSArray<NSString *> *)tags
+                                                  textFont:(UIFont *)textFont
+                                                 textColor:(UIColor *)textColor
+                                          hilitedTextColor:(UIColor *)hilitedTextColor
+                                                  tagSpace:(NSString *)tagSpace
+                                                 lineSpace:(CGFloat)lineSpace
+                                               borderWidth:(CGFloat)borderWidth
+                                               borderColor:(UIColor *)borderColor
+                                              cornerRadius:(CGFloat)cornerRadius
+                                              borderInsets:(UIEdgeInsets)borderInsets
+                                           backgroundColor:(UIColor *)backgroundColor
+                                                 tapAction:(void (^)(NSString *text, NSInteger index))tapAction;
+
++ (void)sd_downloadAndCacheImageWithURL:(nullable NSURL *)url
+                              completed:(nullable void(^)(UIImage *))completedBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -22,7 +22,6 @@
 		8A5A8799230E3FC5002C0A7D /* SMRCarouselView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5A8798230E3FC5002C0A7D /* SMRCarouselView.m */; };
 		8A5A879D230E41B6002C0A7D /* SMRCarouselViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5A879C230E41B6002C0A7D /* SMRCarouselViewTests.m */; };
 		8A72B2262223DC6000EDE6EF /* SMRYYLabelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A72B2252223DC6000EDE6EF /* SMRYYLabelTests.m */; };
-		8A72B23222254A9300EDE6EF /* SMRUtils+YYText.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A72B23122254A9300EDE6EF /* SMRUtils+YYText.m */; };
 		8A805EF822D5B13600FB6102 /* SMRCircleProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A805EF722D5B13500FB6102 /* SMRCircleProgressBar.m */; };
 		8A80B41E22D5F8CF00091796 /* UIView+SMRBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A80B41C22D5F8CF00091796 /* UIView+SMRBadge.m */; };
 		8A814A4F21F5B7BD00D8AEB6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814A4E21F5B7BD00D8AEB6 /* AppDelegate.m */; };
@@ -139,7 +138,6 @@
 		8ACDC03F22A78CC1005784AA /* SMRNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ACDC03E22A78CC1005784AA /* SMRNotificationManager.m */; };
 		8AD9C6E5223A32830028A871 /* SMRGlobalCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9C6E4223A32820028A871 /* SMRGlobalCache.m */; };
 		8AD9C709223FC03E0028A871 /* SMRSliderBarContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9C708223FC03E0028A871 /* SMRSliderBarContentView.m */; };
-		8AD9EDBB2332342100E44C76 /* SMRUtils+SDWebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9EDBA2332342100E44C76 /* SMRUtils+SDWebImage.m */; };
 		8AE02F5422154FBD006235BB /* SMRAlertViewContentTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE02F5322154FBD006235BB /* SMRAlertViewContentTextCell.m */; };
 		8AE02F5722154FE6006235BB /* SMRAlertViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE02F5622154FE6006235BB /* SMRAlertViewButton.m */; };
 		8AE4952A21FEB3040055263E /* NSError+SMRError.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4952921FEB3040055263E /* NSError+SMRError.m */; };
@@ -217,8 +215,6 @@
 		8A5A879C230E41B6002C0A7D /* SMRCarouselViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRCarouselViewTests.m; sourceTree = "<group>"; };
 		8A72B2242223DC6000EDE6EF /* SMRYYLabelTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRYYLabelTests.h; sourceTree = "<group>"; };
 		8A72B2252223DC6000EDE6EF /* SMRYYLabelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRYYLabelTests.m; sourceTree = "<group>"; };
-		8A72B23022254A9300EDE6EF /* SMRUtils+YYText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SMRUtils+YYText.h"; sourceTree = "<group>"; };
-		8A72B23122254A9300EDE6EF /* SMRUtils+YYText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SMRUtils+YYText.m"; sourceTree = "<group>"; };
 		8A805EF622D5B13500FB6102 /* SMRCircleProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRCircleProgressBar.h; sourceTree = "<group>"; };
 		8A805EF722D5B13500FB6102 /* SMRCircleProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRCircleProgressBar.m; sourceTree = "<group>"; };
 		8A80B41C22D5F8CF00091796 /* UIView+SMRBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SMRBadge.m"; sourceTree = "<group>"; };
@@ -463,8 +459,6 @@
 		8AD9C6E4223A32820028A871 /* SMRGlobalCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRGlobalCache.m; sourceTree = "<group>"; };
 		8AD9C707223FC03E0028A871 /* SMRSliderBarContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRSliderBarContentView.h; sourceTree = "<group>"; };
 		8AD9C708223FC03E0028A871 /* SMRSliderBarContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRSliderBarContentView.m; sourceTree = "<group>"; };
-		8AD9EDB92332342100E44C76 /* SMRUtils+SDWebImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SMRUtils+SDWebImage.h"; sourceTree = "<group>"; };
-		8AD9EDBA2332342100E44C76 /* SMRUtils+SDWebImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SMRUtils+SDWebImage.m"; sourceTree = "<group>"; };
 		8AE02F5222154FBD006235BB /* SMRAlertViewContentTextCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRAlertViewContentTextCell.h; sourceTree = "<group>"; };
 		8AE02F5322154FBD006235BB /* SMRAlertViewContentTextCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRAlertViewContentTextCell.m; sourceTree = "<group>"; };
 		8AE02F5522154FE6006235BB /* SMRAlertViewButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRAlertViewButton.h; sourceTree = "<group>"; };
@@ -1167,10 +1161,6 @@
 				8A914E062216580600E2F691 /* SMRUtils+Animation.m */,
 				8A914F06221D02D600E2F691 /* SMRUtils+Version.h */,
 				8A914F07221D02D600E2F691 /* SMRUtils+Version.m */,
-				8A72B23022254A9300EDE6EF /* SMRUtils+YYText.h */,
-				8A72B23122254A9300EDE6EF /* SMRUtils+YYText.m */,
-				8AD9EDB92332342100E44C76 /* SMRUtils+SDWebImage.h */,
-				8AD9EDBA2332342100E44C76 /* SMRUtils+SDWebImage.m */,
 				8A4AA2D6222E1E590034929D /* SMRUtils+MBProgressHUD.h */,
 				8A4AA2D7222E1E590034929D /* SMRUtils+MBProgressHUD.m */,
 				8AA8B459224A3CA600778320 /* SMRUtils+Jump.h */,
@@ -1797,7 +1787,6 @@
 				8AF1989A22A135FA0045CBCF /* UITabBar+SMRBadge.m in Sources */,
 				8AB3BED822D30EBF000B5E84 /* SMRActionAlias.m in Sources */,
 				8A814CED21F5CC4A00D8AEB6 /* UITableView+SMRSections.m in Sources */,
-				8AD9EDBB2332342100E44C76 /* SMRUtils+SDWebImage.m in Sources */,
 				8A4239EF22432C37002DF711 /* UIView+SMRGesture.m in Sources */,
 				8A814BA021F5B9DC00D8AEB6 /* SMRDBSelectOption.m in Sources */,
 				8A814CD821F5CAEA00D8AEB6 /* SMRNavigationView.m in Sources */,
@@ -1855,7 +1844,6 @@
 				8A814CCF21F5CA5700D8AEB6 /* SMRNavigationBar.m in Sources */,
 				8A914ED3221ADA3700E2F691 /* UIView+SMRAdapter.m in Sources */,
 				8AE4955421FFEA490055263E /* SMRLayoutCenter.m in Sources */,
-				8A72B23222254A9300EDE6EF /* SMRUtils+YYText.m in Sources */,
 				8A914EDE221BA89500E2F691 /* SMRTextViewTests.m in Sources */,
 				8A814CD221F5CA6900D8AEB6 /* SMRNavigationItem.m in Sources */,
 				8A2DE23B2232635000E9A07E /* SMRIndexView.m in Sources */,
