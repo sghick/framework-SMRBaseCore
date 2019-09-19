@@ -7,6 +7,8 @@
 //
 
 #import "UITableView+Separator.h"
+#import "SMRBaseCoreInfoHelper.h"
+#import "SMRUIAdapter.h"
 #import <objc/runtime.h>
 
 /// On
@@ -52,7 +54,12 @@ static const char SMRLeftMarginKey = '\0';
 
 - (CGFloat)leftMargin {
     NSNumber *number = objc_getAssociatedObject(self, &SMRLeftMarginKey);
-    return number?number.doubleValue:10;
+    if (!number) {
+        CGFloat margin = [SMRBaseCoreInfoHelper tableViewSeperatorLeftMarginWithScale:[SMRUIAdapter scale]];
+        objc_setAssociatedObject(self, &SMRLeftMarginKey, @(margin), OBJC_ASSOCIATION_RETAIN);
+        number = @(margin);
+    }
+    return number.doubleValue;
 }
 
 // rightMargin
@@ -65,7 +72,12 @@ static const char SPRightMarginKey = '\0';
 
 - (CGFloat)rightMargin {
     NSNumber *number = objc_getAssociatedObject(self, &SPRightMarginKey);
-    return number?number.doubleValue:10;
+    if (!number) {
+        CGFloat margin = [SMRBaseCoreInfoHelper tableViewSeperatorRightMarginWithScale:[SMRUIAdapter scale]];
+        objc_setAssociatedObject(self, &SPRightMarginKey, @(margin), OBJC_ASSOCIATION_RETAIN);
+        number = @(margin);
+    }
+    return number.doubleValue;
 }
 
 #pragma mark - Utils

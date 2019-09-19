@@ -7,6 +7,7 @@
 //
 
 #import "SMRUIAdapter.h"
+#import "SMRBaseCoreInfoHelper.h"
 
 @implementation SMRUIAdapter
 
@@ -38,19 +39,25 @@
     return UIEdgeInsetsMake(insets.top*scale, insets.left*scale, insets.bottom*scale, insets.right*scale);
 }
 
++ (CGSize)fitSize:(CGSize)size withHeight:(CGFloat)height {
+    if (!size.height) {
+        return CGSizeZero;
+    }
+    CGFloat width = height*size.width/size.height;
+    return CGSizeMake(width, height);
+}
++ (CGSize)fitSize:(CGSize)size withWidth:(CGFloat)width {
+    if (!size.width) {
+        return CGSizeZero;
+    }
+    CGFloat height = width*size.height/size.width;
+    return CGSizeMake(width, height);
+}
+
 static CGFloat _margin = -1;
 + (CGFloat)margin {
     if (_margin == -1) {
-        NSString *value = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Base Core Config"][@"Adapter Margin"];
-        if (value) {
-            // 优先读取info.plist中的配置
-            _margin = value.doubleValue;
-            if ([value containsString:@"*scale"]) {
-                _margin *= [self scale];
-            }
-        } else {
-            _margin = 20*[self scale];
-        }
+        _margin = [SMRBaseCoreInfoHelper marginWithScale:[self scale]];
     }
     return _margin;
 }

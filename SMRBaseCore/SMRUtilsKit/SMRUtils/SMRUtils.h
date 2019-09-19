@@ -27,7 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
                                                  tapAction:(void (^)(NSString *text, NSInteger index))tapAction;
 
 + (void)sd_downloadAndCacheImageWithURL:(nullable NSURL *)url
-                              completed:(nullable void(^)(UIImage *))completedBlock;
+                                 toDisk:(BOOL)toDisk
+                             completion:(nullable void(^)(UIImage *))completion;
 
 @end
 

@@ -64,15 +64,19 @@
 }
 
 + (void)sd_downloadAndCacheImageWithURL:(nullable NSURL *)url
-                              completed:(nullable void(^)(UIImage *))completedBlock {
+                                 toDisk:(BOOL)toDisk
+                             completion:(nullable void(^)(UIImage *))completion {
     UIImage *image = [[SDImageCache sharedImageCache] imageFromCacheForKey:url.absoluteString];
     if (!image) {
         [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:url completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
-            [[SDImageCache sharedImageCache] storeImage:image forKey:url.absoluteString completion:nil];
-            completedBlock(image);
+            [[SDImageCache sharedImageCache] storeImage:image imageData:data forKey:url.absoluteString toDisk:toDisk completion:^{
+                if (completion) {
+                    completion(image);
+                }
+            }];
         }];
     } else {
-        completedBlock(image);
+        completion(image);
     }
 }
 

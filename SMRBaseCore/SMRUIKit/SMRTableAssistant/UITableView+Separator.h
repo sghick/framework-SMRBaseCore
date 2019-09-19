@@ -61,8 +61,8 @@ extern NSString * const SMRSeperatorsFormatAllCenterLess;
 
 @interface UITableView (Separator)
 
-@property (nonatomic, assign) CGFloat leftMargin;///< default:10
-@property (nonatomic, assign) CGFloat rightMargin;///< default:10
+@property (nonatomic, assign) CGFloat leftMargin;///< default:20*scale|info.plist
+@property (nonatomic, assign) CGFloat rightMargin;///< default:20*scale|info.plist
 
 /**
  *  标记使用自定义type的线,并隐藏系统多余的线条(必须)
