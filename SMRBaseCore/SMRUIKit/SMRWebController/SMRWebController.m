@@ -371,19 +371,21 @@ WKNavigationDelegate>
         return;
     }
     
-    // 判断如果当前返回栈中无内容(302跳转不会入栈),则关闭当前web
-    if (!self.webView.canGoBack) {
-        [self popOrDismissViewControllerAnimated:NO];
-    }
     // 为navtive链接
-    if ([SMRRouterCenter canResponseWithUrl:url]) {
+    if ([SMRRouterCenter canResponseWithUrl:url]) {// 判断如果当前返回栈中无内容(302跳转不会入栈),则关闭当前web
+        if (!self.webView.canGoBack) {
+            [self popOrDismissViewControllerAnimated:NO];
+        }
         [SMRRouterCenter openWithUrl:url params:nil];
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }
     
     // 为其它链接(跳转打电话、AppStore等)
-    if ([[UIApplication sharedApplication] openURL:url]) {
+    if ([[UIApplication sharedApplication] openURL:url]) {// 判断如果当前返回栈中无内容(302跳转不会入栈),则关闭当前web
+        if (!self.webView.canGoBack) {
+            [self popOrDismissViewControllerAnimated:NO];
+        }
         decisionHandler(WKNavigationActionPolicyCancel);
     } else {
         decisionHandler(WKNavigationActionPolicyAllow);
