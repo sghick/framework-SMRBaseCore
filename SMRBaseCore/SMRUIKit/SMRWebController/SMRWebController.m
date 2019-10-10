@@ -371,6 +371,10 @@ WKNavigationDelegate>
         return;
     }
     
+    // 判断如果当前返回栈中无内容(302跳转不会入栈),则关闭当前web
+    if (!self.webView.canGoBack) {
+        [self popOrDismissViewControllerAnimated:NO];
+    }
     // 为navtive链接
     if ([SMRRouterCenter canResponseWithUrl:url]) {
         [SMRRouterCenter openWithUrl:url params:nil];
