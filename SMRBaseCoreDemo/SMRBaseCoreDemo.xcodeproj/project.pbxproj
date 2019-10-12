@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D5F54952351EB3A00DE7BF1 /* SMRContentDraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F54932351EB3A00DE7BF1 /* SMRContentDraggableView.m */; };
 		3474ABA988B303EAE936A32D /* Pods_SMRBaseCoreDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEB68DCCB6F5224C71F40E77 /* Pods_SMRBaseCoreDemo.framework */; };
 		8A1DAF0E232641EC00F2B478 /* SMRSeparatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A1DAF0D232641EB00F2B478 /* SMRSeparatorTests.m */; };
 		8A2DE23B2232635000E9A07E /* SMRIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE2392232635000E9A07E /* SMRIndexView.m */; };
@@ -186,6 +187,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D5F54932351EB3A00DE7BF1 /* SMRContentDraggableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRContentDraggableView.m; sourceTree = "<group>"; };
+		1D5F54942351EB3A00DE7BF1 /* SMRContentDraggableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRContentDraggableView.h; sourceTree = "<group>"; };
 		265B7E2F72042FFDB9545E7F /* Pods-SMRBaseCoreDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMRBaseCoreDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo.release.xcconfig"; sourceTree = "<group>"; };
 		8A1DAF0C232641EB00F2B478 /* SMRSeparatorTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRSeparatorTests.h; sourceTree = "<group>"; };
 		8A1DAF0D232641EB00F2B478 /* SMRSeparatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRSeparatorTests.m; sourceTree = "<group>"; };
@@ -1452,6 +1455,8 @@
 			children = (
 				8AF6B4FB22141E7800A56E51 /* SMRContentMaskView.h */,
 				8AF6B4FC22141E7800A56E51 /* SMRContentMaskView.m */,
+				1D5F54942351EB3A00DE7BF1 /* SMRContentDraggableView.h */,
+				1D5F54932351EB3A00DE7BF1 /* SMRContentDraggableView.m */,
 				8AF6B50C22142EC800A56E51 /* SMRTableAlertView.h */,
 				8AF6B50D22142EC800A56E51 /* SMRTableAlertView.m */,
 				8AF6B50F22142EFB00A56E51 /* SMRAlertView.h */,
@@ -1663,42 +1668,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
-				"${BUILT_PRODUCTS_DIR}/CocoaSecurity/CocoaSecurity.framework",
-				"${BUILT_PRODUCTS_DIR}/FLEX/FLEX.framework",
-				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
-				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
-				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
-				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework",
-				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
-				"${BUILT_PRODUCTS_DIR}/YYText/YYText.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaSecurity.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLEX.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCache.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYModel.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYText.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1803,6 +1781,7 @@
 				8A5A879D230E41B6002C0A7D /* SMRCarouselViewTests.m in Sources */,
 				FE77761D22187F8300F6416F /* SMRUtilsValidateTests.m in Sources */,
 				8ACCDF972314D01200983D19 /* SMRImageUploadService.m in Sources */,
+				1D5F54952351EB3A00DE7BF1 /* SMRContentDraggableView.m in Sources */,
 				8A814C9D21F5C3D900D8AEB6 /* SMRNetAPI.m in Sources */,
 				8A914F08221D02D600E2F691 /* SMRUtils+Version.m in Sources */,
 				8AFCD4D022F40DEA000CDA29 /* JSBadgeView.m in Sources */,

@@ -45,7 +45,7 @@ DEPENDENCIES:
   - YYText (= 1.0.7)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - AFNetworking
     - CocoaSecurity
     - FLEX
@@ -75,4 +75,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: a3473a0cc9dec3a645aed432ce5c5fb8621c7d89
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.3

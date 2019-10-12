@@ -28,6 +28,7 @@
 #import "SMRTableAssistant.h"
 #import "UIView+SMRResponder.h"
 #import "UIButton+SMR.h"
+#import "SMRContentDraggableView.h"
 #import "SMRAlertView.h"
 #import "SMRTextView.h"
 #import "UIView+SMRGesture.h"
