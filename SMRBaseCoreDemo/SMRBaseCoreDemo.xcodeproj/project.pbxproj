@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D4E23542354630200687E88 /* UIImage+SMRAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D4E23532354630200687E88 /* UIImage+SMRAdapter.m */; };
 		1D5F54952351EB3A00DE7BF1 /* SMRContentDraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F54932351EB3A00DE7BF1 /* SMRContentDraggableView.m */; };
 		3474ABA988B303EAE936A32D /* Pods_SMRBaseCoreDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEB68DCCB6F5224C71F40E77 /* Pods_SMRBaseCoreDemo.framework */; };
 		8A1DAF0E232641EC00F2B478 /* SMRSeparatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A1DAF0D232641EB00F2B478 /* SMRSeparatorTests.m */; };
@@ -187,6 +188,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D4E23522354630200687E88 /* UIImage+SMRAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+SMRAdapter.h"; sourceTree = "<group>"; };
+		1D4E23532354630200687E88 /* UIImage+SMRAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SMRAdapter.m"; sourceTree = "<group>"; };
 		1D5F54932351EB3A00DE7BF1 /* SMRContentDraggableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRContentDraggableView.m; sourceTree = "<group>"; };
 		1D5F54942351EB3A00DE7BF1 /* SMRContentDraggableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRContentDraggableView.h; sourceTree = "<group>"; };
 		265B7E2F72042FFDB9545E7F /* Pods-SMRBaseCoreDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMRBaseCoreDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -1078,6 +1081,8 @@
 				8A814D0821F5D0BD00D8AEB6 /* UIView+SMRFrame.m */,
 				8A914ED1221ADA3700E2F691 /* UIView+SMRAdapter.h */,
 				8A914ED2221ADA3700E2F691 /* UIView+SMRAdapter.m */,
+				1D4E23522354630200687E88 /* UIImage+SMRAdapter.h */,
+				1D4E23532354630200687E88 /* UIImage+SMRAdapter.m */,
 			);
 			path = SMRAdapter;
 			sourceTree = "<group>";
@@ -1741,6 +1746,7 @@
 				8A814D3021F80B8F00D8AEB6 /* SMRRankerConfig.m in Sources */,
 				8A814A5221F5B7BD00D8AEB6 /* ViewController.m in Sources */,
 				8A914DFE2215AB4900E2F691 /* SMRUtils+UIView.m in Sources */,
+				1D4E23542354630200687E88 /* UIImage+SMRAdapter.m in Sources */,
 				8AE495A6220422680055263E /* SMRMatrixCalculator.m in Sources */,
 				8A814BFA21F5BCF200D8AEB6 /* SMRLifecycle.m in Sources */,
 				8A814BC821F5BA2100D8AEB6 /* SMRRouterCenter+SMROpen.m in Sources */,
