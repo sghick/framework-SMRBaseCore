@@ -12,11 +12,7 @@
 
 + (UIImage *)transformViewToImage:(UIView *)view {
     CGSize size = view.frame.size;
-    if ([view isKindOfClass:[UIScrollView class]]) {
-        assert(0);
-    }
-    
-    UIGraphicsBeginImageContextWithOptions(size, NO, 2);
+    UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *combinationImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -29,7 +25,7 @@
     CGRect savedFrame = scrollView.frame;
     scrollView.contentOffset = CGPointZero;
     
-    UIGraphicsBeginImageContextWithOptions(scrollView.contentSize, NO, 2);
+    UIGraphicsBeginImageContextWithOptions(scrollView.contentSize, NO, [UIScreen mainScreen].scale);
     scrollView.frame = CGRectMake(0, 0, scrollView.contentSize.width, scrollView.contentSize.height);
     CGSize size = CGSizeMake(scrollView.frame.size.width*2, scrollView.frame.size.height*2);
     [scrollView setContentSize:size];

@@ -32,6 +32,7 @@ s.dependency 'YYText', '1.0.7'
 s.dependency 'MBProgressHUD', '1.1.0'
 ####
 s.dependency 'CocoaSecurity', '1.2.4'
+s.dependency 'YBImageBrowser', '3.0.6'
 
 
 end
