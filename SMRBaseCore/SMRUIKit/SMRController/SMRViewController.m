@@ -47,9 +47,9 @@
     // Do any additional setup after loading the view.
     self.navigationController.navigationBarHidden = YES;
     if (@available(iOS 11.0, *)) {
-        [UIScrollView appearance].contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        [UIScrollView appearance].contentInsetAdjustmentBehavior = [self adjustmentBehavior];
     } else {
-        self.automaticallyAdjustsScrollViewInsets = NO;
+        self.automaticallyAdjustsScrollViewInsets = [self adjustmentBehaviorForIOS11Before];
     }
     
     // backgroundColor
@@ -178,6 +178,14 @@
 
 - (CGFloat)keyboardDistanceFromTextField {
     return 10;
+}
+
+- (UIScrollViewContentInsetAdjustmentBehavior)adjustmentBehavior {
+    return UIScrollViewContentInsetAdjustmentAutomatic;
+}
+
+- (BOOL)adjustmentBehaviorForIOS11Before {
+    return YES;
 }
 
 @end

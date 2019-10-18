@@ -11,7 +11,7 @@ target "SMRBaseCoreDemo" do
     #### SMRCoreKit.SMRDataBase/SMRModel
     pod 'YYModel', '1.0.4', :inhibit_warnings => true
     #### SMRCoreKit.SMRDebug
-    pod 'FLEX', '2.4.0', :inhibit_warnings => true
+    pod 'FLEX', :inhibit_warnings => true
     
     #### SMRUIKit.SMRNavigationView
     pod 'PureLayout', '3.1.4', :inhibit_warnings => true

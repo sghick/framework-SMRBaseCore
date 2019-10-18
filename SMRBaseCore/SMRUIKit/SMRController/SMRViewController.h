@@ -62,6 +62,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (CGFloat)keyboardDistanceFromTextField;
 
+/**
+ 自动布局方式,默认NO
+ */
+- (UIScrollViewContentInsetAdjustmentBehavior)adjustmentBehavior API_AVAILABLE(ios(11.0));
+- (BOOL)adjustmentBehaviorForIOS11Before;
+
 @end
 
 NS_ASSUME_NONNULL_END
