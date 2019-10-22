@@ -320,7 +320,7 @@ SMRImageTaskObserverDelegate>
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(canceled:)
-                                                 name:kSMRImageTaskFaildNotification
+                                                 name:kSMRImageTaskCanceledNotification
                                                object:nil];
 }
 
