@@ -11,51 +11,49 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef struct SMRMatrix {
-    NSUInteger index;  ///< 线性索引
-    NSUInteger length; ///< 矩阵长度
-    NSUInteger x;      ///< 矩阵x
-    NSUInteger y;      ///< 矩阵y
+    NSUInteger index;       ///< 线性结构的索引下标
+    NSUInteger columnCount; ///< 矩阵每行的个数
+    NSUInteger row;         ///< 矩阵行下标
+    NSUInteger column;      ///< 矩阵列下标
 } SMRMatrix;
 /** 判断是否相等 */
 NS_INLINE bool SMRMatrixEqualToMatrix(SMRMatrix matrix1, SMRMatrix matrix2) {
     bool rtn =
     (matrix1.index == matrix2.index) &&
-    (matrix1.length == matrix2.length) &&
-    (matrix1.x == matrix2.x) &&
-    (matrix1.y == matrix2.y);
+    (matrix1.columnCount == matrix2.columnCount) &&
+    (matrix1.row == matrix2.row) &&
+    (matrix1.column == matrix2.column);
     return rtn;
 }
-/** 将线性结构转换成矩阵结构 */
-NS_INLINE SMRMatrix SMRMatrixMake(NSUInteger index, NSUInteger length) {
+/** 将线性结构转换成矩阵结构,当index传count-1值时,得到的row+1值为总行数 */
+NS_INLINE SMRMatrix SMRMatrixMake(NSUInteger index, NSUInteger columnCount) {
     SMRMatrix matrix;
     matrix.index = index;
-    matrix.length = length;
-    matrix.x = (index + length)/length - 1;
-    matrix.y = index%length;
+    matrix.columnCount = columnCount;
+    matrix.row = (index + columnCount)/columnCount - 1;
+    matrix.column = index%columnCount;
     return matrix;
 }
-NS_INLINE SMRMatrix SMRMatrixMakeHorizontal(NSUInteger index, NSUInteger length) {
-    SMRMatrix matrix;
-    matrix.index = index;
-    matrix.length = length;
-    matrix.x = index%length;
-    matrix.y = (index + length)/length - 1;
-    return matrix;
-}
+/** 将线性结构转换成矩阵结构时,总行数的获取 */
+NS_INLINE NSUInteger SMRMatrixGetCount(NSUInteger count, NSUInteger columnCount) {
+    SMRMatrix all = SMRMatrixMake(count - 1, columnCount);
+    return all.row + 1;
+};
 /** 获取矩阵在线性位置中的range */
 NS_INLINE NSString *NSStringFromMatrix(SMRMatrix matrix) {
     NSString *string = [NSString stringWithFormat:@"{%@, %@, %@, %@}",
-                        @(matrix.index), @(matrix.length), @(matrix.x), @(matrix.y)];
+    @(matrix.index), @(matrix.columnCount), @(matrix.row), @(matrix.column)];
     return string;
 }
-/** 获取当前矩阵元在线性结构中的位置 */
-NS_INLINE NSRange SMRMatrixGetRangeFromMatrix(SMRMatrix matrix) {
-    NSRange range = NSMakeRange(matrix.x*matrix.length, matrix.length);
-    return range;
-}
 /** 获取矩阵在线性位置中的range */
-NS_INLINE NSRange SMRMatrixGetRange(NSUInteger groupX, NSUInteger groupY, NSUInteger length) {
-    NSRange range = NSMakeRange(groupX*length, groupY);
+NS_INLINE NSRange SMRMatrixGetRange(NSUInteger row, NSUInteger count, NSUInteger columnCount) {
+    NSUInteger location = row*columnCount;
+    if (location > (count - 1)) {
+        return NSMakeRange(0, 0);
+    }
+    NSUInteger exCount = count - location;
+    NSUInteger length = (exCount < columnCount) ? exCount : columnCount;
+    NSRange range = NSMakeRange(location, length);
     return range;
 }
 

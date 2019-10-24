@@ -92,10 +92,10 @@
     }
     if (self.type == SMRMatrixCalculatorTypeVertical) {
         SMRMatrix matrix = SMRMatrixMake(index, self.columnsCount);
-        return CGPointMake(matrix.x, matrix.y);
+        return CGPointMake(matrix.row, matrix.column);
     } else {
-        SMRMatrix matrix = SMRMatrixMakeHorizontal(index, self.rowsCount);
-        return CGPointMake(matrix.x, matrix.y);
+        SMRMatrix matrix = SMRMatrixMake(index, self.rowsCount);
+        return CGPointMake(matrix.column, matrix.row);
     }
 }
 
