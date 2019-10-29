@@ -46,11 +46,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationController.navigationBarHidden = YES;
-    if (@available(iOS 11.0, *)) {
-        [UIScrollView appearance].contentInsetAdjustmentBehavior = [self adjustmentBehavior];
-    } else {
-        self.automaticallyAdjustsScrollViewInsets = [self adjustmentBehaviorForIOS11Before];
-    }
     
     // backgroundColor
     self.view.backgroundColor = [UIColor whiteColor];
@@ -66,7 +61,15 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+    if (@available(iOS 11.0, *)) {
+        if ([self respondsToSelector:@selector(adjustmentBehavior)]) {
+            [UIScrollView appearance].contentInsetAdjustmentBehavior = [self adjustmentBehavior];
+        }
+    } else {
+        if ([self respondsToSelector:@selector(adjustmentBehaviorForIOS11Before)]) {
+            self.automaticallyAdjustsScrollViewInsets = [self adjustmentBehaviorForIOS11Before];
+        }
+    }
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     // 友盟统计
@@ -78,6 +81,18 @@
     
     // BackGesture,每次页面切换时需要切换
     [self setNeedsBackGestureUpdated];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    if (@available(iOS 11.0, *)) {
+        if ([self respondsToSelector:@selector(after_adjustmentBehavior)]) {
+            [UIScrollView appearance].contentInsetAdjustmentBehavior = [self after_adjustmentBehavior];
+        }
+    } else {
+        if ([self respondsToSelector:@selector(after_adjustmentBehaviorForIOS11Before)]) {
+            self.automaticallyAdjustsScrollViewInsets = [self after_adjustmentBehaviorForIOS11Before];
+        }
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

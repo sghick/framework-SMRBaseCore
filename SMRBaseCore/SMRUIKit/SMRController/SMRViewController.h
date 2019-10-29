@@ -10,9 +10,26 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol SMRViewControllerAdapterDelegate <NSObject>
+
+@optional
+/**
+ 自动布局方式(viewWillAppear后)
+ */
+- (UIScrollViewContentInsetAdjustmentBehavior)adjustmentBehavior API_AVAILABLE(ios(11.0));
+- (BOOL)adjustmentBehaviorForIOS11Before;
+
+/**
+自动布局方式(viewDidAppear后)
+*/
+- (UIScrollViewContentInsetAdjustmentBehavior)after_adjustmentBehavior API_AVAILABLE(ios(11.0));
+- (BOOL)after_adjustmentBehaviorForIOS11Before;
+
+@end
+
 @class SMRNetAPI;
 @class SMRAPICallback;
-@interface SMRViewController : UIViewController
+@interface SMRViewController : UIViewController<SMRViewControllerAdapterDelegate>
 
 /**
  设置为首页展示的属性,默认NO
@@ -61,12 +78,6 @@ NS_ASSUME_NONNULL_BEGIN
  键盘与textField的距离,默认:10
  */
 - (CGFloat)keyboardDistanceFromTextField;
-
-/**
- 自动布局方式,默认NO
- */
-- (UIScrollViewContentInsetAdjustmentBehavior)adjustmentBehavior API_AVAILABLE(ios(11.0));
-- (BOOL)adjustmentBehaviorForIOS11Before;
 
 @end
 
