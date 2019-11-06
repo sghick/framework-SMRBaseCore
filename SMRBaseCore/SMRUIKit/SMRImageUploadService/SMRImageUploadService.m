@@ -21,7 +21,9 @@ NSString * const kSMRImageTaskCanceledNotification = @"kSMRImageTaskCanceledNoti
 SMRImageTaskDelegate,
 SMRImageTaskObserverDelegate>
 
-@property (strong, nonatomic) NSMutableArray<SMRImageTask *> *taskList;
+@property (strong, nonatomic) NSMutableArray<NSString *> *taskQueue;
+@property (strong, nonatomic) NSMutableArray<NSString *> *ingQueue;
+@property (strong, nonatomic) NSMutableArray<NSString *> *waitingQueue;
 @property (strong, nonatomic) NSMutableDictionary<NSString *, SMRImageTask *> *taskDict;
 
 @property (strong, nonatomic) NSMutableDictionary<NSString *, UIImage *> *imageCache;
@@ -35,6 +37,7 @@ SMRImageTaskObserverDelegate>
     static dispatch_once_t _sharedImageUploadServiceOnceToken;
     dispatch_once(&_sharedImageUploadServiceOnceToken, ^{
         _sharedImageUploadService = [[SMRImageUploadService alloc] init];
+        _sharedImageUploadService.maxIngCount = 1;
     });
     return _sharedImageUploadService;
 }
@@ -44,11 +47,11 @@ SMRImageTaskObserverDelegate>
 - (SMRImageTask *)taskWithBondingImage:(UIImage *)image {
     NSString *taskIdentifier = [[NSUUID UUID].UUIDString stringByReplacingOccurrencesOfString:@"-" withString:@""];
     [self saveImageCacheWithTaskIdentifier:taskIdentifier image:image];
-    SMRImageTask *task = [self imageTaskWithIdentifier:taskIdentifier];
+    SMRImageTask *task = [self taskWithIdentifier:taskIdentifier];
     return task;
 }
 
-- (SMRImageTask *)imageTaskWithIdentifier:(NSString *)taskIdentifier {
+- (SMRImageTask *)taskWithIdentifier:(NSString *)taskIdentifier {
     if (!taskIdentifier) {
         return nil;
     }
@@ -57,18 +60,21 @@ SMRImageTaskObserverDelegate>
         task = [[SMRImageTask alloc] initWithIdentifier:taskIdentifier delegate:self];
         task.identifier = taskIdentifier;
         self.taskDict[taskIdentifier] = task;
-        [self.taskList addObject:task];
+        [self.taskQueue addObject:taskIdentifier];
     }
     return task;
+}
+
+- (SMRImageTask *)imageTaskWithIdentifier:(NSString *)taskIdentifier {
+    return [self taskWithIdentifier:taskIdentifier];
 }
 
 #pragma mark - ImageTaskObserver
 
 - (SMRImageTaskObserver *)taskObserverWithBondingImage:(UIImage *)image {
-    NSString *taskIdentifier = [[NSUUID UUID].UUIDString stringByReplacingOccurrencesOfString:@"-" withString:@""];
-    [self saveImageCacheWithTaskIdentifier:taskIdentifier image:image];
-    SMRImageTaskObserver *Observer = [self taskObserverWithTaskIdentifier:taskIdentifier];
-    return Observer;
+    SMRImageTask *task = [self taskWithBondingImage:image];
+    SMRImageTaskObserver *observer = [self taskObserverWithTaskIdentifier:task.identifier];
+    return observer;
 }
 
 - (SMRImageTaskObserver *)taskObserverWithTaskIdentifier:(NSString *)taskIdentifier {
@@ -113,9 +119,10 @@ SMRImageTaskObserverDelegate>
     }
     imageTask.uploading = YES;
     
-    if (self.uploadingBlock) {
-        self.uploadingBlock(self, imageTask);
-    }
+    // 交换任务队列
+    [self.waitingQueue addObject:imageTask.identifier];
+    // 判断是否开始一个任务
+    [self checkNeedsResumeNextTask];
 }
 - (void)didCancelImageTask:(SMRImageTask *)imageTask {
     imageTask.uploading = NO;
@@ -126,44 +133,91 @@ SMRImageTaskObserverDelegate>
     
     // 发送更新信号
     [self postImageUploadTaskChangedNotification];
+    
+    // 交换任务队列
+    [self.waitingQueue removeObject:imageTask.identifier];
+    [self.ingQueue removeObject:imageTask.identifier];
+    // 判断是否开始一个任务
+    [self checkNeedsResumeNextTask];
 }
 
 - (void)imageTask:(SMRImageTask *)imageTask didRecivedProgressWithCompletedBytesCount:(int64_t)completedBytesCount totalBytesCount:(int64_t)totalBytesCount {
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:kSMRImageTaskProgressChangedNotification object:imageTask];
     });
+    [self postImageUploadTaskChangedNotification];
 }
 - (void)imageTask:(SMRImageTask *)imageTask didRecivedSuccessWithImageURL:(NSString *)imageURL {
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:kSMRImageTaskSuccessNotification object:imageTask];
     });
     [self postImageUploadTaskChangedNotification];
+    
+    // 交换任务队列
+    [self.waitingQueue removeObject:imageTask.identifier];
+    [self.ingQueue removeObject:imageTask.identifier];
+    [self.taskQueue removeObject:imageTask.identifier];
+    // 判断是否开始一个任务
+    [self checkNeedsResumeNextTask];
 }
 - (void)imageTask:(SMRImageTask *)imageTask didRecivedFaildWithError:(NSError *)error {
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:kSMRImageTaskFaildNotification object:imageTask];
     });
     [self postImageUploadTaskChangedNotification];
+    
+    // 交换任务队列
+    [self.waitingQueue removeObject:imageTask.identifier];
+    [self.ingQueue removeObject:imageTask.identifier];
+    // 判断是否开始一个任务
+    [self checkNeedsResumeNextTask];
 }
 - (void)imageTask:(SMRImageTask *)imageTask didRecivedCanceledWithError:(NSError *)error {
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:kSMRImageTaskCanceledNotification object:imageTask];
     });
     [self postImageUploadTaskChangedNotification];
+    
+    // 交换任务队列
+    [self.waitingQueue removeObject:imageTask.identifier];
+    [self.ingQueue removeObject:imageTask.identifier];
+    [self.taskQueue removeObject:imageTask.identifier];
+    // 判断是否开始一个任务
+    [self checkNeedsResumeNextTask];
 }
 
 #pragma mark - SMRImageTaskObserverDelegate
 
 - (void)didResumeImageTaskObserver:(SMRImageTaskObserver *)observer {
-    SMRImageTask *task = [self imageTaskWithIdentifier:observer.taskIdentifier];
+    SMRImageTask *task = [self taskWithIdentifier:observer.taskIdentifier];
     [self didResumeImageTask:task];
 }
 - (void)didCancelImageTaskObserver:(SMRImageTaskObserver *)observer {
-    SMRImageTask *task = [self imageTaskWithIdentifier:observer.taskIdentifier];
+    SMRImageTask *task = [self taskWithIdentifier:observer.taskIdentifier];
     [self didCancelImageTask:task];
 }
 
 #pragma mark - Utils
+
+- (void)checkNeedsResumeNextTask {
+    if ((self.maxIngCount > 0) && (self.ingQueue.count >= self.maxIngCount)) {
+        // 超过最大任务并发数
+        return;
+    }
+    if (self.waitingQueue.count == 0) {
+        // 等待队列中没有任务
+        return;
+    }
+    
+    NSString *nextIdentifier = self.waitingQueue.firstObject;
+    SMRImageTask *imageTask = self.taskDict[nextIdentifier];
+    [self.waitingQueue removeObject:nextIdentifier];
+    [self.ingQueue addObject:nextIdentifier];
+    
+    if (self.uploadingBlock) {
+        self.uploadingBlock(self, imageTask);
+    }
+}
 
 - (void)postImageUploadTaskChangedNotification {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -174,14 +228,36 @@ SMRImageTaskObserverDelegate>
 #pragma mark - Getters
 
 - (NSInteger)ingCount {
-    return self.taskList.count;
+    return self.ingQueue.count;
 }
 
-- (NSMutableArray<SMRImageTask *> *)taskList {
-    if (!_taskList) {
-        _taskList = [NSMutableArray array];
+- (NSInteger)watingCount {
+    return self.waitingQueue.count;
+}
+
+- (NSInteger)loadingCount {
+    return self.taskQueue.count;
+}
+
+- (NSMutableArray<NSString *> *)taskQueue {
+    if (!_taskQueue) {
+        _taskQueue = [NSMutableArray array];
     }
-    return _taskList;
+    return _taskQueue;
+}
+
+- (NSMutableArray<NSString *> *)ingQueue {
+    if (!_ingQueue) {
+        _ingQueue = [NSMutableArray array];
+    }
+    return _ingQueue;
+}
+
+- (NSMutableArray<NSString *> *)waitingQueue {
+    if (!_waitingQueue) {
+        _waitingQueue = [NSMutableArray array];
+    }
+    return _waitingQueue;
 }
 
 - (NSMutableDictionary<NSString *,SMRImageTask *> *)taskDict {
@@ -288,6 +364,7 @@ SMRImageTaskObserverDelegate>
     if (self) {
         _taskIdentifier = taskIdentifier;
         _delegate = [SMRImageUploadService sharedService];
+        _task = [[SMRImageUploadService sharedService] taskWithIdentifier:taskIdentifier];
         // 添加监听
         [self initNotifications];
     }

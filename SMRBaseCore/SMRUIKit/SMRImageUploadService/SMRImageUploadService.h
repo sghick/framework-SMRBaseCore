@@ -38,14 +38,18 @@ typedef void(^SMRImageCacheRemoveBlock)(SMRImageUploadService *service, NSString
 @property (copy  , nonatomic) SMRImageCacheGetBlock cacheGetBlock;
 @property (copy  , nonatomic) SMRImageCacheRemoveBlock cacheRemoveBlock;
 
-@property (assign, nonatomic, readonly) NSInteger ingCount; ///< 任务队列中的数量
+@property (assign, nonatomic) NSInteger maxIngCount; ///< 最大任务并发数,0表示无限制,默认1
+
+@property (assign, nonatomic, readonly) NSInteger ingCount; ///< 进行中任务的数量
+@property (assign, nonatomic, readonly) NSInteger watingCount; ///< 等待中任务的数量
+@property (assign, nonatomic, readonly) NSInteger loadingCount; ///< 未成功且未取消的数量
 
 + (instancetype)sharedService;
 
 /** 首次任务时可使用此方法 */
 - (SMRImageTask *)taskWithBondingImage:(UIImage *)image;
 /** 获取任务队列中的任务,没有则会自动创建一个 */
-- (SMRImageTask *)imageTaskWithIdentifier:(NSString *)taskIdentifier;
+- (SMRImageTask *)taskWithIdentifier:(NSString *)taskIdentifier;
 
 /** 首次任务时可使用此方法 */
 - (SMRImageTaskObserver *)taskObserverWithBondingImage:(UIImage *)image;
@@ -88,6 +92,10 @@ typedef void(^SMRImageCacheRemoveBlock)(SMRImageUploadService *service, NSString
 
 /** error */
 @property (strong, nonatomic) NSError *error;
+
+/** info */
+@property (strong, nonatomic) id object;
+@property (strong, nonatomic) NSDictionary *userInfo;
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithIdentifier:(NSString *)identifier delegate:(id<SMRImageTaskDelegate>)delegate;
