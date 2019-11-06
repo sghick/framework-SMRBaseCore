@@ -108,6 +108,23 @@ SMRImageTaskObserverDelegate>
     }
 }
 
+- (void)removeTaskWithIdentifier:(NSString *)taskIdentifier {
+    [self removeTaskWithIdentifier:taskIdentifier removeImageCache:NO];
+}
+
+- (void)removeTaskWithIdentifier:(NSString *)taskIdentifier removeImageCache:(BOOL)removeImageCache {
+    if (!taskIdentifier) {
+        return;
+    }
+    self.taskDict[taskIdentifier] = nil;
+    [self.taskQueue removeObject:taskIdentifier];
+    [self.ingQueue removeObject:taskIdentifier];
+    [self.waitingQueue removeObject:taskIdentifier];
+    if (removeImageCache) {
+        [self removeImageCacheWithTaskIdentifier:taskIdentifier];
+    }
+}
+
 #pragma mark - SMRImageTaskDelegate
 
 - (void)didResumeImageTask:(SMRImageTask *)imageTask {
@@ -153,10 +170,14 @@ SMRImageTaskObserverDelegate>
     });
     [self postImageUploadTaskChangedNotification];
     
-    // 交换任务队列
-    [self.waitingQueue removeObject:imageTask.identifier];
-    [self.ingQueue removeObject:imageTask.identifier];
-    [self.taskQueue removeObject:imageTask.identifier];
+    if (imageTask.autoRemove) {
+        // 任务完成后则移除当前任务
+        [self removeTaskWithIdentifier:imageTask.identifier];
+    } else {
+        [self.taskQueue removeObject:imageTask.identifier];
+        [self.ingQueue removeObject:imageTask.identifier];
+        [self.waitingQueue removeObject:imageTask.identifier];
+    }
     // 判断是否开始一个任务
     [self checkNeedsResumeNextTask];
 }
@@ -291,6 +312,7 @@ SMRImageTaskObserverDelegate>
     if (self) {
         _identifier = identifier;
         _delegate = delegate;
+        _autoRemove = YES;
     }
     return self;
 }

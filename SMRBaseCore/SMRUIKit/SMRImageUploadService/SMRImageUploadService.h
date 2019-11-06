@@ -61,6 +61,10 @@ typedef void(^SMRImageCacheRemoveBlock)(SMRImageUploadService *service, NSString
 /** 移除缓存的image */
 - (void)removeImageCacheWithTaskIdentifier:(NSString *)taskIdentifier;
 
+/** 移除任务,仅正常完成的会被自动移除 */
+- (void)removeTaskWithIdentifier:(NSString *)taskIdentifier;
+- (void)removeTaskWithIdentifier:(NSString *)taskIdentifier removeImageCache:(BOOL)removeImageCache;
+
 @end
 
 #pragma mark - --SMRImageTask
@@ -81,6 +85,9 @@ typedef void(^SMRImageCacheRemoveBlock)(SMRImageUploadService *service, NSString
 @interface SMRImageTask : NSObject
 
 @property (strong, nonatomic) NSString *identifier;
+
+/** 任务完成是否自动移除,默认YES */
+@property (assign, nonatomic) BOOL autoRemove;
 
 /** progress */
 @property (assign, nonatomic) int64_t completedBytesCount;
