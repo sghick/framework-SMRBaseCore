@@ -128,6 +128,11 @@ SMRImageTaskObserverDelegate>
 #pragma mark - SMRImageTaskDelegate
 
 - (void)didResumeImageTask:(SMRImageTask *)imageTask {
+    self.taskDict[imageTask.identifier] = imageTask;
+    if (![self.taskQueue containsObject:imageTask.identifier]) {
+        [self.taskQueue addObject:imageTask.identifier];
+    }
+    
     // 发送更新信号
     [self postImageUploadTaskChangedNotification];
     
