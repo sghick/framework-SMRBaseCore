@@ -131,19 +131,12 @@ SMRImageTaskObserverDelegate>
     // 发送更新信号
     [self postImageUploadTaskChangedNotification];
     
-    if (imageTask.uploading) {
-        return;
-    }
-    imageTask.uploading = YES;
-    
     // 交换任务队列
     [self.waitingQueue addObject:imageTask.identifier];
     // 判断是否开始一个任务
     [self checkNeedsResumeNextTask];
 }
 - (void)didCancelImageTask:(SMRImageTask *)imageTask {
-    imageTask.uploading = NO;
-    
     if (self.cancelBlock) {
         self.cancelBlock(self, imageTask);
     }
@@ -347,7 +340,6 @@ SMRImageTaskObserverDelegate>
 
 - (void)fillTaskSuccessWithImageURL:(NSString *)imageURL {
     _imageURL = imageURL;
-    _uploading = NO;
     if ([self.delegate respondsToSelector:@selector(imageTask:didRecivedSuccessWithImageURL:)]) {
         [self.delegate imageTask:self didRecivedSuccessWithImageURL:imageURL];
     }
@@ -355,7 +347,6 @@ SMRImageTaskObserverDelegate>
 
 - (void)fillTaskFaildWithError:(NSError *)error {
     _error = error;
-    _uploading = NO;
     if ([self.delegate respondsToSelector:@selector(imageTask:didRecivedFaildWithError:)]) {
         [self.delegate imageTask:self didRecivedFaildWithError:error];
     }
@@ -363,7 +354,6 @@ SMRImageTaskObserverDelegate>
 
 - (void)fillTaskCanceledWithError:(NSError *)error {
     _error = error;
-    _uploading = NO;
     if ([self.delegate respondsToSelector:@selector(imageTask:didRecivedCanceledWithError:)]) {
         [self.delegate imageTask:self didRecivedCanceledWithError:error];
     }

@@ -94,7 +94,6 @@ typedef void(^SMRImageCacheRemoveBlock)(SMRImageUploadService *service, NSString
 @property (assign, nonatomic) int64_t totalBytesCount;
 
 /** success */
-@property (assign, nonatomic) BOOL uploading;
 @property (copy  , nonatomic) NSString *imageURL;
 
 /** error */
