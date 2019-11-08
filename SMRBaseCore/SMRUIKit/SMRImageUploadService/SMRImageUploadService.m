@@ -160,7 +160,6 @@ SMRImageTaskObserverDelegate>
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:kSMRImageTaskProgressChangedNotification object:imageTask];
     });
-    [self postImageUploadTaskChangedNotification];
 }
 - (void)imageTask:(SMRImageTask *)imageTask didRecivedSuccessWithImageURL:(NSString *)imageURL {
     dispatch_async(dispatch_get_main_queue(), ^{
