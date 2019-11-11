@@ -101,6 +101,9 @@ static void *SMRankerMangerActionObserverContext = &SMRankerMangerActionObserver
         dispatch_async(smr_ranker_manager_creation_queue(), ^{
             [self.lock lock];
             SMRRankerAction *action = [self.config nextExcuteActionFromActions:self.actionList];
+            if (![self.config shouldExcuteAction:action fromActions:self.actionList]) {
+                action = nil;
+            }
             if (self.isEnable && action && action.enable) {
                 [self markSuccessCheckWithAction:action];
                 if (![self checkIfWithinLifecycleWithAction:action]) {
