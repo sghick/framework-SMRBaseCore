@@ -28,7 +28,7 @@ typedef void (^SMRRankerActionCompletionBlock)(SMRRankerAction *action);
 @property (assign, nonatomic) BOOL markDeleted;         ///< 被标记为删除
 
 @property (copy  , nonatomic, readonly) NSString *identifier;
-@property (strong, nonatomic) NSString *groupLabel;     ///< 分组区分,默认nil无分级区分,相同分组同时仅能执行一个action
+@property (strong, nonatomic) NSString *groupLabel;     ///< 分组区分,默认nil无分组区分,相同分组同时仅能执行一个action
 @property (assign, nonatomic) SMRRankerActionStatus status;
 @property (copy  , nonatomic) SMRRankerActionCompletionBlock completionBlock;
 @property (assign, nonatomic) BOOL enable;              ///< 是否可用,默认YES
