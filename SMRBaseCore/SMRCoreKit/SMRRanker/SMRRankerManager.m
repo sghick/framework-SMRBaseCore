@@ -105,7 +105,9 @@ static void *SMRankerMangerActionObserverContext = &SMRankerMangerActionObserver
                 action = nil;
             }
             if (self.isEnable && action && action.enable) {
-                [self markSuccessCheckWithAction:action];
+                if (!action.markSuccessByClose) {
+                    [self markSuccessCheckWithAction:action];
+                }
                 if (![self checkIfWithinLifecycleWithAction:action]) {
                     action.markDeleted = YES;// 标记已删除,在列表中无效
                 }
@@ -167,6 +169,10 @@ static void *SMRankerMangerActionObserverContext = &SMRankerMangerActionObserver
     NSParameterAssert(identifier);
     SMRRankerAction *action = [self actionWithIdentifier:identifier];
     if ([self.config shouldChangeStatusWithAction:action toStatus:status]) {
+        // 标记成功
+        if (action.markSuccessByClose && (status == SMRRankerActionStatusClose)) {
+            [self markSuccessCheckWithAction:action];
+        }
         action.status = status;
     }
 }

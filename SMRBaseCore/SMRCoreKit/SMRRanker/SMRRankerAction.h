@@ -25,13 +25,14 @@ typedef void (^SMRRankerActionCompletionBlock)(SMRRankerAction *action);
 
 @interface SMRRankerAction : NSObject
 
-@property (assign, nonatomic) BOOL markDeleted;         ///< 被标记为删除
-
 @property (copy  , nonatomic, readonly) NSString *identifier;
-@property (strong, nonatomic) NSString *groupLabel;     ///< 分组区分,默认nil无分组区分,相同分组同时仅能执行一个action
 @property (assign, nonatomic) SMRRankerActionStatus status;
 @property (copy  , nonatomic) SMRRankerActionCompletionBlock completionBlock;
 @property (assign, nonatomic) BOOL enable;              ///< 是否可用,默认YES
+@property (assign, nonatomic) BOOL markDeleted;         ///< 被标记为删除
+
+@property (assign, nonatomic) BOOL markSuccessByClose;  ///< 当调用结束时才标记成功,默认NO
+@property (strong, nonatomic) NSString *groupLabel;     ///< 分组区分,默认nil无分组区分,相同分组同时仅能执行一个action
 @property (strong, nonatomic) NSDictionary *userInfo;   ///< 附加信息
 @property (strong, nonatomic) id object;                ///< 附加信息
 
