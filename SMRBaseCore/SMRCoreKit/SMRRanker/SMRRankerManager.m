@@ -83,7 +83,7 @@ static void *SMRankerMangerActionObserverContext = &SMRankerMangerActionObserver
 }
 
 - (void)dealloc {
-    [self unregistAllPopActions];
+    [self unregistAllActions];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(__unused id)object change:(NSDictionary *)change context:(void *)context {
@@ -208,7 +208,7 @@ static void *SMRankerMangerActionObserverContext = &SMRankerMangerActionObserver
     [self removeActionWithIdentifier:identifier];
 }
 
-- (void)unregistAllPopActions {
+- (void)unregistAllActions {
     for (SMRRankerAction *action in self.actionList) {
         [self removeObserversForAction:action];
     }
