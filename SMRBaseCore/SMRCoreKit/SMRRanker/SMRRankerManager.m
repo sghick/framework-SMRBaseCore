@@ -329,7 +329,7 @@ static dispatch_once_t _globalRankerMangerOnceToken;
 }
 
 + (SMRRankerManager *)managerWithGroupId:(NSString *)groupId {
-    return [[SMRGlobalRankerManager shareInstance] managerWithGroupId:groupId];
+    return [self managerWithGroupId:groupId autoCreateWithConfig:nil];
 }
 
 + (SMRRankerManager *)managerWithGroupId:(NSString *)groupId autoCreateWithConfig:(id<SMRRankerConfig>)config {
