@@ -28,10 +28,6 @@
     return self;
 }
 
-- (NSString *)description {
-    return [NSString stringWithFormat:@"{%@\tdel:%@\tsta:%@\teab:%@}", _identifier, @(_markDeleted), @(_status), @(_enable)];
-}
-
 - (void)setLifecycle:(SMRRankerLifecycle)lifecycle checkCount:(NSInteger)checkCount {
     _lifecycle = lifecycle;
     _checkCount = checkCount;

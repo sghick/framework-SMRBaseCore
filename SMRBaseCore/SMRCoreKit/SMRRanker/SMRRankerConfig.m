@@ -22,7 +22,7 @@
     BOOL needsBreak = NO;
     SMRRankerAction *action = nil;
     for (SMRRankerAction *act in actions) {
-        if (act.markDeleted) {
+        if (act.outOfLifecycle || act.outOfGroup) {
             continue;
         }
         switch (act.status) {

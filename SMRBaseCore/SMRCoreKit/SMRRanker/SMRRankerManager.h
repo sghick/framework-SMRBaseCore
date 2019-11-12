@@ -36,6 +36,8 @@ typedef NS_ENUM(NSInteger, SMRRankerActionStatus);
 - (instancetype)initWithGroupId:(NSString *)groupId;
 - (instancetype)initWithGroupId:(NSString *)groupId config:(id<SMRRankerConfig>)config;///< 推荐使用
 
+#pragma mark - Methods
+
 /**
  主动检测是否需要执行业务
  */
@@ -50,10 +52,36 @@ typedef NS_ENUM(NSInteger, SMRRankerActionStatus);
 - (SMRRankerAction *)actionWithIdentifier:(NSString *)identifier;
 
 /**
- 清除WCPopAction的生命周期记录
+ 标记对应的actions生效
+ */
+- (void)enalbelActionsWithIdentifiers:(NSArray *)idnetifiers;
+
+/**
+ 标记对应的actions暂时失效
+ */
+- (void)dialbelActionsWithIdentifiers:(NSArray *)idnetifiers;
+
+/**
+ 清除action的生命周期记录
  */
 - (void)clearLifecycleWithIdentifier:(NSString *)identifier;
-- (void)clearLifecycleWithAction:(SMRRankerAction *)action;
+
+/**
+ 手动标记当前identifier已成功一次
+ */
+- (void)markSuccessCheckWithIdentifier:(NSString *)identifier;
+
+/**
+标记对应的action生效,只对因LabelGroup而失效的action有用
+*/
+- (void)enalbelForGroupActionsWithIdentifiers:(NSArray *)idnetifiers;
+
+/**
+标记对应的action生效,只对因Lifecycle而失效的action有用
+*/
+- (void)enalbelForLifecycleActionsWithIdentifiers:(NSArray *)idnetifiers;
+
+#pragma mark - Options
 
 /**
  注册执行业务项目
@@ -70,16 +98,6 @@ typedef NS_ENUM(NSInteger, SMRRankerActionStatus);
  */
 - (void)unregistActionWithIdentifier:(NSString *)identifier;
 - (void)unregistAllActions;
-
-/**
- 标记对应的actions生效
- */
-- (void)enalbelActionsWithIdentifiers:(NSArray *)idnetifiers;
-
-/**
- 标记对应的actions暂时失效
- */
-- (void)dialbelActionsWithIdentifiers:(NSArray *)idnetifiers;
 
 /**
  标记执行业务项目可以执行业务,未标记的action不执行
