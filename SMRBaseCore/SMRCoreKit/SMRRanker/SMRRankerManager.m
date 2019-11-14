@@ -262,7 +262,7 @@ static void *SMRankerMangerActionObserverContext = &SMRankerMangerActionObserver
     self.actionList = nil;
 }
 
-- (void)markActionReadyWithIdentifier:(NSString *)identifier completionBlock:(void (^)(SMRRankerAction *))completionBlock {
+- (void)markActionReadyWithIdentifier:(NSString *)identifier completionBlock:(SMRRankerActionCompletionBlock)completionBlock {
     if (completionBlock) {
         [self setActionWithIdentifier:identifier completionBlock:completionBlock];
     }
@@ -273,7 +273,7 @@ static void *SMRankerMangerActionObserverContext = &SMRankerMangerActionObserver
     [self markActionReadyWithIdentifier:identifier completionBlock:nil];
 }
 
-- (void)setActionWithIdentifier:(NSString *)identifier completionBlock:(void (^)(SMRRankerAction *))completionBlock {
+- (void)setActionWithIdentifier:(NSString *)identifier completionBlock:(SMRRankerActionCompletionBlock)completionBlock {
     NSParameterAssert(identifier);
     SMRRankerAction *action = [self actionWithIdentifier:identifier];
     if (action) {

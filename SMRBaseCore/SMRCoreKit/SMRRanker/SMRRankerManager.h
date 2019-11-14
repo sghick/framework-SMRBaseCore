@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SMRRankerConfig.h"
 #import "SMRRankerLogDelegate.h"
+#import "SMRRankerAction.h"
 
 ////////////////////////////////////////////////////
 //              SMRRankerManager
@@ -105,7 +106,7 @@ typedef NS_ENUM(NSInteger, SMRRankerActionStatus);
  @param identifier 项目标识
  @param completionBlock 执行业务操作
  */
-- (void)markActionReadyWithIdentifier:(NSString *)identifier completionBlock:(void(^)(SMRRankerAction *))completionBlock;
+- (void)markActionReadyWithIdentifier:(NSString *)identifier completionBlock:(SMRRankerActionCompletionBlock)completionBlock;
 - (void)markActionReadyWithIdentifier:(NSString *)identifier;
 
 /**
@@ -114,7 +115,7 @@ typedef NS_ENUM(NSInteger, SMRRankerActionStatus);
  @param identifier 项目标识
  @param completionBlock 执行业务操作
  */
-- (void)setActionWithIdentifier:(NSString *)identifier completionBlock:(void(^)(SMRRankerAction *))completionBlock;
+- (void)setActionWithIdentifier:(NSString *)identifier completionBlock:(SMRRankerActionCompletionBlock)completionBlock;
 
 /**
  标记执行业务项目取消,取消标记的action不再执行
