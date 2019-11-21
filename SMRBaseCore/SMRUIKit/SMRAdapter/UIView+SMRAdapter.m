@@ -56,4 +56,61 @@
     }
 }
 
+- (void)setRoundCornersWithRadius:(CGFloat)radius {
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:radius];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = self.bounds;
+    maskLayer.path = maskPath.CGPath;
+    self.layer.mask = maskLayer;
+}
+
+- (void)setRoundCorners:(UIRectCorner)corners radii:(CGSize)radii {
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:corners cornerRadii:radii];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = self.bounds;
+    maskLayer.path = maskPath.CGPath;
+    self.layer.mask = maskLayer;
+}
+
+- (void)addGradientLayerWithColors:(NSArray<UIColor *> *)colors
+                verticalTransition:(BOOL)verticalTransition {
+    if (verticalTransition) {
+        [self addGradientLayerWithStartPoint:CGPointMake(0.5, 0)
+                                    endPoint:CGPointMake(0.5, 1)
+                                      colors:colors];
+    } else {
+        [self addGradientLayerWithStartPoint:CGPointMake(0, 0.5)
+                                    endPoint:CGPointMake(1, 0.5)
+                                      colors:colors];
+    }
+}
+
+- (void)addGradientLayerWithStartPoint:(CGPoint)startPoint
+                              endPoint:(CGPoint)endPoint
+                                colors:(NSArray<UIColor *> *)colors {
+    [self addGradientLayerWithStartPoint:startPoint endPoint:endPoint colors:colors locations:nil];
+}
+
+- (void)addGradientLayerWithStartPoint:(CGPoint)startPoint
+                              endPoint:(CGPoint)endPoint
+                                colors:(NSArray<UIColor *> *)colors
+                             locations:(nullable NSArray<NSNumber *> *)locations {
+    if (!colors || colors.count == 0) {
+        return;
+    }
+    CAGradientLayer *layer = [CAGradientLayer layer];
+    layer.startPoint = startPoint;
+    layer.endPoint = endPoint;
+    if (locations) {
+        layer.locations = locations;
+    }
+    NSMutableArray *colorArray = [NSMutableArray array];
+    for (UIColor *color in colors) {
+        [colorArray addObject:(id)color.CGColor];
+    }
+    layer.colors = [NSArray arrayWithArray:colorArray];
+    layer.frame = self.bounds;
+    [self.layer addSublayer:layer];
+}
+
 @end

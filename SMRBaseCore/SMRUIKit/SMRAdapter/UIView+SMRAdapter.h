@@ -29,6 +29,21 @@ static NSInteger const kTagForSMRAdapterBottomView = 541608;
 /** 给view的底部view更换颜色 */
 - (void)updateSafeAreaViewColor:(UIColor *)color;
 
+/** 给view设置圆角的maskLayer */
+- (void)setRoundCornersWithRadius:(CGFloat)radius;
+- (void)setRoundCorners:(UIRectCorner)corners radii:(CGSize)radii;
+
+/** 给view设置渐变色的layer */
+- (void)addGradientLayerWithColors:(NSArray<UIColor *> *)colors
+                verticalTransition:(BOOL)verticalTransition;
+- (void)addGradientLayerWithStartPoint:(CGPoint)startPoint
+                              endPoint:(CGPoint)endPoint
+                                colors:(NSArray<UIColor *> *)colors;
+- (void)addGradientLayerWithStartPoint:(CGPoint)startPoint
+                              endPoint:(CGPoint)endPoint
+                                colors:(NSArray<UIColor *> *)colors
+                             locations:(nullable NSArray<NSNumber *> *)locations;
+
 @end
 
 NS_ASSUME_NONNULL_END
