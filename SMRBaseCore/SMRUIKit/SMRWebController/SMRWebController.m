@@ -490,9 +490,19 @@ WKNavigationDelegate>
 - (WKWebViewConfiguration *)config {
     if (!_config) {
         _config = [[WKWebViewConfiguration alloc] init];
+        _config.processPool = [self.class singleWkProcessPool]; // 保证web的LocalStorage同步
         _config.userContentController = self.userController;
     }
     return _config;
+}
+
++ (WKProcessPool *)singleWkProcessPool {
+    static WKProcessPool *sharedPool;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedPool = [[WKProcessPool alloc] init];
+    });
+    return sharedPool;
 }
 
 - (WKWebView *)webView {
