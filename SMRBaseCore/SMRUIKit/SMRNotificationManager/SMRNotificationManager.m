@@ -102,4 +102,14 @@ NSString * kSMRWillJumpFromPushNotificaation = @"kSMRWillJumpFromPushNotificaati
     _fromType = SMRPushFromTypeNone;
 }
 
++ (NSString *)deviceTokenWithData:(NSData *)data {
+    NSMutableString *deviceTokenStr = [NSMutableString string];
+    const char *bytes = data.bytes;
+    NSInteger count = data.length;
+    for (int i = 0; i < count; i++) {
+        [deviceTokenStr appendFormat:@"%02x", bytes[i]&0x000000FF];
+    }
+    return [deviceTokenStr copy];
+}
+
 @end

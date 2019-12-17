@@ -50,6 +50,9 @@ typedef void(^SMRNotificationManagerActionBlock)(SMRNotificationManager *manager
 /** 执行一次任务[推荐]在root的`viewDidAppear/后台激活时`调用 */
 - (void)performCurrentActionOnceIfNeeded;
 
+/** 二进制转字符串 */
++ (NSString *)deviceTokenWithData:(NSData *)data;
+
 @end
 
 NS_ASSUME_NONNULL_END

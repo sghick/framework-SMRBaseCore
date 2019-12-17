@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D3DFF3323A8875800663386 /* SMRImageLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3DFF2C23A8875700663386 /* SMRImageLabel.m */; };
+		1D3DFF3423A8875800663386 /* SMRSettingAuthorized.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3DFF2E23A8875800663386 /* SMRSettingAuthorized.m */; };
+		1D3DFF3523A8875800663386 /* SMRPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3DFF3123A8875800663386 /* SMRPageControl.m */; };
 		1D4E23542354630200687E88 /* UIImage+SMRAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D4E23532354630200687E88 /* UIImage+SMRAdapter.m */; };
 		1D5F54952351EB3A00DE7BF1 /* SMRContentDraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F54932351EB3A00DE7BF1 /* SMRContentDraggableView.m */; };
 		3474ABA988B303EAE936A32D /* Pods_SMRBaseCoreDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEB68DCCB6F5224C71F40E77 /* Pods_SMRBaseCoreDemo.framework */; };
@@ -188,6 +191,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D3DFF2B23A8875700663386 /* SMRImageLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRImageLabel.h; sourceTree = "<group>"; };
+		1D3DFF2C23A8875700663386 /* SMRImageLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRImageLabel.m; sourceTree = "<group>"; };
+		1D3DFF2E23A8875800663386 /* SMRSettingAuthorized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRSettingAuthorized.m; sourceTree = "<group>"; };
+		1D3DFF2F23A8875800663386 /* SMRSettingAuthorized.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRSettingAuthorized.h; sourceTree = "<group>"; };
+		1D3DFF3123A8875800663386 /* SMRPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRPageControl.m; sourceTree = "<group>"; };
+		1D3DFF3223A8875800663386 /* SMRPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRPageControl.h; sourceTree = "<group>"; };
 		1D4E23522354630200687E88 /* UIImage+SMRAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+SMRAdapter.h"; sourceTree = "<group>"; };
 		1D4E23532354630200687E88 /* UIImage+SMRAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SMRAdapter.m"; sourceTree = "<group>"; };
 		1D5F54932351EB3A00DE7BF1 /* SMRContentDraggableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRContentDraggableView.m; sourceTree = "<group>"; };
@@ -551,6 +560,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D3DFF2A23A8875700663386 /* SMRImageLabel */ = {
+			isa = PBXGroup;
+			children = (
+				1D3DFF2B23A8875700663386 /* SMRImageLabel.h */,
+				1D3DFF2C23A8875700663386 /* SMRImageLabel.m */,
+			);
+			path = SMRImageLabel;
+			sourceTree = "<group>";
+		};
+		1D3DFF2D23A8875800663386 /* SMRSettingAuthorized */ = {
+			isa = PBXGroup;
+			children = (
+				1D3DFF2F23A8875800663386 /* SMRSettingAuthorized.h */,
+				1D3DFF2E23A8875800663386 /* SMRSettingAuthorized.m */,
+			);
+			path = SMRSettingAuthorized;
+			sourceTree = "<group>";
+		};
+		1D3DFF3023A8875800663386 /* SMRPageControl */ = {
+			isa = PBXGroup;
+			children = (
+				1D3DFF3223A8875800663386 /* SMRPageControl.h */,
+				1D3DFF3123A8875800663386 /* SMRPageControl.m */,
+			);
+			path = SMRPageControl;
+			sourceTree = "<group>";
+		};
 		8A2DE2382232635000E9A07E /* SMRIndexView */ = {
 			isa = PBXGroup;
 			children = (
@@ -729,6 +765,7 @@
 				8A814CBC21F5C77400D8AEB6 /* SMRUIKitBundle.bundle */,
 				8A814CB721F5C74000D8AEB6 /* SMRUIKitBundle.h */,
 				8A814CB821F5C74000D8AEB6 /* SMRUIKitBundle.m */,
+				8ACDC03922A78CA2005784AA /* SMRNotificationManager */,
 				8ACCDF942314D01200983D19 /* SMRImageUploadService */,
 				8A5A8796230E3FAB002C0A7D /* SMRCarouselView */,
 				8A80B41B22D5F8CF00091796 /* SMRBadge */,
@@ -750,6 +787,9 @@
 				8A2DE2382232635000E9A07E /* SMRIndexView */,
 				8AD9C706223FC02A0028A871 /* SMRSliderBarContentView */,
 				8AC90C0022F7CF480000236D /* SMRImageViewCate */,
+				1D3DFF2A23A8875700663386 /* SMRImageLabel */,
+				1D3DFF3023A8875800663386 /* SMRPageControl */,
+				1D3DFF2D23A8875800663386 /* SMRSettingAuthorized */,
 			);
 			path = SMRUIKit;
 			sourceTree = "<group>";
@@ -757,7 +797,6 @@
 		8A814A8121F5B80B00D8AEB6 /* SMRUtilsKit */ = {
 			isa = PBXGroup;
 			children = (
-				8ACDC03922A78CA2005784AA /* SMRNotificationManager */,
 				8AF1989F22A1361C0045CBCF /* SMRUpdateStatusManager */,
 				8A3AB8E4225F10FF00CDBB8F /* SMRAppInfo */,
 				8A914DE82215A95900E2F691 /* SMRUtils */,
@@ -1704,6 +1743,7 @@
 				8A4AA2D8222E1E590034929D /* SMRUtils+MBProgressHUD.m in Sources */,
 				8A5A8799230E3FC5002C0A7D /* SMRCarouselView.m in Sources */,
 				8A914E042216530A00E2F691 /* SMRUtils+Locations.m in Sources */,
+				1D3DFF3523A8875800663386 /* SMRPageControl.m in Sources */,
 				8A425E30230A45690045E0A5 /* SMRSectionsTests.m in Sources */,
 				8AE4952A21FEB3040055263E /* NSError+SMRError.m in Sources */,
 				8A4AA2C4222D2EA40034929D /* SMRModelTests.m in Sources */,
@@ -1778,6 +1818,7 @@
 				8A814CED21F5CC4A00D8AEB6 /* UITableView+SMRSections.m in Sources */,
 				8A4239EF22432C37002DF711 /* UIView+SMRGesture.m in Sources */,
 				8A814BA021F5B9DC00D8AEB6 /* SMRDBSelectOption.m in Sources */,
+				1D3DFF3323A8875800663386 /* SMRImageLabel.m in Sources */,
 				8A814CD821F5CAEA00D8AEB6 /* SMRNavigationView.m in Sources */,
 				8A914F0B221D1D5100E2F691 /* SMRUtilsVersionTests.m in Sources */,
 				8A914ED7221B9B8C00E2F691 /* SMRTextView.m in Sources */,
@@ -1835,6 +1876,7 @@
 				8A814CCF21F5CA5700D8AEB6 /* SMRNavigationBar.m in Sources */,
 				8A914ED3221ADA3700E2F691 /* UIView+SMRAdapter.m in Sources */,
 				8AE4955421FFEA490055263E /* SMRLayoutCenter.m in Sources */,
+				1D3DFF3423A8875800663386 /* SMRSettingAuthorized.m in Sources */,
 				8A914EDE221BA89500E2F691 /* SMRTextViewTests.m in Sources */,
 				8A814CD221F5CA6900D8AEB6 /* SMRNavigationItem.m in Sources */,
 				8A2DE23B2232635000E9A07E /* SMRIndexView.m in Sources */,

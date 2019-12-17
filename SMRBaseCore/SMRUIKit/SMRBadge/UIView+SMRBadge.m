@@ -1,9 +1,9 @@
 //
 //  UIView+SMRBadge.m
-//  Hermes
+//  SMRBaseCore
 //
 //  Created by 丁治文 on 2019/7/10.
-//  Copyright © 2019 ibaodashi. All rights reserved.
+//  Copyright © 2019 sumrise. All rights reserved.
 //
 
 #import "UIView+SMRBadge.h"

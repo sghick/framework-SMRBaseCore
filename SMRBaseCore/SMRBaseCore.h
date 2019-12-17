@@ -41,6 +41,10 @@
 #import "UITabBar+SMRTabBarInfo.h"
 #import "UIImageView+SMR.h"
 #import "SMRImageUploadService.h"
+#import "SMRNotificationManager.h"
+#import "SMRImageLabel.h"
+#import "SMRPageControl.h"
+#import "SMRSettingAuthorized.h"
 
 /// SMRUtilsKit
 #import "SMRMatrixCalculator.h"
