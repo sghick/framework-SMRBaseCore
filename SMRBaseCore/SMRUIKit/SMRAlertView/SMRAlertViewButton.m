@@ -7,9 +7,10 @@
 //
 
 #import "SMRAlertViewButton.h"
-#import "SMRAdapter.h"
 #import "SMRMatrixCalculator.h"
+#import "SMRAdapter.h"
 #import "PureLayout.h"
+#import "SMRGeneralButton.h"
 
 @interface SMRAlertViewButton ()
 
@@ -54,30 +55,89 @@
     }
 }
 
-+ (UIButton *)whiteButtonWithTitle:(NSString *)title target:(id)target action:(SEL)action deepColor:(BOOL)deepColor {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    [button setTitle:title forState:UIControlStateNormal];
-    [button setTitleColor:(deepColor ? [UIColor redColor] : [UIColor blackColor]) forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-    button.backgroundColor = (deepColor ? [UIColor whiteColor] : [UIColor whiteColor]);
-    button.titleLabel.font = [UIFont smr_systemFontOfSize:15.0];
-    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
-    button.layer.borderColor = (deepColor ? [UIColor smr_colorWithHexRGB:@"#979797"].CGColor : [UIColor smr_colorWithHexRGB:@"#979797"].CGColor);
-    button.layer.borderWidth = 1.0/[UIScreen mainScreen].scale;
-    return button;
++ (UIButton *)buttonTitle:(NSString *)title target:(id)target action:(SEL)action style:(SMRAlertViewButtonStyle)style function:(SMRAlertViewButtonFunction)function {
+    switch (function) {
+        case SMRAlertViewButtonFunctionSure:
+            return [self sureButtonTitle:title target:target action:action style:style];
+            break;
+        
+        case SMRAlertViewButtonFunctionCancel:
+            return [self cancelButtonTitle:title target:target action:action style:style];
+            break;
+        
+        case SMRAlertViewButtonFunctionDelete:
+            return [self deleteButtonTitle:title target:target action:action style:style];
+            break;
+        default:
+            break;
+    }
+    return nil;
 }
 
-+ (UIButton *)orangeButtonWithTitle:(NSString *)title target:(id)target action:(SEL)action deepColor:(BOOL)deepColor {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    [button setTitle:title forState:UIControlStateNormal];
-    [button setTitleColor:(deepColor ? [UIColor whiteColor] : [UIColor blackColor]) forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-    button.backgroundColor = (deepColor ? [UIColor smr_colorWithHexRGB:@"#F19722"] : [UIColor whiteColor]);
-    button.titleLabel.font = [UIFont smr_systemFontOfSize:15.0];
-    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
-    button.layer.borderColor = (deepColor ? [UIColor smr_colorWithHexRGB:@"#F19722"].CGColor : [UIColor smr_colorWithHexRGB:@"#979797"].CGColor);
-    button.layer.borderWidth = 1.0/[UIScreen mainScreen].scale;
-    return button;
++ (UIButton *)cancelButtonTitle:(NSString *)title target:(id)target action:(SEL)action style:(SMRAlertViewButtonStyle)style {
+    switch (style) {
+        case SMRAlertViewButtonStyleWhite : {
+            SMRGeneralButton *btn = [SMRGeneralButton rectButtonWithTitile:title target:target action:action];
+            [btn setRectButtonEnumColor:SMRGeneralButtonColorWhite];
+            btn.layer.borderWidth = 1.0/[UIScreen mainScreen].scale;
+            btn.layer.borderColor = [UIColor smr_colorWithHexRGB:@"#EBEBEB"].CGColor;
+            return btn;
+        }
+            break;
+        case SMRAlertViewButtonStyleOrange : {
+            SMRGeneralButton *btn = [SMRGeneralButton rectButtonWithTitile:title target:target action:action];
+            [btn setRectButtonEnumColor:SMRGeneralButtonColorWhite];
+            btn.layer.borderWidth = 1.0/[UIScreen mainScreen].scale;
+            btn.layer.borderColor = [UIColor smr_colorWithHexRGB:@"#EBEBEB"].CGColor;
+            return btn;
+        }
+            break;
+            
+        default:
+            break;
+    }
+    return nil;
+}
++ (UIButton *)sureButtonTitle:(NSString *)title target:(id)target action:(SEL)action style:(SMRAlertViewButtonStyle)style {
+    switch (style) {
+        case SMRAlertViewButtonStyleWhite : {
+            SMRGeneralButton *btn = [SMRGeneralButton rectButtonWithTitile:title target:target action:action];
+            [btn setRectButtonEnumColor:SMRGeneralButtonColorBlack];
+            return btn;
+        }
+            break;
+        case SMRAlertViewButtonStyleOrange : {
+            SMRGeneralButton *btn = [SMRGeneralButton rectButtonWithTitile:title target:target action:action];
+            [btn setRectButtonEnumColor:SMRGeneralButtonColorOrange];
+            return btn;
+        }
+            break;
+            
+        default:
+            break;
+    }
+    return nil;
+}
+
++ (UIButton *)deleteButtonTitle:(NSString *)title target:(id)target action:(SEL)action style:(SMRAlertViewButtonStyle)style {
+    switch (style) {
+        case SMRAlertViewButtonStyleWhite : {
+            SMRGeneralButton *btn = [SMRGeneralButton rectButtonWithTitile:title target:target action:action];
+            [btn setRectButtonEnumColor:SMRGeneralButtonColorRed];
+            return btn;
+        }
+            break;
+        case SMRAlertViewButtonStyleOrange : {
+            SMRGeneralButton *btn = [SMRGeneralButton rectButtonWithTitile:title target:target action:action];
+            [btn setRectButtonEnumColor:SMRGeneralButtonColorRed];
+            return btn;
+        }
+            break;
+            
+        default:
+            break;
+    }
+    return nil;
 }
 
 @end

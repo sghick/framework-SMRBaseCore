@@ -44,7 +44,7 @@ UITableViewSectionsDelegate>
             _alertViewStyle = [SMRBaseCoreConfig sharedInstance].alertViewStyle;
         } else {
             // 默认使用此样式
-            _alertViewStyle = SMRAlertViewStyleWhite;
+            _alertViewStyle = SMRAlertViewStyleOrange;
         }
         
         _contentTextAlignment = NSTextAlignmentCenter;
@@ -199,26 +199,40 @@ UITableViewSectionsDelegate>
     if (self.buttonTitles.count) {
         NSArray<UIButton *> *buttons = nil;
         if (self.buttonTitles.count == 1) {
-            // 1个按钮时,sure
-            UIButton *sureBtn = [self buttonForStyle:self.alertViewStyle
-                                               title:self.buttonTitles[0]
-                                              target:self
-                                              action:@selector(sureBtnAction:)
-                                           deepColor:(self.deepColorType&SMRAlertViewButtonDeepColorTypeSure)];
-            buttons = @[sureBtn];
+            // 1个按钮时,sure]
+            if (!self.reversCancleAndSureButtonPostion) {
+                UIButton *sureBtn = [self buttonForStyle:self.alertViewStyle
+                                                   title:self.buttonTitles[0]
+                                                  target:self
+                                                  action:@selector(sureBtnAction:)
+                                               deepColor:YES];
+                buttons = @[sureBtn];
+            } else {
+                UIButton *cancelBtn = [self buttonForStyle:self.alertViewStyle
+                                                     title:self.buttonTitles[0]
+                                                    target:self
+                                                    action:@selector(cancelBtnAction:)
+                                                 deepColor:YES];
+                
+                buttons = @[cancelBtn];
+            }
         } else if (self.buttonTitles.count == 2) {
             // 2个按钮时,cancel+sure
             UIButton *cancelBtn = [self buttonForStyle:self.alertViewStyle
                                                  title:self.buttonTitles[0]
                                                 target:self
                                                 action:@selector(cancelBtnAction:)
-                                             deepColor:(self.deepColorType&SMRAlertViewButtonDeepColorTypeCancel)];
+                                             deepColor:NO];
             UIButton *sureBtn = [self buttonForStyle:self.alertViewStyle
                                                title:self.buttonTitles[1]
                                               target:self
                                               action:@selector(sureBtnAction:)
-                                           deepColor:(self.deepColorType&SMRAlertViewButtonDeepColorTypeSure)];
-            buttons = @[cancelBtn, sureBtn];
+                                           deepColor:YES];
+            if (!self.reversCancleAndSureButtonPostion) {
+                buttons = @[cancelBtn, sureBtn];
+            } else {
+                buttons = @[sureBtn, cancelBtn];
+            }
         }
         
         CGFloat height = [self heightOfButtonForStyle:self.alertViewStyle];
@@ -316,7 +330,7 @@ UITableViewSectionsDelegate>
 - (CGFloat)heightOfButtonForStyle:(SMRAlertViewStyle)style {
     switch (style) {
         case SMRAlertViewStyleOrange: {
-            return [SMRUIAdapter value:45];
+            return [SMRUIAdapter value:55];
         }
             break;
         default:
@@ -326,15 +340,29 @@ UITableViewSectionsDelegate>
 }
 
 - (UIButton *)buttonForStyle:(SMRAlertViewStyle)style title:(NSString *)title target:(id)target action:(SEL)action deepColor:(BOOL)deepColor {
-    switch (style) {
-        case SMRAlertViewStyleOrange: {
-            return [SMRAlertViewButton orangeButtonWithTitle:title target:target action:action deepColor:deepColor];
-        }
+    SMRAlertViewButtonStyle btnStyle = (SMRAlertViewButtonStyle)style;
+    
+    // 非深色按钮为取消样式
+    if (!deepColor) {
+        return [SMRAlertViewButton buttonTitle:title target:target action:action style:btnStyle function:SMRAlertViewButtonFunctionCancel];
+    }
+    SMRAlertViewButtonDeepColorType deepColorType = self.deepColorType;
+    switch (deepColorType) {
+        case SMRAlertViewButtonDeepColorTypeCancel:
+            return [SMRAlertViewButton buttonTitle:title target:target action:action style:btnStyle function:SMRAlertViewButtonFunctionCancel];
+            break;
+        
+        case SMRAlertViewButtonDeepColorTypeSure:
+            return [SMRAlertViewButton buttonTitle:title target:target action:action style:btnStyle function:SMRAlertViewButtonFunctionSure];
+            break;
+        
+        case SMRAlertViewButtonDeepColorTypeDelete:
+            return [SMRAlertViewButton buttonTitle:title target:target action:action style:btnStyle function:SMRAlertViewButtonFunctionDelete];
             break;
         default:
             break;
     }
-    return [SMRAlertViewButton whiteButtonWithTitle:title target:target action:action deepColor:deepColor];
+    return nil;
 }
 
 - (UIEdgeInsets)contentInsetsOfBackgroundImageViewWithStyle:(SMRAlertViewStyle)style {
@@ -355,8 +383,7 @@ UITableViewSectionsDelegate>
         case SMRAlertViewStyleOrange: {
             self.backgroundImageView.image = [SMRUIKitBundle imageWithName:@"alert_bg@3x"];
             self.contentView.clipsToBounds = YES;
-            self.contentView.layer.cornerRadius = 5;
-            self.backgroundColor = [UIColor clearColor];
+            self.contentView.layer.cornerRadius = 6;
         }
             break;
             

@@ -17,11 +17,12 @@ typedef NS_ENUM(NSInteger, SMRAlertViewStyle) {
     SMRAlertViewStyleConfig     = 64,   ///< 使用config配置
 };
 
-/** 定义深色按钮 */
+/** 定义深色按钮,仅能定制right/center位置 */
 typedef NS_OPTIONS(NSInteger, SMRAlertViewButtonDeepColorType) {
     SMRAlertViewButtonDeepColorTypeNone     = 0,
     SMRAlertViewButtonDeepColorTypeCancel   = 1 << 0,
     SMRAlertViewButtonDeepColorTypeSure     = 1 << 1,
+    SMRAlertViewButtonDeepColorTypeDelete   = 1 << 2,
 };
 
 @protocol SMRAlertViewBottomButtonProtocol <NSObject>
@@ -41,6 +42,9 @@ typedef NS_OPTIONS(NSInteger, SMRAlertViewButtonDeepColorType) {
 @property (copy  , nonatomic, readonly) NSAttributedString *attributeContent;
 @property (copy  , nonatomic, readonly) NSArray<NSString *> *buttonTitles;
 @property (assign, nonatomic, readonly) SMRAlertViewButtonDeepColorType deepColorType;
+
+/// 默认NO,值为YES时,将取消按钮和确定按钮对掉,一个按钮时变为取消按钮
+@property (assign, nonatomic) BOOL reversCancleAndSureButtonPostion;
 
 @property (assign, nonatomic) NSTextAlignment contentTextAlignment; ///< 文字内容的对齐方式,默认居中对齐
 
