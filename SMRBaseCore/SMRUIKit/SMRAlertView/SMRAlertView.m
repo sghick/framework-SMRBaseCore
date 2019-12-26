@@ -8,7 +8,6 @@
 
 #import "SMRAlertView.h"
 #import "SMRBaseCoreConfig.h"
-#import "SMRUIKitBundle.h"
 #import "PureLayout.h"
 #import "SMRAdapter.h"
 #import "UITableView+Separator.h"
@@ -54,11 +53,6 @@ UITableViewSectionsDelegate>
         [self.tableView smr_markCustomTableViewSeparators];
     }
     return self;
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    [self makeCornerWithStyle:self.alertViewStyle];
 }
 
 - (CGFloat)widthOfContentView {
@@ -377,20 +371,6 @@ UITableViewSectionsDelegate>
             break;
     }
     return UIEdgeInsetsZero;
-}
-
-- (void)makeCornerWithStyle:(SMRAlertViewStyle)style {
-    switch (style) {
-        case SMRAlertViewStyleOrange: {
-            self.backgroundImageView.image = [SMRUIKitBundle imageWithName:@"alert_bg@3x"];
-            self.contentView.clipsToBounds = YES;
-            self.contentView.layer.cornerRadius = 6;
-        }
-            break;
-            
-        default:
-            break;
-    }
 }
 
 #pragma mark - Actions

@@ -9,6 +9,7 @@
 #import "SMRContentMaskView.h"
 #import "SMRAdapter.h"
 #import "PureLayout.h"
+#import "SMRUIKitBundle.h"
 
 @interface SMRContentMaskView ()<
 UIGestureRecognizerDelegate>
@@ -65,12 +66,25 @@ UIGestureRecognizerDelegate>
 - (void)createContentMaskSubviews {
     _heightOfContentView = 40;
     _autoAdjustIfShowInMaskView = YES;
+    _roundContentIfAligmentCenter = YES;
     self.alpha = 1;
     self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
     [self addSubview:self.backControl];
     [self addSubview:self.backgroundImageView];
     [self addSubview:self.contentView];
     [self setNeedsUpdateConstraints];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    SMRContentMaskViewContentAlignment alignment = [self contentAlignmentOfMaskView];
+    if (alignment == SMRContentMaskViewContentAlignmentCenter) {
+        if (self.roundContentIfAligmentCenter) {
+            self.backgroundImageView.image = [SMRUIKitBundle imageWithName:@"alert_bg@3x"];
+            self.contentView.clipsToBounds = YES;
+            self.contentView.layer.cornerRadius = 6;
+        }
+    }
 }
 
 - (void)updateConstraints {

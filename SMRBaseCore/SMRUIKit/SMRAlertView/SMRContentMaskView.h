@@ -31,15 +31,22 @@ typedef NS_ENUM(NSInteger, SMRContentMaskViewContentAlignment) {
 typedef void(^SMRContentMaskViewTouchedBlock)(id maskView);
 
 @interface SMRContentMaskView : UIView<SMRContentMaskViewProtocol>
-
-@property (assign, nonatomic, readonly) BOOL didLoadLayout;     ///< 是否已设置过一次约束
-@property (assign, nonatomic, readonly) SMRContentMaskViewContentAlignment contentAlignment;    ///< 视频的布局对齐方式
-@property (strong, nonatomic, readonly) UIImageView *backgroundImageView; ///< 内容背景,默认白色
-@property (strong, nonatomic, readonly) UIView *contentView;    ///< 内容视频载体,默认白色
-@property (assign, nonatomic) BOOL autoAdjustIfShowInMaskView;  ///< 默认YES,如果父类为maskView类型,则做自动适配
-
-@property (copy  , nonatomic) SMRContentMaskViewTouchedBlock backgroundTouchedBlock;    ///< 背景的点击事件
-@property (copy  , nonatomic) SMRContentMaskViewTouchedBlock contentViewTouchedBlock;   ///< 内容的点击事件
+/// 是否已设置过一次约束
+@property (assign, nonatomic, readonly) BOOL didLoadLayout;
+/// 视频的布局对齐方式
+@property (assign, nonatomic, readonly) SMRContentMaskViewContentAlignment contentAlignment;
+/// 内容背景,默认白色
+@property (strong, nonatomic, readonly) UIImageView *backgroundImageView;
+/// 内容视频载体,默认白色
+@property (strong, nonatomic, readonly) UIView *contentView;
+/// 默认YES,如果父类为maskView类型,则做自动适配
+@property (assign, nonatomic) BOOL autoAdjustIfShowInMaskView;
+/// 默认YES,如果是居中,则背景图为圆角
+@property (assign, nonatomic) BOOL roundContentIfAligmentCenter;
+/// 背景的点击事件
+@property (copy  , nonatomic) SMRContentMaskViewTouchedBlock backgroundTouchedBlock;
+/// 内容的点击事件
+@property (copy  , nonatomic) SMRContentMaskViewTouchedBlock contentViewTouchedBlock;
 
 /** 初始化方法,默认SMRContentMaskViewContentAlignmentCenter */
 - (instancetype)init;
