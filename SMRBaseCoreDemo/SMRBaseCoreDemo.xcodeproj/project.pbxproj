@@ -593,8 +593,8 @@
 		1D820DE923B3784B00A0640E /* SMRGeneralButton */ = {
 			isa = PBXGroup;
 			children = (
-				1D820DEA23B3784B00A0640E /* SMRGeneralButton.m */,
 				1D820DEB23B3784B00A0640E /* SMRGeneralButton.h */,
+				1D820DEA23B3784B00A0640E /* SMRGeneralButton.m */,
 			);
 			path = SMRGeneralButton;
 			sourceTree = "<group>";

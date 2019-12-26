@@ -21,10 +21,14 @@ typedef NS_ENUM(NSInteger, SMRGeneralButtonColor) {
 
 @interface SMRGeneralButton : UIButton
 
-/** 按钮背景颜色 */
+/** 按钮背景颜色(填充样式:直角,圆角) */
 + (UIColor *)buttonColor:(SMRGeneralButtonColor)color;
-/** 按钮文字颜色 */
+/** 按钮文字颜色(填充样式:直角,圆角) */
 + (UIColor *)buttonTitleColor:(SMRGeneralButtonColor)color;
+/** 按钮边框颜色(边框样式:圆角) */
++ (UIColor *)buttonBorderColor:(SMRGeneralButtonColor)color;
+/** 按钮文字颜色(边框样式:圆角) */
++ (UIColor *)buttonBorderTitleColor:(SMRGeneralButtonColor)color;
 
 #pragma mark - DefaultButton 默认:圆角
 /** 默认按钮:黑色 */
@@ -72,7 +76,7 @@ typedef NS_ENUM(NSInteger, SMRGeneralButtonColor) {
 
 /// 设置边框和字体颜色
 - (void)setBorderButtonEnumColor:(SMRGeneralButtonColor)color;
-- (void)setBorderButtonColor:(UIColor *)color;
+- (void)setBorderButtonColor:(nullable UIColor *)color titleColor:(nullable UIColor *)titleColor;
 + (instancetype)borderButtonWithTitile:(nullable NSString *)title
                                 target:(id)target
                                 action:(SEL)action;

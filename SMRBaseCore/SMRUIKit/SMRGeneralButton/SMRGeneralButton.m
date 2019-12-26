@@ -38,6 +38,30 @@
     return nil;
 }
 
++ (UIColor *)buttonBorderColor:(SMRGeneralButtonColor)color {
+    switch (color) {
+        case SMRGeneralButtonColorOrange: { return [UIColor smr_colorWithHexRGB:@"#F19722"];} break;
+        case SMRGeneralButtonColorBlack: { return [UIColor smr_colorWithHexRGB:@"#999999"];} break;
+        case SMRGeneralButtonColorWhite: { return [UIColor smr_colorWithHexRGB:@"#FFFFFF"];} break;
+        case SMRGeneralButtonColorRed: { return [UIColor smr_colorWithHexRGB:@"#D12920"];} break;
+        // 默认颜色
+        default: { return [UIColor smr_colorWithHexRGB:@"#F19722"];} break;
+    }
+    return nil;
+}
+
++ (UIColor *)buttonBorderTitleColor:(SMRGeneralButtonColor)color {
+    switch (color) {
+        case SMRGeneralButtonColorOrange: { return [UIColor smr_colorWithHexRGB:@"#F19722"];} break;
+        case SMRGeneralButtonColorBlack: { return [UIColor smr_colorWithHexRGB:@"#1B1B1B"];} break;
+        case SMRGeneralButtonColorWhite: { return [UIColor smr_colorWithHexRGB:@"#FFFFFF"];} break;
+        case SMRGeneralButtonColorRed: { return [UIColor smr_colorWithHexRGB:@"#D12920"];} break;
+        // 默认颜色
+        default: { return [UIColor smr_colorWithHexRGB:@"#F19722"];} break;
+    }
+    return nil;
+}
+
 + (instancetype)defaultButtonWithTitile:(NSString *)title
                                  target:(id)target
                                  action:(SEL)action
@@ -157,12 +181,17 @@
 #pragma mark - BorderButton
 
 - (void)setBorderButtonEnumColor:(SMRGeneralButtonColor)color {
-    [self setBorderButtonColor:[self.class buttonColor:color]];
+    [self setBorderButtonColor:[self.class buttonBorderColor:color]
+                    titleColor:[self.class buttonBorderTitleColor:color]];
 }
 
-- (void)setBorderButtonColor:(UIColor *)color {
-    [self setTitleColor:color forState:UIControlStateNormal];
-    self.layer.borderColor = color.CGColor;
+- (void)setBorderButtonColor:(nullable UIColor *)color titleColor:(nullable UIColor *)titleColor {
+    if (color) {
+        self.layer.borderColor = color.CGColor;
+    }
+    if (titleColor) {
+        [self setTitleColor:titleColor forState:UIControlStateNormal];
+    }
 }
 
 + (instancetype)borderButtonWithTitile:(NSString *)title target:(id)target action:(SEL)action {
