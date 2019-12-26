@@ -62,14 +62,14 @@
     return nil;
 }
 
-+ (instancetype)defaultButtonWithTitile:(NSString *)title
-                                 target:(id)target
-                                 action:(SEL)action
-                            normalColor:(nullable UIColor *)normalColor
-                           disableColor:(UIColor *)disableColor
-                             titleColor:(nullable UIColor *)titleColor
-                                   font:(nonnull UIFont *)font
-                           cornerRadius:(CGFloat)cornerRadius {
++ (instancetype)defaultButtonWithTitle:(NSString *)title
+                                target:(id)target
+                                action:(SEL)action
+                           normalColor:(nullable UIColor *)normalColor
+                          disableColor:(UIColor *)disableColor
+                            titleColor:(nullable UIColor *)titleColor
+                                  font:(nonnull UIFont *)font
+                          cornerRadius:(CGFloat)cornerRadius {
     SMRGeneralButton *btn = [SMRGeneralButton buttonWithType:UIButtonTypeCustom];
     [btn setTitle:title forState:UIControlStateNormal];
     [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
@@ -90,19 +90,19 @@
 
 #pragma mark - DefaultButton
 
-+ (instancetype)defaultButtonWithTitile:(NSString *)title target:(id)target action:(SEL)action {
-    SMRGeneralButton *btn = [self roundButtonWithTitile:title target:target action:action];
++ (instancetype)defaultButtonWithTitle:(NSString *)title target:(id)target action:(SEL)action {
+    SMRGeneralButton *btn = [self roundButtonWithTitle:title target:target action:action];
     return btn;
 }
 
-+ (instancetype)redButtonWithTitile:(NSString *)title target:(id)target action:(SEL)action {
-    SMRGeneralButton *btn = [self roundButtonWithTitile:title target:target action:action];
++ (instancetype)redButtonWithTitle:(NSString *)title target:(id)target action:(SEL)action {
+    SMRGeneralButton *btn = [self roundButtonWithTitle:title target:target action:action];
     [btn setRoundButtonEnumColor:SMRGeneralButtonColorRed];
     return btn;
 }
 
-+ (instancetype)whiteButtonWithTitile:(NSString *)title target:(id)target action:(SEL)action {
-    SMRGeneralButton *btn = [self roundButtonWithTitile:title target:target action:action];
++ (instancetype)whiteButtonWithTitle:(NSString *)title target:(id)target action:(SEL)action {
+    SMRGeneralButton *btn = [self roundButtonWithTitle:title target:target action:action];
     [btn setRoundButtonEnumColor:SMRGeneralButtonColorWhite];
     return btn;
 }
@@ -122,25 +122,25 @@
         [self setTitleColor:titleColor forState:UIControlStateNormal];
     }
 }
-+ (instancetype)roundButtonWithTitile:(nullable NSString *)title
++ (instancetype)roundButtonWithTitle:(nullable NSString *)title
                                target:(id)target
                                action:(SEL)action {
-    return [self roundButtonWithTitile:title
-                                  font:[UIFont smr_boldSystemFontOfSize:15]
-                                target:target
-                                action:action];
+    return [self roundButtonWithTitle:title
+                                 font:[UIFont smr_boldSystemFontOfSize:15]
+                               target:target
+                               action:action];
 }
-+ (instancetype)roundButtonWithTitile:(nullable NSString *)title
-                                 font:(nullable UIFont *)font
-                               target:(id)target
-                               action:(SEL)action {
-    return [self defaultButtonWithTitile:title
-                                  target:target
-                                  action:action
-                             normalColor:[self.class buttonColor:SMRGeneralButtonColorDefaul]
-                            disableColor:[UIColor smr_colorWithHexRGB:@"#CDCDCD"]
-                              titleColor:[self.class buttonTitleColor:SMRGeneralButtonColorDefaul]
-                                    font:font
++ (instancetype)roundButtonWithTitle:(nullable NSString *)title
+                                font:(nullable UIFont *)font
+                              target:(id)target
+                              action:(SEL)action {
+    return [self defaultButtonWithTitle:title
+                                 target:target
+                                 action:action
+                            normalColor:[self.class buttonColor:SMRGeneralButtonColorDefaul]
+                           disableColor:[UIColor smr_colorWithHexRGB:@"#CDCDCD"]
+                             titleColor:[self.class buttonTitleColor:SMRGeneralButtonColorDefaul]
+                                   font:font
                             cornerRadius:6];
 }
 
@@ -160,22 +160,22 @@
     }
 }
 
-+ (instancetype)rectButtonWithTitile:(NSString *)title target:(id)target action:(SEL)action {
-    return [self rectButtonWithTitile:title
-                                 font:[UIFont smr_boldSystemFontOfSize:15]
-                               target:target
-                               action:action];;
++ (instancetype)rectButtonWithTitle:(NSString *)title target:(id)target action:(SEL)action {
+    return [self rectButtonWithTitle:title
+                                font:[UIFont smr_boldSystemFontOfSize:15]
+                              target:target
+                              action:action];;
 }
 
-+ (instancetype)rectButtonWithTitile:(NSString *)title font:(UIFont *)font target:(id)target action:(SEL)action {
-    return [self defaultButtonWithTitile:title
-                                  target:target
-                                  action:action
-                             normalColor:[self.class buttonColor:SMRGeneralButtonColorDefaul]
-                            disableColor:[UIColor smr_colorWithHexRGB:@"#CDCDCD"]
-                              titleColor:[self.class buttonTitleColor:SMRGeneralButtonColorDefaul]
-                                    font:font
-                            cornerRadius:0];
++ (instancetype)rectButtonWithTitle:(NSString *)title font:(UIFont *)font target:(id)target action:(SEL)action {
+    return [self defaultButtonWithTitle:title
+                                 target:target
+                                 action:action
+                            normalColor:[self.class buttonColor:SMRGeneralButtonColorDefaul]
+                           disableColor:[UIColor smr_colorWithHexRGB:@"#CDCDCD"]
+                             titleColor:[self.class buttonTitleColor:SMRGeneralButtonColorDefaul]
+                                   font:font
+                           cornerRadius:0];
 }
 
 #pragma mark - BorderButton
@@ -194,24 +194,24 @@
     }
 }
 
-+ (instancetype)borderButtonWithTitile:(NSString *)title target:(id)target action:(SEL)action {
-    return [self borderButtonWithTitile:title
-                                   font:[UIFont smr_boldSystemFontOfSize:15]
-                                 target:target
-                                 action:action];
++ (instancetype)borderButtonWithTitle:(NSString *)title target:(id)target action:(SEL)action {
+    return [self borderButtonWithTitle:title
+                                  font:[UIFont smr_boldSystemFontOfSize:15]
+                                target:target
+                                action:action];
 }
 
-+ (instancetype)borderButtonWithTitile:(NSString *)title font:(UIFont *)font target:(id)target action:(SEL)action {
++ (instancetype)borderButtonWithTitle:(NSString *)title font:(UIFont *)font target:(id)target action:(SEL)action {
     return [self borderButtonWithColor:[self.class buttonColor:SMRGeneralButtonColorDefaul]
                                   font:font
-                                titile:title
+                                 title:title
                                 target:target
                                 action:action];
 }
 
 + (instancetype)borderButtonWithColor:(UIColor *)color
                                  font:(nullable UIFont *)font
-                               titile:(nullable NSString *)title
+                                title:(nullable NSString *)title
                                target:(id)target
                                action:(SEL)action {
     SMRGeneralButton *btn = [SMRGeneralButton buttonWithType:UIButtonTypeCustom];

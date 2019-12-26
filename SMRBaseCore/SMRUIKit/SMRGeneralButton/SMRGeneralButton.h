@@ -32,59 +32,60 @@ typedef NS_ENUM(NSInteger, SMRGeneralButtonColor) {
 
 #pragma mark - DefaultButton 默认:圆角
 /** 默认按钮:黑色 */
-+ (instancetype)defaultButtonWithTitile:(NSString *)title
-                                 target:(id)target
-                                 action:(SEL)action;
++ (instancetype)defaultButtonWithTitle:(NSString *)title
+                                target:(id)target
+                                action:(SEL)action;
 
 /** 红色 */
-+ (instancetype)redButtonWithTitile:(NSString *)title
-                             target:(id)target
-                             action:(SEL)action __deprecated_msg("已废弃");
++ (instancetype)redButtonWithTitle:(NSString *)title
+                            target:(id)target
+                            action:(SEL)action __deprecated_msg("已废弃");
 
 /** 白色 */
-+ (instancetype)whiteButtonWithTitile:(NSString *)title
-                               target:(id)target
-                               action:(SEL)action __deprecated_msg("已废弃");
++ (instancetype)whiteButtonWithTitle:(NSString *)title
+                              target:(id)target
+                              action:(SEL)action __deprecated_msg("已废弃");
 
 #pragma mark - RoundButton 圆角
 
 /// 设置背景和字体颜色
 - (void)setRoundButtonEnumColor:(SMRGeneralButtonColor)color;
 - (void)setRoundButtonColor:(nullable UIColor *)color titleColor:(nullable UIColor *)titleColor;
-+ (instancetype)roundButtonWithTitile:(nullable NSString *)title
-                               target:(id)target
-                               action:(SEL)action;
-+ (instancetype)roundButtonWithTitile:(nullable NSString *)title
-                                 font:(nullable UIFont *)font
-                               target:(id)target
-                               action:(SEL)action;
++ (instancetype)roundButtonWithTitle:(nullable NSString *)title
+                              target:(id)target
+                              action:(SEL)action;
++ (instancetype)roundButtonWithTitle:(nullable NSString *)title
+                                font:(nullable UIFont *)font
+                              target:(id)target
+                              action:(SEL)action;
 
 #pragma mark - RectButton 直角
 
 /// 设置背景和字体颜色
 - (void)setRectButtonEnumColor:(SMRGeneralButtonColor)color;
 - (void)setRectButtonColor:(nullable UIColor *)color titleColor:(nullable UIColor *)titleColor;
-+ (instancetype)rectButtonWithTitile:(nullable NSString *)title
-                              target:(id)target
-                              action:(SEL)action;
-+ (instancetype)rectButtonWithTitile:(nullable NSString *)title
-                                font:(nullable UIFont *)font
-                              target:(id)target
-                              action:(SEL)action;
++ (instancetype)rectButtonWithTitle:(nullable NSString *)title
+                             target:(id)target
+                             action:(SEL)action;
++ (instancetype)rectButtonWithTitle:(nullable NSString *)title
+                               font:(nullable UIFont *)font
+                             target:(id)target
+                             action:(SEL)action;
 
 #pragma mark - BorderButton 边框
 
 /// 设置边框和字体颜色
 - (void)setBorderButtonEnumColor:(SMRGeneralButtonColor)color;
 - (void)setBorderButtonColor:(nullable UIColor *)color titleColor:(nullable UIColor *)titleColor;
-+ (instancetype)borderButtonWithTitile:(nullable NSString *)title
-                                target:(id)target
-                                action:(SEL)action;
-+ (instancetype)borderButtonWithTitile:(nullable NSString *)title
-                                  font:(nullable UIFont *)font
-                                target:(id)target
-                                action:(SEL)action;
++ (instancetype)borderButtonWithTitle:(nullable NSString *)title
+                               target:(id)target
+                               action:(SEL)action;
++ (instancetype)borderButtonWithTitle:(nullable NSString *)title
+                                 font:(nullable UIFont *)font
+                               target:(id)target
+                               action:(SEL)action;
 
 @end
 
 NS_ASSUME_NONNULL_END
+
