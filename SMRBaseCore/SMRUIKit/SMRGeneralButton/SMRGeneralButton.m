@@ -97,13 +97,13 @@
 
 + (instancetype)redButtonWithTitile:(NSString *)title target:(id)target action:(SEL)action {
     SMRGeneralButton *btn = [self roundButtonWithTitile:title target:target action:action];
-    [btn setBorderButtonEnumColor:SMRGeneralButtonColorRed];
+    [btn setRoundButtonEnumColor:SMRGeneralButtonColorRed];
     return btn;
 }
 
 + (instancetype)whiteButtonWithTitile:(NSString *)title target:(id)target action:(SEL)action {
     SMRGeneralButton *btn = [self roundButtonWithTitile:title target:target action:action];
-    [btn setBorderButtonEnumColor:SMRGeneralButtonColorWhite];
+    [btn setRoundButtonEnumColor:SMRGeneralButtonColorWhite];
     return btn;
 }
 
@@ -221,7 +221,7 @@
     [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     btn.layer.cornerRadius = 6;
     color ? (btn.layer.borderColor = color.CGColor) : NULL;
-    btn.layer.borderWidth = 1;
+    btn.layer.borderWidth = 0.5;
     return btn;
 }
 
