@@ -126,7 +126,7 @@
                                target:(id)target
                                action:(SEL)action {
     return [self roundButtonWithTitile:title
-                                  font:[UIFont smr_systemFontOfSize:15]
+                                  font:[UIFont smr_boldSystemFontOfSize:15]
                                 target:target
                                 action:action];
 }
@@ -162,7 +162,7 @@
 
 + (instancetype)rectButtonWithTitile:(NSString *)title target:(id)target action:(SEL)action {
     return [self rectButtonWithTitile:title
-                                 font:[UIFont smr_systemFontOfSize:15]
+                                 font:[UIFont smr_boldSystemFontOfSize:15]
                                target:target
                                action:action];;
 }
@@ -196,7 +196,7 @@
 
 + (instancetype)borderButtonWithTitile:(NSString *)title target:(id)target action:(SEL)action {
     return [self borderButtonWithTitile:title
-                                   font:[UIFont smr_systemFontOfSize:15]
+                                   font:[UIFont smr_boldSystemFontOfSize:15]
                                  target:target
                                  action:action];
 }
