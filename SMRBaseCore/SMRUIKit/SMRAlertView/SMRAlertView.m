@@ -360,6 +360,7 @@ UITableViewSectionsDelegate>
             return [SMRAlertViewButton buttonTitle:title target:target action:action style:btnStyle function:SMRAlertViewButtonFunctionDelete];
             break;
         default:
+            return [SMRAlertViewButton buttonTitle:title target:target action:action style:btnStyle function:SMRAlertViewButtonFunctionCancel];
             break;
     }
     return nil;

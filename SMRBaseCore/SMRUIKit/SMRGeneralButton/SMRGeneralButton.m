@@ -17,7 +17,7 @@
 + (UIColor *)buttonColor:(SMRGeneralButtonColor)color {
     switch (color) {
         case SMRGeneralButtonColorOrange: { return [UIColor smr_colorWithHexRGB:@"#F19722"];} break;
-        case SMRGeneralButtonColorBlack: { return [UIColor smr_colorWithHexRGB:@"#1B1B1B"];} break;
+        case SMRGeneralButtonColorBlack: { return [UIColor smr_colorWithHexRGB:@"#333333"];} break;
         case SMRGeneralButtonColorWhite: { return [UIColor smr_colorWithHexRGB:@"#FFFFFF"];} break;
         case SMRGeneralButtonColorRed: { return [UIColor smr_colorWithHexRGB:@"#D12920"];} break;
         // 默认颜色
@@ -30,7 +30,7 @@
     switch (color) {
         case SMRGeneralButtonColorOrange: { return [UIColor smr_colorWithHexRGB:@"#FFFFFF"];} break;
         case SMRGeneralButtonColorBlack: { return [UIColor smr_colorWithHexRGB:@"#FFFFFF"];} break;
-        case SMRGeneralButtonColorWhite: { return [UIColor smr_colorWithHexRGB:@"#1B1B1B"];} break;
+        case SMRGeneralButtonColorWhite: { return [UIColor smr_colorWithHexRGB:@"#333333"];} break;
         case SMRGeneralButtonColorRed: { return [UIColor smr_colorWithHexRGB:@"#FFFFFF"];} break;
         // 默认颜色
         default: { return [UIColor smr_colorWithHexRGB:@"#FFFFFF"];} break;
@@ -53,7 +53,7 @@
 + (UIColor *)buttonBorderTitleColor:(SMRGeneralButtonColor)color {
     switch (color) {
         case SMRGeneralButtonColorOrange: { return [UIColor smr_colorWithHexRGB:@"#F19722"];} break;
-        case SMRGeneralButtonColorBlack: { return [UIColor smr_colorWithHexRGB:@"#1B1B1B"];} break;
+        case SMRGeneralButtonColorBlack: { return [UIColor smr_colorWithHexRGB:@"#333333"];} break;
         case SMRGeneralButtonColorWhite: { return [UIColor smr_colorWithHexRGB:@"#FFFFFF"];} break;
         case SMRGeneralButtonColorRed: { return [UIColor smr_colorWithHexRGB:@"#D12920"];} break;
         // 默认颜色
