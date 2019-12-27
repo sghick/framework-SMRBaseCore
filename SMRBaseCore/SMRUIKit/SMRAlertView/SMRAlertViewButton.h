@@ -22,7 +22,12 @@ typedef void(^SMRAlertViewButtonBlock)(SMRAlertViewButton *button);
 
 @interface SMRAlertViewButton : UIView
 
+- (instancetype)initWithButtons:(NSArray<UIView *> *)buttons space:(CGFloat)space;
 - (instancetype)initWithButtons:(NSArray<UIView *> *)buttons height:(CGFloat)height space:(CGFloat)space;
+
+/** 默认50*scale */
++ (CGFloat)generalHeightOfButton;
++ (CGFloat)generalHeightOfButtonWithStyle:(SMRAlertViewStyle)style;
 
 + (UIButton *)buttonTitle:(NSString *)title
                    target:(id)target

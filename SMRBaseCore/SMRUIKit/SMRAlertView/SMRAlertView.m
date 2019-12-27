@@ -310,15 +310,7 @@ UITableViewSectionsDelegate>
 #pragma mark - Style
 
 - (CGFloat)heightOfButtonForStyle:(SMRAlertViewStyle)style {
-    switch (style) {
-        case SMRAlertViewStyleOrange: {
-            return [SMRUIAdapter value:55];
-        }
-            break;
-        default:
-            break;
-    }
-    return [SMRUIAdapter value:55];
+    return [SMRAlertViewButton generalHeightOfButton];
 }
 
 - (UIButton *)buttonForStyle:(SMRAlertViewStyle)style title:(NSString *)title target:(id)target action:(SEL)action deepColor:(BOOL)deepColor {

@@ -22,6 +22,10 @@
 
 @implementation SMRAlertViewButton
 
+- (instancetype)initWithButtons:(NSArray<UIView *> *)buttons space:(CGFloat)space {
+    return [self initWithButtons:buttons height:[SMRAlertViewButton generalHeightOfButton] space:space];
+}
+
 - (instancetype)initWithButtons:(NSArray<UIView *> *)buttons height:(CGFloat)height space:(CGFloat)space {
     self = [super init];
     if (self) {
@@ -55,6 +59,14 @@
         [buttons.lastObject autoConstrainAttribute:ALAttributeLeft toAttribute:ALAttributeVertical ofView:self withOffset:space/2.0];
         [buttons.lastObject autoSetDimension:ALDimensionHeight toSize:height];
     }
+}
+
++ (CGFloat)generalHeightOfButton {
+    return [SMRAlertViewButton generalHeightOfButtonWithStyle:[SMRBaseCoreConfig sharedInstance].alertViewStyle];
+}
+
++ (CGFloat)generalHeightOfButtonWithStyle:(SMRAlertViewStyle)style {
+    return [SMRUIAdapter value:50];
 }
 
 + (UIButton *)buttonTitle:(NSString *)title target:(id)target action:(SEL)action function:(SMRAlertViewButtonFunction)function {
