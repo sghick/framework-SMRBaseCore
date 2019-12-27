@@ -80,7 +80,6 @@ UIGestureRecognizerDelegate>
     SMRContentMaskViewContentAlignment alignment = [self contentAlignmentOfMaskView];
     if (alignment == SMRContentMaskViewContentAlignmentCenter) {
         if (self.roundContentIfAligmentCenter) {
-            self.backgroundImageView.image = [SMRUIKitBundle imageWithName:@"alert_bg@3x"];
             self.contentView.clipsToBounds = YES;
             self.contentView.layer.cornerRadius = 6;
         }
@@ -134,7 +133,8 @@ UIGestureRecognizerDelegate>
 }
 
 - (CGFloat)widthOfContentView {
-    if (self.contentAlignment == SMRContentMaskViewContentAlignmentCenter) {
+    SMRContentMaskViewContentAlignment alignment = [self contentAlignmentOfMaskView];
+    if (alignment == SMRContentMaskViewContentAlignmentCenter) {
         return CGRectGetWidth([UIScreen mainScreen].bounds) - 2*[SMRUIAdapter value:30.0];
     }
     return CGRectGetWidth([UIScreen mainScreen].bounds);

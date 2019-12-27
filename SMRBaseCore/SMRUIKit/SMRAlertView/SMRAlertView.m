@@ -130,12 +130,6 @@ UITableViewSectionsDelegate>
     return sections;
 }
 
-#pragma mark - SMRContentMaskViewProtocol
-
-- (UIEdgeInsets)contentInsetsOfBackgroundImageView {
-    return [self contentInsetsOfBackgroundImageViewWithStyle:self.alertViewStyle];
-}
-
 #pragma mark - SMRTableAlertViewProtocol
 
 - (UIEdgeInsets)smr_insetsOfContent {
