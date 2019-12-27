@@ -38,14 +38,8 @@ UITableViewSectionsDelegate>
 - (instancetype)initWithFrame:(CGRect)frame contentAlignment:(SMRContentMaskViewContentAlignment)contentAlignment {
     self = [super initWithFrame:frame contentAlignment:contentAlignment];
     if (self) {
-        if ([SMRBaseCoreConfig sharedInstance].alertViewStyle != SMRAlertViewStyleConfig) {
-            // 使用config配置的样式
-            _alertViewStyle = [SMRBaseCoreConfig sharedInstance].alertViewStyle;
-        } else {
-            // 默认使用此样式
-            _alertViewStyle = SMRAlertViewStyleOrange;
-        }
-        
+        // 使用config配置的样式
+        _alertViewStyle = [SMRBaseCoreConfig sharedInstance].alertViewStyle;
         _contentTextAlignment = NSTextAlignmentCenter;
         
         [self.tableView registerClass:[SMRAlertViewContentTextCell class] forCellReuseIdentifier:identifierOfAlertViewContentTextCell];
@@ -328,27 +322,25 @@ UITableViewSectionsDelegate>
 }
 
 - (UIButton *)buttonForStyle:(SMRAlertViewStyle)style title:(NSString *)title target:(id)target action:(SEL)action deepColor:(BOOL)deepColor {
-    SMRAlertViewButtonStyle btnStyle = (SMRAlertViewButtonStyle)style;
-    
     // 非深色按钮为取消样式
     if (!deepColor) {
-        return [SMRAlertViewButton buttonTitle:title target:target action:action style:btnStyle function:SMRAlertViewButtonFunctionCancel];
+        return [SMRAlertViewButton buttonTitle:title target:target action:action style:style function:SMRAlertViewButtonFunctionCancel];
     }
     SMRAlertViewButtonDeepColorType deepColorType = self.deepColorType;
     switch (deepColorType) {
         case SMRAlertViewButtonDeepColorTypeCancel:
-            return [SMRAlertViewButton buttonTitle:title target:target action:action style:btnStyle function:SMRAlertViewButtonFunctionCancel];
+            return [SMRAlertViewButton buttonTitle:title target:target action:action style:style function:SMRAlertViewButtonFunctionCancel];
             break;
         
         case SMRAlertViewButtonDeepColorTypeSure:
-            return [SMRAlertViewButton buttonTitle:title target:target action:action style:btnStyle function:SMRAlertViewButtonFunctionSure];
+            return [SMRAlertViewButton buttonTitle:title target:target action:action style:style function:SMRAlertViewButtonFunctionSure];
             break;
         
         case SMRAlertViewButtonDeepColorTypeDelete:
-            return [SMRAlertViewButton buttonTitle:title target:target action:action style:btnStyle function:SMRAlertViewButtonFunctionDelete];
+            return [SMRAlertViewButton buttonTitle:title target:target action:action style:style function:SMRAlertViewButtonFunctionDelete];
             break;
         default:
-            return [SMRAlertViewButton buttonTitle:title target:target action:action style:btnStyle function:SMRAlertViewButtonFunctionCancel];
+            return [SMRAlertViewButton buttonTitle:title target:target action:action style:style function:SMRAlertViewButtonFunctionCancel];
             break;
     }
     return nil;

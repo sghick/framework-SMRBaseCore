@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** 设置NavigationView全局默认属性的block */
 @property (copy  , nonatomic) NavigationViewAppearanceBlock appearanceBlock;
 
-/** 设置AlertView全局默认属性的style,默认black */
+/** 设置AlertView全局默认属性的style,默认0 */
 @property (assign, nonatomic) SMRAlertViewStyle alertViewStyle;
 
 #pragma mark - BaseUtils部分

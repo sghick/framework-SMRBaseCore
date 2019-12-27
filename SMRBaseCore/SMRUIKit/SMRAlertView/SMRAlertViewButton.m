@@ -11,6 +11,8 @@
 #import "SMRAdapter.h"
 #import "PureLayout.h"
 #import "SMRGeneralButton.h"
+#import "SMRBaseCoreConfig.h"
+#import "SMRAlertView.h"
 
 @interface SMRAlertViewButton ()
 
@@ -55,7 +57,11 @@
     }
 }
 
-+ (UIButton *)buttonTitle:(NSString *)title target:(id)target action:(SEL)action style:(SMRAlertViewButtonStyle)style function:(SMRAlertViewButtonFunction)function {
++ (UIButton *)buttonTitle:(NSString *)title target:(id)target action:(SEL)action function:(SMRAlertViewButtonFunction)function {
+    return [self buttonTitle:title target:target action:action style:[SMRBaseCoreConfig sharedInstance].alertViewStyle function:function];
+}
+
++ (UIButton *)buttonTitle:(NSString *)title target:(id)target action:(SEL)action style:(SMRAlertViewStyle)style function:(SMRAlertViewButtonFunction)function {
     switch (function) {
         case SMRAlertViewButtonFunctionSure:
             return [self sureButtonTitle:title target:target action:action style:style];
@@ -74,9 +80,9 @@
     return nil;
 }
 
-+ (UIButton *)cancelButtonTitle:(NSString *)title target:(id)target action:(SEL)action style:(SMRAlertViewButtonStyle)style {
++ (UIButton *)cancelButtonTitle:(NSString *)title target:(id)target action:(SEL)action style:(SMRAlertViewStyle)style {
     switch (style) {
-        case SMRAlertViewButtonStyleWhite : {
+        case SMRAlertViewStyleWhite : {
             SMRGeneralButton *btn = [SMRGeneralButton rectButtonWithTitle:title target:target action:action];
             [btn setRectButtonEnumColor:SMRGeneralButtonColorWhite];
             btn.layer.borderWidth = 1.0/[UIScreen mainScreen].scale;
@@ -84,7 +90,7 @@
             return btn;
         }
             break;
-        case SMRAlertViewButtonStyleOrange : {
+        case SMRAlertViewStyleOrange : {
             SMRGeneralButton *btn = [SMRGeneralButton rectButtonWithTitle:title target:target action:action];
             [btn setRectButtonEnumColor:SMRGeneralButtonColorWhite];
             btn.layer.borderWidth = 1.0/[UIScreen mainScreen].scale;
@@ -98,15 +104,15 @@
     }
     return nil;
 }
-+ (UIButton *)sureButtonTitle:(NSString *)title target:(id)target action:(SEL)action style:(SMRAlertViewButtonStyle)style {
++ (UIButton *)sureButtonTitle:(NSString *)title target:(id)target action:(SEL)action style:(SMRAlertViewStyle)style {
     switch (style) {
-        case SMRAlertViewButtonStyleWhite : {
+        case SMRAlertViewStyleWhite : {
             SMRGeneralButton *btn = [SMRGeneralButton rectButtonWithTitle:title target:target action:action];
             [btn setRectButtonEnumColor:SMRGeneralButtonColorBlack];
             return btn;
         }
             break;
-        case SMRAlertViewButtonStyleOrange : {
+        case SMRAlertViewStyleOrange : {
             SMRGeneralButton *btn = [SMRGeneralButton rectButtonWithTitle:title target:target action:action];
             [btn setRectButtonEnumColor:SMRGeneralButtonColorOrange];
             return btn;
@@ -119,15 +125,15 @@
     return nil;
 }
 
-+ (UIButton *)deleteButtonTitle:(NSString *)title target:(id)target action:(SEL)action style:(SMRAlertViewButtonStyle)style {
++ (UIButton *)deleteButtonTitle:(NSString *)title target:(id)target action:(SEL)action style:(SMRAlertViewStyle)style {
     switch (style) {
-        case SMRAlertViewButtonStyleWhite : {
+        case SMRAlertViewStyleWhite : {
             SMRGeneralButton *btn = [SMRGeneralButton rectButtonWithTitle:title target:target action:action];
             [btn setRectButtonEnumColor:SMRGeneralButtonColorRed];
             return btn;
         }
             break;
-        case SMRAlertViewButtonStyleOrange : {
+        case SMRAlertViewStyleOrange : {
             SMRGeneralButton *btn = [SMRGeneralButton rectButtonWithTitle:title target:target action:action];
             [btn setRectButtonEnumColor:SMRGeneralButtonColorRed];
             return btn;

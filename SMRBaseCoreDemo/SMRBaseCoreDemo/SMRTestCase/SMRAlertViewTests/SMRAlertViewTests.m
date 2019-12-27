@@ -19,8 +19,7 @@
 - (void)testGlobalConfig {
     static NSInteger touchIdx = 0;
     NSArray<NSNumber *> *stls = @[@(SMRAlertViewStyleWhite),
-                                  @(SMRAlertViewStyleOrange),
-                                  @(SMRAlertViewStyleConfig)];
+                                  @(SMRAlertViewStyleOrange)];
     SMRAlertViewStyle style = stls[touchIdx%stls.count].integerValue;
     [SMRBaseCoreConfig sharedInstance].alertViewStyle = style;
     

@@ -10,11 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSInteger, SMRAlertViewButtonStyle) {
-    SMRAlertViewButtonStyleWhite = 0,
-    SMRAlertViewButtonStyleOrange = 1,
-};
-
+typedef NS_ENUM(NSInteger, SMRAlertViewStyle);
 typedef NS_ENUM(NSInteger, SMRAlertViewButtonFunction) {
     SMRAlertViewButtonFunctionSure,
     SMRAlertViewButtonFunctionCancel,
@@ -31,7 +27,11 @@ typedef void(^SMRAlertViewButtonBlock)(SMRAlertViewButton *button);
 + (UIButton *)buttonTitle:(NSString *)title
                    target:(id)target
                    action:(SEL)action
-                    style:(SMRAlertViewButtonStyle)style
+                 function:(SMRAlertViewButtonFunction)function;
++ (UIButton *)buttonTitle:(NSString *)title
+                   target:(id)target
+                   action:(SEL)action
+                    style:(SMRAlertViewStyle)style
                  function:(SMRAlertViewButtonFunction)function;
 
 @end

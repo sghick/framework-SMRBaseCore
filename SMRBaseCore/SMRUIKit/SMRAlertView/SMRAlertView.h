@@ -11,18 +11,16 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, SMRAlertViewStyle) {
-    SMRAlertViewStyleWhite      = 0,    ///< 白色经典样式
-    SMRAlertViewStyleOrange     = 1,    ///< 橙色经典样式
-    
-    SMRAlertViewStyleConfig     = 64,   ///< 使用config配置
+    SMRAlertViewStyleOrange     = 0,    ///< 橙色经典样式
+    SMRAlertViewStyleWhite      = 1,    ///< 白色经典样式
 };
 
 /** 定义深色按钮,仅能定制right/center位置 */
-typedef NS_OPTIONS(NSInteger, SMRAlertViewButtonDeepColorType) {
+typedef NS_ENUM(NSInteger, SMRAlertViewButtonDeepColorType) {
     SMRAlertViewButtonDeepColorTypeNone     = 0,
-    SMRAlertViewButtonDeepColorTypeCancel   = 1 << 0,
-    SMRAlertViewButtonDeepColorTypeSure     = 1 << 1,
-    SMRAlertViewButtonDeepColorTypeDelete   = 1 << 2,
+    SMRAlertViewButtonDeepColorTypeCancel   = 1,
+    SMRAlertViewButtonDeepColorTypeSure     = 2,
+    SMRAlertViewButtonDeepColorTypeDelete   = 3,
 };
 
 @protocol SMRAlertViewBottomButtonProtocol <NSObject>
