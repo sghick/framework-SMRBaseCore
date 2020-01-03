@@ -13,6 +13,7 @@
 #import "SMRGeneralButton.h"
 #import "SMRBaseCoreConfig.h"
 #import "SMRAlertView.h"
+#import "SMRUIKitBundle.h"
 
 @interface SMRAlertViewButton ()
 
@@ -21,6 +22,10 @@
 @end
 
 @implementation SMRAlertViewButton
+
+- (instancetype)initWithButtons:(NSArray<UIView *> *)buttons {
+    return [self initWithButtons:buttons space:0];
+}
 
 - (instancetype)initWithButtons:(NSArray<UIView *> *)buttons space:(CGFloat)space {
     return [self initWithButtons:buttons height:[SMRAlertViewButton generalHeightOfButton] space:space];
@@ -40,7 +45,8 @@
     }
     if (buttons.count == 1) {
         [self addSubview:buttons.firstObject];
-        [buttons.firstObject autoCenterInSuperview];
+        [buttons.firstObject autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:-0.5];
+        [buttons.firstObject autoAlignAxisToSuperviewAxis:ALAxisVertical];
         [buttons.firstObject autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
         [buttons.firstObject autoSetDimension:ALDimensionHeight toSize:height];
     }
@@ -48,14 +54,13 @@
         [self addSubview:buttons.firstObject];
         [self addSubview:buttons.lastObject];
         
-        CGFloat onepix = 1/[UIScreen mainScreen].scale;
-        [buttons.firstObject autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
-        [buttons.firstObject autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:-onepix];
+        [buttons.firstObject autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:-0.5];
+        [buttons.firstObject autoPinEdgeToSuperviewEdge:ALEdgeLeft];
         [buttons.firstObject autoConstrainAttribute:ALAttributeRight toAttribute:ALAttributeVertical ofView:self withOffset:-space/2.0];
         [buttons.firstObject autoSetDimension:ALDimensionHeight toSize:height];
         
-        [buttons.lastObject autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
-        [buttons.lastObject autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:-onepix];
+        [buttons.lastObject autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:-0.5];
+        [buttons.lastObject autoPinEdgeToSuperviewEdge:ALEdgeRight];
         [buttons.lastObject autoConstrainAttribute:ALAttributeLeft toAttribute:ALAttributeVertical ofView:self withOffset:space/2.0];
         [buttons.lastObject autoSetDimension:ALDimensionHeight toSize:height];
     }
@@ -97,16 +102,16 @@
         case SMRAlertViewStyleWhite : {
             SMRGeneralButton *btn = [SMRGeneralButton rectButtonWithTitle:title target:target action:action];
             [btn setRectButtonEnumColor:SMRGeneralButtonColorWhite];
-            btn.layer.borderWidth = 1.0/[UIScreen mainScreen].scale;
-            btn.layer.borderColor = [UIColor smr_colorWithHexRGB:@"#EBEBEB"].CGColor;
+            UIImage *image = [SMRUIKitBundle imageWithName:@"alert_left_btn@3x"];
+            [btn setBackgroundImage:image forState:UIControlStateNormal];
             return btn;
         }
             break;
         case SMRAlertViewStyleOrange : {
             SMRGeneralButton *btn = [SMRGeneralButton rectButtonWithTitle:title target:target action:action];
             [btn setRectButtonEnumColor:SMRGeneralButtonColorWhite];
-            btn.layer.borderWidth = 1.0/[UIScreen mainScreen].scale;
-            btn.layer.borderColor = [UIColor smr_colorWithHexRGB:@"#EBEBEB"].CGColor;
+            UIImage *image = [SMRUIKitBundle imageWithName:@"alert_left_btn@3x"];
+            [btn setBackgroundImage:image forState:UIControlStateNormal];
             return btn;
         }
             break;

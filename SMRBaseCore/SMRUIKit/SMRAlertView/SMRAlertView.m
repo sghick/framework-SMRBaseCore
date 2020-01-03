@@ -218,13 +218,12 @@ UITableViewSectionsDelegate>
         }
         
         CGFloat height = [self heightOfButtonForStyle:self.alertViewStyle];
-        CGFloat onepix = 1/[UIScreen mainScreen].scale;
         UIView *bottomView = [[UIView alloc] init];
-        SMRAlertViewButton *btn = [[SMRAlertViewButton alloc] initWithButtons:buttons height:height space:-onepix];
+        SMRAlertViewButton *btn = [[SMRAlertViewButton alloc] initWithButtons:buttons height:height space:0];
         [bottomView addSubview:btn];
         [btn autoPinEdgeToSuperviewEdge:ALEdgeLeft];
         [btn autoPinEdgeToSuperviewEdge:ALEdgeRight];
-        [btn autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:-onepix];
+        [btn autoPinEdgeToSuperviewEdge:ALEdgeBottom];
         [btn autoSetDimension:ALDimensionHeight toSize:height];
         
         return bottomView;
