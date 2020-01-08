@@ -37,7 +37,7 @@
     style.colorOfCorner = [UIColor smr_colorWithHexRGB:@"#FFCE38"];
     style.colorOfBorder = [UIColor smr_colorWithHexRGB:@"#FFCE38"];
     style.margin = [SMRUIAdapter value:40.0];
-    style.animationStyle = SMRScanViewAnimationStyleNetGrid;
+    style.animationStyle = SMRScanViewAnimationStyleLineMove;
     style.animationImage = [UIImage imageNamed:@"photo_scan_line"];
     style.colorOfOtherArea = [[UIColor smr_colorWithHexRGB:@"#000000"] smr_colorWithAlphaComponent:0.5];
     return style;
