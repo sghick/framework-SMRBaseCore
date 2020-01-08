@@ -8,6 +8,7 @@
 
 #import "SMRScanView.h"
 #import "SMRAdapter.h"
+#import "SMRUIKitBundle.h"
 #import "SMRScanLineAnimation.h"
 #import "SMRScanNetAnimation.h"
 
@@ -38,7 +39,7 @@
     style.colorOfBorder = [UIColor smr_colorWithHexRGB:@"#FFCE38"];
     style.margin = [SMRUIAdapter value:40.0];
     style.animationStyle = SMRScanViewAnimationStyleLineMove;
-    style.animationImage = [UIImage imageNamed:@"photo_scan_line"];
+    style.animationImage = [SMRUIKitBundle imageWithName:@"photo_scan_line@3x"];
     style.colorOfOtherArea = [[UIColor smr_colorWithHexRGB:@"#000000"] smr_colorWithAlphaComponent:0.5];
     return style;
 }
