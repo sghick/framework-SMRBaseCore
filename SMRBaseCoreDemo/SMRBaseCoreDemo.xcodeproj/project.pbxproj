@@ -13,6 +13,10 @@
 		1D4E23542354630200687E88 /* UIImage+SMRAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D4E23532354630200687E88 /* UIImage+SMRAdapter.m */; };
 		1D5F54952351EB3A00DE7BF1 /* SMRContentDraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F54932351EB3A00DE7BF1 /* SMRContentDraggableView.m */; };
 		1D820DEC23B3784B00A0640E /* SMRGeneralButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D820DEA23B3784B00A0640E /* SMRGeneralButton.m */; };
+		1D98081423C5CA5F0020BD07 /* SMRScanLineAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D98080C23C5CA5F0020BD07 /* SMRScanLineAnimation.m */; };
+		1D98081523C5CA5F0020BD07 /* SMRScanAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D98080F23C5CA5F0020BD07 /* SMRScanAnimation.m */; };
+		1D98081623C5CA5F0020BD07 /* SMRScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D98081123C5CA5F0020BD07 /* SMRScanView.m */; };
+		1D98081723C5CA5F0020BD07 /* SMRScanNetAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D98081223C5CA5F0020BD07 /* SMRScanNetAnimation.m */; };
 		3474ABA988B303EAE936A32D /* Pods_SMRBaseCoreDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEB68DCCB6F5224C71F40E77 /* Pods_SMRBaseCoreDemo.framework */; };
 		8A1DAF0E232641EC00F2B478 /* SMRSeparatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A1DAF0D232641EB00F2B478 /* SMRSeparatorTests.m */; };
 		8A2DE23B2232635000E9A07E /* SMRIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE2392232635000E9A07E /* SMRIndexView.m */; };
@@ -204,6 +208,14 @@
 		1D5F54942351EB3A00DE7BF1 /* SMRContentDraggableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRContentDraggableView.h; sourceTree = "<group>"; };
 		1D820DEA23B3784B00A0640E /* SMRGeneralButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRGeneralButton.m; sourceTree = "<group>"; };
 		1D820DEB23B3784B00A0640E /* SMRGeneralButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRGeneralButton.h; sourceTree = "<group>"; };
+		1D98080C23C5CA5F0020BD07 /* SMRScanLineAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRScanLineAnimation.m; sourceTree = "<group>"; };
+		1D98080D23C5CA5F0020BD07 /* SMRScanLineAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRScanLineAnimation.h; sourceTree = "<group>"; };
+		1D98080E23C5CA5F0020BD07 /* SMRScanNetAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRScanNetAnimation.h; sourceTree = "<group>"; };
+		1D98080F23C5CA5F0020BD07 /* SMRScanAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRScanAnimation.m; sourceTree = "<group>"; };
+		1D98081023C5CA5F0020BD07 /* SMRScanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRScanView.h; sourceTree = "<group>"; };
+		1D98081123C5CA5F0020BD07 /* SMRScanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRScanView.m; sourceTree = "<group>"; };
+		1D98081223C5CA5F0020BD07 /* SMRScanNetAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRScanNetAnimation.m; sourceTree = "<group>"; };
+		1D98081323C5CA5F0020BD07 /* SMRScanAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRScanAnimation.h; sourceTree = "<group>"; };
 		265B7E2F72042FFDB9545E7F /* Pods-SMRBaseCoreDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMRBaseCoreDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo.release.xcconfig"; sourceTree = "<group>"; };
 		8A1DAF0C232641EB00F2B478 /* SMRSeparatorTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRSeparatorTests.h; sourceTree = "<group>"; };
 		8A1DAF0D232641EB00F2B478 /* SMRSeparatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRSeparatorTests.m; sourceTree = "<group>"; };
@@ -599,6 +611,21 @@
 			path = SMRGeneralButton;
 			sourceTree = "<group>";
 		};
+		1D9807FF23C5CA520020BD07 /* SMRScanView */ = {
+			isa = PBXGroup;
+			children = (
+				1D98081323C5CA5F0020BD07 /* SMRScanAnimation.h */,
+				1D98080F23C5CA5F0020BD07 /* SMRScanAnimation.m */,
+				1D98080D23C5CA5F0020BD07 /* SMRScanLineAnimation.h */,
+				1D98080C23C5CA5F0020BD07 /* SMRScanLineAnimation.m */,
+				1D98080E23C5CA5F0020BD07 /* SMRScanNetAnimation.h */,
+				1D98081223C5CA5F0020BD07 /* SMRScanNetAnimation.m */,
+				1D98081023C5CA5F0020BD07 /* SMRScanView.h */,
+				1D98081123C5CA5F0020BD07 /* SMRScanView.m */,
+			);
+			path = SMRScanView;
+			sourceTree = "<group>";
+		};
 		8A2DE2382232635000E9A07E /* SMRIndexView */ = {
 			isa = PBXGroup;
 			children = (
@@ -786,6 +813,7 @@
 				8AF1988022A135D50045CBCF /* SMRTabBar */,
 				8A814CFA21F5CEC800D8AEB6 /* SMRAdapter */,
 				8AC7055A227FDB37002821D3 /* SMRWebController */,
+				1D9807FF23C5CA520020BD07 /* SMRScanView */,
 				8ACA4211227ED2430073BC44 /* SMRLBXScanController */,
 				8ACA4201227ECE850073BC44 /* SMRSimpleCamera */,
 				8A4239EC22432C36002DF711 /* SMRGestureView */,
@@ -1743,6 +1771,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D98081423C5CA5F0020BD07 /* SMRScanLineAnimation.m in Sources */,
 				8A814B9C21F5B9DC00D8AEB6 /* SMRDBUtilOption.m in Sources */,
 				8A914DF12215AA1400E2F691 /* SMRUtils+NSDate.m in Sources */,
 				8A814D1621F6F5F900D8AEB6 /* SMRTestTableController.m in Sources */,
@@ -1852,6 +1881,7 @@
 				8A72B2262223DC6000EDE6EF /* SMRYYLabelTests.m in Sources */,
 				8AF6B504221423BF00A56E51 /* SMRUIAdapter.m in Sources */,
 				8A914DFA2215AAAA00E2F691 /* SMRUtils+UIImage.m in Sources */,
+				1D98081623C5CA5F0020BD07 /* SMRScanView.m in Sources */,
 				8AC70500227EE26C002821D3 /* LBXScanTypes.m in Sources */,
 				8A42E9B7226DCE2600F68AD6 /* SMRNextTableController.m in Sources */,
 				8A814BCD21F5BA2100D8AEB6 /* SMRRouterCenter.m in Sources */,
@@ -1871,6 +1901,7 @@
 				8A814BCE21F5BA2100D8AEB6 /* SMRTarget.m in Sources */,
 				8A805EF822D5B13600FB6102 /* SMRCircleProgressBar.m in Sources */,
 				8ACA420A227ECE8C0073BC44 /* LLSimpleCamera.m in Sources */,
+				1D98081723C5CA5F0020BD07 /* SMRScanNetAnimation.m in Sources */,
 				8A814CA421F5C40600D8AEB6 /* SMRNetCache.m in Sources */,
 				8A814BA121F5B9DC00D8AEB6 /* SMRDBDeleteOption.m in Sources */,
 				1D820DEC23B3784B00A0640E /* SMRGeneralButton.m in Sources */,
@@ -1894,6 +1925,7 @@
 				8A914EDE221BA89500E2F691 /* SMRTextViewTests.m in Sources */,
 				8A814CD221F5CA6900D8AEB6 /* SMRNavigationItem.m in Sources */,
 				8A2DE23B2232635000E9A07E /* SMRIndexView.m in Sources */,
+				1D98081523C5CA5F0020BD07 /* SMRScanAnimation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

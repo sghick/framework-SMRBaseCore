@@ -3,7 +3,7 @@
 //  Gucci
 //
 //  Created by 丁治文 on 2019/1/23.
-//  Copyright © 2019 ibaodashi. All rights reserved.
+//  Copyright © 2019 sumrise. All rights reserved.
 //
 
 #import "SMRGeneralButton.h"

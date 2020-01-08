@@ -45,6 +45,7 @@
 #import "SMRImageLabel.h"
 #import "SMRPageControl.h"
 #import "SMRSettingAuthorized.h"
+#import "SMRScanView.h"
 
 /// SMRUtilsKit
 #import "SMRMatrixCalculator.h"
