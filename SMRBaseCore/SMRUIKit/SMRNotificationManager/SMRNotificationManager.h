@@ -19,7 +19,8 @@ typedef NS_ENUM(NSInteger, SMRPushFromType) {
     SMRPushFromTypeRemotePush,      ///< 远程推送
     SMRPushFromTypeLocalPush,       ///< 本地推送
     SMRPushFromTypeUniversalLink,   ///< 深度链接
-    SMRPushFromTypePasteBoard,      ///< 深度链接
+    SMRPushFromTypePasteBoard,      ///< 粘贴板链接
+    SMRPushFromType3DTouch,         ///< 3DTouch链接
     SMRPushFromTypeOtherAPP,        ///< 其它App
 };
 
