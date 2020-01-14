@@ -21,13 +21,17 @@
     [self jumpToAnyURL:url webParameter:webParameter forceToApp:YES];
 }
 
-+ (void)jumpToAnyURL:(NSString *)url webParameter:(nullable SMRWebControllerParameter *)webParameter forceToApp:(BOOL)forceToApp {
++ (void)jumpToAnyURL:(NSString *)url webParameter:(SMRWebControllerParameter *)webParameter forceToApp:(BOOL)forceToApp {
+    [self jumpToAnyURL:url webParameter:webParameter forceToApp:forceToApp presentOnly:NO];
+}
+
++ (void)jumpToAnyURL:(NSString *)url webParameter:(nullable SMRWebControllerParameter *)webParameter forceToApp:(BOOL)forceToApp presentOnly:(BOOL)presentOnly {
     if (!url.length) {
         return;
     }
     // 为web链接
     if ([self checkWebURL:url]) {
-        [self jumpToWeb:url webParameter:webParameter];
+        [self jumpToWeb:url webParameter:webParameter presentOnly:presentOnly];
         return;
     }
     NSURL *jURL = [NSURL URLWithString:url];
@@ -51,12 +55,21 @@
 }
 
 + (void)jumpToWeb:(NSString *)url webParameter:(SMRWebControllerParameter *)webParameter {
+    [self jumpToWeb:url webParameter:webParameter presentOnly:NO];
+}
+
++ (void)jumpToWeb:(NSString *)url webParameter:(SMRWebControllerParameter *)webParameter presentOnly:(BOOL)presentOnly {
     [SMRWebController filterUrl:url completionBlock:^(NSString * _Nonnull url, BOOL allowLoad) {
         SMRWebController *web = [[SMRWebController alloc] init];
         web.url = url;
-        [SMRNavigator pushOrPresentToViewController:web animated:YES];
+        web.webParameter = webParameter;
+        web.modalPresentationStyle = UIModalPresentationFullScreen;
+        if (presentOnly) {
+            [SMRNavigator presentToViewController:web animated:YES];
+        } else {
+            [SMRNavigator pushOrPresentToViewController:web animated:YES];
+        }
     }];
-    
 }
 
 + (BOOL)checkWebURL:(NSString *)url {

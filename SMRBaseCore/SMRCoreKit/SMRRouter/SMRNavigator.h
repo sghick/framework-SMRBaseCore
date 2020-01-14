@@ -51,6 +51,8 @@ typedef UINavigationController *(^SMRChangeRootTabNavigationController)(NSIntege
 + (BOOL)pushOrPresentToViewController:(UIViewController *)viewController baseController:(UIViewController *)baseController animated:(BOOL)animated;
 
 + (BOOL)pushToViewController:(UIViewController *)viewController baseController:(UINavigationController *)baseController animated:(BOOL)animated;
+
++ (BOOL)presentToViewController:(UIViewController *)viewController animated:(BOOL)animated;
 + (BOOL)presentToViewController:(UIViewController *)viewController baseController:(UIViewController *)baseController animated:(BOOL)animated;
 
 + (void)popOrDismissViewController:(UIViewController *)viewController animated:(BOOL)animated;

@@ -174,6 +174,10 @@
     [baseController pushViewController:viewController animated:animated];
     return YES;
 }
++ (BOOL)presentToViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    UIViewController *base = [SMRNavigator getMainwindowTopController];
+    return [self presentToViewController:viewController baseController:base animated:animated];
+}
 + (BOOL)presentToViewController:(UIViewController *)viewController baseController:(UIViewController *)baseController animated:(BOOL)animated {
     if (!viewController || ![viewController isKindOfClass:[UIViewController class]] ||
         !baseController || ![baseController isKindOfClass:[UIViewController class]]) {
