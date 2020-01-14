@@ -30,6 +30,7 @@ static NSString * const identifierOfAlertViewContentTextCell = @"identifierOfAle
 UITableViewSectionsDelegate>
 
 @property (assign, nonatomic) SMRAlertViewStyle alertViewStyle;
+@property (strong, nonatomic) NSMutableDictionary<NSString *,NSURL *> *linkSymbols;
 
 @end
 
@@ -57,6 +58,12 @@ UITableViewSectionsDelegate>
 }
 
 #pragma mark - Utils
+
+- (void)addLinkToURL:(NSURL *)url withRange:(NSRange)range {
+    if (url) {
+        self.linkSymbols[NSStringFromRange(range)] = url;
+    }
+}
 
 + (instancetype)alertViewWithContent:(NSString *)content
                         buttonTitles:(NSArray<NSString *> *)buttonTitles
@@ -283,8 +290,15 @@ UITableViewSectionsDelegate>
     switch (row.rowKey) {
         case kRowTypeContentText: {
             SMRAlertViewContentTextCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierOfAlertViewContentTextCell];
+            cell.maxLayoutWidth = [self maxLayoutOfLabelWidth];
             NSAttributedString *attr = [SMRAlertViewContentTextCell attributeStringWithAttributedContent:self.attributeContent alignment:self.contentTextAlignment];
+            cell.alignment = self.contentTextAlignment;
             cell.attributeText = attr;
+            
+            // 添加额外的URL链接
+            [self.linkSymbols enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSURL * _Nonnull obj, BOOL * _Nonnull stop) {
+                [cell addLinkToURL:obj withRange:NSRangeFromString(key)];
+            }];
             return cell;
         }
             break;
@@ -350,6 +364,12 @@ UITableViewSectionsDelegate>
     return UIEdgeInsetsZero;
 }
 
+- (CGFloat)maxLayoutOfLabelWidth {
+    UIEdgeInsets insets = [self smr_insetsOfContent];
+    CGFloat maxLayoutWidth = [self widthOfContentView] - 2*[self smr_marginOfTableView] - insets.left - insets.right;
+    return maxLayoutWidth;
+}
+
 #pragma mark - Actions
 
 - (void)sureBtnAction:(UIButton *)sender {
@@ -393,6 +413,15 @@ UITableViewSectionsDelegate>
 - (void)setContentTextAlignment:(NSTextAlignment)contentTextAlignment {
     _contentTextAlignment = contentTextAlignment;
     [self.tableView smr_reloadData];
+}
+
+#pragma mark - Getters
+
+- (NSMutableDictionary<NSString *,NSURL *> *)linkSymbols {
+    if (!_linkSymbols) {
+        _linkSymbols = [NSMutableDictionary dictionary];
+    }
+    return _linkSymbols;
 }
 
 @end

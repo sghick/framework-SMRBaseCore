@@ -13,6 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SMRAlertViewContentTextCell : UITableViewCell
 
 @property (strong, nonatomic) NSAttributedString *attributeText;
+@property (assign, nonatomic) CGFloat maxLayoutWidth;
+@property (assign, nonatomic) NSTextAlignment alignment;
+
+- (void)addLinkToURL:(NSURL *)url withRange:(NSRange)range;
 
 + (CGFloat)heightOfCellWithAttributeText:(NSAttributedString *)attributeText fitWidth:(CGFloat)fitWidth;
 

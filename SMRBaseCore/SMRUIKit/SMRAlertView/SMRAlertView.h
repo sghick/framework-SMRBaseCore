@@ -49,6 +49,9 @@ typedef NS_ENUM(NSInteger, SMRAlertViewButtonDeepColorType) {
 @property (copy  , nonatomic) SMRContentMaskViewTouchedBlock cancelButtonTouchedBlock;  ///< 取消按钮的点击事件,left
 @property (copy  , nonatomic) SMRContentMaskViewTouchedBlock sureButtonTouchedBlock;    ///< 确定按钮的点击事件,right/center
 
+/// 在指定位置添加超级链接
+- (void)addLinkToURL:(NSURL *)url withRange:(NSRange)range;
+
 /// NString content
 + (instancetype)alertViewWithContent:(NSString *)content
                         buttonTitles:(NSArray<NSString *> *)buttonTitles

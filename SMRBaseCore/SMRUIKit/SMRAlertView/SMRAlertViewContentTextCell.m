@@ -9,10 +9,14 @@
 #import "SMRAlertViewContentTextCell.h"
 #import "SMRAdapter.h"
 #import "PureLayout.h"
+#import "SMRLinkLabel.h"
+#import "SMRUtils+MBProgressHUD.h"
+#import "SMRUtils+Jump.h"
 
-@interface SMRAlertViewContentTextCell ()
+@interface SMRAlertViewContentTextCell ()<
+SMRLinkLabelDelegate>
 
-@property (strong, nonatomic) UILabel *contentLabel;
+@property (strong, nonatomic) SMRLinkLabel *contentLabel;
 @property (assign, nonatomic) BOOL didLoadLayout;
 
 @end
@@ -43,7 +47,30 @@
     [super updateConstraints];
 }
 
+#pragma mark - SMRLinkLabelDelegate
+
+- (void)attributedLabel:(SMRLinkLabel *)label didSelectLinkWithPhoneNumber:(NSString *)phoneNumber {
+    if (phoneNumber.length) {
+        NSString *deviceType = [UIDevice currentDevice].model;
+        if ([deviceType isEqualToString:@"iPhone"]) {
+            NSString *currentTel = phoneNumber;
+            NSURL *url = [NSURL URLWithString:[@"tel://" stringByAppendingString:currentTel]];
+            [[UIApplication sharedApplication] openURL:url];
+        } else {
+            [SMRUtils toast:@"该设备不能拨打电话"];
+        }
+    }
+}
+
+- (void)attributedLabel:(SMRLinkLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    [SMRUtils jumpToAnyURL:url.absoluteString];
+}
+
 #pragma mark - Utils
+
+- (void)addLinkToURL:(NSURL *)url withRange:(NSRange)range {
+    [self.contentLabel addLinkToURL:url withRange:range];
+}
 
 + (NSAttributedString *)attributeStringWithAttributedContent:(NSAttributedString *)attributedContent alignment:(NSTextAlignment)alignment {
     NSMutableAttributedString *attributeContentString = [[NSMutableAttributedString alloc] initWithString:attributedContent.string];
@@ -72,16 +99,30 @@
 
 - (void)setAttributeText:(NSAttributedString *)attributeText {
     _attributeText = attributeText;
+    self.contentLabel.text = attributeText.string;
     self.contentLabel.attributedText = [SMRAlertViewContentTextCell attributeStringWithAttributedContent:attributeText alignment:NSTextAlignmentCenter];
+}
+
+- (void)setMaxLayoutWidth:(CGFloat)maxLayoutWidth {
+    self.contentLabel.preferredMaxLayoutWidth = maxLayoutWidth;
+}
+
+- (void)setAlignment:(NSTextAlignment)alignment {
+    self.contentLabel.textAlignment = alignment;
 }
 
 #pragma mark - Getters
 
-- (UILabel *)contentLabel {
+- (SMRLinkLabel *)contentLabel {
     if (!_contentLabel) {
-        _contentLabel = [[UILabel alloc] init];
+        _contentLabel = [[SMRLinkLabel alloc] initWithFrame:CGRectZero];
         _contentLabel.numberOfLines = 0;
         _contentLabel.lineBreakMode = NSLineBreakByCharWrapping;
+        _contentLabel.delegate = self;
+        _contentLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink|NSTextCheckingTypePhoneNumber;
+        _contentLabel.delegate = self;
+        _contentLabel.linkAttributes = @{NSForegroundColorAttributeName:[UIColor blueColor],
+                                         NSUnderlineStyleAttributeName:[NSNumber numberWithInteger:NSUnderlineStyleSingle]};
     }
     return _contentLabel;
 }
