@@ -294,6 +294,7 @@ UITableViewSectionsDelegate>
             NSAttributedString *attr = [SMRAlertViewContentTextCell attributeStringWithAttributedContent:self.attributeContent alignment:self.contentTextAlignment];
             cell.alignment = self.contentTextAlignment;
             cell.attributeText = attr;
+            cell.delegate = self;
             
             // 添加额外的URL链接
             [self.linkSymbols enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSURL * _Nonnull obj, BOOL * _Nonnull stop) {
@@ -318,6 +319,30 @@ UITableViewSectionsDelegate>
     self.tableView.sectionsDelegate = self;
     [self.tableView smr_reloadData];
     [super smr_reloadData];
+}
+
+#pragma mark - SMRAlertViewContentTextCellDelegate
+
+- (void)alertTextCell:(SMRAlertViewContentTextCell *)cell didSelectLinkWithPhoneNumber:(NSString *)phoneNumber {
+    if (self.phoneLinkTouchedBlock) {
+        self.phoneLinkTouchedBlock(self, phoneNumber);
+    } else {
+        NSString *deviceType = [UIDevice currentDevice].model;
+        if ([deviceType isEqualToString:@"iPhone"]) {
+            NSURL *url = [NSURL URLWithString:[@"tel://" stringByAppendingString:phoneNumber]];
+            [[UIApplication sharedApplication] openURL:url];
+        } else {
+            [SMRUtils toast:@"该设备不能拨打电话"];
+        }
+    }
+}
+
+- (void)alertTextCell:(SMRAlertViewContentTextCell *)cell didSelectLinkWithURL:(NSURL *)url {
+    if (self.linkTouchedBlock) {
+        self.linkTouchedBlock(self, url);
+    } else {
+        [SMRUtils jumpToAnyURL:url.absoluteString];
+    }
 }
 
 #pragma mark - Style

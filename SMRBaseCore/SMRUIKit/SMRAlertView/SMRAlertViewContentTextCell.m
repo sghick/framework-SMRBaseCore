@@ -50,20 +50,15 @@ SMRLinkLabelDelegate>
 #pragma mark - SMRLinkLabelDelegate
 
 - (void)attributedLabel:(SMRLinkLabel *)label didSelectLinkWithPhoneNumber:(NSString *)phoneNumber {
-    if (phoneNumber.length) {
-        NSString *deviceType = [UIDevice currentDevice].model;
-        if ([deviceType isEqualToString:@"iPhone"]) {
-            NSString *currentTel = phoneNumber;
-            NSURL *url = [NSURL URLWithString:[@"tel://" stringByAppendingString:currentTel]];
-            [[UIApplication sharedApplication] openURL:url];
-        } else {
-            [SMRUtils toast:@"该设备不能拨打电话"];
-        }
+    if ([self.delegate respondsToSelector:@selector(alertTextCell:didSelectLinkWithPhoneNumber:)]) {
+        [self.delegate alertTextCell:self didSelectLinkWithPhoneNumber:phoneNumber];
     }
 }
 
 - (void)attributedLabel:(SMRLinkLabel *)label didSelectLinkWithURL:(NSURL *)url {
-    [SMRUtils jumpToAnyURL:url.absoluteString];
+    if ([self.delegate respondsToSelector:@selector(alertTextCell:didSelectLinkWithURL:)]) {
+        [self.delegate alertTextCell:self didSelectLinkWithURL:url];
+    }
 }
 
 #pragma mark - Utils

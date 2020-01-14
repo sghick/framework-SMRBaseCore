@@ -10,11 +10,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class SMRAlertViewContentTextCell;
+@protocol SMRAlertViewContentTextCellDelegate <NSObject>
+
+@optional
+- (void)alertTextCell:(SMRAlertViewContentTextCell *)cell didSelectLinkWithPhoneNumber:(NSString *)phoneNumber;
+- (void)alertTextCell:(SMRAlertViewContentTextCell *)cell didSelectLinkWithURL:(NSURL *)url;
+
+@end
+
 @interface SMRAlertViewContentTextCell : UITableViewCell
 
 @property (strong, nonatomic) NSAttributedString *attributeText;
 @property (assign, nonatomic) CGFloat maxLayoutWidth;
 @property (assign, nonatomic) NSTextAlignment alignment;
+
+@property (weak  , nonatomic) id<SMRAlertViewContentTextCellDelegate> delegate;
 
 - (void)addLinkToURL:(NSURL *)url withRange:(NSRange)range;
 

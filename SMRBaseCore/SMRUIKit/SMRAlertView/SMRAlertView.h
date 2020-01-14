@@ -23,6 +23,10 @@ typedef NS_ENUM(NSInteger, SMRAlertViewButtonDeepColorType) {
     SMRAlertViewButtonDeepColorTypeDelete   = 3,
 };
 
+@class SMRAlertView;
+typedef void(^SMRAlertPhoneLinkTouchedBlock)(SMRAlertView *alert, NSString *phone);
+typedef void(^SMRAlertLinkTouchedBlock)(SMRAlertView *alert, NSURL *url);
+
 @protocol SMRAlertViewBottomButtonProtocol <NSObject>
 
 /** 确定按钮的响应action,子类自定义按钮样式时可以用做按钮的action */
@@ -48,6 +52,9 @@ typedef NS_ENUM(NSInteger, SMRAlertViewButtonDeepColorType) {
 
 @property (copy  , nonatomic) SMRContentMaskViewTouchedBlock cancelButtonTouchedBlock;  ///< 取消按钮的点击事件,left
 @property (copy  , nonatomic) SMRContentMaskViewTouchedBlock sureButtonTouchedBlock;    ///< 确定按钮的点击事件,right/center
+
+@property (copy  , nonatomic, nullable) SMRAlertPhoneLinkTouchedBlock phoneLinkTouchedBlock;
+@property (copy  , nonatomic, nullable) SMRAlertLinkTouchedBlock linkTouchedBlock;
 
 /// 在指定位置添加超级链接
 - (void)addLinkToURL:(NSURL *)url withRange:(NSRange)range;
