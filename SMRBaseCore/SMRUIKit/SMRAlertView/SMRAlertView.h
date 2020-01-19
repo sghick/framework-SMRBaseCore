@@ -58,6 +58,9 @@ typedef void(^SMRAlertLinkTouchedBlock)(SMRAlertView *alert, NSURL *url);
 
 /// 在指定位置添加超级链接
 - (void)addLinkToURL:(NSURL *)url withRange:(NSRange)range;
+/// 在内容下方展示一张图片
+- (void)addImage:(UIImage *)image size:(CGSize)size space:(CGFloat)space;
+- (void)addImageURL:(NSString *)imageURL size:(CGSize)size space:(CGFloat)space;
 
 /// NString content
 + (instancetype)alertViewWithContent:(NSString *)content

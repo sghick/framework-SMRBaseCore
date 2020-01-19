@@ -13,6 +13,7 @@
 #import "UITableView+Separator.h"
 #import "UITableView+SMRSections.h"
 #import "SMRAlertViewContentTextCell.h"
+#import "SMRAlertViewImageCell.h"
 #import "SMRAlertViewButton.h"
 
 typedef NS_ENUM(NSInteger, kSectionType) {
@@ -25,12 +26,19 @@ typedef NS_ENUM(NSInteger, kRowType) {
 };
 
 static NSString * const identifierOfAlertViewContentTextCell = @"identifierOfAlertViewContentTextCell";
+static NSString * const identifierOfAlertViewImageCell = @"identifierOfAlertViewImageCell";
 
 @interface SMRAlertView ()<
-UITableViewSectionsDelegate>
+UITableViewSectionsDelegate,
+SMRAlertViewContentTextCellDelegate>
 
 @property (assign, nonatomic) SMRAlertViewStyle alertViewStyle;
 @property (strong, nonatomic) NSMutableDictionary<NSString *,NSURL *> *linkSymbols;
+
+@property (copy  , nonatomic) NSString *imageURL;
+@property (strong, nonatomic) UIImage *image;
+@property (assign, nonatomic) CGSize imageSize;
+@property (assign, nonatomic) CGFloat imageSpace;
 
 @end
 
@@ -44,6 +52,7 @@ UITableViewSectionsDelegate>
         _contentTextAlignment = NSTextAlignmentCenter;
         
         [self.tableView registerClass:[SMRAlertViewContentTextCell class] forCellReuseIdentifier:identifierOfAlertViewContentTextCell];
+        [self.tableView registerClass:[SMRAlertViewImageCell class] forCellReuseIdentifier:identifierOfAlertViewImageCell];
         self.tableView.sectionsDelegate = self;
         [self.tableView smr_markCustomTableViewSeparators];
     }
@@ -63,6 +72,20 @@ UITableViewSectionsDelegate>
     if (url) {
         self.linkSymbols[NSStringFromRange(range)] = url;
     }
+}
+
+- (void)addImage:(UIImage *)image size:(CGSize)size space:(CGFloat)space {
+    _image = image;
+    _imageSize = size;
+    _imageSpace = space;
+    [self smr_reloadData];
+}
+
+- (void)addImageURL:(NSString *)imageURL size:(CGSize)size space:(CGFloat)space {
+    _imageURL = imageURL;
+    _imageSize = size;
+    _imageSpace = space;
+    [self smr_reloadData];
 }
 
 + (instancetype)alertViewWithContent:(NSString *)content
@@ -125,7 +148,7 @@ UITableViewSectionsDelegate>
     if (self.content.length) {
         [sections addSectionKey:kSectionTypeContent rowKey:kRowTypeContentText];
     }
-    if (self.imageURL.length) {
+    if ([self p_shouldShowImage]) {
         [sections addSectionKey:kSectionTypeContent rowKey:kRowTypeContentImage];
     }
     return sections;
@@ -259,19 +282,15 @@ UITableViewSectionsDelegate>
     switch (row.rowKey) {
         case kRowTypeContentText: {
             if (self.content.length) {
-                UIEdgeInsets insets = [self smr_insetsOfContent];
                 NSAttributedString *attr = [SMRAlertViewContentTextCell attributeStringWithAttributedContent:self.attributeContent alignment:self.contentTextAlignment];
                 return [SMRAlertViewContentTextCell heightOfCellWithAttributeText:attr
-                                                                         fitWidth:([self widthOfContentView] - 2*[self smr_marginOfTableView] - insets.left - insets.right)];
+                                                                         fitWidth:[self maxLayoutOfLabelWidth]];
             }
             return 0;
         }
             break;
         case kRowTypeContentImage: {
-            if (self.imageURL.length) {
-                return [SMRUIAdapter value:100.0];
-            }
-            return 0;
+            return self.imageSize.height + self.imageSpace;
         }
             break;
         default:
@@ -300,6 +319,19 @@ UITableViewSectionsDelegate>
             [self.linkSymbols enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSURL * _Nonnull obj, BOOL * _Nonnull stop) {
                 [cell addLinkToURL:obj withRange:NSRangeFromString(key)];
             }];
+            return cell;
+        }
+            break;
+        case kRowTypeContentImage: {
+            SMRAlertViewImageCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierOfAlertViewImageCell];
+            cell.imageTop = self.imageSpace;
+            cell.imageSize = self.imageSize;
+            if (self.image) {
+                cell.image = self.image;
+            }
+            if (self.imageURL.length) {
+                cell.imageURL = self.imageURL;
+            }
             return cell;
         }
             break;
@@ -341,7 +373,10 @@ UITableViewSectionsDelegate>
     if (self.linkTouchedBlock) {
         self.linkTouchedBlock(self, url);
     } else {
-        [SMRUtils jumpToAnyURL:url.absoluteString];
+        [SMRUtils jumpToAnyURL:url.absoluteString
+                  webParameter:nil
+                    forceToApp:YES
+                   presentOnly:YES];
     }
 }
 
@@ -376,23 +411,17 @@ UITableViewSectionsDelegate>
     return nil;
 }
 
-- (UIEdgeInsets)contentInsetsOfBackgroundImageViewWithStyle:(SMRAlertViewStyle)style {
-    switch (self.alertViewStyle) {
-        case SMRAlertViewStyleOrange: {
-            return [SMRUIAdapter insets:UIEdgeInsetsMake(5, 5, 5, 5)];
-        }
-            break;
-            
-        default:
-            break;
-    }
-    return UIEdgeInsetsZero;
-}
-
 - (CGFloat)maxLayoutOfLabelWidth {
     UIEdgeInsets insets = [self smr_insetsOfContent];
     CGFloat maxLayoutWidth = [self widthOfContentView] - 2*[self smr_marginOfTableView] - insets.left - insets.right;
     return maxLayoutWidth;
+}
+
+#pragma mark - Utils
+
+- (BOOL)p_shouldShowImage {
+    return !CGSizeEqualToSize(self.imageSize, CGSizeZero)
+            && (self.imageURL.length || self.image);
 }
 
 #pragma mark - Actions
