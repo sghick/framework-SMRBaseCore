@@ -388,7 +388,7 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
     self.userInteractionEnabled = YES;
     self.multipleTouchEnabled = NO;
 
-    self.textInsets = UIEdgeInsetsZero;
+    self.textInsets = UIEdgeInsetsMake(2, 0, 0, 0);
     self.lineHeightMultiple = 1.0f;
 
     self.linkModels = [NSArray array];

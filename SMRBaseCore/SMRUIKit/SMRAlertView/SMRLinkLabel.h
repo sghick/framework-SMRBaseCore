@@ -224,7 +224,7 @@ IB_DESIGNABLE
 @property (nonatomic, assign) IBInspectable CGFloat lineHeightMultiple;
 
 /**
- The distance, in points, from the margin to the text container. This value is `UIEdgeInsetsZero` by default.
+ The distance, in points, from the margin to the text container. This value is `UIEdgeInsetsMake(2, 0, 0, 0)` by default.
  
  @discussion The `UIEdgeInset` members correspond to paragraph style properties rather than a particular geometry, and can change depending on the writing direction.
  

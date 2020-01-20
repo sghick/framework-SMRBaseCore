@@ -46,6 +46,7 @@
 #import "SMRPageControl.h"
 #import "SMRSettingAuthorized.h"
 #import "SMRScanView.h"
+#import "SMRLinkLabel.h"
 #import "SMRAlertViewButton.h"
 
 /// SMRUtilsKit

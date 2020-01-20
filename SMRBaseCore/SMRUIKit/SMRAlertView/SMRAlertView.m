@@ -285,7 +285,7 @@ SMRAlertViewContentTextCellDelegate>
                 NSAttributedString *attr = [SMRAlertViewContentTextCell attributeStringWithAttributedContent:self.attributeContent alignment:self.contentTextAlignment];
                 CGFloat height = [SMRAlertViewContentTextCell heightOfCellWithAttributeText:attr
                                                                          fitWidth:[self maxLayoutOfLabelWidth]];
-                return height + 2;
+                return height;
             }
             return 0;
         }
