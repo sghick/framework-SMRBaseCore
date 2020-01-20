@@ -8,7 +8,7 @@
 
 #import "SMRAlertViewImageCell.h"
 #import "PureLayout.h"
-#import <UIImageView+WebCache.h>
+#import "UIImageView+WebCache.h"
 
 @interface SMRAlertViewImageCell ()
 
