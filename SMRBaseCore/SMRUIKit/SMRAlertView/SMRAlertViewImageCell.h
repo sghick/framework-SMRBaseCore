@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy  , nonatomic) NSString *imageURL;
 @property (strong, nonatomic) UIImage *image;
 @property (assign, nonatomic) CGSize imageSize;
-@property (assign, nonatomic) CGFloat imageTop;
 
 @end
 

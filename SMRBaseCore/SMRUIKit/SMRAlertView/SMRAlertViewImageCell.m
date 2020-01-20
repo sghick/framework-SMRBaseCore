@@ -15,6 +15,8 @@
 @property (strong, nonatomic) UIImageView *alertImageView;
 @property (assign, nonatomic) BOOL didLoadLayout;
 
+@property (strong, nonatomic) NSArray<NSLayoutConstraint *> *layoutsForSize;
+
 @end
 
 @implementation SMRAlertViewImageCell
@@ -33,14 +35,15 @@
     [self.contentView addSubview:self.alertImageView];
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    self.alertImageView.center = self.contentView.center;
-    CGRect frame = self.alertImageView.frame;
-    frame = CGRectMake(frame.origin.x,
-                       frame.origin.y + self.imageTop,
-                       frame.size.width, frame.size.height);
-    self.alertImageView.frame = frame;
+- (void)updateConstraints {
+    if (!self.didLoadLayout) {
+        self.didLoadLayout = YES;
+        [self.alertImageView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:1];
+        [self.alertImageView autoAlignAxisToSuperviewAxis:ALAxisVertical];
+    }
+    [self.layoutsForSize autoRemoveConstraints];
+    self.layoutsForSize = [self.alertImageView autoSetDimensionsToSize:self.imageSize];
+    [super updateConstraints];
 }
 
 #pragma mark - Setters
@@ -57,17 +60,7 @@
 
 - (void)setImageSize:(CGSize)imageSize {
     _imageSize = imageSize;
-    self.alertImageView.frame = CGRectMake(0, 0, imageSize.width, imageSize.height);
-    self.alertImageView.center = self.contentView.center;
-}
-
-- (void)setImageTop:(CGFloat)imageTop {
-    _imageTop = imageTop;
-    CGRect frame = self.alertImageView.frame;
-    frame = CGRectMake(frame.origin.x,
-                       frame.origin.y + imageTop,
-                       frame.size.width, frame.size.height);
-    self.alertImageView.frame = frame;
+    [self setNeedsUpdateConstraints];;
 }
 
 #pragma mark - Getters

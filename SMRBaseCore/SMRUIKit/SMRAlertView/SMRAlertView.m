@@ -283,8 +283,9 @@ SMRAlertViewContentTextCellDelegate>
         case kRowTypeContentText: {
             if (self.content.length) {
                 NSAttributedString *attr = [SMRAlertViewContentTextCell attributeStringWithAttributedContent:self.attributeContent alignment:self.contentTextAlignment];
-                return [SMRAlertViewContentTextCell heightOfCellWithAttributeText:attr
+                CGFloat height = [SMRAlertViewContentTextCell heightOfCellWithAttributeText:attr
                                                                          fitWidth:[self maxLayoutOfLabelWidth]];
+                return height + 2;
             }
             return 0;
         }
@@ -324,7 +325,6 @@ SMRAlertViewContentTextCellDelegate>
             break;
         case kRowTypeContentImage: {
             SMRAlertViewImageCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierOfAlertViewImageCell];
-            cell.imageTop = self.imageSpace;
             cell.imageSize = self.imageSize;
             if (self.image) {
                 cell.image = self.image;
