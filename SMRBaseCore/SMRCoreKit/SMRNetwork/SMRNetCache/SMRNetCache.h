@@ -17,6 +17,14 @@
 + (instancetype)policyWithIdentifier:(NSString *)identifier cacheKey:(NSString *)cacheKey;///< callBackIfCacheNil:YES
 + (instancetype)policyWithIdentifier:(NSString *)identifier cacheKey:(NSString *)cacheKey callBackIfCacheNil:(BOOL)callBackIfCacheNil;
 
+/** 自动更新identifier */
+- (void)appendIdentifierWithParams:(NSDictionary *)params;
+- (void)appendIdentifierWithKey:(NSString *)key value:(id)value;
+
+/** 自动更新cacheKey */
+- (void)appendCacheKeyWithParams:(NSDictionary *)params;
+- (void)appendCacheKeyWithKey:(NSString *)key value:(id)value;
+
 @end
 
 @class SMRNetCachePolicy;

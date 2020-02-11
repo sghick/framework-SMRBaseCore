@@ -25,6 +25,34 @@ static NSString *const kSMRNetCacheName = @"SMRNetCache";
     return policy;
 }
 
+- (void)appendIdentifierWithParams:(NSDictionary *)params {
+    [params enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        [self appendIdentifierWithKey:key value:obj];
+    }];
+}
+- (void)appendIdentifierWithKey:(NSString *)key value:(id)value {
+    NSString *querys = [NSString stringWithFormat:@"%@=%@", key, value];
+    if ([self.identifier containsString:@"?"]) {
+        self.identifier = [NSString stringWithFormat:@"%@&%@", self.identifier, querys];
+    } else {
+        self.identifier = [NSString stringWithFormat:@"%@?%@", self.identifier, querys];
+    }
+}
+
+- (void)appendCacheKeyWithParams:(NSDictionary *)params {
+    [params enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        [self appendCacheKeyWithKey:key value:obj];
+    }];
+}
+- (void)appendCacheKeyWithKey:(NSString *)key value:(id)value {
+    NSString *querys = [NSString stringWithFormat:@"%@=%@", key, value];
+    if ([self.cacheKey containsString:@"?"]) {
+        self.cacheKey = [NSString stringWithFormat:@"%@&%@", self.cacheKey, querys];
+    } else {
+        self.cacheKey = [NSString stringWithFormat:@"%@?%@", self.cacheKey, querys];
+    }
+}
+
 @end
 
 @interface SMRNetCache ()
