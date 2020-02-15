@@ -20,6 +20,7 @@
 #import "SMRDBInsertOption.h"
 #import "SMRDBSelectOption.h"
 #import "SMRDBUpdateOption.h"
+#import "SMRDBSqlOption.h"
 #import "SMRDBUtilOption.h"
 
 #endif /* SMRDB_h */
