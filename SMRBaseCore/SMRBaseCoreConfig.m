@@ -23,7 +23,9 @@
     // 设置生命周期标记
     [SMRLifecycle setAppLaunch];
     // 初始化UserAgent
-    [SMRAppInfo setWebPureUserAgent:[SMRPhoneInfo webUserAgent]];
+    [SMRPhoneInfo webUserAgentForWK:^(NSString * _Nonnull ua) {
+        [SMRAppInfo setWebPureUserAgent:ua];
+    }];
     // 初始化数据库
     if (self.dbName) {
         [[SMRFMDBManager sharedInstance] connectDatabaseWithName:self.dbName withVersion:self.dbVersion];

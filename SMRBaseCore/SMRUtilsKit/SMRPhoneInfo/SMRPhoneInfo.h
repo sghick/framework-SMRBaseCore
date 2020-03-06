@@ -65,7 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  web的UserAgent
  */
-+ (NSString *)webUserAgent;
+ + (void)webUserAgentForWK:(void (^)(NSString *ua))completion;
 
 /**
  app的UserAgent

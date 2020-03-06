@@ -14,6 +14,7 @@
 #import "SMRKeyChainManager.h"
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import <WebKit/WebKit.h>
 #if IDFA_AVAILABLE
 #import <AdSupport/AdSupport.h>
 #endif
@@ -91,12 +92,18 @@ static NSString *const kSMRForIDFVStringInKeyChain = @"kSMRForIDFVStringInKeyCha
 #endif
 }
 
-+ (NSString *)webUserAgent {
++ (void)webUserAgentForWK:(void (^)(NSString * _Nonnull))completion {
 #if !TARGET_OS_WATCH
-    NSString *userAgentString = [[[UIWebView alloc] init] stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
-    return userAgentString;
+    WKWebView *web = [[WKWebView alloc] init];
+    [web evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+        if (completion) {
+            completion(result ?: @"");
+        }
+    }];
 #else
-    return @"";
+    if (completion) {
+        completion(@"");
+    }
 #endif
 }
 
