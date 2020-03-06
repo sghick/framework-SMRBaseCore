@@ -94,11 +94,12 @@ static NSString *const kSMRForIDFVStringInKeyChain = @"kSMRForIDFVStringInKeyCha
 
 + (void)webUserAgentForWK:(void (^)(NSString * _Nonnull))completion {
 #if !TARGET_OS_WATCH
-    WKWebView *web = [[WKWebView alloc] init];
+    __block WKWebView *web = [[WKWebView alloc] init];
     [web evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
         if (completion) {
             completion(result ?: @"");
         }
+        web = nil;
     }];
 #else
     if (completion) {
