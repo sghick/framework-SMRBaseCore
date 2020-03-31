@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)sourceBundle;
 
-+ (UIImage *)imageWithName:(NSString *)name;
++ (UIImage *)imageNamed:(NSString *)name;
 
 @end
 

@@ -179,7 +179,7 @@ static SMRNavigationView *_appearanceNavigationView = nil;
 
 - (UIButton *)backBtn {
     if (_backBtn == nil) {
-        UIButton *backBtn = [SMRNavigationView buttonOfOnlyImage:[SMRUIKitBundle imageWithName:@"nav_back@3x"]
+        UIButton *backBtn = [SMRNavigationView buttonOfOnlyImage:[SMRUIKitBundle imageNamed:@"nav_back@3x"]
                                                           target:self
                                                           action:@selector(backButtonDidTouched:)];
         backBtn.frame = CGRectMake(0, 0, 24, 24);
@@ -191,7 +191,7 @@ static SMRNavigationView *_appearanceNavigationView = nil;
 
 - (UIButton *)closeBtn {
     if (_closeBtn == nil) {
-        UIButton *closeBtn = [SMRNavigationView buttonOfOnlyImage:[SMRUIKitBundle imageWithName:@"nav_close@3x"]
+        UIButton *closeBtn = [SMRNavigationView buttonOfOnlyImage:[SMRUIKitBundle imageNamed:@"nav_close@3x"]
                                                            target:self
                                                            action:@selector(closeButtonDidTouched:)];
         closeBtn.frame = CGRectMake(0, 0, 16, 16);
@@ -205,7 +205,7 @@ static SMRNavigationView *_appearanceNavigationView = nil;
 
 - (UIImageView *)shadowView {
     if (_shadowView == nil) {
-        UIImage *image = [SMRUIKitBundle imageWithName:@"nav_shadow"];
+        UIImage *image = [SMRUIKitBundle imageNamed:@"nav_shadow"];
         image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 4, 0, 4) resizingMode:UIImageResizingModeStretch];
         UIImageView *view = [[UIImageView alloc] init];
         view.image = image;

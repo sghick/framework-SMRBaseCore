@@ -102,7 +102,7 @@
         case SMRAlertViewStyleWhite : {
             SMRGeneralButton *btn = [SMRGeneralButton rectButtonWithTitle:title target:target action:action];
             [btn setRectButtonEnumColor:SMRGeneralButtonColorWhite];
-            UIImage *image = [SMRUIKitBundle imageWithName:@"alert_left_btn@3x"];
+            UIImage *image = [SMRUIKitBundle imageNamed:@"alert_left_btn@3x"];
             [btn setBackgroundImage:image forState:UIControlStateNormal];
             return btn;
         }
@@ -110,7 +110,7 @@
         case SMRAlertViewStyleOrange : {
             SMRGeneralButton *btn = [SMRGeneralButton rectButtonWithTitle:title target:target action:action];
             [btn setRectButtonEnumColor:SMRGeneralButtonColorWhite];
-            UIImage *image = [SMRUIKitBundle imageWithName:@"alert_left_btn@3x"];
+            UIImage *image = [SMRUIKitBundle imageNamed:@"alert_left_btn@3x"];
             [btn setBackgroundImage:image forState:UIControlStateNormal];
             return btn;
         }

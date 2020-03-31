@@ -146,7 +146,7 @@ static CGFloat const SMRTabBarTextFontSize = 6.0;
     UIView *badgeView = [[UIView alloc] init];
     badgeView.tag = tag;
     badgeView.frame = CGRectMake(0, 0, badgeSize.width, badgeSize.height);
-    badgeView.layer.contents = (id)[SMRUIKitBundle imageWithName:@"tab_redPoint@3x"].CGImage;
+    badgeView.layer.contents = (id)[SMRUIKitBundle imageNamed:@"tab_redPoint@3x"].CGImage;
     return badgeView;
 }
 

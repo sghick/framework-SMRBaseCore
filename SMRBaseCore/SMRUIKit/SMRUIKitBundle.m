@@ -16,7 +16,7 @@
     return bundle;
 }
 
-+ (UIImage *)imageWithName:(NSString *)name {
++ (UIImage *)imageNamed:(NSString *)name {
     NSString *pic_name = [name stringByDeletingPathExtension];
     NSString *path_extension = [name pathExtension].length?[name pathExtension]:@"png";
     NSString *imagePath = [[self sourceBundle] pathForResource:pic_name ofType:path_extension];
