@@ -6,6 +6,8 @@
 	<dict>
 		<key>Adapter Margin</key>
 		<string>15*scale</string>
+		<key>Base Core Log</key>
+		<true/>
 	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>

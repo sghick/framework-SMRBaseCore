@@ -10,8 +10,13 @@
 
 @implementation SMRBaseCoreInfoHelper
 
-+ (NSString *)configWithKey:(NSString *)key {
++ (nullable id)configWithKey:(NSString *)key {
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Base Core Config"][key];
+}
+
++ (BOOL)baseCoreLog {
+    NSNumber *value = [self configWithKey:@"Base Core Log"];
+    return value.boolValue;
 }
 
 + (CGFloat)marginWithScale:(CGFloat)scale {
