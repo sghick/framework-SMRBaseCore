@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SMRNetAPI.h"
 
 @class SMRNetConfig;
 @class SMRNetAPI;
@@ -25,8 +26,17 @@
 #pragma mark - Query
 
 /** API请求 */
-- (void)query:(SMRNetAPI *)api;
+- (void)query:(SMRNetAPI *)api __deprecated_msg("已废弃,使用-[SMRNetAPI query]");
 /** API请求2 */
-- (void)query:(SMRNetAPI *)api callback:(SMRAPICallback *)callback;
+- (void)query:(SMRNetAPI *)api callback:(SMRAPICallback *)callback __deprecated_msg("已废弃,使用-[SMRNetAPI queryWithCallback:]");
+
+@end
+
+@interface SMRNetAPI (SMRNetManager)
+
+/** API请求 */
+- (void)query;
+/** API请求2 */
+- (void)queryWithCallback:(SMRAPICallback *)callback;
 
 @end

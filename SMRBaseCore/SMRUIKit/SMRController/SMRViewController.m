@@ -70,14 +70,6 @@
             self.automaticallyAdjustsScrollViewInsets = [self adjustmentBehaviorForIOS11Before];
         }
     }
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    // 友盟统计
-    Class umcls = NSClassFromString(@"MobClick");
-    if ([umcls respondsToSelector:NSSelectorFromString(@"beginLogPageView:")]) {
-        [umcls performSelector:NSSelectorFromString(@"beginLogPageView:") withObject:self.UMPageName];
-    }
-#pragma clang diagnostic pop
     
     // BackGesture,每次页面切换时需要切换
     [self setNeedsBackGestureUpdated];
@@ -97,14 +89,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    // 友盟统计
-    Class umcls = NSClassFromString(@"MobClick");
-    if ([umcls respondsToSelector:NSSelectorFromString(@"endLogPageView:")]) {
-        [umcls performSelector:NSSelectorFromString(@"endLogPageView:") withObject:self.UMPageName];
-    }
-#pragma clang diagnostic pop
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
@@ -164,10 +148,6 @@
     if ([childController isKindOfClass:[SMRViewController class]]) {
         childController.isMainPage = self.isMainPage;
     }
-}
-
-- (void)query:(SMRNetAPI *)api callback:(nullable SMRAPICallback *)callback {
-    [[SMRNetManager sharedManager] query:api callback:callback];
 }
 
 #pragma mark - Getters/Setters

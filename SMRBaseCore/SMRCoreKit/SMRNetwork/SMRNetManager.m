@@ -226,3 +226,15 @@ SMRSessionAPIInitDelegate>
 }
 
 @end
+
+@implementation SMRNetAPI (SMRNetManager)
+
+- (void)query {
+    [[SMRNetManager sharedManager] query:self];
+}
+
+- (void)queryWithCallback:(SMRAPICallback *)callback {
+    [[SMRNetManager sharedManager] query:self callback:callback];
+}
+
+@end

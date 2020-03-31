@@ -53,11 +53,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSIndexSet *)recentyIndexSet;
 
 /**
- 发起网络请求
- */
-- (void)query:(SMRNetAPI *)api callback:(nullable SMRAPICallback *)callback;
-
-/**
  @override
  是否允许右滑返回,默认YES
  */
