@@ -1,6 +1,6 @@
 //
 //  SMRTextAttribute.m
-//  Hermes
+//  SMRBaseCoreDemo
 //
 //  Created by Tinswin on 2020/1/20.
 //  Copyright © 2020 sumrise. All rights reserved.
