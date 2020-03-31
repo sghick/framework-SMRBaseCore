@@ -7,6 +7,7 @@
 //
 
 #import "SMRPhoneInfo.h"
+
 // 可否使用广告标识IDFA
 #define IDFA_AVAILABLE  (1)
 
@@ -15,6 +16,7 @@
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <WebKit/WebKit.h>
+#import "SMRLog.h"
 #if IDFA_AVAILABLE
 #import <AdSupport/AdSupport.h>
 #endif
@@ -36,7 +38,7 @@ static NSString *const kSMRForIDFVStringInKeyChain = @"kSMRForIDFVStringInKeyCha
 + (NSString *)IDFAString {
 #if IDFA_AVAILABLE && !TARGET_OS_WATCH
     NSString *uuid = uuid = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-    NSLog(@"IDFA:%@", uuid);
+    smr_base_core_log(@"IDFA:%@", uuid);
     return uuid;
 #else
     return @"";
@@ -46,7 +48,7 @@ static NSString *const kSMRForIDFVStringInKeyChain = @"kSMRForIDFVStringInKeyCha
 // private
 + (NSString *)IDFVString {
     NSString *uuid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-    NSLog(@"IDFV:%@", uuid);
+    smr_base_core_log(@"IDFV:%@", uuid);
     return uuid;
 }
 

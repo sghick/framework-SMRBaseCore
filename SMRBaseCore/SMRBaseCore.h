@@ -21,6 +21,7 @@
 #import "SMRLayout.h"
 #import "SMRCache.h"
 #import "SMRAdapter.h"
+#import "SMRLog.h"
 
 /// SMRUIKit
 #import "SMRViewController.h"

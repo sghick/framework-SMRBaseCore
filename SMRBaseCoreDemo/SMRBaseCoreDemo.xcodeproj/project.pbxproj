@@ -234,6 +234,7 @@
 		1DA00EB724332A7B00DB28BC /* UITableView+SMRSeparator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+SMRSeparator.m"; sourceTree = "<group>"; };
 		1DA00EBE24332FFF00DB28BC /* SMRLineLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRLineLayout.h; sourceTree = "<group>"; };
 		1DA00EBF24332FFF00DB28BC /* SMRLineLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRLineLayout.m; sourceTree = "<group>"; };
+		1DDC0D172433410F002CDBF8 /* SMRLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRLog.h; sourceTree = "<group>"; };
 		265B7E2F72042FFDB9545E7F /* Pods-SMRBaseCoreDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMRBaseCoreDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo.release.xcconfig"; sourceTree = "<group>"; };
 		8A1DAF0C232641EB00F2B478 /* SMRSeparatorTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRSeparatorTests.h; sourceTree = "<group>"; };
 		8A1DAF0D232641EB00F2B478 /* SMRSeparatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRSeparatorTests.m; sourceTree = "<group>"; };
@@ -677,6 +678,14 @@
 			path = SMRLineLayout;
 			sourceTree = "<group>";
 		};
+		1DDC0D1624334105002CDBF8 /* SMRLog */ = {
+			isa = PBXGroup;
+			children = (
+				1DDC0D172433410F002CDBF8 /* SMRLog.h */,
+			);
+			path = SMRLog;
+			sourceTree = "<group>";
+		};
 		8A2DE2382232635000E9A07E /* SMRIndexView */ = {
 			isa = PBXGroup;
 			children = (
@@ -905,6 +914,7 @@
 		8A814A8221F5B80B00D8AEB6 /* SMRCoreKit */ = {
 			isa = PBXGroup;
 			children = (
+				1DDC0D1624334105002CDBF8 /* SMRLog */,
 				8AD9C6E1223A32820028A871 /* SMRCache */,
 				8AE4955121FFE67D0055263E /* SMRLayout */,
 				8A814D1721F80B8100D8AEB6 /* SMRRanker */,
@@ -2165,6 +2175,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8QXHGXQB5D;
 				ENABLE_BITCODE = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"SMR_BASE_CORE_LOG=1",
+				);
 				INFOPLIST_FILE = SMRBaseCoreDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (

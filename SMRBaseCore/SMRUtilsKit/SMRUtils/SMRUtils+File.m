@@ -7,6 +7,7 @@
 //
 
 #import "SMRUtils+File.h"
+#import "SMRLog.h"
 
 @implementation SMRUtils (File)
 
@@ -22,9 +23,9 @@
         NSNumber *freeFileSystemSizeInBytes = [dictionary objectForKey:NSFileSystemFreeSize];
         totalSpace = [fileSystemSizeInBytes doubleValue];
         totalFreeSpace = [freeFileSystemSizeInBytes doubleValue];
-        NSLog(@"Memory Capacity of %f MiB with %f MiB Free memory available.", ((totalSpace/1024.0f)/1024.0f), ((totalFreeSpace/1024.0f)/1024.0f));
+        smr_base_core_log(@"Memory Capacity of %f MiB with %f MiB Free memory available.", ((totalSpace/1024.0f)/1024.0f), ((totalFreeSpace/1024.0f)/1024.0f));
     } else {
-        NSLog(@"Error Obtaining System Memory Info: Domain = %@, Code = %ld", [error domain], (long)[error code]);
+        smr_base_core_log(@"Error Obtaining System Memory Info: Domain = %@, Code = %ld", [error domain], (long)[error code]);
     }
     return ((totalFreeSpace/1024.0f)/1024.0f);
 }

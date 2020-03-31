@@ -7,6 +7,7 @@
 //
 
 #import "SMRWebConfig.h"
+#import "SMRLog.h"
 
 @implementation SMRWKScriptMessageHandler
 
@@ -22,7 +23,7 @@
     if (self.recivedBlock) {
         self.recivedBlock(self.webController, userContentController, message);
     } else {
-        NSLog(@"%@:有人用js调了我, 但是你却没有定义我 @ _ @", message.name);
+        smr_base_core_log(@"%@:有人用js调了我, 但是你却没有定义我 @ _ @", message.name);
     }
 }
 

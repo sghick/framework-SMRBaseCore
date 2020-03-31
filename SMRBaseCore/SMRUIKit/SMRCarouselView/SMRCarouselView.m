@@ -8,6 +8,7 @@
 
 #import "SMRCarouselView.h"
 #import "PureLayout.h"
+#import "SMRLog.h"
 
 @interface SMRCarouselView ()
 
@@ -54,7 +55,7 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     NSString *content = @[@"aaa", @"bbb", @"ccc"][row];
-    NSLog(@"%@", content);
+    smr_base_core_log(@"%@", content);
 }
 
 #pragma mark - Getters

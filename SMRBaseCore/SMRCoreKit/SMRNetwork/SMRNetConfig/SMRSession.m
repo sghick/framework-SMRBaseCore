@@ -14,6 +14,7 @@
 #import "SMRNetCache.h"
 #import "SMRNetInfo.h"
 #import "SMRNetDedouncer.h"
+#import "SMRLog.h"
 
 @interface SMRSession ()
 
@@ -115,7 +116,7 @@
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         id response = [self.config responseObjectWithError:error];
         if (self.config.debugLog) {
-            NSLog(@"API请求错误:%@,\n\tresponse=%@,\n%@", api, response, error);
+            smr_base_core_log(@"API请求错误:%@,\n\tresponse=%@,\n%@", api, response, error);
         }
         // 设置请求结束的标志
         didServiceResponse = YES;

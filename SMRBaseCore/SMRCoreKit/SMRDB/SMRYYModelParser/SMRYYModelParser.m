@@ -10,6 +10,7 @@
 #import "SMRDBMapper.h"
 #import "SMRDBColumn.h"
 #import "YYModel.h"
+#import "SMRLog.h"
 
 @implementation SMRYYModelParser
 
@@ -128,7 +129,7 @@
     id responseObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&err];
     //data转换成dic或者数组
     if (err) {
-        NSLog(@"json解析失败：%@",err);
+        smr_base_core_log(@"json解析失败：%@",err);
         return nil;
     }
     return responseObject;

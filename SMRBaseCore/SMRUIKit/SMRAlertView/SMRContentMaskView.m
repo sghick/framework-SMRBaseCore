@@ -35,7 +35,7 @@ UIGestureRecognizerDelegate>
 @synthesize contentView = _contentView;
 
 - (void)dealloc {
-    //    NSLog(@"成功释放对象:<%@: %p>", [self class], &self);
+
 }
 
 - (instancetype)init {

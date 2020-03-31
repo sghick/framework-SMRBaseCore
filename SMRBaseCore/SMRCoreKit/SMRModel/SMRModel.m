@@ -8,6 +8,7 @@
 
 #import "SMRModel.h"
 #import "YYModel.h"
+#import "SMRLog.h"
 
 @implementation NSObject (SMRModel)
 
@@ -51,7 +52,7 @@
                                                         options:NSJSONReadingMutableContainers
                                                           error:&err];
     if (err) {
-        NSLog(@"json解析失败：%@",err);
+        smr_base_core_log(@"json解析失败：%@",err);
         return nil;
     }
     return dic;

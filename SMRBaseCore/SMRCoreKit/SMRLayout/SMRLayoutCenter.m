@@ -8,6 +8,7 @@
 
 #import "SMRLayoutCenter.h"
 #import "PureLayout.h"
+#import "SMRLog.h"
 
 static NSString * const kSMRLayoutNameSeparator = @"<";
 static NSString * const kSMRLayoutMethodSeparator = @":";
@@ -34,16 +35,16 @@ static NSString * const kSMRLayoutViewHeight = @"height";
 + (void)addSubview:(NSDictionary *)dict name:(NSString *)name clsName:(NSString *)clsName atView:(UIView *)atView {
     Class cls = NSClassFromString(clsName);
     if (!cls) {
-        NSLog(@"<%@:%@> 未找到该类!", name, clsName);
+        smr_base_core_log(@"<%@:%@> 未找到该类!", name, clsName);
         return;
     }
     UIView *view = [[cls alloc] init];
     if (![view isKindOfClass:[UIView class]]) {
-        NSLog(@"<%@:%@> 非view对象!", name, clsName);
+        smr_base_core_log(@"<%@:%@> 非view对象!", name, clsName);
         return;
     }
     if (!atView) {
-        NSLog(@"<%@:%@> atView为空!", name, clsName);
+        smr_base_core_log(@"<%@:%@> atView为空!", name, clsName);
         return;
     }
     [atView addSubview:view];

@@ -9,6 +9,7 @@
 #import "SMRIndexView.h"
 #import <QuartzCore/QuartzCore.h>
 #import <CoreText/CoreText.h>
+#import "SMRLog.h"
 
 @interface SMRIndexView ()
 
@@ -55,7 +56,7 @@
 
 - (UIColor *)selectedItemFontColor {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     if (!_selectedItemFontColor) {
@@ -69,7 +70,7 @@
 
 - (void)setCurtainColor:(UIColor *)curtainColor {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     _curtainColor = curtainColor;
@@ -78,7 +79,7 @@
 - (void)setFontColor:(UIColor *)fontColor {
     
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     // we need to convert grayColor, whiteColor and blackColor to RGB;
@@ -102,7 +103,7 @@
 
 - (void)setCurtainFade:(CGFloat)curtainFade {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     if (self.gradientLayer) {
@@ -114,7 +115,7 @@
 
 - (void)setDataSource:(id<SMRIndexViewDataSource>)dataSource {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     _dataSource = dataSource;
@@ -125,7 +126,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     self = [super initWithFrame:frame];
@@ -152,7 +153,7 @@
 
 - (instancetype)init {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     self = [self initWithFrame:CGRectZero];
@@ -161,7 +162,7 @@
 
 - (void)didMoveToSuperview {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     [self getAllItemsSize];
@@ -172,7 +173,7 @@
 // refreshing our index items
 - (void)refreshIndexItems {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     // if items existed we have to remove all sublayers from main layer
@@ -195,7 +196,7 @@
 - (void)getAllItemsSize {
     
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     CGSize indexSize = CGSizeZero;
@@ -224,7 +225,7 @@
         // if index items are smaller than 5.0 points display alert and do not display index at all
         if (currentItemSize.height < 5.0) {
             //[NSException raise:@"Too many items in index" format:@"Items are to small to be legible"];
-            NSLog(@" ******* Too many items in index. Items are too small to be legible. Index won't be displayed. *******");
+            smr_base_core_log(@" ******* Too many items in index. Items are too small to be legible. Index won't be displayed. *******");
             return;
         }
         indexSize.height += entireHeight;
@@ -297,7 +298,7 @@
 // checking if there are any items with lower case
 - (BOOL)checkForLowerCase {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     NSCharacterSet *lowerCaseSet = [NSCharacterSet lowercaseLetterCharacterSet];
@@ -310,7 +311,7 @@
 // checking ig there are any items with upper case
 - (BOOL)checkForUpperCase {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     NSCharacterSet *upperCaseSet = [NSCharacterSet uppercaseLetterCharacterSet];
@@ -322,7 +323,7 @@
 
 - (void) initialiseAllAttributes {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     CGFloat verticalPos = self.firstItemOrigin.y;
@@ -384,7 +385,7 @@
 // reseting positions of index items
 - (void)resetPosition {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     for (NSCache *itemAttributes in self.itemsAtrributes) {
@@ -407,7 +408,7 @@
 #pragma mark calculating item position during the pan gesture
 - (void)positionForIndexItemsWhilePanLocation:(CGPoint)location {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     CGFloat verticalPos = self.firstItemOrigin.y;
@@ -531,7 +532,7 @@
 // calculating darker color to the given one
 - (UIColor *)darkerColor:(UIColor *)color by:(float)value {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     CGFloat h, s, b, a;
@@ -547,7 +548,7 @@
 
 - (void)drawIndex {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     for (NSCache *itemAttributes in self.itemsAtrributes) {
@@ -618,7 +619,7 @@
 
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     int section = 0;
@@ -640,7 +641,7 @@
 
 - (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     CGFloat currentY = [touch locationInView:self].y;
@@ -664,7 +665,7 @@
 
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     if (self.indexItems && [self.indexItems count] > 0) {
@@ -692,7 +693,7 @@
 
 - (void)cancelTrackingWithEvent:(UIEvent *)event {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     // if touch was canceled we reset everything
@@ -706,7 +707,7 @@
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
     
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     // UIView will be "transparent" for touch events if we return NO
@@ -722,7 +723,7 @@
 
 - (void)addCurtain {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     // if we want a curtain to fade we have to use CAGradientLayer
@@ -768,7 +769,7 @@
 // hiding the curtain
 - (void)hideCurtain {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     // first we have to check if the curtain is shown and a color for it is set
@@ -840,7 +841,7 @@
 // showing the curtain
 - (void)showCurtain {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     // first we have to check if the curtain is shown and a color for it is set
@@ -884,7 +885,7 @@
 - (void)drawLabel:(NSString *)label withFont:(UIFont *)font forSize:(CGSize)size
           atPoint:(CGPoint)point withAlignment:(NSTextAlignment)alignment lineBreakMode:(NSLineBreakMode)lineBreak color:(UIColor *)color {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     // obtain current context
@@ -921,7 +922,7 @@
 // drawing rectangles - for test purposes only
 - (void)drawTestRectangleAtPoint:(CGPoint)p withSize:(CGSize)size red:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -937,7 +938,7 @@
 // our drawRect - for test purposee only
 - (void)drawRect:(CGRect)rect {
     if (debug == 1) {
-        NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
+        smr_base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
     if (self.dot) {

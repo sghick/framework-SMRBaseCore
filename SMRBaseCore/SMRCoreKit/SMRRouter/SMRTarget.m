@@ -9,6 +9,7 @@
 #import "SMRTarget.h"
 #import "SMRNavigator.h"
 #import "SMRRouterCenter.h"
+#import "SMRLog.h"
 
 @implementation SMRTarget
 
@@ -38,7 +39,7 @@
         [invocation invoke];
         return obj;
     } else {
-        NSLog(@"unknow obj class or selector:%@,%@", obj_class, selector);
+        smr_base_core_log(@"unknow obj class or selector:%@,%@", obj_class, selector);
         return nil;
     }
 }
@@ -49,7 +50,7 @@
         UIViewController *controller = (UIViewController *)obj;
         [SMRNavigator pushOrPresentToViewController:controller animated:YES];
     } else {
-        NSLog(@"unknow view controller to open");
+        smr_base_core_log(@"unknow view controller to open");
     }
 }
 

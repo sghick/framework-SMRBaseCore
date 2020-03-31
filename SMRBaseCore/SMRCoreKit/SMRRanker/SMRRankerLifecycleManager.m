@@ -7,6 +7,7 @@
 //
 
 #import "SMRRankerLifecycleManager.h"
+#import "SMRLog.h"
 
 NSString * const kPrefixHeaderForRankerLifecycle = @"kPrefixHeaderForRankerLifecycle";
 
@@ -197,9 +198,9 @@ static dispatch_once_t _rankerlifecyclemanageronceToken;
     if (manager.didSetAppLaunch == NO) {
         manager.didSetAppLaunch = YES;
         manager.version = version;
-        NSLog(@"launchUUID:%@", manager.launchUUID);
-        NSLog(@"version:%@", manager.version);
-        NSLog(@"installUUID:%@", manager.installUUID);
+        smr_base_core_log(@"launchUUID:%@", manager.launchUUID);
+        smr_base_core_log(@"version:%@", manager.version);
+        smr_base_core_log(@"installUUID:%@", manager.installUUID);
     }
 }
 

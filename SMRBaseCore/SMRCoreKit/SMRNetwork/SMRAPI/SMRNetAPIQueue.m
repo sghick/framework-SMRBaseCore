@@ -7,6 +7,7 @@
 //
 
 #import "SMRNetAPIQueue.h"
+#import "SMRLog.h"
 
 @interface SMRNetAPIQueue ()
 
@@ -20,7 +21,7 @@
     if (!api) {
         return;
     }
-    NSLog(@"入队:%@", api);
+    smr_base_core_log(@"入队:%@", api);
     [self.queueArray addObject:api];
 }
 
@@ -29,7 +30,7 @@
     if (api) {
         [self.queueArray removeObject:api];
     }
-    NSLog(@"出队:%@", api);
+    smr_base_core_log(@"出队:%@", api);
     return api;
 }
 

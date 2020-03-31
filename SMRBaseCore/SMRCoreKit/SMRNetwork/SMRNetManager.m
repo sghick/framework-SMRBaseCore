@@ -13,6 +13,7 @@
 #import "SMRSession.h"
 #import "SMRNetDedouncer.h"
 #import "NSError+SMRNetwork.h"
+#import "SMRLog.h"
 
 @interface SMRNetManager ()<
 SMRSessionRetryDelegate,
@@ -91,7 +92,7 @@ SMRSessionAPIInitDelegate>
 }
 
 - (void)p_queryOnlyAPI:(SMRNetAPI *)api {
-    NSLog(@"发起API:%@", api.identifier);
+    smr_base_core_log(@"发起API:%@", api.identifier);
     // 创建task
     NSURLSessionTask *task = [self.session smr_dataTaskWithAPI:api];
     // 发起请求
@@ -137,7 +138,7 @@ SMRSessionAPIInitDelegate>
                     [self p_resumeAllTask];
                 } else {
                     
-                    NSLog(@"初始化API失败,config中判断失败:%@", api.identifier);
+                    smr_base_core_log(@"初始化API失败,config中判断失败:%@", api.identifier);
                     // 向config发送api初始化失败的消息
                     [self.config apiInitFaild:error];
                     // API初始化失败后,向所有队列中API发送失败消息
@@ -146,14 +147,14 @@ SMRSessionAPIInitDelegate>
                 }
             } faildBlock:^(SMRNetAPI *api, id response, NSError *error) {
                 
-                NSLog(@"初始化API失败:%@,%@", api.identifier, error);
+                smr_base_core_log(@"初始化API失败:%@,%@", api.identifier, error);
                 // 向config发送api初始化失败的消息
                 [self.config apiInitFaild:error];
                 // API初始化失败后,向所有队列中API发送失败消息
                 [self p_callbackAllFaildTaskWithError:error];
             } uploadProgress:nil downloadProgress:nil];
             
-            NSLog(@"初始化API中:%@", initAPI.identifier);
+            smr_base_core_log(@"初始化API中:%@", initAPI.identifier);
             // 先发起本次初始化API
             initAPI.callback = callback;
             [self p_queryOnlyAPI:initAPI];

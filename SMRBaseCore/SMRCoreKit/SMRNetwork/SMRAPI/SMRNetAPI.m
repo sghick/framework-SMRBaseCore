@@ -18,7 +18,6 @@
     _faildBlock = nil;
     _uploadProgress = nil;
     _downloadProgress = nil;
-//    NSLog(@"释放对象:<%@: %p>", self.class, self);
 }
 
 /** 常用请求的回调方式1 */
@@ -128,7 +127,7 @@ SMRReqeustMethod const SMRReqeustMethodDELETE   = @"DELETE";
 @synthesize blackErrorCodes = _blackErrorCodes;
 
 - (void)dealloc {
-//    NSLog(@"释放对象:<%@: %p>", self.class, self);
+
 }
 
 - (void)fillDataTask:(NSURLSessionTask *)dataTask {

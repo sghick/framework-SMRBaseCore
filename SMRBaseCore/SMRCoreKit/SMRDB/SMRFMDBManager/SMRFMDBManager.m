@@ -10,6 +10,7 @@
 #import "SMRDBAdapter.h"
 #import "SMRYYModelParser.h"
 #import "FMDB.h"
+#import "SMRLog.h"
 
 #define kDBLibVersion(dbPath) ([NSString stringWithFormat:@"kSMRDataBaseLibVersion_%@", dbPath])
 
@@ -102,7 +103,7 @@ static SMRFMDBManager *_sharedDBManager;
         _queue = [[FMDatabaseQueue alloc] initWithPath:dbFilePath];
         self.dbFilePath = dbFilePath;
         self.db = [self getCurrentDatabase];
-        NSLog(@"db path: %@", dbFilePath);
+        smr_base_core_log(@"db path: %@", dbFilePath);
     }
     return DB_OPEN_SUCCESS;
 }
@@ -121,14 +122,14 @@ static SMRFMDBManager *_sharedDBManager;
         NSError *error = nil;
         [fileManager removeItemAtPath:[self getDBFilePath] error:&error];
         if (error != nil) {
-            NSLog(@"remove database error");
+            smr_base_core_log(@"remove database error");
             return NO;
         } else {
-            NSLog(@"remove database successfully");
+            smr_base_core_log(@"remove database successfully");
             return YES;
         }
     } else {
-        NSLog(@"There is no database!");
+        smr_base_core_log(@"There is no database!");
         return YES;
     }
 }
@@ -209,10 +210,9 @@ static SMRFMDBManager *_sharedDBManager;
     
     if (result == YES) {
         // sql 语句执行成功
-        //        NSLog(@"SMRDBManager: sqls excute successfully");
     } else {
         // sql 语句执行失败
-        NSLog(@"SMRDBManager: sqls excute unsuccessfully<==>%@", sqlArray);
+        smr_base_core_log(@"SMRDBManager: sqls excute unsuccessfully<==>%@", sqlArray);
     }
     return result;
 }
@@ -238,10 +238,9 @@ static SMRFMDBManager *_sharedDBManager;
     
     if (result == YES) {
         // sql 语句执行成功
-        //        NSLog(@"SMRDBManager: sqls excute successfully");
     } else {
         // sql 语句执行失败
-        NSLog(@"SMRDBManager: sqls excute unsuccessfully<==>%@", sql);
+        smr_base_core_log(@"SMRDBManager: sqls excute unsuccessfully<==>%@", sql);
     }
     return result;
 }
@@ -267,10 +266,9 @@ static SMRFMDBManager *_sharedDBManager;
     
     if (result == YES) {
         // sql 语句执行成功
-        //        NSLog(@"SMRDBManager: sqls excute successfully");
     } else {
         // sql 语句执行失败
-        NSLog(@"SMRDBManager: sqls excute unsuccessfully<==>%@", sql);
+        smr_base_core_log(@"SMRDBManager: sqls excute unsuccessfully<==>%@", sql);
     }
     return result;
 }

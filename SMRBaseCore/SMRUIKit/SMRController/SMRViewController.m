@@ -11,6 +11,7 @@
 #import "SDImageCache.h"
 #import "SMRNetwork.h"
 #import "IQKeyboardManager.h"
+#import "SMRLog.h"
 
 @interface SMRViewController ()
 
@@ -21,13 +22,13 @@
 @implementation SMRViewController
 
 - (void)dealloc {
-    NSLog(@"成功释放控制器:<%@: %p> %@", [self class], &self, self.title);
+    smr_base_core_log(@"成功释放控制器:<%@: %p> %@", [self class], &self, self.title);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    NSLog(@"内存警告:<%@: %p> %@", [self class], &self, self.title);
+    smr_base_core_log(@"内存警告:<%@: %p> %@", [self class], &self, self.title);
     [[SDImageCache sharedImageCache] clearMemory];
 }
 

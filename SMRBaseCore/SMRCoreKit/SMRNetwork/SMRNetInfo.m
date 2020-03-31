@@ -11,12 +11,13 @@
 #import <xlocale.h>
 #import "SMRNetManager.h"
 #import "SMRNetConfig.h"
+#import "SMRLog.h"
 
 @implementation SMRNetInfo
 
 + (void)syncNetInfoWithResponse:(NSHTTPURLResponse *)response {
     if (![response isKindOfClass:[NSHTTPURLResponse class]]) {
-        NSLog(@"请求失败或收接到非 NSHTTPURLResponse 对象,无法同步NetInfo.");
+        smr_base_core_log(@"请求失败或收接到非 NSHTTPURLResponse 对象,无法同步NetInfo.");
         return;
     }
     NSString *rfcDateString = response.allHeaderFields[@"Date"];
