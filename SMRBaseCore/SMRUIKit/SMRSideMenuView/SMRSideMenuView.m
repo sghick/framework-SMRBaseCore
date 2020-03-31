@@ -8,7 +8,7 @@
 
 #import "SMRSideMenuView.h"
 #import "SMRAdapter.h"
-#import "UITableView+Separator.h"
+#import "UITableView+SMRSeparator.h"
 #import "SMRUIKitBundle.h"
 
 @interface SMRSideMenuView () <

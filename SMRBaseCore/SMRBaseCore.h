@@ -20,10 +20,10 @@
 #import "SMRRanker.h"
 #import "SMRLayout.h"
 #import "SMRCache.h"
+#import "SMRAdapter.h"
 
 /// SMRUIKit
 #import "SMRViewController.h"
-#import "SMRAdapter.h"
 #import "SMRNavigationView.h"
 #import "SMRTableAssistant.h"
 #import "UIView+SMRResponder.h"
@@ -56,6 +56,7 @@
 #import "SMRAppInfo.h"
 #import "SMRKeyChainManager.h"
 #import "SMRUtilsHeader.h"
+#import "SMRUtilsCategories.h"
 #import "SMRUpdateStatusManager.h"
 
 #endif /* SMRBaseCore_h */

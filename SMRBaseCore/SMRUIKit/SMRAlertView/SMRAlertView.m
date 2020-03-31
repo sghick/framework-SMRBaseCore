@@ -10,7 +10,7 @@
 #import "SMRBaseCoreConfig.h"
 #import "PureLayout.h"
 #import "SMRAdapter.h"
-#import "UITableView+Separator.h"
+#import "UITableView+SMRSeparator.h"
 #import "UITableView+SMRSections.h"
 #import "SMRAlertViewContentTextCell.h"
 #import "SMRAlertViewImageCell.h"

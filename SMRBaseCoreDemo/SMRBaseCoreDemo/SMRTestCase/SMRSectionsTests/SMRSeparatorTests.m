@@ -7,7 +7,7 @@
 //
 
 #import "SMRSeparatorTests.h"
-#import "UITableView+Separator.h"
+#import "UITableView+SMRSeparator.h"
 
 @interface UITableView ()
 

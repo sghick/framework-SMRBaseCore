@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 FOUNDATION_EXPORT NSErrorUserInfoKey const kErrorUserInfoDetail;
 FOUNDATION_EXPORT NSErrorUserInfoKey const kErrorUserInfoMessage;
-
-NS_ASSUME_NONNULL_BEGIN
 
 @interface NSError (SMRError)
 

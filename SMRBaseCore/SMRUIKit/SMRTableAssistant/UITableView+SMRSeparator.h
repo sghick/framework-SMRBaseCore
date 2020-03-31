@@ -1,5 +1,5 @@
 //
-//  UITableView+Separator.h
+//  UITableView+SMRSeparator.h
 //  SeperatorLine
 //
 //  Created by 丁治文 on 16/7/11.
@@ -59,7 +59,7 @@ extern NSString * const SMRSeperatorsFormatAllRightLess;
 /// Cn
 extern NSString * const SMRSeperatorsFormatAllCenterLess;
 
-@interface UITableView (Separator)
+@interface UITableView (SMRSeparator)
 
 @property (nonatomic, assign) CGFloat leftMargin;///< default:20*scale|info.plist
 @property (nonatomic, assign) CGFloat rightMargin;///< default:20*scale|info.plist

@@ -10,6 +10,6 @@
 #define SMRTableAssistant_h
 
 #import "UITableView+SMRSections.h"
-#import "UITableView+Separator.h"
+#import "UITableView+SMRSeparator.h"
 
 #endif /* SMRTableAssistant_h */

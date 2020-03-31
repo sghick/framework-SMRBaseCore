@@ -92,4 +92,67 @@
     return [UIColor colorWithRed:red/255.0 green:green/255.0 blue:blue/255.0 alpha:alpha];
 }
 
+#pragma mark - GeneralColors
+
++ (UIColor *)smr_clearColor {
+    return [UIColor clearColor];
+}
+
++ (UIColor *)smr_whiteColor {
+    return [UIColor whiteColor];
+}
+
++ (UIColor *)smr_generalRedColor {
+    return [UIColor smr_colorWithHexRGB:@"#D12920"];
+}
+
++ (UIColor *)smr_deepOrangeColor {
+    return [UIColor smr_colorWithHexRGB:@"#E7B02D"];
+}
+
++ (UIColor *)smr_generalOrangeColor {
+    return [UIColor smr_colorWithHexRGB:@"#F19722"];
+}
+
++ (UIColor *)smr_blackColor {
+    return [UIColor smr_colorWithHexRGB:@"#000000"];
+}
++ (UIColor *)smr_alertBlackColor {
+    return [UIColor smr_colorWithHexRGB:@"#1B1B1B"];
+}
++ (UIColor *)smr_generalBlackColor {
+    return [UIColor smr_colorWithHexRGB:@"#333333"];
+}
+
++ (UIColor *)smr_lightGrayColor {
+    return [UIColor smr_colorWithHexRGB:@"#666666"];
+}
++ (UIColor *)smr_darkGrayColor {
+    return [UIColor smr_colorWithHexRGB:@"#999999"];
+}
++ (UIColor *)smr_normalGrayColor {
+    return [UIColor smr_colorWithHexRGB:@"#A7A7A7"];
+}
++ (UIColor *)smr_placeholderGrayColor {
+    return [UIColor smr_colorWithHexRGB:@"#BCBCBC"];
+}
++ (UIColor *)smr_disableGrayColor {
+    return [UIColor smr_colorWithHexRGB:@"#CDCDCD"];
+}
++ (UIColor *)smr_tableLineGrayColor {
+    return [UIColor smr_colorWithHexRGB:@"#D9D9D9"];
+}
++ (UIColor *)smr_lineGrayColor {
+    return [UIColor smr_colorWithHexRGB:@"#EBEBEB"];
+}
++ (UIColor *)smr_backgroundGrayColor {
+    return [UIColor smr_colorWithHexRGB:@"#F0F0F0"];
+}
++ (UIColor *)smr_labelGrayColor {
+    return [UIColor smr_colorWithHexRGB:@"#F2F2F2"];
+}
++ (UIColor *)smr_contentGrayColor {
+    return [UIColor smr_colorWithHexRGB:@"#F8F9FB"];
+}
+
 @end

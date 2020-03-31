@@ -1,12 +1,12 @@
 //
-//  UITableView+Separator.m
+//  UITableView+SMRSeparator.m
 //  SeperatorLine
 //
 //  Created by 丁治文 on 16/7/11.
 //  Copyright © 2016年 丁治文. All rights reserved.
 //
 
-#import "UITableView+Separator.h"
+#import "UITableView+SMRSeparator.h"
 #import "SMRBaseCoreInfoHelper.h"
 #import "SMRUIAdapter.h"
 #import <objc/runtime.h>
@@ -28,7 +28,7 @@ NSString * const SMRSeperatorsFormatAllCenterLess = @"Cn";
 
 @end
 
-@implementation UITableView (Separator)
+@implementation UITableView (SMRSeparator)
 
 #pragma mark - Getters/Setters
 // didMarkedCustom
