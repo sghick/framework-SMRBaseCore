@@ -129,7 +129,7 @@
     id responseObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&err];
     //data转换成dic或者数组
     if (err) {
-        smr_base_core_log(@"json解析失败：%@",err);
+        base_core_log(@"json解析失败：%@",err);
         return nil;
     }
     return responseObject;

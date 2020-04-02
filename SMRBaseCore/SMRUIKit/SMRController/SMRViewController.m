@@ -22,13 +22,13 @@
 @implementation SMRViewController
 
 - (void)dealloc {
-    smr_base_core_log(@"成功释放控制器:<%@: %p> %@", [self class], &self, self.title);
+    base_core_log(@"成功释放控制器:<%@: %p> %@", [self class], &self, self.title);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    smr_base_core_log(@"内存警告:<%@: %p> %@", [self class], &self, self.title);
+    base_core_log(@"内存警告:<%@: %p> %@", [self class], &self, self.title);
     [[SDImageCache sharedImageCache] clearMemory];
 }
 

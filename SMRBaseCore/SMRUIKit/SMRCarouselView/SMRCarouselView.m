@@ -55,7 +55,7 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     NSString *content = @[@"aaa", @"bbb", @"ccc"][row];
-    smr_base_core_log(@"%@", content);
+    base_core_log(@"%@", content);
 }
 
 #pragma mark - Getters

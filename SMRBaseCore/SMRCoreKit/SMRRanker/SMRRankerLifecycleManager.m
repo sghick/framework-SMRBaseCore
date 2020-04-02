@@ -198,9 +198,9 @@ static dispatch_once_t _rankerlifecyclemanageronceToken;
     if (manager.didSetAppLaunch == NO) {
         manager.didSetAppLaunch = YES;
         manager.version = version;
-        smr_base_core_log(@"launchUUID:%@", manager.launchUUID);
-        smr_base_core_log(@"version:%@", manager.version);
-        smr_base_core_log(@"installUUID:%@", manager.installUUID);
+        base_core_log(@"launchUUID:%@", manager.launchUUID);
+        base_core_log(@"version:%@", manager.version);
+        base_core_log(@"installUUID:%@", manager.installUUID);
     }
 }
 

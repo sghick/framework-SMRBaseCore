@@ -52,7 +52,7 @@
                                                         options:NSJSONReadingMutableContainers
                                                           error:&err];
     if (err) {
-        smr_base_core_log(@"json解析失败：%@",err);
+        base_core_log(@"json解析失败：%@",err);
         return nil;
     }
     return dic;

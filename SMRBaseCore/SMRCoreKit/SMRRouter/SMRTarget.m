@@ -39,7 +39,7 @@
         [invocation invoke];
         return obj;
     } else {
-        smr_base_core_log(@"unknow obj class or selector:%@,%@", obj_class, selector);
+        base_core_log(@"unknow obj class or selector:%@,%@", obj_class, selector);
         return nil;
     }
 }
@@ -50,7 +50,7 @@
         UIViewController *controller = (UIViewController *)obj;
         [SMRNavigator pushOrPresentToViewController:controller animated:YES];
     } else {
-        smr_base_core_log(@"unknow view controller to open");
+        base_core_log(@"unknow view controller to open");
     }
 }
 

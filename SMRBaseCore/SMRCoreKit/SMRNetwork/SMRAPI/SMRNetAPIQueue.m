@@ -21,7 +21,7 @@
     if (!api) {
         return;
     }
-    smr_base_core_log(@"入队:%@", api);
+    base_core_log(@"入队:%@", api);
     [self.queueArray addObject:api];
 }
 
@@ -30,7 +30,7 @@
     if (api) {
         [self.queueArray removeObject:api];
     }
-    smr_base_core_log(@"出队:%@", api);
+    base_core_log(@"出队:%@", api);
     return api;
 }
 

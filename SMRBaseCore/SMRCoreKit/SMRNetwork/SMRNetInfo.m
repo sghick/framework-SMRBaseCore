@@ -17,7 +17,7 @@
 
 + (void)syncNetInfoWithResponse:(NSHTTPURLResponse *)response {
     if (![response isKindOfClass:[NSHTTPURLResponse class]]) {
-        smr_base_core_log(@"请求失败或收接到非 NSHTTPURLResponse 对象,无法同步NetInfo.");
+        base_core_log(@"请求失败或收接到非 NSHTTPURLResponse 对象,无法同步NetInfo.");
         return;
     }
     NSString *rfcDateString = response.allHeaderFields[@"Date"];

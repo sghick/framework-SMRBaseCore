@@ -46,7 +46,7 @@ static dispatch_queue_t smr_netdedouncer_creation_queue() {
     dispatch_sync(smr_netdedouncer_creation_queue(), ^{
         // 阻止暴力刷子
         if (self.blackList[identifier].boolValue) {
-            smr_base_core_log(@"异常自动处理:%@", identifier);
+            base_core_log(@"异常自动处理:%@", identifier);
             return;
         }
         // 防抖处理

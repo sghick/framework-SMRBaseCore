@@ -8,20 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString *const kSMRNetCacheName; ///< SMRGlobalCache的缓存名字
+
 @interface SMRNetCachePolicy : NSObject
 
 @property (copy  , nonatomic) NSString *identifier;         ///< identifier标识一个cache
 @property (copy  , nonatomic) NSString *cacheKey;           ///< cacheKey相匹配时才取出cache
-@property (assign, nonatomic) BOOL callBackIfCacheNil;      ///< 如果cache为空才回调,设置为NO则不回调
 
-+ (instancetype)policyWithIdentifier:(NSString *)identifier cacheKey:(NSString *)cacheKey;///< callBackIfCacheNil:YES
-+ (instancetype)policyWithIdentifier:(NSString *)identifier cacheKey:(NSString *)cacheKey callBackIfCacheNil:(BOOL)callBackIfCacheNil;
++ (instancetype)policyWithIdentifier:(NSString *)identifier cacheKey:(NSString *)cacheKey;
 
 /** 自动更新identifier */
 - (void)appendIdentifierWithParams:(NSDictionary *)params;
 - (void)appendIdentifierWithKey:(NSString *)key value:(id)value;
 
-/** 自动更新cacheKey */
+/** 自动更新cacheKey[推荐] */
 - (void)appendCacheKeyWithParams:(NSDictionary *)params;
 - (void)appendCacheKeyWithKey:(NSString *)key value:(id)value;
 
@@ -39,7 +39,6 @@
  获取缓存
  */
 - (id)objectWithPolicy:(SMRNetCachePolicy *)policy;
-- (void)objectWithPolicy:(SMRNetCachePolicy *)policy resultBlock:(void (^)(SMRNetCachePolicy *policy, id object))resultBlock;
 
 /**
  清除指定的缓存

@@ -103,7 +103,7 @@ static SMRFMDBManager *_sharedDBManager;
         _queue = [[FMDatabaseQueue alloc] initWithPath:dbFilePath];
         self.dbFilePath = dbFilePath;
         self.db = [self getCurrentDatabase];
-        smr_base_core_log(@"db path: %@", dbFilePath);
+        base_core_log(@"db path: %@", dbFilePath);
     }
     return DB_OPEN_SUCCESS;
 }
@@ -122,14 +122,14 @@ static SMRFMDBManager *_sharedDBManager;
         NSError *error = nil;
         [fileManager removeItemAtPath:[self getDBFilePath] error:&error];
         if (error != nil) {
-            smr_base_core_log(@"remove database error");
+            base_core_log(@"remove database error");
             return NO;
         } else {
-            smr_base_core_log(@"remove database successfully");
+            base_core_log(@"remove database successfully");
             return YES;
         }
     } else {
-        smr_base_core_log(@"There is no database!");
+        base_core_log(@"There is no database!");
         return YES;
     }
 }
@@ -212,7 +212,7 @@ static SMRFMDBManager *_sharedDBManager;
         // sql 语句执行成功
     } else {
         // sql 语句执行失败
-        smr_base_core_log(@"SMRDBManager: sqls excute unsuccessfully<==>%@", sqlArray);
+        base_core_log(@"SMRDBManager: sqls excute unsuccessfully<==>%@", sqlArray);
     }
     return result;
 }
@@ -240,7 +240,7 @@ static SMRFMDBManager *_sharedDBManager;
         // sql 语句执行成功
     } else {
         // sql 语句执行失败
-        smr_base_core_log(@"SMRDBManager: sqls excute unsuccessfully<==>%@", sql);
+        base_core_log(@"SMRDBManager: sqls excute unsuccessfully<==>%@", sql);
     }
     return result;
 }
@@ -268,7 +268,7 @@ static SMRFMDBManager *_sharedDBManager;
         // sql 语句执行成功
     } else {
         // sql 语句执行失败
-        smr_base_core_log(@"SMRDBManager: sqls excute unsuccessfully<==>%@", sql);
+        base_core_log(@"SMRDBManager: sqls excute unsuccessfully<==>%@", sql);
     }
     return result;
 }

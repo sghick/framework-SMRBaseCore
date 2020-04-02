@@ -7,21 +7,16 @@
 //
 
 #import "SMRNetCache.h"
-#import "YYDiskCache.h"
+#import "SMRGlobalCache.h"
 
-static NSString *const kSMRNetCacheName = @"SMRNetCache";
+NSString *const kSMRNetCacheName = @"SMRNetCache";
 
 @implementation SMRNetCachePolicy
 
 + (instancetype)policyWithIdentifier:(NSString *)identifier cacheKey:(NSString *)cacheKey {
-    return [self policyWithIdentifier:identifier cacheKey:cacheKey callBackIfCacheNil:YES];
-}
-
-+ (instancetype)policyWithIdentifier:(NSString *)identifier cacheKey:(NSString *)cacheKey callBackIfCacheNil:(BOOL)callBackIfCacheNil {
     SMRNetCachePolicy *policy = [[SMRNetCachePolicy alloc] init];
     policy.identifier = identifier;
     policy.cacheKey = cacheKey;
-    policy.callBackIfCacheNil = callBackIfCacheNil;
     return policy;
 }
 
@@ -57,7 +52,7 @@ static NSString *const kSMRNetCacheName = @"SMRNetCache";
 
 @interface SMRNetCache ()
 
-@property (strong, nonatomic) YYDiskCache *yydiskCache;
+@property (strong, nonatomic) SMRGlobalCache *diskCache;
 
 @end
 
@@ -69,14 +64,14 @@ static NSString *const kSMRNetCacheName = @"SMRNetCache";
     }
     // 使用policy.cacheKey作为读取时的key
     NSDictionary *cacheDict =@{policy.cacheKey:object};
-    [self.yydiskCache setObject:cacheDict forKey:policy.identifier];
+    [self.diskCache setObject:cacheDict forKey:policy.identifier];
 }
 
 - (id)objectWithPolicy:(SMRNetCachePolicy *)policy {
     if (!policy.identifier || !policy.cacheKey) {
         return nil;
     }
-    NSDictionary *cacheDict = (NSDictionary *)[self.yydiskCache objectForKey:policy.identifier];
+    NSDictionary *cacheDict = (NSDictionary *)[self.diskCache objectForKey:policy.identifier];
     if ([cacheDict isKindOfClass:[NSDictionary class]]) {
         // 使用policy.cacheKey作为读取时的key
         id obj = cacheDict[policy.cacheKey];
@@ -85,52 +80,24 @@ static NSString *const kSMRNetCacheName = @"SMRNetCache";
     return nil;
 }
 
-- (void)objectWithPolicy:(SMRNetCachePolicy *)policy resultBlock:(void (^)(SMRNetCachePolicy *, id))resultBlock {
-    if (!policy.identifier || !policy.cacheKey) {
-        return;
-    }
-    [self.yydiskCache objectForKey:policy.identifier withBlock:^(NSString * _Nonnull key, id<NSCoding>  _Nullable object) {
-        NSDictionary *cacheDict = (NSDictionary *)object;
-        if ([cacheDict isKindOfClass:[NSDictionary class]]) {
-            // 使用policy.cacheKey作为读取时的key
-            id content = cacheDict[policy.cacheKey];
-            // 如果内容不为空,或者空也回调设置为YES,则回调
-            if (content || policy.callBackIfCacheNil) {
-                if (resultBlock) {
-                    resultBlock(policy, content);
-                }
-            }
-            
-        }
-    }];
-}
-
 - (void)clearCacheWihtPolicy:(SMRNetCachePolicy *)policy {
     if (!policy.identifier) {
         return;
     }
-    [self.yydiskCache removeObjectForKey:policy.identifier];
+    [self.diskCache removeObjectForKey:policy.identifier];
 }
 
 - (void)clearAllCaches {
-    [self.yydiskCache removeAllObjects];
-}
-
-#pragma mark - Path
-
-+ (NSString *)netCachePath {
-    NSString *fileDoc = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:kSMRNetCacheName];
-    return fileDoc;
+    [self.diskCache removeAllObjects];
 }
 
 #pragma mark - Getters
 
-- (YYDiskCache *)yydiskCache {
-    if (!_yydiskCache) {
-        _yydiskCache = [[YYDiskCache alloc] initWithPath:[SMRNetCache netCachePath]];
-        _yydiskCache.name = kSMRNetCacheName;
+- (SMRGlobalCache *)diskCache {
+    if (!_diskCache) {
+        _diskCache = [SMRGlobalCache cacheWithName:kSMRNetCacheName unnecessary:YES];
     }
-    return _yydiskCache;
+    return _diskCache;
 }
 
 @end

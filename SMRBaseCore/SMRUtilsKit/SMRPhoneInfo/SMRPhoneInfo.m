@@ -38,7 +38,7 @@ static NSString *const kSMRForIDFVStringInKeyChain = @"kSMRForIDFVStringInKeyCha
 + (NSString *)IDFAString {
 #if IDFA_AVAILABLE && !TARGET_OS_WATCH
     NSString *uuid = uuid = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-    smr_base_core_log(@"IDFA:%@", uuid);
+    base_core_log(@"IDFA:%@", uuid);
     return uuid;
 #else
     return @"";
@@ -48,7 +48,7 @@ static NSString *const kSMRForIDFVStringInKeyChain = @"kSMRForIDFVStringInKeyCha
 // private
 + (NSString *)IDFVString {
     NSString *uuid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-    smr_base_core_log(@"IDFV:%@", uuid);
+    base_core_log(@"IDFV:%@", uuid);
     return uuid;
 }
 
