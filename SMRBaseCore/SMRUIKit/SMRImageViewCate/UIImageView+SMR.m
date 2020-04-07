@@ -28,21 +28,22 @@
 }
 
 - (void)smr_setImageWithAsset:(PHAsset *)asset {
-    [self smr_setImageWithAsset:asset minWidth:asset.pixelWidth];
+    [self smr_setImageWithAsset:asset fitWidth:asset.pixelWidth];
 }
 
-- (void)smr_setImageWithAsset:(PHAsset *)asset minWidth:(CGFloat)minWidth {
+- (void)smr_setImageWithAsset:(PHAsset *)asset fitWidth:(CGFloat)fitWidth {
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
     // 异步设置
     options.resizeMode = PHImageRequestOptionsResizeModeFast;
+    options.networkAccessAllowed = YES;
     // 设置图片
-    [self smr_setImageWithAsset:asset options:options minWidth:minWidth];
+    [self smr_setImageWithAsset:asset options:options fitWidth:fitWidth];
 }
 
 
-- (void)smr_setImageWithAsset:(PHAsset *)asset options:(PHImageRequestOptions *)options minWidth:(CGFloat)minWidth {
+- (void)smr_setImageWithAsset:(PHAsset *)asset options:(PHImageRequestOptions *)options fitWidth:(CGFloat)fitWidth {
     // 是否要原图
-    CGFloat scale = minWidth/asset.pixelWidth;
+    CGFloat scale = fitWidth/asset.pixelWidth;
     CGSize size = CGSizeMake(scale*asset.pixelWidth, scale*asset.pixelHeight);
     // 从asset中获得图片
     [[PHImageManager defaultManager] requestImageForAsset:asset

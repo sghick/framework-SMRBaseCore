@@ -20,8 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** 默认高清图 */
 - (void)smr_setImageWithAsset:(PHAsset *)asset;
-- (void)smr_setImageWithAsset:(PHAsset *)asset minWidth:(CGFloat)minWidth;
-- (void)smr_setImageWithAsset:(PHAsset *)asset options:(PHImageRequestOptions *)options minWidth:(CGFloat)minWidth;
+- (void)smr_setImageWithAsset:(PHAsset *)asset fitWidth:(CGFloat)fitWidth;
+- (void)smr_setImageWithAsset:(PHAsset *)asset options:(PHImageRequestOptions *)options fitWidth:(CGFloat)fitWidth;
 
 @end
 

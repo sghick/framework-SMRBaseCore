@@ -8,7 +8,6 @@
 
 #import "UITabBar+SMRImage.h"
 #import "UITabBar+SMRTabBarInfo.h"
-#import "UIImage+SMRGif.h"
 
 static NSUInteger const SMRTabBarImageViewTag = 8811000;
 
@@ -91,8 +90,8 @@ static NSUInteger const SMRTabBarImageViewTag = 8811000;
 // private 创建ImageView
 - (UIImageView *)createImageViewWithImage:(UIImage *)image tag:(NSInteger)tag {
     UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.image = image.smr_gifImages.firstObject;;
-    imageView.animationImages = image.smr_gifImages;
+    imageView.image = image.images.firstObject ?: image;
+    imageView.animationImages = image.images;
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
     imageView.tag = tag;
