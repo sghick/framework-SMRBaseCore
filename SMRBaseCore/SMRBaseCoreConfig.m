@@ -7,6 +7,7 @@
 //
 
 #import "SMRBaseCoreConfig.h"
+#import <SMRDebug/SMRDebuger.h>
 
 @implementation SMRBaseCoreConfig
 

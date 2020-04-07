@@ -48,12 +48,6 @@
 		8A814A5D21F5B7BE00D8AEB6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814A5C21F5B7BE00D8AEB6 /* main.m */; };
 		8A814A6721F5B7BE00D8AEB6 /* SMRBaseCoreDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814A6621F5B7BE00D8AEB6 /* SMRBaseCoreDemoTests.m */; };
 		8A814A7221F5B7BE00D8AEB6 /* SMRBaseCoreDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814A7121F5B7BE00D8AEB6 /* SMRBaseCoreDemoUITests.m */; };
-		8A814B0121F5B9A000D8AEB6 /* SMRDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814AF421F5B9A000D8AEB6 /* SMRDebug.m */; };
-		8A814B0221F5B9A000D8AEB6 /* SMRLogScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814AF621F5B9A000D8AEB6 /* SMRLogScreen.m */; };
-		8A814B0321F5B9A000D8AEB6 /* SMRLogSideMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814AF721F5B9A000D8AEB6 /* SMRLogSideMenuView.m */; };
-		8A814B0421F5B9A000D8AEB6 /* menu_bg_trangle@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A814AFA21F5B9A000D8AEB6 /* menu_bg_trangle@3x.png */; };
-		8A814B0521F5B9A000D8AEB6 /* menu_bg_trangle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A814AFB21F5B9A000D8AEB6 /* menu_bg_trangle@2x.png */; };
-		8A814B0621F5B9A000D8AEB6 /* SMRLogSys.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814AFF21F5B9A000D8AEB6 /* SMRLogSys.m */; };
 		8A814B6921F5B9BF00D8AEB6 /* NSObject+SMRDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814B4121F5B9BF00D8AEB6 /* NSObject+SMRDB.m */; };
 		8A814B7121F5B9BF00D8AEB6 /* SMRFMDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814B5221F5B9BF00D8AEB6 /* SMRFMDBManager.m */; };
 		8A814B7821F5B9BF00D8AEB6 /* SMRDataBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A814B6421F5B9BF00D8AEB6 /* SMRDataBase.m */; };
@@ -285,16 +279,6 @@
 		8A814A6D21F5B7BE00D8AEB6 /* SMRBaseCoreDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SMRBaseCoreDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A814A7121F5B7BE00D8AEB6 /* SMRBaseCoreDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRBaseCoreDemoUITests.m; sourceTree = "<group>"; };
 		8A814A7321F5B7BE00D8AEB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8A814AF421F5B9A000D8AEB6 /* SMRDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRDebug.m; sourceTree = "<group>"; };
-		8A814AF621F5B9A000D8AEB6 /* SMRLogScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRLogScreen.m; sourceTree = "<group>"; };
-		8A814AF721F5B9A000D8AEB6 /* SMRLogSideMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRLogSideMenuView.m; sourceTree = "<group>"; };
-		8A814AF821F5B9A000D8AEB6 /* SMRLogScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRLogScreen.h; sourceTree = "<group>"; };
-		8A814AFA21F5B9A000D8AEB6 /* menu_bg_trangle@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_bg_trangle@3x.png"; sourceTree = "<group>"; };
-		8A814AFB21F5B9A000D8AEB6 /* menu_bg_trangle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_bg_trangle@2x.png"; sourceTree = "<group>"; };
-		8A814AFC21F5B9A000D8AEB6 /* SMRLogSideMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRLogSideMenuView.h; sourceTree = "<group>"; };
-		8A814AFE21F5B9A000D8AEB6 /* SMRLogSys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRLogSys.h; sourceTree = "<group>"; };
-		8A814AFF21F5B9A000D8AEB6 /* SMRLogSys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRLogSys.m; sourceTree = "<group>"; };
-		8A814B0021F5B9A000D8AEB6 /* SMRDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRDebug.h; sourceTree = "<group>"; };
 		8A814B4121F5B9BF00D8AEB6 /* NSObject+SMRDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SMRDB.m"; sourceTree = "<group>"; };
 		8A814B5221F5B9BF00D8AEB6 /* SMRFMDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRFMDBManager.m; sourceTree = "<group>"; };
 		8A814B5321F5B9BF00D8AEB6 /* SMRFMDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRFMDBManager.h; sourceTree = "<group>"; };
@@ -865,8 +849,6 @@
 				8A814CB721F5C74000D8AEB6 /* SMRUIKitBundle.h */,
 				8A814CB821F5C74000D8AEB6 /* SMRUIKitBundle.m */,
 				1D8FF1D224331B0400B49D21 /* SMRSideMenuView */,
-				8ACDC03922A78CA2005784AA /* SMRNotificationManager */,
-				8ACCDF942314D01200983D19 /* SMRImageUploadService */,
 				8A5A8796230E3FAB002C0A7D /* SMRCarouselView */,
 				8A80B41B22D5F8CF00091796 /* SMRBadge */,
 				8A805EF522D5B13500FB6102 /* SMRCircleProgressBar */,
@@ -877,12 +859,10 @@
 				8ACA4211227ED2430073BC44 /* SMRLBXScanController */,
 				8ACA4201227ECE850073BC44 /* SMRSimpleCamera */,
 				8A4239EC22432C36002DF711 /* SMRGestureView */,
-				8AF6B5052214248600A56E51 /* SMRResponder */,
 				1D820DE923B3784B00A0640E /* SMRGeneralButton */,
 				8AF6B4FA22141E5500A56E51 /* SMRAlertView */,
 				8A814CBE21F5C80C00D8AEB6 /* SMRController */,
 				8A814CC821F5C9DD00D8AEB6 /* SMRNavigationView */,
-				8A814CD921F5CC3600D8AEB6 /* SMRTableAssistant */,
 				8AE49562220289F40055263E /* SMRButtonCate */,
 				8A914ED4221B9B2900E2F691 /* SMRTextView */,
 				8A2DE2382232635000E9A07E /* SMRIndexView */,
@@ -890,7 +870,6 @@
 				8AC90C0022F7CF480000236D /* SMRImageViewCate */,
 				1D3DFF2A23A8875700663386 /* SMRImageLabel */,
 				1D3DFF3023A8875800663386 /* SMRPageControl */,
-				1D3DFF2D23A8875800663386 /* SMRSettingAuthorized */,
 			);
 			path = SMRUIKit;
 			sourceTree = "<group>";
@@ -898,15 +877,12 @@
 		8A814A8121F5B80B00D8AEB6 /* SMRUtilsKit */ = {
 			isa = PBXGroup;
 			children = (
+				8AF6B5052214248600A56E51 /* SMRResponder */,
 				1D59293E23D578C800E6E880 /* SMRTextAttribute */,
-				8AF1989F22A1361C0045CBCF /* SMRUpdateStatusManager */,
-				8A3AB8E4225F10FF00CDBB8F /* SMRAppInfo */,
 				8A914DE82215A95900E2F691 /* SMRUtils */,
 				1DA00EB4243328F400DB28BC /* SMRUtilsCategories */,
 				8AE495A32204225C0055263E /* SMRMatrixCalculator */,
 				1DA00EBD24332FFF00DB28BC /* SMRLineLayout */,
-				8A814CF321F5CCD800D8AEB6 /* SMRPhoneInfo */,
-				8A814CF221F5CCD800D8AEB6 /* SMRKeyChain */,
 			);
 			path = SMRUtilsKit;
 			sourceTree = "<group>";
@@ -923,52 +899,18 @@
 				8A814BE621F5BCCC00D8AEB6 /* SMRModel */,
 				8A814BA221F5BA1600D8AEB6 /* SMRRouter */,
 				8A814B0721F5B9B000D8AEB6 /* SMRDB */,
-				8A814AF321F5B9A000D8AEB6 /* SMRDebug */,
 				8AE4952721FEB2DF0055263E /* SMRError */,
 				8A814CFA21F5CEC800D8AEB6 /* SMRAdapter */,
+				8ACDC03922A78CA2005784AA /* SMRNotificationManager */,
+				8ACCDF942314D01200983D19 /* SMRImageUploadService */,
+				8A814CD921F5CC3600D8AEB6 /* SMRTableAssistant */,
+				1D3DFF2D23A8875800663386 /* SMRSettingAuthorized */,
+				8AF1989F22A1361C0045CBCF /* SMRUpdateStatusManager */,
+				8A3AB8E4225F10FF00CDBB8F /* SMRAppInfo */,
+				8A814CF321F5CCD800D8AEB6 /* SMRPhoneInfo */,
+				8A814CF221F5CCD800D8AEB6 /* SMRKeyChain */,
 			);
 			path = SMRCoreKit;
-			sourceTree = "<group>";
-		};
-		8A814AF321F5B9A000D8AEB6 /* SMRDebug */ = {
-			isa = PBXGroup;
-			children = (
-				8A814B0021F5B9A000D8AEB6 /* SMRDebug.h */,
-				8A814AF421F5B9A000D8AEB6 /* SMRDebug.m */,
-				8A814AF521F5B9A000D8AEB6 /* SMRLogScreen */,
-				8A814AFD21F5B9A000D8AEB6 /* SMRLogSystem */,
-			);
-			path = SMRDebug;
-			sourceTree = "<group>";
-		};
-		8A814AF521F5B9A000D8AEB6 /* SMRLogScreen */ = {
-			isa = PBXGroup;
-			children = (
-				8A814AF821F5B9A000D8AEB6 /* SMRLogScreen.h */,
-				8A814AF621F5B9A000D8AEB6 /* SMRLogScreen.m */,
-				8A814AFC21F5B9A000D8AEB6 /* SMRLogSideMenuView.h */,
-				8A814AF721F5B9A000D8AEB6 /* SMRLogSideMenuView.m */,
-				8A814AF921F5B9A000D8AEB6 /* sources */,
-			);
-			path = SMRLogScreen;
-			sourceTree = "<group>";
-		};
-		8A814AF921F5B9A000D8AEB6 /* sources */ = {
-			isa = PBXGroup;
-			children = (
-				8A814AFA21F5B9A000D8AEB6 /* menu_bg_trangle@3x.png */,
-				8A814AFB21F5B9A000D8AEB6 /* menu_bg_trangle@2x.png */,
-			);
-			path = sources;
-			sourceTree = "<group>";
-		};
-		8A814AFD21F5B9A000D8AEB6 /* SMRLogSystem */ = {
-			isa = PBXGroup;
-			children = (
-				8A814AFE21F5B9A000D8AEB6 /* SMRLogSys.h */,
-				8A814AFF21F5B9A000D8AEB6 /* SMRLogSys.m */,
-			);
-			path = SMRLogSystem;
 			sourceTree = "<group>";
 		};
 		8A814B0721F5B9B000D8AEB6 /* SMRDB */ = {
@@ -1764,14 +1706,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AE4953121FEB8F70055263E /* smr_config.plist in Resources */,
-				8A814B0521F5B9A000D8AEB6 /* menu_bg_trangle@2x.png in Resources */,
 				8AE49574220292770055263E /* SMRButtonAssets.xcassets in Resources */,
 				8ACA4226227ED65B0073BC44 /* SMRBaseCore.podspec in Resources */,
 				8AC704F9227EE26C002821D3 /* CodeScan.bundle in Resources */,
 				8A814CBD21F5C77400D8AEB6 /* SMRUIKitBundle.bundle in Resources */,
 				8AE4955621FFEB4D0055263E /* item.plist in Resources */,
 				8A814A5A21F5B7BE00D8AEB6 /* LaunchScreen.storyboard in Resources */,
-				8A814B0421F5B9A000D8AEB6 /* menu_bg_trangle@3x.png in Resources */,
 				8A814A5721F5B7BE00D8AEB6 /* Assets.xcassets in Resources */,
 				8A814A5521F5B7BD00D8AEB6 /* Main.storyboard in Resources */,
 			);
@@ -1881,7 +1821,6 @@
 				8A814B8721F5B9D100D8AEB6 /* SMRDBOption.m in Sources */,
 				8A914E0B221662F900E2F691 /* SMRUtilsAnimationTests.m in Sources */,
 				8A814CC721F5C94200D8AEB6 /* SMRNavFatherController.m in Sources */,
-				8A814B0621F5B9A000D8AEB6 /* SMRLogSys.m in Sources */,
 				8AC70510227EE286002821D3 /* LBXScanVideoZoomView.m in Sources */,
 				8A814BEB21F5BCCC00D8AEB6 /* SMRModel.m in Sources */,
 				8A914DF72215AA7600E2F691 /* SMRUtils+NSAttributedString.m in Sources */,
@@ -1893,7 +1832,6 @@
 				8A814B9E21F5B9DC00D8AEB6 /* SMRDBInsertOption.m in Sources */,
 				8A814D3221F80B8F00D8AEB6 /* SMRRankerManager.m in Sources */,
 				8AC70511227EE286002821D3 /* LBXScanLineAnimation.m in Sources */,
-				8A814B0121F5B9A000D8AEB6 /* SMRDebug.m in Sources */,
 				8A80B41E22D5F8CF00091796 /* UIView+SMRBadge.m in Sources */,
 				8AF1989B22A135FA0045CBCF /* SMRUpdateStatusManager.m in Sources */,
 				1DA00EB824332A7B00DB28BC /* UITableView+SMRSeparator.m in Sources */,
@@ -1959,7 +1897,6 @@
 				8A42E9B7226DCE2600F68AD6 /* SMRNextTableController.m in Sources */,
 				8A814BCD21F5BA2100D8AEB6 /* SMRRouterCenter.m in Sources */,
 				8A814CF621F5CCFB00D8AEB6 /* SMRPhoneInfo.m in Sources */,
-				8A814B0221F5B9A000D8AEB6 /* SMRLogScreen.m in Sources */,
 				8AF6B50B221424A800A56E51 /* UIView+SMRResponder.m in Sources */,
 				8A814CD521F5CA9800D8AEB6 /* SMRNavigationAccessoriesBar.m in Sources */,
 				8AC70559227FCD87002821D3 /* SMRBaseCoreConfig.m in Sources */,
@@ -1982,7 +1919,6 @@
 				8AE4956822028AEE0055263E /* UIButton+SMR.m in Sources */,
 				8A814CF921F5CD2100D8AEB6 /* SMRKeyChainManager.m in Sources */,
 				8A814B8921F5B9D100D8AEB6 /* SMRDBColumn.m in Sources */,
-				8A814B0321F5B9A000D8AEB6 /* SMRLogSideMenuView.m in Sources */,
 				8A814D0321F5D04A00D8AEB6 /* UIColor+SMR.m in Sources */,
 				8ACA4209227ECE8C0073BC44 /* LLSimpleCamera+Helper.m in Sources */,
 				8A814B8A21F5B9D100D8AEB6 /* SMRDBAdapter.m in Sources */,

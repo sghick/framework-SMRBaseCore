@@ -7,6 +7,7 @@
 //
 
 #import "SMRSectionsTests.h"
+#import <SMRDebug/SMRDebuger.h>
 
 typedef NS_ENUM(NSInteger, kSectionType) {
     kSectionType1,

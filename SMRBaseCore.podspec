@@ -19,8 +19,6 @@ s.dependency 'YYCache', '1.0.4'
 s.dependency 'FMDB', '2.7.2'
 #### SMRCoreKit.SMRDataBase/SMRModel
 s.dependency 'YYModel', '1.0.4'
-#### SMRCoreKit.SMRDebug
-s.dependency 'FLEX'
 #### SMRUIKit.SMRNavigationView
 s.dependency 'PureLayout', '3.1.4'
 s.dependency 'SDWebImage', '5.1.0'

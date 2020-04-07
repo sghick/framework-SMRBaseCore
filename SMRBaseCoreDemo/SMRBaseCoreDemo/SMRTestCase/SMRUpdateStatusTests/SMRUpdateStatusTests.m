@@ -7,6 +7,7 @@
 //
 
 #import "SMRUpdateStatusTests.h"
+#import <SMRDebug/SMRDebuger.h>
 
 @interface SMRUpdateStatusConfig : NSObject<SMRUpdateStatusManagerConfig>
 

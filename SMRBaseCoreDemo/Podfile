@@ -1,7 +1,11 @@
+DebugBranchReleaseMode,DebugBranchDebugMode = 'releasemode','debugmode'
+DebugBranch = DebugBranchDebugMode
 
 target "SMRBaseCoreDemo" do
     platform:ios, '9.0'
     use_frameworks!
+    
+    pod 'SMRDebug', :git => 'git@github.com:sghick/framework-SMRDebug.git', :commit => DebugBranch
     
     #### SMRCoreKit.SMRNetwork
     pod 'AFNetworking', '3.2.1', :inhibit_warnings => true
