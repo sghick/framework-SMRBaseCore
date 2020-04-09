@@ -10,6 +10,8 @@
 
 @interface SMRTextAttribute : NSObject
 
+@property (strong, nonatomic, readonly) NSDictionary<NSAttributedStringKey, id>  *attributedDictionary;
+
 @property (strong, nonatomic) UIFont *font;
 @property (strong, nonatomic) UIColor *color;
 @property (strong, nonatomic) UIColor *backgroundColor;
@@ -52,10 +54,22 @@
 @property (strong, nonatomic) NSArray *writingDirection;
 
 + (instancetype)textAttribute:(NSAttributedString *)attributedString;
++ (instancetype)textAttributeWithDictionary:(NSDictionary<NSAttributedStringKey, id>  *)attributedDictionary;
 
 - (id)attributeValueWithName:(NSString *)name;
 - (void)setAttribute:(NSString *)name value:(id)value;
-- (NSAttributedString *)attributedStringWithText:(NSString *)text;
+
+/** 修正了属性字符串后,需要给Label设置preferredMaxLayoutWidth值才能正确自适应宽高 */
+- (NSAttributedString *)attributedStringWithText:(NSString *)text; ///< fixLineSpacing:YES
+- (NSAttributedString *)attributedStringWithText:(NSString *)text fixLineSpacing:(BOOL)fixLineSpacing;
+
+/** 标记属性字符串,fixLineSpacing:YES */
+- (NSAttributedString *)attributedStringWithText:(NSString *)text markText:(NSString *)markText markTextAttribute:(SMRTextAttribute *)markTextAttribute;
+- (NSAttributedString *)attributedStringWithText:(NSString *)text markRange:(NSRange)markRange markTextAttribute:(SMRTextAttribute *)markTextAttribute;
+
+/** 计算出修正后的Label的宽高,也可以使用Label的systemLayoutSizeFittingSize方法计算 */
+- (CGSize)sizeOfText:(NSString *)text fitSize:(CGSize)fitSize; ///< fixLineSpacing:YES
+- (CGSize)sizeOfText:(NSString *)text fitSize:(CGSize)fitSize fixLineSpacing:(BOOL)fixLineSpacing;
 
 @end
 

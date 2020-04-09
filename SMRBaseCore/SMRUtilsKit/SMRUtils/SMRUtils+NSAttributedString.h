@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
                                               lineSpacing:(CGFloat)lineSpacing
                                            underlineStyle:(NSUnderlineStyle)underlineStyle
                                        strikethroughStyle:(NSUnderlineStyle)strikethroughStyle
-                                           baseLineOffset:(CGFloat)baseLineOffset;
+                                           baseLineOffset:(CGFloat)baseLineOffset __deprecated_msg("已废弃,使用SMRTextAttribute");
 
 /** 创建一套属性字符串,并进行标记 */
 + (NSMutableAttributedString *)attributedStringFromString:(NSString *)string
@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                  markFont:(UIFont *)markFont
                                        markUnderlineStyle:(NSUnderlineStyle)markUnderlineStyle
                                    markStrikethroughStyle:(NSUnderlineStyle)markStrikethroughStyle
-                                       markBaseLineOffset:(CGFloat)markBaseLineOffset;
+                                       markBaseLineOffset:(CGFloat)markBaseLineOffset __deprecated_msg("已废弃,使用SMRTextAttribute");
 
 /** 标记属性字符串 */
 + (NSMutableAttributedString *)attributedStringFromString:(NSString *)string
@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                  markFont:(UIFont *)markFont
                                            underlineStyle:(NSUnderlineStyle)underlineStyle
                                        strikethroughStyle:(NSUnderlineStyle)strikethroughStyle
-                                           baseLineOffset:(CGFloat)baseLineOffset;
+                                           baseLineOffset:(CGFloat)baseLineOffset __deprecated_msg("已废弃,使用SMRTextAttribute");
 
 /** 标记属性字符串 */
 + (NSMutableAttributedString *)attributedStringFromAttributedString:(NSAttributedString *)attributedString
@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                            markFont:(UIFont *)markFont
                                                      underlineStyle:(NSUnderlineStyle)underlineStyle
                                                  strikethroughStyle:(NSUnderlineStyle)strikethroughStyle
-                                                     baseLineOffset:(CGFloat)baseLineOffset;
+                                                     baseLineOffset:(CGFloat)baseLineOffset __deprecated_msg("已废弃,使用SMRTextAttribute");
 
 @end
 

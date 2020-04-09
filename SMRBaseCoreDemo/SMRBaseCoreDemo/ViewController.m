@@ -25,7 +25,7 @@
 }
 
 - (void)testBtnAction:(UIButton *)sender {
-    NSString *testClass = @"SMRSeparatorTests";
+    NSString *testClass = @"SMRTextAttributeTests";
     
     Class cls = NSClassFromString(testClass);
     if (cls) {

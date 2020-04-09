@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D1857FC243C6B3B0073825D /* SMRTextAttributeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1857FB243C6B3A0073825D /* SMRTextAttributeTests.m */; };
 		1D3DFF3323A8875800663386 /* SMRImageLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3DFF2C23A8875700663386 /* SMRImageLabel.m */; };
 		1D3DFF3423A8875800663386 /* SMRSettingAuthorized.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3DFF2E23A8875800663386 /* SMRSettingAuthorized.m */; };
 		1D3DFF3523A8875800663386 /* SMRPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3DFF3123A8875800663386 /* SMRPageControl.m */; };
@@ -188,6 +189,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D1857FA243C6B3A0073825D /* SMRTextAttributeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRTextAttributeTests.h; sourceTree = "<group>"; };
+		1D1857FB243C6B3A0073825D /* SMRTextAttributeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRTextAttributeTests.m; sourceTree = "<group>"; };
 		1D3DFF2B23A8875700663386 /* SMRImageLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRImageLabel.h; sourceTree = "<group>"; };
 		1D3DFF2C23A8875700663386 /* SMRImageLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRImageLabel.m; sourceTree = "<group>"; };
 		1D3DFF2E23A8875800663386 /* SMRSettingAuthorized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRSettingAuthorized.m; sourceTree = "<group>"; };
@@ -555,6 +558,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D1857F9243C6B300073825D /* SMRTextAttributeTests */ = {
+			isa = PBXGroup;
+			children = (
+				1D1857FA243C6B3A0073825D /* SMRTextAttributeTests.h */,
+				1D1857FB243C6B3A0073825D /* SMRTextAttributeTests.m */,
+			);
+			path = SMRTextAttributeTests;
+			sourceTree = "<group>";
+		};
 		1D3DFF2A23A8875700663386 /* SMRImageLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1138,6 +1150,7 @@
 				8A814D0B21F5D1FA00D8AEB6 /* SMRTestsDelegate.h */,
 				8AE4956D22028CC30055263E /* SMRTests.h */,
 				8AE4956E22028CC30055263E /* SMRTests.m */,
+				1D1857F9243C6B300073825D /* SMRTextAttributeTests */,
 				8A425E2D230A45230045E0A5 /* SMRSectionsTests */,
 				8A9C393F22BB77C1000692E2 /* SMRUpdateStatusTests */,
 				8A4AA2C1222D2E760034929D /* SMRModelTests */,
@@ -1717,6 +1730,7 @@
 				8AD9C6E5223A32830028A871 /* SMRGlobalCache.m in Sources */,
 				8AC90C0322F7CF570000236D /* UIImageView+SMR.m in Sources */,
 				8A4AA2D8222E1E590034929D /* SMRUtils+MBProgressHUD.m in Sources */,
+				1D1857FC243C6B3B0073825D /* SMRTextAttributeTests.m in Sources */,
 				8A914E042216530A00E2F691 /* SMRUtils+Locations.m in Sources */,
 				1D3DFF3523A8875800663386 /* SMRPageControl.m in Sources */,
 				8A425E30230A45690045E0A5 /* SMRSectionsTests.m in Sources */,
