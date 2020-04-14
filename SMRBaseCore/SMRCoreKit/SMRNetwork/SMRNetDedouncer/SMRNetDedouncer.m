@@ -81,9 +81,15 @@ static dispatch_queue_t smr_netdedouncer_creation_queue() {
             [self.dedounceIdentifier addObject:identifier];
             // 关闭暴力刷子标识
             self.blackList[identifier] = nil;
-            if (resultBlock) {
-                resultBlock(self, obj);
-            }
+            [self p_callBackForDedounce:obj resultBlock:resultBlock];
+        }
+    });
+}
+
+- (void)p_callBackForDedounce:(id)obj resultBlock:(void (^)(SMRNetDedouncer *, id))resultBlock {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (resultBlock) {
+            resultBlock(self, obj);
         }
     });
 }
