@@ -33,10 +33,15 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)clearCachesWithName:(NSString *)name;
 
 #pragma mark - CacheForImage 独立缓存
-- (void)setImage:(UIImage *)image forKey:(NSString *)key;
-- (UIImage *)imageWithKey:(NSString *)key;
-- (void)removeImageWithKey:(NSString *)key;
-- (void)removeAllImages;
+- (void)cacheImage:(UIImage *)image key:(NSString *)key __deprecated_msg("已废弃,使用-[SMRGlobalCache setImage:forKey:]");
+- (void)setImage:(UIImage *)image forKey:(NSString *)key;           ///< memory and disk
+- (void)setImageToMemory:(UIImage *)image forKey:(NSString *)key;   ///< memory only
+- (void)setImageToDisk:(UIImage *)image forKey:(NSString *)key;     ///< disk only
+- (void)setImageDataToDisk:(NSData *)imageData forKey:(NSString *)key;  ///< disk only
+- (UIImage *)imageWithKey:(NSString *)key;      ///< memory or disk
+- (NSData *)imageDataWithKey:(NSString *)key;   ///< disk only
+- (void)removeImageWithKey:(NSString *)key;     ///< memory and disk
+- (void)removeAllImages;    ///< memory and disk
 
 #pragma mark - CacheForObject 独立缓存
 - (void)setObject:(nullable id<NSCoding>)object forKey:(NSString *)key;

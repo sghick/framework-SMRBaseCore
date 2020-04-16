@@ -197,8 +197,20 @@ static NSString *const kMetaCache = @"kMetaCache";
 - (void)setImage:(UIImage *)image forKey:(NSString *)key {
     [self.imageCache storeImage:image forKey:key completion:nil];
 }
+- (void)setImageToMemory:(UIImage *)image forKey:(NSString *)key {
+    [self.imageCache storeImageToMemory:image forKey:key];
+}
+- (void)setImageToDisk:(UIImage *)image forKey:(NSString *)key {
+    [self.imageCache storeImage:image imageData:nil forKey:key cacheType:SDImageCacheTypeDisk completion:nil];
+}
+- (void)setImageDataToDisk:(NSData *)imageData forKey:(NSString *)key {
+    [self.imageCache storeImageDataToDisk:imageData forKey:key];
+}
 - (UIImage *)imageWithKey:(NSString *)key {
-    return [self.imageCache imageFromDiskCacheForKey:key];
+    return [self.imageCache imageFromCacheForKey:key];
+}
+- (NSData *)imageDataWithKey:(NSString *)key {
+    return [self.imageCache diskImageDataForKey:key];
 }
 - (void)removeImageWithKey:(NSString *)key {
     [self.imageCache removeImageForKey:key withCompletion:nil];

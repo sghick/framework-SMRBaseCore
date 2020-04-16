@@ -44,6 +44,12 @@ SMRImageTaskObserverDelegate>
 
 #pragma mark - ImageTask
 
+- (SMRImageTask *)taskWithoutBondingImage {
+    NSString *taskIdentifier = [[NSUUID UUID].UUIDString stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    SMRImageTask *task = [self taskWithIdentifier:taskIdentifier];
+    return task;
+}
+
 - (SMRImageTask *)taskWithBondingImage:(UIImage *)image {
     NSString *taskIdentifier = [[NSUUID UUID].UUIDString stringByReplacingOccurrencesOfString:@"-" withString:@""];
     [self saveImageCacheWithTaskIdentifier:taskIdentifier image:image];
@@ -70,6 +76,12 @@ SMRImageTaskObserverDelegate>
 }
 
 #pragma mark - ImageTaskObserver
+
+- (SMRImageTaskObserver *)taskObserverWithoutBondingImage {
+    SMRImageTask *task = [self taskWithoutBondingImage];
+    SMRImageTaskObserver *observer = [self taskObserverWithTaskIdentifier:task.identifier];
+    return observer;
+}
 
 - (SMRImageTaskObserver *)taskObserverWithBondingImage:(UIImage *)image {
     SMRImageTask *task = [self taskWithBondingImage:image];
@@ -111,7 +123,6 @@ SMRImageTaskObserverDelegate>
 - (void)removeTaskWithIdentifier:(NSString *)taskIdentifier {
     [self removeTaskWithIdentifier:taskIdentifier removeImageCache:NO];
 }
-
 - (void)removeTaskWithIdentifier:(NSString *)taskIdentifier removeImageCache:(BOOL)removeImageCache {
     if (!taskIdentifier) {
         return;
@@ -137,7 +148,9 @@ SMRImageTaskObserverDelegate>
     [self postImageUploadTaskChangedNotification];
     
     // 交换任务队列
-    [self.waitingQueue addObject:imageTask.identifier];
+    if (![self.waitingQueue containsObject:imageTask.identifier]) {
+        [self.waitingQueue addObject:imageTask.identifier];
+    }
     // 判断是否开始一个任务
     [self checkNeedsResumeNextTask];
 }
@@ -169,7 +182,7 @@ SMRImageTaskObserverDelegate>
     
     if (imageTask.autoRemove) {
         // 任务完成后则移除当前任务
-        [self removeTaskWithIdentifier:imageTask.identifier];
+        [self removeTaskWithIdentifier:imageTask.identifier removeImageCache:imageTask.autoRemoveCache];
     } else {
         [self.taskQueue removeObject:imageTask.identifier];
         [self.ingQueue removeObject:imageTask.identifier];

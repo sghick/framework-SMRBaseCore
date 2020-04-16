@@ -47,11 +47,13 @@ typedef void(^SMRImageCacheRemoveBlock)(SMRImageUploadService *service, NSString
 + (instancetype)sharedService;
 
 /** 首次任务时可使用此方法 */
+- (SMRImageTask *)taskWithoutBondingImage;
 - (SMRImageTask *)taskWithBondingImage:(UIImage *)image;
 /** 获取任务队列中的任务,没有则会自动创建一个 */
 - (SMRImageTask *)taskWithIdentifier:(NSString *)taskIdentifier;
 
 /** 首次任务时可使用此方法 */
+- (SMRImageTaskObserver *)taskObserverWithoutBondingImage;
 - (SMRImageTaskObserver *)taskObserverWithBondingImage:(UIImage *)image;
 /** 可根据identifier获取任务接口,每个任务可对应多个任务接口对象,未找到则返回nil */
 - (SMRImageTaskObserver *)taskObserverWithTaskIdentifier:(NSString *)taskIdentifier;
@@ -88,6 +90,8 @@ typedef void(^SMRImageCacheRemoveBlock)(SMRImageUploadService *service, NSString
 
 /** 任务完成是否自动移除,默认YES */
 @property (assign, nonatomic) BOOL autoRemove;
+/** 自动移除时,是否移除缓存,默认NO, 仅当 autoRemove==YES 时有效 */
+@property (assign, nonatomic) BOOL autoRemoveCache;
 
 /** progress */
 @property (assign, nonatomic) int64_t completedBytesCount;
