@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)sd_downloadAndCacheImageWithURL:(nullable NSURL *)url
                                  toDisk:(BOOL)toDisk
-                             completion:(nullable void(^)(UIImage *))completion;
+                             completion:(nullable void(^)(UIImage *image))completion;
 
 @end
 
