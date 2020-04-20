@@ -13,7 +13,6 @@
 #import "SMRRouterCenter.h"
 #import "SMRRouterCenter+SMROpen.h"
 #import "SMRRouterConfig.h"
-#import "NSURL+SMRRouter.h"
 #import "SMRTarget.h"
 #import "SMRActionAlias.h"
 

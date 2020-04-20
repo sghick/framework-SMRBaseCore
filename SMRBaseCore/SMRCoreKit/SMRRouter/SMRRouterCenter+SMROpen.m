@@ -7,8 +7,9 @@
 //
 
 #import "SMRRouterCenter+SMROpen.h"
-#import "SMRRouter.h"
 #import "SMRTarget.h"
+#import "NSURL+BaseCore.h"
+
 
 @implementation SMRRouterCenter (SMROpen)
 
@@ -47,7 +48,7 @@
 + (id)p_performWithUrl:(NSURL *)url params:(nullable NSDictionary *)params openType:(SMRTargetOpenType)openType {
     SMRURLParserItem *item = [[SMRRouterCenter sharedCenter].config.urlProvider.parser parserWithUrl:url additionParams:params];
     if (![item.params.allKeys containsObject:k_perform_open]) {
-        url = [url smr_URLByAppendParam:k_perform_open value:[NSString stringWithFormat:@"%@", @(openType)]];
+        url = [url smr_URLByAppendKey:k_perform_open value:[NSString stringWithFormat:@"%@", @(openType)]];
     }
     return [self performWithUrl:url params:params];
 }

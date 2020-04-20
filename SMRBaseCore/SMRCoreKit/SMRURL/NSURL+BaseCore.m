@@ -6,9 +6,9 @@
 //  Copyright © 2018年 sumrise.com. All rights reserved.
 //
 
-#import "NSURL+SMRRouter.h"
+#import "NSURL+BaseCore.h"
 
-@implementation NSURL (SMRRouter)
+@implementation NSURL (BaseCore)
 
 + (NSURL *)smr_URLWithString:(NSString *)string {
     NSURL *url = [NSURL URLWithString:[string stringByReplacingOccurrencesOfString:@" " withString:@""]];
@@ -33,20 +33,58 @@
     return decodeUrl;
 }
 
-- (NSURL *)smr_URLByAppendParam:(NSString *)param value:(NSString *)value {
-    if (!param || !value) {
+- (NSURL *)smr_URLByAppendKey:(NSString *)key value:(id)value {
+    if (!key || !value) {
         return self;
     }
-    NSDictionary *params = [self smr_parseredParams];
-    NSString *urlString = self.absoluteString;
-    if (!params || (params.allKeys.count == 0)) {
-        urlString = [urlString stringByAppendingString:@"?"];
-    } else {
-        urlString = [urlString stringByAppendingString:@"&"];
+    return [self smr_URLByAppendParams:@{key:value}];
+}
+
+- (NSURL *)smr_URLByAppendParams:(NSDictionary *)params {
+    if (!params) {
+        return self;
     }
-    urlString = [urlString stringByAppendingFormat:@"%@=%@", param, [NSURL smr_encodeURLStringWithString:value]];
+    NSString *query = @"";
+    for (NSString *key in params) {
+        query = [query stringByAppendingString:[self smr_URLParamWithKey:key value:params[key]]];
+    }
+    return [self smr_URLByAppendQuery:query];
+}
+
+- (NSURL *)smr_URLByAppendQuery:(NSString *)query {
+    NSString *urlString = self.absoluteString;
+    if (self.query.length) {
+        urlString = [urlString stringByAppendingString:@"&"];
+    } else {
+        urlString = [urlString stringByAppendingString:@"?"];
+    }
+    NSString *realQuery = query;
+    if (realQuery.length && ([realQuery hasPrefix:@"&"] || [realQuery hasPrefix:@"?"])) {
+        realQuery = [realQuery substringFromIndex:1];
+    }
+    urlString = [urlString stringByAppendingString:realQuery];
     NSURL *rtnUrl = [NSURL URLWithString:urlString];
     return rtnUrl;
+}
+
+/** 前面会带一个 & 符号 */
+- (NSString *)smr_URLParamWithKey:(NSString *)key value:(id)value {
+    if (!key || !value) {
+        return nil;
+    }
+    NSString *query = @"";
+    if ([value isKindOfClass:[NSString class]]) {
+        query = [NSString stringWithFormat:@"&%@=%@", key, [NSURL smr_encodeURLStringWithString:value]];
+    } else if ([value isKindOfClass:[NSArray class]]) {
+        NSArray *objs = (NSArray *)value;
+        for (id obj in objs) {
+            NSString *pQuery = [self smr_URLParamWithKey:key value:obj];
+            query = [query stringByAppendingString:pQuery];
+        }
+    } else {
+        query = [NSString stringWithFormat:@"&%@=%@", key, value];
+    }
+    return query;
 }
 
 - (NSDictionary *)smr_parseredParams {

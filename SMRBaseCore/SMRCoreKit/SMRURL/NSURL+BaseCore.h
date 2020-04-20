@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSURL (SMRRouter)
+NS_ASSUME_NONNULL_BEGIN
+
+@interface NSURL (BaseCore)
 
 /// 通过字符串创建一个正确格式的URL,自动去除空格
 + (NSURL *)smr_URLWithString:(NSString *)string;
@@ -20,7 +22,9 @@
 + (NSString *)smr_decodeURLStringWithString:(NSString *)string;
 
 /// 拼接url参数
-- (NSURL *)smr_URLByAppendParam:(NSString *)param value:(NSString *)value;
+- (NSURL *)smr_URLByAppendKey:(NSString *)key value:(id)value;
+- (NSURL *)smr_URLByAppendParams:(NSDictionary *)params;
+- (NSURL *)smr_URLByAppendQuery:(NSString *)query;
 /// 获取url参数
 - (NSDictionary *)smr_parseredParams;
 
@@ -30,3 +34,5 @@
 + (id)smr_buildInstanceTypeWithParam:(id)param;
 
 @end
+
+NS_ASSUME_NONNULL_END

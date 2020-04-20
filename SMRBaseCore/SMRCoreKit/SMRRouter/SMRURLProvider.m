@@ -7,7 +7,7 @@
 //
 
 #import "SMRURLProvider.h"
-#import "NSURL+SMRRouter.h"
+#import "NSURL+BaseCore.h"
 #import "SMRActionAlias.h"
 
 @implementation SMRURLParserItem

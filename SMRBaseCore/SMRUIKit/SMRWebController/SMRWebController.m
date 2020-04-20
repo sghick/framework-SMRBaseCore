@@ -11,7 +11,7 @@
 #import "SMRAdapter.h"
 #import "SMRRouterCenter+SMROpen.h"
 #import "SMRWebConfig.h"
-#import "NSURL+SMRRouter.h"
+#import "NSURL+BaseCore.h"
 
 /** 允许所有请求通过 */
 @implementation NSURLRequest (SMRWebViewController)

@@ -28,6 +28,7 @@
 #import "SMRNotificationManager.h"
 #import "SMRUpdateStatusManager.h"
 #import "SMRKeyChainManager.h"
+#import "NSURL+BaseCore.h"
 
 /// SMRUIKit
 #import "SMRViewController.h"
