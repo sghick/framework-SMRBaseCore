@@ -6,46 +6,58 @@
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
-#import <AFNetworking/AFNetworking.h>
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class SMRNetAPI;
-@protocol SMRSessionRetryDelegate <NSObject>
+@class SMRNetConfig;
+@protocol SMRSessionConfigProtocol <NSObject>
 
-/// 是否需要重试
-- (BOOL)willRetryWithError:(NSError *)error api:(SMRNetAPI *)api;
+@property (strong, nonatomic, readonly) SMRNetConfig *config;
 
-@end
+@required
+/** 初始化 */
+- (void)configration:(SMRNetConfig *)config;
 
-@class SMRNetAPI;
-@protocol SMRSessionAPIInitDelegate <NSObject>
-
-/// 是否需要重试
-- (BOOL)willQueryInitAPIWithError:(NSError *)error api:(SMRNetAPI *)api;
+@optional
+/** 加载网络状态变化监听器 */
+- (void)configNetworkReachability:(SMRNetConfig *)config;
+/** 加载网络请求时状态栏的indicator */
+- (void)configNetworkActivityIndicator:(SMRNetConfig *)config;
 
 @end
 
 @class SMRNetAPI;
 @protocol SMRSessionProtocol <NSObject>
 
-/** api.callback.cacheBlock will called while create datatask */
-- (NSURLSessionDataTask *)smr_dataTaskWithAPI:(SMRNetAPI *)api;
+- (NSMutableURLRequest *)requestWithAPI:(SMRNetAPI *)api
+                                  error:(NSError * _Nullable __autoreleasing *)error;
+
+- (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request
+                               uploadProgress:(nullable void (^)(NSProgress *uploadProgress))uploadProgress
+                             downloadProgress:(nullable void (^)(NSProgress *downloadProgress))downloadProgress
+                            completionHandler:(nullable void (^)(NSURLResponse *response, id _Nullable responseObject, NSError * _Nullable error))completionHandler;
 
 @end
 
-@class SMRNetCache;
-@class SMRNetConfig;
+@protocol AFMultipartFormData;
+@protocol SMRSessionUploadProtocol <NSObject>
+
+- (NSMutableURLRequest *)multipartFormRequestWithAPI:(SMRNetAPI *)api
+                           constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
+                                               error:(NSError * _Nullable __autoreleasing *)error;
+
+- (NSURLSessionUploadTask *)uploadTaskWithStreamedRequest:(NSURLRequest *)request
+                                                 progress:(void (^)(NSProgress *uploadProgress))uploadProgress
+                                        completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler;
+
+@end
+
 @class SMRNetDedouncer<SMRNetAPI>;
-@interface SMRSession : AFHTTPSessionManager<SMRSessionProtocol>
+@interface SMRSession : NSObject<SMRSessionProtocol, SMRSessionUploadProtocol, SMRSessionConfigProtocol>
 
-@property (strong, nonatomic, readonly) SMRNetCache *netCache;
-@property (strong, nonatomic, readonly) SMRNetConfig *config;
-@property (strong, nonatomic, readonly) SMRNetDedouncer<SMRNetAPI *> *dedouncer;
-@property (weak  , nonatomic) id<SMRSessionRetryDelegate> retryDelegate;
-@property (weak  , nonatomic) id<SMRSessionAPIInitDelegate> initDelegate;
-
-- (void)configration:(SMRNetConfig *)config;
+/** 将session中定义的error转换成response */
+- (id)parserToResponseWithError:(NSError *)error;
 
 @end
 

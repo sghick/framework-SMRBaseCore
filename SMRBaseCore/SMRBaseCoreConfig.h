@@ -26,8 +26,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) SMRRouterConfig *routerConfig;
 /** 网络配置 */
 @property (strong, nonatomic) SMRNetConfig *netConfig;
+@property (strong, nonatomic) SMRSession *session;
 /** Web配置 */
 @property (strong, nonatomic) id<SMRWebReplaceConfig> webReplaceConfig;
+/** Web导航条UI配置 */
+@property (strong, nonatomic) id<SMRWebNavigationViewConfig> webNavigationViewConfig;
+/** WebJS配置 */
+@property (strong, nonatomic) id<SMRWebJSRegisterConfig> webJSRegisterConfig;
 
 /** 数据库名,无则不使用(创建)数据库 */
 @property (strong, nonatomic) NSString *dbName;
@@ -37,17 +42,14 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - BaseUI部分
 
 /** 设置NavigationView全局默认属性的block */
-@property (copy  , nonatomic) NavigationViewAppearanceBlock appearanceBlock;
+@property (nonatomic, copy  ) NavigationViewAppearanceBlock appearanceBlock;
 
-/** 设置AlertView全局默认属性的style,默认0 */
+/** 设置AlertView全局默认属性的style,默认black */
 @property (assign, nonatomic) SMRAlertViewStyle alertViewStyle;
 
 #pragma mark - BaseUtils部分
 
-/** 更新状态管理器配置 */
 @property (strong, nonatomic) id<SMRUpdateStatusManagerConfig> updateStatusManagerConfig;
-
-#pragma mark - ConfigInti
 
 /** 单例 */
 + (instancetype)sharedInstance;

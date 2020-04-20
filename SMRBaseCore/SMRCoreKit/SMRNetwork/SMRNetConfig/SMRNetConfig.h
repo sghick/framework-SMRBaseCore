@@ -13,18 +13,19 @@ NS_ASSUME_NONNULL_BEGIN
 @class SMRNetAPI;
 @protocol SMRRequestDelegate <NSObject>
 
+@optional
 /**
  默认`GET`, `HEAD`, and `DELETE`使用URL参数类型,其余使用DataParam参数类型
  */
 - (NSSet *)HTTPMethodsEncodingParametersInURI;
 
 /**
- 可以在这里设置请求头
+ 可以在这里设置共通请求头, 每个API创建DataTask并发起请求前都会调用此方法
  */
 - (void)configRequestBeforeDataTask:(NSMutableURLRequest *)request api:(SMRNetAPI *)api;
 
 /**
- 防止抖动容量设置,默认无限制
+ 防止抖动容量设置,默认无限制:-1
  */
 - (NSInteger)maxCountForDedounce;
 
@@ -32,14 +33,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol SMRResponseDelegate <NSObject>
 
+@optional
 /**
  设置响应的Content-Type
+ 默认有 `text/javascript`, `application/json`, `text/json`, `text/plain`, `text/html` 五种
  */
 - (NSSet *)setForAcceptableContentTypes;
 
 /**
  设置响应的正常网络状态码,默认为:[100, 400)
- 覆盖此方法后,将使用AFN的默认区间:[200, 300)
  状态码参考:
  https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
  https://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81
@@ -48,47 +50,34 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSIndexSet *)setForAcceptableStatusCodes;
 
 /**
- 鉴别'response','responseObject','error'是否为服务器错误,并返回这个错误,没有错误返回nil
+ 鉴别'response','responseObject','error'是否为服务器错误
+ 可以在子类中实现此方法,将收到的服务自定义错误信息组装成error并返回, 如果返回error不为nil, 则会回调faild
  */
-- (NSError *)validateServerErrorWithAPI:(SMRNetAPI *)api response:(NSURLResponse *)response responseObject:(nullable id)responseObject error:(nullable NSError *)error;
-
-/**
- 从error中取出responseObject
- AFN的ResponseSerializer设置的非'正常网络状态码区间'(由setForAcceptableStatusCodes所设置)的错误码放在error.info中,并且下层不好获取
- */
-- (nullable id)responseObjectWithError:(nullable NSError *)error;
+- (nullable NSError *)validateServerErrorWithAPI:(SMRNetAPI *)api response:(NSURLResponse *)response responseObject:(nullable id)responseObject error:(nullable NSError *)error;
 
 @end
 
 @protocol SMRAPIRetryDelegate <NSObject>
 
 /**
- 根据error决定是否可以重试
+ 根据error决定是否可以重试,默认返回YES
  */
 - (BOOL)canRetryWhenRecivedError:(NSError *)error api:(SMRNetAPI *)api;
 
-@end
-
-@protocol SMRAPIInitDelegate <NSObject>
-
-/** 设置一个初始化API */
-- (SMRNetAPI *)apiForInitialization;
-
-/** 如果需要自动重试初始化API,请重写这个方法,并返回YES */
-- (BOOL)canQueryInitAPIWhenRecivedError:(NSError *)error currentAPI:(SMRNetAPI *)currentAPI;
-
-/** 初始化API成功的回调:返回NO,表示业务层判定为失败,默认返回YES */
-- (BOOL)apiInitSuccessed:(SMRNetAPI *)api response:(id)response;
-
-/** 初始化API失败的回调 */
-- (void)apiInitFaild:(NSError *)error;
+/**
+ 根据error决定是否发起新的API,成功后再重试,默认返回nil
+ 可以在这里处理初始化API
+ */
+- (SMRNetAPI *)canQueryNewAPIAndRetryWhenRecivedError:(NSError *)error api:(SMRNetAPI *)api;
 
 @end
 
 @protocol SMRNetIndicatorDelegate <NSObject>
 
+@optional
 /**
- 网络状态的'菊花'是否展示,默认返回YES
+ 状态栏的网络提示器是否展示,默认返回YES
+ 需要在 SMRSession或其子类 中实现 -configNetworkActivityIndicator 方法
  */
 - (BOOL)enableForStatuBarIndicator;
 
@@ -103,10 +92,17 @@ typedef NS_ENUM(NSInteger, SMRNetworkReachabilityStatus) {
 
 @protocol SMRNetworkReachabilityDelegate <NSObject>
 
-/** 监听网络变化的开头,默认开:YES */
+@optional
+/**
+ 监听网络变化的开头,默认返回YES
+ 需要在 SMRSession或其子类 中实现 -configNetworkReachability 方法
+ */
 - (BOOL)enableNetworkReachability;
 
-/** 网络状态变化时的回调 */
+/**
+ 网络状态变化时的回调
+ 需要在 SMRSession或其子类 中实现 -configNetworkReachability 方法, 并由实现者回调此方法
+ */
 - (void)didChangedNetworkWithWithStatus:(SMRNetworkReachabilityStatus)status;
 
 @end
@@ -116,7 +112,6 @@ typedef NS_ENUM(NSInteger, SMRNetworkReachabilityStatus) {
 SMRRequestDelegate,
 SMRResponseDelegate,
 SMRAPIRetryDelegate,
-SMRAPIInitDelegate,
 SMRNetIndicatorDelegate,
 SMRNetworkReachabilityDelegate>
 

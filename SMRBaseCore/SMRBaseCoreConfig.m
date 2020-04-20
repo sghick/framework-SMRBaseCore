@@ -7,7 +7,6 @@
 //
 
 #import "SMRBaseCoreConfig.h"
-#import <SMRDebug/SMRDebuger.h>
 
 @implementation SMRBaseCoreConfig
 
@@ -31,16 +30,10 @@
     if (self.dbName) {
         [[SMRFMDBManager sharedInstance] connectDatabaseWithName:self.dbName withVersion:self.dbVersion];
     }
-    // 设置debug模式
-    [SMRDebug startDebugIfNeeded];
+    [[SMRNetManager sharedManager] startWithSession:self.session config:self.netConfig];
 }
 
 #pragma mark - Setters BaseCore
-
-- (void)setNetConfig:(SMRNetConfig *)netConfig {
-    _netConfig = netConfig;
-    [[SMRNetManager sharedManager] startWithConfig:netConfig];
-}
 
 - (void)setRouterConfig:(SMRRouterConfig *)routerConfig {
     _routerConfig = routerConfig;
@@ -50,6 +43,16 @@
 - (void)setWebReplaceConfig:(id<SMRWebReplaceConfig>)webReplaceConfig {
     _webReplaceConfig = webReplaceConfig;
     [SMRWebConfig shareConfig].webReplaceConfig = webReplaceConfig;
+}
+
+- (void)setWebNavigationViewConfig:(id<SMRWebNavigationViewConfig>)webNavigationViewConfig {
+    _webNavigationViewConfig = webNavigationViewConfig;
+    [SMRWebConfig shareConfig].webNavigationViewConfig = webNavigationViewConfig;
+}
+
+- (void)setWebJSRegisterConfig:(id<SMRWebJSRegisterConfig>)webJSRegisterConfig {
+    _webJSRegisterConfig = webJSRegisterConfig;
+    [SMRWebConfig shareConfig].webJSRegisterConfig = webJSRegisterConfig;
 }
 
 #pragma mark - Setters BaseUI

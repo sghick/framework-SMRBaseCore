@@ -26,6 +26,7 @@
 		1DA00EC024332FFF00DB28BC /* SMRLineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA00EBF24332FFF00DB28BC /* SMRLineLayout.m */; };
 		1DBAA3D1244DAD0700A19597 /* NSURL+BaseCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBAA3CF244DAD0700A19597 /* NSURL+BaseCore.m */; };
 		1DBAA3E7244DB04800A19597 /* NSError+BaseCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBAA3E5244DB04800A19597 /* NSError+BaseCore.m */; };
+		1DBAA3EA244DB2C600A19597 /* SMRAFSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBAA3E9244DB2C600A19597 /* SMRAFSession.m */; };
 		3474ABA988B303EAE936A32D /* Pods_SMRBaseCoreDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEB68DCCB6F5224C71F40E77 /* Pods_SMRBaseCoreDemo.framework */; };
 		8A1DAF0E232641EC00F2B478 /* SMRSeparatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A1DAF0D232641EB00F2B478 /* SMRSeparatorTests.m */; };
 		8A2DE23B2232635000E9A07E /* SMRIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE2392232635000E9A07E /* SMRIndexView.m */; };
@@ -228,6 +229,8 @@
 		1DBAA3D0244DAD0700A19597 /* NSURL+BaseCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+BaseCore.h"; sourceTree = "<group>"; };
 		1DBAA3E5244DB04800A19597 /* NSError+BaseCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+BaseCore.m"; sourceTree = "<group>"; };
 		1DBAA3E6244DB04800A19597 /* NSError+BaseCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+BaseCore.h"; sourceTree = "<group>"; };
+		1DBAA3E8244DB2C600A19597 /* SMRAFSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRAFSession.h; sourceTree = "<group>"; };
+		1DBAA3E9244DB2C600A19597 /* SMRAFSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRAFSession.m; sourceTree = "<group>"; };
 		1DDC0D172433410F002CDBF8 /* SMRLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRLog.h; sourceTree = "<group>"; };
 		265B7E2F72042FFDB9545E7F /* Pods-SMRBaseCoreDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMRBaseCoreDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo.release.xcconfig"; sourceTree = "<group>"; };
 		8A1DAF0C232641EB00F2B478 /* SMRSeparatorTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRSeparatorTests.h; sourceTree = "<group>"; };
@@ -1066,6 +1069,8 @@
 				8A814C9F21F5C40000D8AEB6 /* SMRNetConfig.m */,
 				8A814CAE21F5C5A900D8AEB6 /* SMRSession.h */,
 				8A814CAF21F5C5A900D8AEB6 /* SMRSession.m */,
+				1DBAA3E8244DB2C600A19597 /* SMRAFSession.h */,
+				1DBAA3E9244DB2C600A19597 /* SMRAFSession.m */,
 			);
 			path = SMRNetConfig;
 			sourceTree = "<group>";
@@ -1787,6 +1792,7 @@
 				8AE495A6220422680055263E /* SMRMatrixCalculator.m in Sources */,
 				8A814BFA21F5BCF200D8AEB6 /* SMRLifecycle.m in Sources */,
 				8A814BC821F5BA2100D8AEB6 /* SMRRouterCenter+SMROpen.m in Sources */,
+				1DBAA3EA244DB2C600A19597 /* SMRAFSession.m in Sources */,
 				8A914E012215AB6D00E2F691 /* SMRUtils+Validate.m in Sources */,
 				8AC70513227EE286002821D3 /* LBXScanView.m in Sources */,
 				8AF1989E22A135FA0045CBCF /* UITabBar+SMRImage.m in Sources */,

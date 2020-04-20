@@ -64,43 +64,14 @@
     return err;
 }
 
-- (id)responseObjectWithError:(NSError *)error {
-    id data = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-    if (data && [data isKindOfClass:[NSData class]]) {
-        id responseObject = nil;
-        if ([NSJSONSerialization isValidJSONObject:data]) {
-            responseObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        } else {
-            responseObject = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        }
-        return responseObject;
-    } else {
-        return nil;
-    }
-}
-
 #pragma mark - SMRAPIRetryDelegate
 
 - (BOOL)canRetryWhenRecivedError:(NSError *)error api:(SMRNetAPI *)api {
     return YES;
 }
 
-#pragma mark - SMRAPIInitDelegate
-
-- (SMRNetAPI *)apiForInitialization {
+- (SMRNetAPI *)canQueryNewAPIAndRetryWhenRecivedError:(NSError *)error api:(SMRNetAPI *)api {
     return nil;
-}
-
-- (BOOL)canQueryInitAPIWhenRecivedError:(NSError *)error currentAPI:(SMRNetAPI *)currentAPI {
-    return NO;
-}
-
-- (BOOL)apiInitSuccessed:(SMRNetAPI *)api response:(id)response {
-    return YES;
-}
-
-- (void)apiInitFaild:(NSError *)error {
-    
 }
 
 #pragma mark - SMRNetIndicatorDelegate

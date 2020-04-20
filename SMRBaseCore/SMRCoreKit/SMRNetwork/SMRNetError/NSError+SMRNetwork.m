@@ -8,7 +8,7 @@
 
 #import "NSError+SMRNetwork.h"
 
-NSErrorDomain const BDSNetworkDomain = @"com.basecore.BDSNetworkDomain";
+NSErrorDomain const SMRNetworkDomain = @"com.basecore.SMRNetworkDomain";
 
 @implementation NSError (SMRNetwork)
 
@@ -16,7 +16,7 @@ NSErrorDomain const BDSNetworkDomain = @"com.basecore.BDSNetworkDomain";
                                            detail:(nullable NSString *)detail
                                           message:(nullable NSString *)message
                                          userInfo:(nullable NSDictionary<NSErrorUserInfoKey,id> *)dict {
-    return [self smr_errorWithDomain:BDSNetworkDomain code:code detail:detail message:message userInfo:dict];
+    return [self smr_errorWithDomain:SMRNetworkDomain code:code detail:detail message:message userInfo:dict];
 }
 
 @end

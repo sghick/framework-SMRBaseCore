@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-FOUNDATION_EXPORT NSErrorDomain const BDSNetworkDomain;
+FOUNDATION_EXPORT NSErrorDomain const SMRNetworkDomain;
 
 @interface NSError (SMRNetwork)
 
