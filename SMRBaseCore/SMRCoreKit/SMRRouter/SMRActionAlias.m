@@ -1,6 +1,6 @@
 //
 //  SMRActionAlias.m
-//  SMRRouterDemo
+//  SMRBaseCoreDemo
 //
 //  Created by 丁治文 on 2019/7/8.
 //  Copyright © 2019 sumrise.com. All rights reserved.

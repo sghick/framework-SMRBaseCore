@@ -6,12 +6,11 @@
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "NSError+SMRError.h"
-
-FOUNDATION_EXPORT NSErrorDomain const SMRNetworkDomain;
+#import "NSError+BaseCore.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+FOUNDATION_EXPORT NSErrorDomain const BDSNetworkDomain;
 
 @interface NSError (SMRNetwork)
 

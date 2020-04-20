@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 FOUNDATION_EXPORT NSErrorUserInfoKey const kErrorUserInfoDetail;
 FOUNDATION_EXPORT NSErrorUserInfoKey const kErrorUserInfoMessage;
 
-@interface NSError (SMRError)
+@interface NSError (BaseCore)
 
 + (instancetype)smr_errorWithDomain:(NSErrorDomain)domain
                                code:(NSInteger)code
@@ -24,6 +24,8 @@ FOUNDATION_EXPORT NSErrorUserInfoKey const kErrorUserInfoMessage;
                              detail:(nullable NSString *)detail
                             message:(nullable NSString *)message
                            userInfo:(nullable NSDictionary<NSErrorUserInfoKey,id> *)dict;
+
++ (instancetype)smr_error:(NSError *)error underlyingError:(NSError *)underlyingError;
 
 - (nullable NSString *)smr_detail;
 - (nullable NSString *)smr_message;

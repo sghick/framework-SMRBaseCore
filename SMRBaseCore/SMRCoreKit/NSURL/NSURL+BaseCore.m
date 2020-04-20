@@ -1,6 +1,6 @@
 //
-//  NSURL+SMRRouter.m
-//  SMRRouterDemo
+//  NSURL+BaseCore.m
+//  SMRBaseCoreDemo
 //
 //  Created by 丁治文 on 2018/10/3.
 //  Copyright © 2018年 sumrise.com. All rights reserved.

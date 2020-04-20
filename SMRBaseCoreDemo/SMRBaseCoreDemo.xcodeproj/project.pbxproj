@@ -25,6 +25,7 @@
 		1DA00EB824332A7B00DB28BC /* UITableView+SMRSeparator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA00EB724332A7B00DB28BC /* UITableView+SMRSeparator.m */; };
 		1DA00EC024332FFF00DB28BC /* SMRLineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA00EBF24332FFF00DB28BC /* SMRLineLayout.m */; };
 		1DBAA3D1244DAD0700A19597 /* NSURL+BaseCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBAA3CF244DAD0700A19597 /* NSURL+BaseCore.m */; };
+		1DBAA3E7244DB04800A19597 /* NSError+BaseCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBAA3E5244DB04800A19597 /* NSError+BaseCore.m */; };
 		3474ABA988B303EAE936A32D /* Pods_SMRBaseCoreDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEB68DCCB6F5224C71F40E77 /* Pods_SMRBaseCoreDemo.framework */; };
 		8A1DAF0E232641EC00F2B478 /* SMRSeparatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A1DAF0D232641EB00F2B478 /* SMRSeparatorTests.m */; };
 		8A2DE23B2232635000E9A07E /* SMRIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE2392232635000E9A07E /* SMRIndexView.m */; };
@@ -148,7 +149,6 @@
 		8AD9C709223FC03E0028A871 /* SMRSliderBarContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9C708223FC03E0028A871 /* SMRSliderBarContentView.m */; };
 		8AE02F5422154FBD006235BB /* SMRAlertViewContentTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE02F5322154FBD006235BB /* SMRAlertViewContentTextCell.m */; };
 		8AE02F5722154FE6006235BB /* SMRAlertViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE02F5622154FE6006235BB /* SMRAlertViewButton.m */; };
-		8AE4952A21FEB3040055263E /* NSError+SMRError.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4952921FEB3040055263E /* NSError+SMRError.m */; };
 		8AE4953121FEB8F70055263E /* smr_config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8AE4953021FEB8F70055263E /* smr_config.plist */; };
 		8AE4956822028AEE0055263E /* UIButton+SMR.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4956722028AEE0055263E /* UIButton+SMR.m */; };
 		8AE4956C22028C9D0055263E /* SMRButtonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4956B22028C9D0055263E /* SMRButtonTests.m */; };
@@ -226,6 +226,8 @@
 		1DA00EBF24332FFF00DB28BC /* SMRLineLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRLineLayout.m; sourceTree = "<group>"; };
 		1DBAA3CF244DAD0700A19597 /* NSURL+BaseCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+BaseCore.m"; sourceTree = "<group>"; };
 		1DBAA3D0244DAD0700A19597 /* NSURL+BaseCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+BaseCore.h"; sourceTree = "<group>"; };
+		1DBAA3E5244DB04800A19597 /* NSError+BaseCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+BaseCore.m"; sourceTree = "<group>"; };
+		1DBAA3E6244DB04800A19597 /* NSError+BaseCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+BaseCore.h"; sourceTree = "<group>"; };
 		1DDC0D172433410F002CDBF8 /* SMRLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRLog.h; sourceTree = "<group>"; };
 		265B7E2F72042FFDB9545E7F /* Pods-SMRBaseCoreDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMRBaseCoreDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo.release.xcconfig"; sourceTree = "<group>"; };
 		8A1DAF0C232641EB00F2B478 /* SMRSeparatorTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRSeparatorTests.h; sourceTree = "<group>"; };
@@ -487,8 +489,6 @@
 		8AE02F5322154FBD006235BB /* SMRAlertViewContentTextCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRAlertViewContentTextCell.m; sourceTree = "<group>"; };
 		8AE02F5522154FE6006235BB /* SMRAlertViewButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRAlertViewButton.h; sourceTree = "<group>"; };
 		8AE02F5622154FE6006235BB /* SMRAlertViewButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRAlertViewButton.m; sourceTree = "<group>"; };
-		8AE4952821FEB3040055263E /* NSError+SMRError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSError+SMRError.h"; sourceTree = "<group>"; };
-		8AE4952921FEB3040055263E /* NSError+SMRError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSError+SMRError.m"; sourceTree = "<group>"; };
 		8AE4953021FEB8F70055263E /* smr_config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = smr_config.plist; sourceTree = "<group>"; };
 		8AE4956622028AEE0055263E /* UIButton+SMR.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+SMR.h"; sourceTree = "<group>"; };
 		8AE4956722028AEE0055263E /* UIButton+SMR.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+SMR.m"; sourceTree = "<group>"; };
@@ -653,13 +653,22 @@
 			path = SMRLineLayout;
 			sourceTree = "<group>";
 		};
-		1DBAA3C8244DAC8400A19597 /* SMRURL */ = {
+		1DBAA3C8244DAC8400A19597 /* NSURL */ = {
 			isa = PBXGroup;
 			children = (
 				1DBAA3D0244DAD0700A19597 /* NSURL+BaseCore.h */,
 				1DBAA3CF244DAD0700A19597 /* NSURL+BaseCore.m */,
 			);
-			path = SMRURL;
+			path = NSURL;
+			sourceTree = "<group>";
+		};
+		1DBAA3E4244DB04800A19597 /* NSError */ = {
+			isa = PBXGroup;
+			children = (
+				1DBAA3E6244DB04800A19597 /* NSError+BaseCore.h */,
+				1DBAA3E5244DB04800A19597 /* NSError+BaseCore.m */,
+			);
+			path = NSError;
 			sourceTree = "<group>";
 		};
 		1DDC0D1624334105002CDBF8 /* SMRLog */ = {
@@ -870,7 +879,8 @@
 		8A814A8221F5B80B00D8AEB6 /* SMRCoreKit */ = {
 			isa = PBXGroup;
 			children = (
-				1DBAA3C8244DAC8400A19597 /* SMRURL */,
+				1DBAA3E4244DB04800A19597 /* NSError */,
+				1DBAA3C8244DAC8400A19597 /* NSURL */,
 				1DDC0D1624334105002CDBF8 /* SMRLog */,
 				8AD9C6E1223A32820028A871 /* SMRCache */,
 				8A814D1721F80B8100D8AEB6 /* SMRRanker */,
@@ -879,7 +889,6 @@
 				8A814BE621F5BCCC00D8AEB6 /* SMRModel */,
 				8A814BA221F5BA1600D8AEB6 /* SMRRouter */,
 				8A814B0721F5B9B000D8AEB6 /* SMRDB */,
-				8AE4952721FEB2DF0055263E /* SMRError */,
 				8A814CFA21F5CEC800D8AEB6 /* SMRAdapter */,
 				8ACDC03922A78CA2005784AA /* SMRNotificationManager */,
 				8ACCDF942314D01200983D19 /* SMRImageUploadService */,
@@ -1427,15 +1436,6 @@
 			path = SMRSliderBarContentView;
 			sourceTree = "<group>";
 		};
-		8AE4952721FEB2DF0055263E /* SMRError */ = {
-			isa = PBXGroup;
-			children = (
-				8AE4952821FEB3040055263E /* NSError+SMRError.h */,
-				8AE4952921FEB3040055263E /* NSError+SMRError.m */,
-			);
-			path = SMRError;
-			sourceTree = "<group>";
-		};
 		8AE49562220289F40055263E /* SMRButtonCate */ = {
 			isa = PBXGroup;
 			children = (
@@ -1738,11 +1738,11 @@
 				8AD9C6E5223A32830028A871 /* SMRGlobalCache.m in Sources */,
 				8AC90C0322F7CF570000236D /* UIImageView+SMR.m in Sources */,
 				8A4AA2D8222E1E590034929D /* SMRUtils+MBProgressHUD.m in Sources */,
+				1DBAA3E7244DB04800A19597 /* NSError+BaseCore.m in Sources */,
 				1D1857FC243C6B3B0073825D /* SMRTextAttributeTests.m in Sources */,
 				8A914E042216530A00E2F691 /* SMRUtils+Locations.m in Sources */,
 				1D3DFF3523A8875800663386 /* SMRPageControl.m in Sources */,
 				8A425E30230A45690045E0A5 /* SMRSectionsTests.m in Sources */,
-				8AE4952A21FEB3040055263E /* NSError+SMRError.m in Sources */,
 				8A4AA2C4222D2EA40034929D /* SMRModelTests.m in Sources */,
 				8A814C9521F5C3D000D8AEB6 /* SMRNetManager.m in Sources */,
 				8A4AA2C7222D2F1C0034929D /* SMRTestPersonModels.m in Sources */,

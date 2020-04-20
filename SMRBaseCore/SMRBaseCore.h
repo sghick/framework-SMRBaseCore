@@ -15,7 +15,6 @@
 #import "SMRRouter.h"
 #import "SMRModel.h"
 #import "SMRNetwork.h"
-#import "NSError+SMRError.h"
 #import "SMRRanker.h"
 #import "SMRCache.h"
 #import "SMRAdapter.h"
@@ -29,6 +28,7 @@
 #import "SMRUpdateStatusManager.h"
 #import "SMRKeyChainManager.h"
 #import "NSURL+BaseCore.h"
+#import "NSError+BaseCore.h"
 
 /// SMRUIKit
 #import "SMRViewController.h"

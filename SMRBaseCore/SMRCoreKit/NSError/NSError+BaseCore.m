@@ -6,12 +6,12 @@
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
-#import "NSError+SMRError.h"
+#import "NSError+BaseCore.h"
 
 NSErrorUserInfoKey const kErrorUserInfoDetail = @"kSMRErrorUserInfoDetail";
 NSErrorUserInfoKey const kErrorUserInfoMessage = @"kSMRErrorUserInfoMessage";;
 
-@implementation NSError (SMRError)
+@implementation NSError (BaseCore)
 
 + (instancetype)smr_errorWithDomain:(NSErrorDomain)domain
                                code:(NSInteger)code
@@ -28,6 +28,21 @@ NSErrorUserInfoKey const kErrorUserInfoMessage = @"kSMRErrorUserInfoMessage";;
     userInfo[kErrorUserInfoDetail] = detail;
     userInfo[kErrorUserInfoMessage] = message;
     return [NSError errorWithDomain:domain code:code userInfo:[userInfo copy]];
+}
+
++ (instancetype)smr_error:(NSError *)error underlyingError:(NSError *)underlyingError {
+    if (!error) {
+        return underlyingError;
+    }
+
+    if (!underlyingError || error.userInfo[NSUnderlyingErrorKey]) {
+        return error;
+    }
+
+    NSMutableDictionary *mutableUserInfo = [error.userInfo mutableCopy];
+    mutableUserInfo[NSUnderlyingErrorKey] = underlyingError;
+
+    return [[NSError alloc] initWithDomain:error.domain code:error.code userInfo:mutableUserInfo];
 }
 
 - (nullable NSString *)smr_detail {
