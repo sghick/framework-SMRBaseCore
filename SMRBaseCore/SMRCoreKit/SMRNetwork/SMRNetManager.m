@@ -17,9 +17,6 @@
 #import "NSError+SMRNetwork.h"
 #import "SMRLog.h"
 
-// TODO:will remove from manager
-#import <AFNetworking/AFNetworking.h>
-
 @interface SMRNetManager ()
 
 @property (strong, nonatomic) NSLock *lock;
@@ -335,7 +332,7 @@
     return shouldRetry;
 }
 
-#pragma mark - APIInit
+#pragma mark - RetryNew
 
 /// 是否需要前置一个API
 - (BOOL)willQueryNewAPIAndRetryWithError:(NSError *)error api:(SMRNetAPI *)api {
@@ -426,15 +423,15 @@
 #pragma mark - Getters
 
 - (BOOL)reachable {
-    return [AFNetworkReachabilityManager sharedManager].isReachable;
+    return self.session.reachable;
 }
 
 - (BOOL)reachableViaWWAN {
-    return [AFNetworkReachabilityManager sharedManager].isReachableViaWWAN;
+    return self.session.reachableViaWWAN;
 }
 
 - (BOOL)reachableViaWiFi {
-    return [AFNetworkReachabilityManager sharedManager].isReachableViaWiFi;
+    return self.session.reachableViaWiFi;
 }
 
 - (SMRNetAPIQueue *)netAPIQueue {

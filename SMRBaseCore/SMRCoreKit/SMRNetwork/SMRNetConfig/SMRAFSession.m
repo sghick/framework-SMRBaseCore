@@ -12,6 +12,7 @@
 #import "SMRNetAPI.h"
 #import "SMRLog.h"
 
+#import "AFNetworkReachabilityManager.h"
 #import "AFNetworkActivityIndicatorManager.h"
 
 @interface SMRAFSession ()
@@ -64,6 +65,20 @@
 
 - (void)configNetworkActivityIndicator:(SMRNetConfig *)config {
     [AFNetworkActivityIndicatorManager sharedManager].enabled = [config enableForStatuBarIndicator];
+}
+
+#pragma mark - BDSSessionUtilsProtocol
+
+- (BOOL)reachable {
+    return [AFNetworkReachabilityManager sharedManager].isReachable;
+}
+
+- (BOOL)reachableViaWWAN {
+    return [AFNetworkReachabilityManager sharedManager].isReachableViaWWAN;
+}
+
+- (BOOL)reachableViaWiFi {
+    return [AFNetworkReachabilityManager sharedManager].isReachableViaWiFi;
 }
 
 #pragma mark - SMRSessionDelegate

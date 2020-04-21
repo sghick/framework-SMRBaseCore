@@ -27,6 +27,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@protocol SMRSessionUtilsProtocol <NSObject>
+
+@property (assign, nonatomic, readonly) BOOL reachable;         ///< 网络是否可用
+@property (assign, nonatomic, readonly) BOOL reachableViaWWAN;  ///< WWAN网络(无线广域网)是否可用
+@property (assign, nonatomic, readonly) BOOL reachableViaWiFi;  ///< WiFi网络是否可用
+
+@end
+
 @class SMRNetAPI;
 @protocol SMRSessionProtocol <NSObject>
 
@@ -54,7 +62,11 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @class SMRNetDedouncer<SMRNetAPI>;
-@interface SMRSession : NSObject<SMRSessionProtocol, SMRSessionUploadProtocol, SMRSessionConfigProtocol>
+@interface SMRSession : NSObject<
+SMRSessionConfigProtocol,
+SMRSessionUtilsProtocol,
+SMRSessionProtocol,
+SMRSessionUploadProtocol>
 
 /** 将session中定义的error转换成response */
 - (id)parserToResponseWithError:(NSError *)error;

@@ -46,6 +46,23 @@
     
 }
 
+#pragma mark - SMRSessionUtilsProtocol
+
+- (BOOL)reachable {
+    NSAssert(nil, @"未实现此方法");
+    return YES;
+}
+
+- (BOOL)reachableViaWWAN {
+    NSAssert(nil, @"未实现此方法");
+    return YES;
+}
+
+- (BOOL)reachableViaWiFi {
+    NSAssert(nil, @"未实现此方法");
+    return YES;
+}
+
 #pragma mark - SMRSessionDelegate
 
 - (NSMutableURLRequest *)requestWithAPI:(SMRNetAPI *)api
