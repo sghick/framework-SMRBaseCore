@@ -78,10 +78,12 @@
                              downloadProgress:(nullable void (^)(NSProgress *downloadProgress))downloadProgress
                             completionHandler:(nullable void (^)(NSURLResponse *response, id _Nullable responseObject,  NSError * _Nullable error))completionHandler {
     NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (completionHandler) {
-            id responseObject = [self p_responseObjectForResponse:response data:data error:&error];
-            completionHandler(response, responseObject, error);
-        }
+        id responseObject = [self p_responseObjectForResponse:response data:data error:&error];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completionHandler) {
+                completionHandler(response, responseObject, error);
+            }
+        });
     }];
     return dataTask;
 }
