@@ -67,7 +67,7 @@
     [AFNetworkActivityIndicatorManager sharedManager].enabled = [config enableForStatuBarIndicator];
 }
 
-#pragma mark - BDSSessionUtilsProtocol
+#pragma mark - SMRSessionUtilsProtocol
 
 - (BOOL)reachable {
     return [AFNetworkReachabilityManager sharedManager].isReachable;

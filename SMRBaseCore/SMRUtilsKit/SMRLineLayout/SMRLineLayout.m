@@ -3,7 +3,7 @@
 //  SMRBaseCoreDemo
 //
 //  Created by Tinswin on 2020/3/19.
-//  Copyright © 2020 ibaodashi. All rights reserved.
+//  Copyright © 2020 sumrise. All rights reserved.
 //
 
 #import "SMRLineLayout.h"

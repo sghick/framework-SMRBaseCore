@@ -10,6 +10,8 @@
 #define SMRBaseCore_h
 
 /// SMRCoreKit
+#import "NSURL+BaseCore.h"
+#import "NSError+BaseCore.h"
 #import "SMRDB.h"
 #import "SMRLifecycle.h"
 #import "SMRRouter.h"
@@ -27,8 +29,7 @@
 #import "SMRNotificationManager.h"
 #import "SMRUpdateStatusManager.h"
 #import "SMRKeyChainManager.h"
-#import "NSURL+BaseCore.h"
-#import "NSError+BaseCore.h"
+#import "SMRCryptor.h"
 
 /// SMRUIKit
 #import "SMRViewController.h"
