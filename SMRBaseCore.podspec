@@ -13,7 +13,7 @@ s.source_files = 'SMRBaseCore/**/*.{h,m}'
 s.resource     = 'SMRBaseCore/SMRUIKit/SMRUIKitBundle.bundle'
 
 #### SMRCoreKit.SMRNetwork
-s.dependency 'AFNetworking', '3.2.1'
+s.dependency 'AFNetworking', '4.0.1'
 s.dependency 'YYCache', '1.0.4'
 #### SMRCoreKit.SMRDataBase
 s.dependency 'FMDB', '2.7.2'
@@ -21,7 +21,7 @@ s.dependency 'FMDB', '2.7.2'
 s.dependency 'YYModel', '1.0.4'
 #### SMRUIKit.SMRNavigationView
 s.dependency 'PureLayout', '3.1.4'
-s.dependency 'SDWebImage', '5.1.0'
+s.dependency 'SDWebImage', '5.7.0'
 #### SMRUIKit.SMRController
 s.dependency 'MJRefresh', '3.1.15.7'
 s.dependency 'IQKeyboardManager', '~> 3.3.7'
