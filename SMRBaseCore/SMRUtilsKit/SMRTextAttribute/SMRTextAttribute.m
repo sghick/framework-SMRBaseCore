@@ -315,18 +315,22 @@
 }
 
 - (NSAttributedString *)attributedStringWithText:(NSString *)text markText:(NSString *)markText markTextAttribute:(SMRTextAttribute *)markTextAttribute {
-    NSRange markRange = [text rangeOfString:markText];
-    NSAttributedString *markAttr = [markTextAttribute attributedStringWithText:markText];
     NSMutableAttributedString *attr = [[self attributedStringWithText:text] mutableCopy];
-    [attr replaceCharactersInRange:markRange withAttributedString:markAttr];
+    NSRange markRange = [text rangeOfString:markText];
+    if (markRange.location != NSNotFound) {
+        NSAttributedString *markAttr = [markTextAttribute attributedStringWithText:markText];
+        [attr replaceCharactersInRange:markRange withAttributedString:markAttr];
+    }
     return [attr copy];
 }
 
 - (NSAttributedString *)attributedStringWithText:(NSString *)text markRange:(NSRange)markRange markTextAttribute:(SMRTextAttribute *)markTextAttribute {
-    NSString *markText = [text substringWithRange:markRange];
-    NSAttributedString *markAttr = [markTextAttribute attributedStringWithText:markText];
     NSMutableAttributedString *attr = [[self attributedStringWithText:text] mutableCopy];
-    [attr replaceCharactersInRange:markRange withAttributedString:markAttr];
+    if (markRange.location != NSNotFound) {
+        NSString *markText = [text substringWithRange:markRange];
+        NSAttributedString *markAttr = [markTextAttribute attributedStringWithText:markText];
+        [attr replaceCharactersInRange:markRange withAttributedString:markAttr];
+    }
     return [attr copy];
 }
 
