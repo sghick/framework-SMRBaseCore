@@ -11,8 +11,8 @@
 
 @interface SMRNavigationBar ()
 
-@property (nonatomic, copy  ) NSMutableDictionary *needsToRemoveViews;
-@property (nonatomic, copy  ) NSMutableDictionary *needsToRemoveLayouts;
+@property (nonatomic, strong) NSMutableDictionary *needsToRemoveViews;
+@property (nonatomic, strong) NSMutableDictionary *needsToRemoveLayouts;
 
 @end
 

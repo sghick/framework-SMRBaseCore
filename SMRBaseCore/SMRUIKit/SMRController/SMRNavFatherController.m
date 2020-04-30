@@ -83,7 +83,6 @@
 - (void)setNavigationView:(SMRNavigationView *)navigationView {
     if (_navigationView != navigationView) {
         [_navigationView removeFromSuperview];
-        _navigationView = nil;
         _navigationView = navigationView;
         _navigationView.delegate = self;
         [self checkNeedsAddSubview];

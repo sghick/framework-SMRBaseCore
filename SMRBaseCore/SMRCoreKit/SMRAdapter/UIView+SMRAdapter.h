@@ -15,10 +15,10 @@ static NSInteger const kTagForSMRAdapterBottomView = 541608;
 @interface UIView (SMRAdapter)
 
 /** 给view的底部添加一个定高定色的view */
-- (UIView *)setSafeAreaViewWithColor:(UIColor *)color;
+- (nullable UIView *)setSafeAreaViewWithColor:(UIColor *)color;
 
 /** 给view的底部添加一个定高定色的view,指定高 */
-- (UIView *)setSafeAreaViewWithColor:(UIColor *)color height:(CGFloat)height;
+- (nullable UIView *)setSafeAreaViewWithColor:(UIColor *)color height:(CGFloat)height;
 
 /** 获取safeAreaView */
 - (nullable UIView *)safeAreaView;

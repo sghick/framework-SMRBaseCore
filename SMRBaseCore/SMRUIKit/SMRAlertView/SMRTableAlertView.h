@@ -19,12 +19,12 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 - (CGFloat)smr_marginOfTitleBar;
 - (CGFloat)smr_heightOfTitleBar;
-- (UIView *)smr_titleBarOfTableAlertView;
+- (nullable UIView *)smr_titleBarOfTableAlertView;
 
 @optional
 - (CGFloat)smr_marginOfBottomBar;
 - (CGFloat)smr_heightOfBottomBar;
-- (UIView *)smr_bottomBarOfTableAlertView;
+- (nullable UIView *)smr_bottomBarOfTableAlertView;
 
 @optional
 - (CGFloat)smr_marginOfTableView;

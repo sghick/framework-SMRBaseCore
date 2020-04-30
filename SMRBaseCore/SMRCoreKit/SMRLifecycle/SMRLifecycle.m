@@ -246,7 +246,7 @@ static dispatch_once_t _lifecyclemanageronceToken;
     [mutInfo setObject:self.installUUID?self.installUUID:@"" forKey:@"installUUID"];
     // 如果是lifecycle型的,生命周期发生变化后,将curcount重置
     [mutInfo setObject:@(curcountNum.integerValue + 1) forKey:@"curcount"];
-    if (lastCheckLifecyleType) {
+    if (lastCheckLifecyleType != nil) {
         BOOL lifecycleChanged = [self checkIfLifecycleChangedForLifecycleType:lastCheckLifecyleType.integerValue lifecycleInfo:lifecycleInfo];
         if (lifecycleChanged) {
             [mutInfo setObject:@(1) forKey:@"curcount"];

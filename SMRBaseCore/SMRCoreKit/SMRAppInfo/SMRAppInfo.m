@@ -30,7 +30,7 @@ static NSNumber *_logined;
     [[self appUserDefaults] setObject:_logined forKey:kUDForAppLogined];
 }
 + (BOOL)logined {
-    if (!_logined) {
+    if (_logined == nil) {
         _logined = [[self appUserDefaults] objectForKey:kUDForAppLogined];
     }
     return _logined.boolValue;

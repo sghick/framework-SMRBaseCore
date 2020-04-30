@@ -54,7 +54,7 @@ static const char SMRLeftMarginKey = '\0';
 
 - (CGFloat)leftMargin {
     NSNumber *number = objc_getAssociatedObject(self, &SMRLeftMarginKey);
-    if (!number) {
+    if (number == nil) {
         CGFloat margin = [SMRBaseCoreInfoHelper tableViewSeperatorLeftMarginWithScale:[SMRUIAdapter scale]];
         objc_setAssociatedObject(self, &SMRLeftMarginKey, @(margin), OBJC_ASSOCIATION_RETAIN);
         number = @(margin);
@@ -72,7 +72,7 @@ static const char SPRightMarginKey = '\0';
 
 - (CGFloat)rightMargin {
     NSNumber *number = objc_getAssociatedObject(self, &SPRightMarginKey);
-    if (!number) {
+    if (number == nil) {
         CGFloat margin = [SMRBaseCoreInfoHelper tableViewSeperatorRightMarginWithScale:[SMRUIAdapter scale]];
         objc_setAssociatedObject(self, &SPRightMarginKey, @(margin), OBJC_ASSOCIATION_RETAIN);
         number = @(margin);
@@ -110,9 +110,8 @@ static const char SPRightMarginKey = '\0';
     BOOL didBreak = NO;
     NSString *defStyle = @"Fn";
     NSString *style = nil;
-    NSRange range = NSMakeRange(0, 0);
     for (NSString *fm in fms) {
-        range = [self rangeFromFormat:fm style:&style];
+        NSRange range = [self rangeFromFormat:fm style:&style];
         NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
         if ([style containsString:@"n"]) {
             defStyle = style;

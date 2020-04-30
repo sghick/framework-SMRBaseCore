@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURL *)smr_URLByAppendParams:(NSDictionary *)params;
 - (NSURL *)smr_URLByAppendQuery:(NSString *)query;
 /// 获取url参数
-- (NSDictionary *)smr_parseredParams;
+- (nullable NSDictionary *)smr_parseredParams;
 
 /// 获取一个数据类型的参数
 + (NSArray *)smr_buildArrayTypeWithParam:(id)param;

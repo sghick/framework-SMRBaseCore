@@ -35,8 +35,8 @@ typedef void(^SMRNotificationManagerActionBlock)(SMRNotificationManager *manager
 @property (assign, nonatomic) NSInteger applicationIconBadgeNumber;
 
 @property (assign, nonatomic, readonly) SMRPushFromType fromType;
-@property (copy  , nonatomic, readonly) NSString *pushURL;
-@property (copy  , nonatomic, readonly) NSDictionary *userInfo;
+@property (copy  , nonatomic, readonly) NSString * _Nullable pushURL;
+@property (copy  , nonatomic, readonly) NSDictionary * _Nullable userInfo;
 
 /** 单例 */
 + (instancetype)sharedInstance;

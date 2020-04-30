@@ -358,7 +358,7 @@
 }
 
 - (CGSize)sizeOfText:(NSString *)text fitSize:(CGSize)fitSize fixLineSpacing:(BOOL)fixLineSpacing {
-    NSAttributedString *attr = attr = [self attributedStringWithText:text fixLineSpacing:fixLineSpacing];
+    NSAttributedString *attr = [self attributedStringWithText:text fixLineSpacing:fixLineSpacing];
     CGSize size = [attr boundingRectWithSize:fitSize
                                      options:NSStringDrawingUsesLineFragmentOrigin
                                      context:nil].size;

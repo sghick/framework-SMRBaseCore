@@ -86,6 +86,7 @@
             self.automaticallyAdjustsScrollViewInsets = [self after_adjustmentBehaviorForIOS11Before];
         }
     }
+    [super viewDidAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

@@ -32,7 +32,7 @@
         R = (int32_t)(255*components[0]);
         G = (int32_t)(255*components[1]);
         B = (int32_t)(255*components[2]);
-        int32_t rgbValue = (R << 16)|(R << 8)|(B << 0);
+        int32_t rgbValue = (R << 16)|(G << 8)|(B << 0);
         return rgbValue;
     } else {
         return 0;

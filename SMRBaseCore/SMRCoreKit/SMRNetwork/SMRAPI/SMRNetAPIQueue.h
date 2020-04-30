@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SMRNetAPIQueue : NSObject
 
 - (void)enqueue:(SMRNetAPI *)api;
-- (SMRNetAPI *)dequeue;
+- (nullable SMRNetAPI *)dequeue;
 
 @end
 
