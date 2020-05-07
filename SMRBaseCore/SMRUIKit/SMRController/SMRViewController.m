@@ -15,11 +15,11 @@
 
 @interface SMRViewController ()
 
-@property (copy  , nonatomic) NSString *UMPageName;
-
 @end
 
 @implementation SMRViewController
+
+@synthesize pageName = _pageName;
 
 - (void)dealloc {
     base_core_log(@"成功释放控制器:<%@: %p> %@", [self class], &self, self.title);
@@ -160,24 +160,14 @@
     self.hidesBottomBarWhenPushed = !isMainPage;
 }
 
-- (NSString *)UMPageName {
-    if (!_UMPageName) {
-        _UMPageName = NSStringFromClass([self class]);
+- (NSString *)pageName {
+    if (!_pageName) {
+        _pageName = NSStringFromClass([self class]);
     }
-    return _UMPageName;
+    return _pageName;
 }
 
-#pragma mark - IQKeyBoard
-
-- (BOOL)IQKeyBoardEnable {
-    return YES;
-}
-
-- (CGFloat)keyboardDistanceFromTextField {
-    return 10;
-}
-
-- (UIScrollViewContentInsetAdjustmentBehavior)adjustmentBehavior {
+- (UIScrollViewContentInsetAdjustmentBehavior)adjustmentBehavior API_AVAILABLE(ios(11.0)) {
     return UIScrollViewContentInsetAdjustmentAutomatic;
 }
 

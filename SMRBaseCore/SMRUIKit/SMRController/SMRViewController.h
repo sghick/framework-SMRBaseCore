@@ -27,9 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@class SMRNetAPI;
-@class SMRAPICallback;
 @interface SMRViewController : UIViewController<SMRViewControllerAdapterDelegate>
+
+/**
+ 页面名字,默认为类名,若需要更换,请重写get方法
+ */
+@property (copy  , nonatomic, readonly) NSString *pageName;
 
 /**
  设置为首页展示的属性,默认NO
@@ -62,17 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
  页面统计中的页面名称,默认为类名
  更换值,请子类重写此方法
  */
-- (NSString *)UMPageName;
-
-/**
- 是否开启智能键盘,默认开启:YES
- */
-- (BOOL)IQKeyBoardEnable;
-
-/**
- 键盘与textField的距离,默认:10
- */
-- (CGFloat)keyboardDistanceFromTextField;
+- (NSString *)pageName;
 
 @end
 
