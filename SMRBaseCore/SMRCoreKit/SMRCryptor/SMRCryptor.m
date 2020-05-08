@@ -160,6 +160,64 @@
     }
 }
 
+#pragma mark - AES-ECB
+
++ (SMRCryptorResult *)aesECBEncrypt:(NSString *)string key:(NSString *)key {
+    return [self cryptorWithOperation:kCCEncrypt
+                            algorithm:kCCAlgorithmAES
+                              options:kCCOptionECBMode|kCCOptionPKCS7Padding
+                            blockSize:kCCBlockSizeAES128
+                                 data:string.smr_data
+                                  key:key.smr_data
+                                   iv:nil];
+}
+
++ (SMRCryptorResult *)aesECBDecrypt:(NSString *)string key:(NSString *)key {
+    return [self cryptorWithOperation:kCCDecrypt
+                            algorithm:kCCAlgorithmAES
+                              options:kCCOptionECBMode|kCCOptionPKCS7Padding
+                            blockSize:kCCBlockSizeAES128
+                                 data:string.smr_data
+                                  key:key.smr_data
+                                   iv:nil];
+}
+
+
++ (SMRCryptorResult *)cryptorWithOperation:(CCOperation)operation algorithm:(CCAlgorithm)algorithm options:(CCOptions)options blockSize:(uint32_t)blockSize data:(NSData *)data key:(NSData *)key iv:(NSData *)iv {
+    // check length of key
+    if ((key.length != 16) && (key.length != 24) && (key.length != 32 )) {
+        NSAssert(nil, @"Length of key should be 16, 24 or 32(128, 192 or 256bits)");
+        return nil;
+    }
+    
+    // setup output buffer
+    size_t bufferSize = [data length] + blockSize;
+    void *buffer = malloc(bufferSize);
+    
+    // do encrypt
+    size_t cryptorSize = 0;
+    CCCryptorStatus cryptStatus = CCCrypt(operation,
+                                          algorithm,
+                                          options,
+                                          key.bytes,
+                                          key.length,
+                                          iv.bytes,
+                                          data.bytes,
+                                          data.length,
+                                          buffer,
+                                          bufferSize,
+                                          &cryptorSize);
+    if (cryptStatus == kCCSuccess) {
+        SMRCryptorResult *result = [[SMRCryptorResult alloc] initWithBytes:buffer length:cryptorSize];
+        free(buffer);
+        return result;
+    } else {
+        free(buffer);
+        NSAssert(nil, @"Encrypt Error!");
+        return nil;
+    }
+}
+
 #pragma mark - MD5
 
 + (SMRCryptorResult *)md5:(NSString *)hashString {

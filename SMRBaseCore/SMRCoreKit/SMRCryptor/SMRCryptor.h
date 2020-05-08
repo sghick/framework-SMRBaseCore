@@ -31,12 +31,18 @@ NS_ASSUME_NONNULL_BEGIN
 + (SMRCryptorResult *)aesEncrypt:(NSString *)string key:(NSData *)key iv:(NSData *)iv;
 + (SMRCryptorResult *)aesEncryptWithData:(NSData *)data key:(NSData *)key iv:(NSData *)iv;
 
-#pragma mark AES Decrypt
+#pragma mark - AES Decrypt
 
 + (SMRCryptorResult *)aesDecryptWithBase64:(NSString *)string key:(NSString *)key;
 + (SMRCryptorResult *)aesDecryptWithBase64:(NSString *)string hexKey:(NSString *)key hexIv:(NSString *)iv;
 + (SMRCryptorResult *)aesDecryptWithBase64:(NSString *)string key:(NSData *)key iv:(NSData *)iv;
 + (SMRCryptorResult *)aesDecryptWithData:(NSData *)data key:(NSData *)key iv:(NSData *)iv;
+
+/** 在线工具:http://tool.chacuo.net/cryptaes */
+#pragma mark - AES-ECB
+
++ (SMRCryptorResult *)aesECBEncrypt:(NSString *)string key:(NSString *)key;
++ (SMRCryptorResult *)aesECBDecrypt:(NSString *)string key:(NSString *)key;
 
 #pragma mark - MD5
 
