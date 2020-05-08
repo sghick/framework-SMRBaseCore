@@ -183,7 +183,7 @@
 }
 
 
-+ (SMRCryptorResult *)cryptorWithOperation:(CCOperation)operation algorithm:(CCAlgorithm)algorithm options:(CCOptions)options blockSize:(uint32_t)blockSize data:(NSData *)data key:(NSData *)key iv:(NSData *)iv {
++ (SMRCryptorResult *)cryptorWithOperation:(CCOperation)operation algorithm:(CCAlgorithm)algorithm options:(CCOptions)options blockSize:(size_t)blockSize data:(NSData *)data key:(NSData *)key iv:(NSData *)iv {
     // check length of key
     if ((key.length != 16) && (key.length != 24) && (key.length != 32 )) {
         NSAssert(nil, @"Length of key should be 16, 24 or 32(128, 192 or 256bits)");
