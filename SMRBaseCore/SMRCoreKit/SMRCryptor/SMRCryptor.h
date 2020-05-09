@@ -22,6 +22,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+/**
+ 在线工具:http://tool.chacuo.net/cryptaes
+ AES加密:https://www.jianshu.com/p/a6fca79eb89c
+        https://www.cnblogs.com/Dennis-mi/articles/6639644.html
+ 因为目前AES使用CBC加密模式更为安全,因些以下仅提供些模式的方法
+*/
+
 @interface SMRCryptor : NSObject
 
 #pragma mark - AES Encrypt
@@ -37,12 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (SMRCryptorResult *)aesDecryptWithBase64:(NSString *)string hexKey:(NSString *)key hexIv:(NSString *)iv;
 + (SMRCryptorResult *)aesDecryptWithBase64:(NSString *)string key:(NSData *)key iv:(NSData *)iv;
 + (SMRCryptorResult *)aesDecryptWithData:(NSData *)data key:(NSData *)key iv:(NSData *)iv;
-
-/** 在线工具:http://tool.chacuo.net/cryptaes */
-#pragma mark - AES-ECB
-
-+ (SMRCryptorResult *)aesECBEncrypt:(NSString *)string key:(NSString *)key;
-+ (SMRCryptorResult *)aesECBDecrypt:(NSString *)string key:(NSString *)key;
 
 #pragma mark - MD5
 
