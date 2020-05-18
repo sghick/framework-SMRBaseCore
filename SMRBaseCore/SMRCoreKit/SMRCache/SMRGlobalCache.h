@@ -33,15 +33,23 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)clearCachesWithName:(NSString *)name;
 
 #pragma mark - CacheForImage 独立缓存
+- (NSString *)imageCachePathForKey:(NSString *)key;
 - (void)cacheImage:(UIImage *)image key:(NSString *)key __deprecated_msg("已废弃,使用-[SMRGlobalCache setImage:forKey:]");
-- (void)setImage:(UIImage *)image forKey:(NSString *)key;           ///< memory and disk
-- (void)setImageToMemory:(UIImage *)image forKey:(NSString *)key;   ///< memory only
-- (void)setImageToDisk:(UIImage *)image forKey:(NSString *)key;     ///< disk only
-- (void)setImageDataToDisk:(NSData *)imageData forKey:(NSString *)key;  ///< disk only
-- (UIImage *)imageWithKey:(NSString *)key;      ///< memory or disk
-- (NSData *)imageDataWithKey:(NSString *)key;   ///< disk only
-- (void)removeImageWithKey:(NSString *)key;     ///< memory and disk
-- (void)removeAllImages;    ///< memory and disk
+/** memory and disk */
+- (void)setImage:(UIImage *)image forKey:(NSString *)key completion:(nullable void (^)(void))completion;
+- (void)setImageToMemory:(UIImage *)image forKey:(NSString *)key;
+- (void)setImageToDisk:(UIImage *)image forKey:(NSString *)key completion:(nullable void (^)(void))completion;
+- (void)setImageDataToDisk:(NSData *)imageData forKey:(NSString *)key;
+/** memory or disk */
+- (UIImage *)imageWithKey:(NSString *)key;
+/** disk only */
+- (NSData *)imageDataWithKey:(NSString *)key;
+/** memory and disk */
+- (void)removeImageWithKey:(NSString *)key completion:(nullable void (^)(void))completion;
+- (void)removeImageFromMemoryWithKey:(NSString *)key;
+- (void)removeImageFromDiskWithKey:(NSString *)key;
+/** memory and disk */
+- (void)removeAllImagesWithCompletion:(nullable void (^)(void))completion;
 
 #pragma mark - CacheForObject 独立缓存
 - (void)setObject:(nullable id<NSCoding>)object forKey:(NSString *)key;

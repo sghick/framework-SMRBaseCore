@@ -143,8 +143,8 @@ static NSString *const kMetaCache = @"kMetaCache";
 }
 
 - (void)p_clearAllCaches {
-    [self removeAllImages];
     [self removeAllObjects];
+    [self removeAllImagesWithCompletion:nil];
 }
 
 + (int32_t)cacheSize {
@@ -191,17 +191,21 @@ static NSString *const kMetaCache = @"kMetaCache";
 
 #pragma mark - CacheForImage
 
+- (NSString *)imageCachePathForKey:(NSString *)key {
+    return [self.imageCache cachePathForKey:key];
+}
+
 - (void)cacheImage:(UIImage *)image key:(NSString *)key {
     [self.imageCache storeImage:image forKey:key completion:nil];
 }
-- (void)setImage:(UIImage *)image forKey:(NSString *)key {
-    [self.imageCache storeImage:image forKey:key completion:nil];
+- (void)setImage:(UIImage *)image forKey:(NSString *)key completion:(void (^)(void))completion {
+    [self.imageCache storeImage:image forKey:key completion:completion];
 }
 - (void)setImageToMemory:(UIImage *)image forKey:(NSString *)key {
     [self.imageCache storeImageToMemory:image forKey:key];
 }
-- (void)setImageToDisk:(UIImage *)image forKey:(NSString *)key {
-    [self.imageCache storeImage:image imageData:nil forKey:key cacheType:SDImageCacheTypeDisk completion:nil];
+- (void)setImageToDisk:(UIImage *)image forKey:(NSString *)key completion:(void (^)(void))completion {
+    [self.imageCache storeImage:image imageData:nil forKey:key cacheType:SDImageCacheTypeDisk completion:completion];
 }
 - (void)setImageDataToDisk:(NSData *)imageData forKey:(NSString *)key {
     [self.imageCache storeImageDataToDisk:imageData forKey:key];
@@ -212,12 +216,18 @@ static NSString *const kMetaCache = @"kMetaCache";
 - (NSData *)imageDataWithKey:(NSString *)key {
     return [self.imageCache diskImageDataForKey:key];
 }
-- (void)removeImageWithKey:(NSString *)key {
-    [self.imageCache removeImageForKey:key withCompletion:nil];
+- (void)removeImageWithKey:(NSString *)key completion:(void (^)(void))completion {
+    [self.imageCache removeImageForKey:key withCompletion:completion];
 }
-- (void)removeAllImages {
+- (void)removeImageFromMemoryWithKey:(NSString *)key {
+    [self.imageCache removeImageFromMemoryForKey:key];
+}
+- (void)removeImageFromDiskWithKey:(NSString *)key {
+    [self.imageCache removeImageFromDiskForKey:key];
+}
+- (void)removeAllImagesWithCompletion:(void (^)(void))completion {
     [self.imageCache clearMemory];
-    [self.imageCache clearDiskOnCompletion:nil];
+    [self.imageCache clearDiskOnCompletion:completion];
     _imageCache = nil;
 }
 
