@@ -7,6 +7,7 @@
 //
 
 #import "SMRImageUploadService.h"
+#import "SMRCryptor.h"
 
 #pragma mark - --SMRImageUploadService
 
@@ -25,6 +26,7 @@ SMRImageTaskObserverDelegate>
 @property (strong, nonatomic) NSMutableArray<NSString *> *ingQueue;
 @property (strong, nonatomic) NSMutableArray<NSString *> *waitingQueue;
 @property (strong, nonatomic) NSMutableDictionary<NSString *, SMRImageTask *> *taskDict;
+@property (strong, nonatomic) NSMutableDictionary<NSString *, NSMutableArray<SMRImageTaskObserver *> *> *taskObserverDict;
 
 @property (strong, nonatomic) NSMutableDictionary<NSString *, UIImage *> *imageCache;
 
@@ -44,16 +46,29 @@ SMRImageTaskObserverDelegate>
 
 #pragma mark - ImageTask
 
++ (NSString *)createTaskIdentifier {
+    NSString *taskIdentifier = [NSString stringWithFormat:@"%04d%04d%010d", arc4random()%1000, arc4random()%1000, (int)[NSDate date].timeIntervalSince1970];
+    return taskIdentifier.smr_data.smr_stringByBase64;
+}
+
 - (SMRImageTask *)taskWithoutBondingImage {
-    NSString *taskIdentifier = [[NSUUID UUID].UUIDString stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    NSString *taskIdentifier = [self.class createTaskIdentifier];
     SMRImageTask *task = [self taskWithIdentifier:taskIdentifier];
     return task;
 }
 
 - (SMRImageTask *)taskWithBondingImage:(UIImage *)image {
-    NSString *taskIdentifier = [[NSUUID UUID].UUIDString stringByReplacingOccurrencesOfString:@"-" withString:@""];
-    [self saveImageCacheWithTaskIdentifier:taskIdentifier image:image];
-    SMRImageTask *task = [self taskWithIdentifier:taskIdentifier];
+    NSString *taskIdentifier = [self.class createTaskIdentifier];
+    return [self taskWithBondingImage:image identifier:taskIdentifier];
+}
+
+- (SMRImageTask *)taskWithBondingImage:(UIImage *)image identifier:(nonnull NSString *)identifier {
+    if (!identifier.length) {
+        NSAssert(NO, @"identifier不能为空,可使用`- taskWithBondingImage`方法创建默认的");
+        return nil;
+    }
+    [self saveImageCacheWithTaskIdentifier:identifier image:image];
+    SMRImageTask *task = [self taskWithIdentifier:identifier];
     return task;
 }
 
@@ -71,10 +86,6 @@ SMRImageTaskObserverDelegate>
     return task;
 }
 
-- (SMRImageTask *)imageTaskWithIdentifier:(NSString *)taskIdentifier {
-    return [self taskWithIdentifier:taskIdentifier];
-}
-
 #pragma mark - ImageTaskObserver
 
 - (SMRImageTaskObserver *)taskObserverWithoutBondingImage {
@@ -89,9 +100,39 @@ SMRImageTaskObserverDelegate>
     return observer;
 }
 
+- (SMRImageTaskObserver *)taskObserverWithBondingImage:(UIImage *)image identifier:(nonnull NSString *)identifier {
+    SMRImageTask *task = [self taskWithBondingImage:image identifier:identifier];
+    SMRImageTaskObserver *observer = [self taskObserverWithTaskIdentifier:task.identifier];
+    return observer;
+}
+
 - (SMRImageTaskObserver *)taskObserverWithTaskIdentifier:(NSString *)taskIdentifier {
     SMRImageTaskObserver *Observer = [SMRImageTaskObserver observerWithTaskIdentifier:taskIdentifier];
     return Observer;
+}
+
+- (void)handleTaskObserver:(SMRImageTaskObserver *)taskObserver {
+    if (!taskObserver || !taskObserver.taskIdentifier.length) {
+        return;
+    }
+    NSMutableArray *arr = self.taskObserverDict[taskObserver.taskIdentifier];
+    if (!arr) {
+        arr = [NSMutableArray array];
+    }
+    [arr addObject:taskObserver];
+}
+- (void)releaseTaskObserver:(SMRImageTaskObserver *)taskObserver {
+    if (!taskObserver || !taskObserver.taskIdentifier.length) {
+        return;
+    }
+    NSMutableArray *arr = self.taskObserverDict[taskObserver.taskIdentifier];
+    [arr removeObject:taskObserver];
+}
+- (void)releaseAllTaskObserverWithIdentifier:(NSString *)taskIdentifier {
+    if (!taskIdentifier.length) {
+        return;
+    }
+    self.taskObserverDict[taskIdentifier] = nil;
 }
 
 #pragma mark - ImageCache
@@ -101,6 +142,14 @@ SMRImageTaskObserverDelegate>
         self.cacheSaveBlock(self, image, taskIdentifier);
     } else {
         self.imageCache[taskIdentifier] = image;
+    }
+}
+
+- (NSString *)imageCachePathWithTaskIdentifier:(NSString *)taskIdentifier {
+    if (self.cachePathGetBlock) {
+        return self.cachePathGetBlock(self, taskIdentifier);
+    } else {
+        return nil;
     }
 }
 
@@ -131,6 +180,7 @@ SMRImageTaskObserverDelegate>
     [self.taskQueue removeObject:taskIdentifier];
     [self.ingQueue removeObject:taskIdentifier];
     [self.waitingQueue removeObject:taskIdentifier];
+    [self releaseAllTaskObserverWithIdentifier:taskIdentifier];
     if (removeImageCache) {
         [self removeImageCacheWithTaskIdentifier:taskIdentifier];
     }
@@ -296,6 +346,13 @@ SMRImageTaskObserverDelegate>
         _taskDict = [NSMutableDictionary dictionary];
     }
     return _taskDict;
+}
+
+- (NSMutableDictionary<NSString *,NSMutableArray<SMRImageTaskObserver *> *> *)taskObserverDict {
+    if (!_taskObserverDict) {
+        _taskObserverDict = [NSMutableDictionary dictionary];
+    }
+    return _taskObserverDict;
 }
 
 - (NSMutableDictionary<NSString *,UIImage *> *)imageCache {

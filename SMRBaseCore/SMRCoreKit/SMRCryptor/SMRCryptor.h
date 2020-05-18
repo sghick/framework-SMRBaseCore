@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (SMRCryptorResult *)aesEncrypt:(NSString *)string key:(NSData *)key iv:(NSData *)iv;
 + (SMRCryptorResult *)aesEncryptWithData:(NSData *)data key:(NSData *)key iv:(NSData *)iv;
 
-#pragma mark - AES Decrypt
+#pragma mark AES Decrypt
 
 + (SMRCryptorResult *)aesDecryptWithBase64:(NSString *)string key:(NSString *)key;
 + (SMRCryptorResult *)aesDecryptWithBase64:(NSString *)string hexKey:(NSString *)key hexIv:(NSString *)iv;
@@ -89,12 +89,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)smr_string;
 
 /** Base64 */
-- (NSString *)smr_base64EncodedString;
-- (NSString *)smr_base64EncodedStringWithLineLength:(NSUInteger)lineLength;
+- (NSString *)smr_stringByBase64;
+- (NSString *)smr_stringByBase64WithLineLength:(NSUInteger)lineLength;
 
 /** Hex,字母小写 */
-- (NSString *)smr_hexString;
-- (NSString *)smr_hexStringWithLength:(NSInteger)length;
+- (NSString *)smr_stringByHex;
+- (NSString *)smr_stringByHexWithLength:(NSInteger)length;
 
 @end
 
@@ -104,10 +104,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSData *)smr_data;
 
 /** Base64 */
-- (NSData *)smr_dataFromBase64EncodedString;
+- (NSData *)smr_dataByBase64;
 
 /** Hex */
-- (NSData *)smr_dataFromHexString;
+- (NSData *)smr_dataByHex;
 
 @end
 

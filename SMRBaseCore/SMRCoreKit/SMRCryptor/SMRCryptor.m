@@ -29,11 +29,11 @@
 }
 
 - (NSString *)hex {
-    return [self.data smr_hexString];
+    return [self.data smr_stringByHex];
 }
 
 - (NSString *)base64 {
-    return [self.data smr_base64EncodedString];
+    return [self.data smr_stringByBase64];
 }
 
 @end
@@ -54,8 +54,8 @@
 #pragma mark AES Encrypt 128, 192, 256
 
 + (SMRCryptorResult *)aesEncrypt:(NSString *)string hexKey:(NSString *)key hexIv:(NSString *)iv {
-    NSData *aesKey = [key smr_dataFromHexString];
-    NSData *aesIv = [iv smr_dataFromHexString];
+    NSData *aesKey = [key smr_dataByHex];
+    NSData *aesIv = [iv smr_dataByHex];
     return [self aesEncrypt:string key:aesKey iv:aesIv];
 }
 + (SMRCryptorResult *)aesEncrypt:(NSString *)string key:(NSData *)key iv:(NSData *)iv {
@@ -113,12 +113,12 @@
 #pragma mark AES Decrypt 128, 192, 256
 
 + (SMRCryptorResult *)aesDecryptWithBase64:(NSString *)string hexKey:(NSString *)key hexIv:(NSString *)iv {
-    NSData *aesKey = [key smr_dataFromHexString];
-    NSData *aesIv = [iv smr_dataFromHexString];
+    NSData *aesKey = [key smr_dataByHex];
+    NSData *aesIv = [iv smr_dataByHex];
     return [self aesDecryptWithBase64:string key:aesKey iv:aesIv];
 }
 + (SMRCryptorResult *)aesDecryptWithBase64:(NSString *)string key:(NSData *)key iv:(NSData *)iv {
-    NSData *base64Data = [string smr_dataFromBase64EncodedString];
+    NSData *base64Data = [string smr_dataByBase64];
     return [self aesDecryptWithData:base64Data key:key iv:iv];
 }
 + (SMRCryptorResult *)aesDecryptWithData:(NSData *)data key:(NSData *)key iv:(NSData *)iv {
@@ -378,11 +378,11 @@
 }
 
 /** Base64 */
-- (NSString *)smr_base64EncodedString {
-    return [self smr_base64EncodedStringWithLineLength:0];
+- (NSString *)smr_stringByBase64 {
+    return [self smr_stringByBase64WithLineLength:0];
 }
 
-- (NSString *)smr_base64EncodedStringWithLineLength:(NSUInteger)lineLength {
+- (NSString *)smr_stringByBase64WithLineLength:(NSUInteger)lineLength {
     if (!self.length) {
         return nil;
     }
@@ -417,10 +417,10 @@
 }
 
 /** Hex */
-- (NSString *)smr_hexString {
-    return [self smr_hexStringWithLength:self.length];
+- (NSString *)smr_stringByHex {
+    return [self smr_stringByHexWithLength:self.length];
 }
-- (NSString *)smr_hexStringWithLength:(NSInteger)length {
+- (NSString *)smr_stringByHexWithLength:(NSInteger)length {
     if (!self.length) {
         return nil;
     }
@@ -448,7 +448,7 @@
 }
 
 /** Base64 */
-- (NSData *)smr_dataFromBase64EncodedString {
+- (NSData *)smr_dataByBase64 {
     if (!self.length) {
         return nil;
     }
@@ -459,7 +459,7 @@
 }
 
 /** Hex */
-- (NSData *)smr_dataFromHexString {
+- (NSData *)smr_dataByHex {
     if (!self.length) {
         return nil;
     }

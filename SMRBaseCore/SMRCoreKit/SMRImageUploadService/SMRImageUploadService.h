@@ -26,6 +26,7 @@ typedef void(^SMRImageCancelBlock)(SMRImageUploadService *service, SMRImageTask 
 
 typedef void(^SMRImageCacheSaveBlock)(SMRImageUploadService *service, UIImage *image, NSString *taskIdentifier);
 typedef UIImage *_Nullable(^SMRImageCacheGetBlock)(SMRImageUploadService *service, NSString *taskIdentifier);
+typedef NSString *_Nullable(^SMRImageCachePathGetBlock)(SMRImageUploadService *service, NSString *taskIdentifier);
 typedef void(^SMRImageCacheRemoveBlock)(SMRImageUploadService *service, NSString *taskIdentifier);
 
 @class SMRImageTaskObserver;
@@ -36,6 +37,7 @@ typedef void(^SMRImageCacheRemoveBlock)(SMRImageUploadService *service, NSString
 
 @property (copy  , nonatomic) SMRImageCacheSaveBlock cacheSaveBlock;
 @property (copy  , nonatomic) SMRImageCacheGetBlock cacheGetBlock;
+@property (copy  , nonatomic) SMRImageCachePathGetBlock cachePathGetBlock;
 @property (copy  , nonatomic) SMRImageCacheRemoveBlock cacheRemoveBlock;
 
 @property (assign, nonatomic) NSInteger maxIngCount; ///< 最大任务并发数,0表示无限制,默认1
@@ -46,20 +48,34 @@ typedef void(^SMRImageCacheRemoveBlock)(SMRImageUploadService *service, NSString
 
 + (instancetype)sharedService;
 
+/** 随机生成一个18位数字生成的base64编码 */
++ (NSString *)createTaskIdentifier;
+
 /** 首次任务时可使用此方法 */
 - (SMRImageTask *)taskWithoutBondingImage;
 - (SMRImageTask *)taskWithBondingImage:(UIImage *)image;
-/** 获取任务队列中的任务,没有则会自动创建一个 */
+- (SMRImageTask *)taskWithBondingImage:(UIImage *)image identifier:(NSString *)identifier;
+
+/** 可根据identifier获取任务队列中的任务,没有则会自动创建一个,identifier为空时返回nil */
 - (SMRImageTask *)taskWithIdentifier:(NSString *)taskIdentifier;
 
 /** 首次任务时可使用此方法 */
 - (SMRImageTaskObserver *)taskObserverWithoutBondingImage;
 - (SMRImageTaskObserver *)taskObserverWithBondingImage:(UIImage *)image;
+- (SMRImageTaskObserver *)taskObserverWithBondingImage:(UIImage *)image identifier:(NSString *)identifier;
+
 /** 可根据identifier获取任务接口,每个任务可对应多个任务接口对象,未找到则返回nil */
 - (SMRImageTaskObserver *)taskObserverWithTaskIdentifier:(NSString *)taskIdentifier;
 
+/** 让service持有task observer对象, 需要在使用完成后手机释放, task被移除时会自动释放 */
+- (void)handleTaskObserver:(SMRImageTaskObserver *)taskObserver;
+- (void)releaseTaskObserver:(SMRImageTaskObserver *)taskObserver;
+- (void)releaseAllTaskObserverWithIdentifier:(NSString *)taskIdentifier;
+
+/** 获取缓存的文件路径 */
+- (nullable NSString *)imageCachePathWithTaskIdentifier:(NSString *)taskIdentifier;
 /** 获取缓存的image */
-- (UIImage *)imageCacheWithTaskIdentifier:(NSString *)taskIdentifier;
+- (nullable UIImage *)imageCacheWithTaskIdentifier:(NSString *)taskIdentifier;
 /** 移除缓存的image */
 - (void)removeImageCacheWithTaskIdentifier:(NSString *)taskIdentifier;
 
