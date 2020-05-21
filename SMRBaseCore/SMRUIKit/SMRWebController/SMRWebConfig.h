@@ -11,18 +11,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class SMRWebController;
-@class SMRNavigationView;
-@protocol SMRWebNavigationViewConfig <NSObject>
-
-@optional
-/** 返回一个自定义的navigationView */
-- (SMRNavigationView *)navigationViewOfWebController:(SMRWebController *)webController;
-
-@end
+#pragma mark - SMRWKScriptMessageHandler
 
 @class SMRWebController;
 typedef void(^SMRWKScriptMessageRecivedBlock)(SMRWebController *webController, WKUserContentController *userContentController, WKScriptMessage *message);
+
+/** target-action 通过router发送的参数的key */
+FOUNDATION_EXPORT NSString * const kWebHandlerForWeb;
+FOUNDATION_EXPORT NSString * const kWebHandlerForUserContent;
+FOUNDATION_EXPORT NSString * const kWebHandlerForMessage;
 
 /** 定义和处理js调用oc的方法 */
 @interface SMRWKScriptMessageHandler : NSObject <WKScriptMessageHandler>
@@ -30,11 +27,46 @@ typedef void(^SMRWKScriptMessageRecivedBlock)(SMRWebController *webController, W
 @property (weak  , nonatomic) SMRWebController *webController;
 
 @property (copy  , nonatomic) NSString *name;
-@property (copy  , nonatomic) SMRWKScriptMessageRecivedBlock recivedBlock;
+/** 为nil时,将使用target action 通过router发送消息 */
+@property (copy  , nonatomic) __nullable SMRWKScriptMessageRecivedBlock recivedBlock;
+@property (copy  , nonatomic) NSString *target;
+@property (copy  , nonatomic) NSString *action;
 
-+ (instancetype)handlerWithWebController:(SMRWebController *)webController
-                                    name:(NSString *)name
-                            recivedBlock:(SMRWKScriptMessageRecivedBlock)recivedBlock;
++ (instancetype)handlerWithName:(NSString *)name
+                            web:(SMRWebController *)webController
+                         target:(NSString *)target
+                         action:(NSString *)action;
++ (instancetype)handlerWithName:(NSString *)name
+                            web:(SMRWebController *)webController
+                        recived:(nullable SMRWKScriptMessageRecivedBlock)recivedBlock;
+
+@end
+
+#pragma mark - SMRJSParam
+
+/** js方法参数填充 */
+@interface SMRJSParam : NSObject
+
+@property (strong, nonatomic) NSMutableDictionary<NSString *, NSString *> *formats;
+
++ (instancetype)param;
+
+- (void)addString:(NSString *)stringValue format:(NSString *)format;
+- (void)addInt:(NSInteger)intValue format:(NSString *)format;
+
+- (NSString *)fillWithJSString:(NSString *)jsString;
+
+@end
+
+#pragma mark - Config Protocols
+
+@class SMRWebController;
+@class SMRNavigationView;
+@protocol SMRWebNavigationViewConfig <NSObject>
+
+@optional
+/** 返回一个自定义的navigationView */
+- (SMRNavigationView *)navigationViewOfWebController:(SMRWebController *)webController;
 
 @end
 
@@ -58,6 +90,8 @@ typedef void(^SMRWKScriptMessageRecivedBlock)(SMRWebController *webController, W
 - (void)customJSTextToInvokeWithWebController:(SMRWebController *)webController url:(NSURL *)url;
 
 @end
+
+#pragma mark - SMRWebConfig
 
 @interface SMRWebConfig : NSObject
 
