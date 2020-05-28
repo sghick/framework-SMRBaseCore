@@ -60,6 +60,7 @@ typedef void(^SMRWebSideMenuWillDismissBlock)(SMRSideMenuView *menu);
 
 @property (nonatomic, strong, readonly) NSArray<UIView *> *menuItems;
 @property (nonatomic, assign, readonly) CGFloat menuWidth;
+@property (nonatomic, assign) CGFloat minHeightOfContent; ///< view.height
 @property (nonatomic, assign) CGFloat maxHeightOfContent; ///< view.height
 @property (nonatomic, assign) BOOL scrollEnabled; ///< default:YES
 

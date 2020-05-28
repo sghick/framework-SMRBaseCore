@@ -218,15 +218,16 @@ UITableViewDataSource >
     CGFloat height = 44*menuItems.count;
     if (self.itemHeightBlock) {
         NSInteger index = 0;
-        CGFloat height = 0;
+        height = 0;
         for (UIView *view in menuItems) {
             height += self.itemHeightBlock(self, view, index);
             index++;
         }
     }
+    CGFloat tbh = MAX(self.minHeightOfContent, MIN(height, self.maxHeightOfContent));
     // 计算content
     self.contentView.frame = CGRectMake(origin.x, origin.y, menuWidth, height);
-    self.tableView.frame = CGRectMake(0, 0, menuWidth, MIN(height, self.maxHeightOfContent));
+    self.tableView.frame = CGRectMake(0, 0, menuWidth, tbh);
     
     // 计算trangle
     CGSize tsize = [self trangleSize];
