@@ -146,6 +146,9 @@
 #pragma mark - MainPage
 
 - (void)addChildViewController:(SMRViewController *)childController {
+    if (!childController) {
+        return;
+    }
     [super addChildViewController:childController];
     if ([childController isKindOfClass:[SMRViewController class]]) {
         childController.isMainPage = self.isMainPage;
