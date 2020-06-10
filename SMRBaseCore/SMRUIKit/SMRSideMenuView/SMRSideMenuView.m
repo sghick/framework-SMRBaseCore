@@ -41,10 +41,10 @@ UITableViewDataSource >
 - (void)createSubviews {
     _scrollEnabled = YES;
     _maxHeightOfContent = self.bounds.size.height;
-    _shadowEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
+    _shadowEdgeInsets = UIEdgeInsetsMake(9, 7.5, 8, 9.5);
     
-    [self addSubview:self.shadowView];
     [self addSubview:self.contentView];
+    [self.contentView addSubview:self.shadowView];
     [self.contentView addSubview:self.trangleView];
     [self.contentView addSubview:self.tableView];
 }
@@ -119,12 +119,10 @@ UITableViewDataSource >
 - (void)showAnimations {
     self.contentView.alpha = 0.0f;
     self.parentView.alpha = 0.0f;
-    self.shadowView.alpha = 0.0f;
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:0.2 animations:^{
         weakSelf.contentView.alpha = 1.0f;
         weakSelf.parentView.alpha = 1.0f;
-        weakSelf.shadowView.alpha = 1.0f;
     } completion:^(BOOL finished) {
         
     }];
@@ -136,14 +134,13 @@ UITableViewDataSource >
     [UIView animateWithDuration:0.2 animations:^{
         weakSelf.parentView.alpha = 0.0f;
         weakSelf.contentView.alpha = 0.0f;
-        weakSelf.shadowView.alpha = 0.0f;
     } completion:^(BOOL finished) {
         [weakSelf removeFromSuperview];
         [weakSelf.parentView removeFromSuperview];
     }];
 }
 
-#pragma mark - BezierPath
+#pragma mark - Private
 
 - (CGPathRef)tranglePath {
     UIBezierPath *bpath = [UIBezierPath bezierPath];
@@ -156,6 +153,25 @@ UITableViewDataSource >
 }
 
 #pragma mark - Style - Trangle
+
+- (CGFloat)trangleSep {
+    switch (self.trangleStyle) {
+        case SMRSideMenuTrangleStyleLeft:
+        case SMRSideMenuTrangleStyleUp: {
+            return 1;
+        }
+            break;
+        
+        case SMRSideMenuTrangleStyleRight:
+        case SMRSideMenuTrangleStyleDown: {
+            return -1;
+        }
+            break;
+        default:
+            break;
+    }
+    return 0;
+}
 
 - (CGSize)trangleSize {
     switch (self.trangleStyle) {
@@ -248,8 +264,8 @@ UITableViewDataSource >
     // 计算content
     UIEdgeInsets ins = self.shadowEdgeInsets;
     self.contentView.frame = CGRectMake(origin.x, origin.y, menuWidth, height);
-    self.shadowView.frame = CGRectMake(origin.x - ins.left, origin.y - ins.top, menuWidth + ins.left + ins.right, height + ins.top + ins.bottom);
-    // tbh - 1 是为了盖住最底下的线
+    self.shadowView.frame = CGRectMake(-ins.left, -ins.top, menuWidth + ins.left + ins.right, height + ins.top + ins.bottom);
+    // -1 是为了盖住最底下的线
     self.tableView.frame = CGRectMake(0, 0, menuWidth, tbh - 1);
     
     // 计算trangle
@@ -257,7 +273,9 @@ UITableViewDataSource >
     CGAffineTransform ttransform = [self trangleTransform];
     CGPoint toffset = [self trangleOffsetForReal:CGSizeMake(menuWidth, self.tableView.frame.size.height) tsize:tsize];
     self.trangleView.transform = ttransform;
-    self.trangleView.frame = CGRectMake(toffset.x, toffset.y, tsize.width, tsize.height);
+    // sep 是为了盖住中间的缝隙
+    CGFloat sep = [self trangleSep];
+    self.trangleView.frame = CGRectMake(toffset.x + sep, toffset.y + sep, tsize.width, tsize.height);
     
     [self.tableView reloadData];
 }
@@ -317,7 +335,7 @@ UITableViewDataSource >
         tableView.dataSource = self;
         tableView.scrollEnabled = _scrollEnabled;
         tableView.backgroundColor = [UIColor whiteColor];
-        tableView.layer.cornerRadius = 3;
+        tableView.layer.cornerRadius = 5;
         [tableView smr_markCustomTableViewSeparators];
         _tableView = tableView;
     }
