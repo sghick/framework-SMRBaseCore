@@ -67,6 +67,8 @@ FOUNDATION_EXPORT NSString * const kWebHandlerForMessage;
 @optional
 /** 返回一个自定义的navigationView */
 - (SMRNavigationView *)navigationViewOfWebController:(SMRWebController *)webController;
+- (void)webViewWillAppear:(SMRWebController *)web;
+- (void)webViewWillDisappear:(SMRWebController *)web;
 
 @end
 

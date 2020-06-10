@@ -40,6 +40,7 @@ typedef NS_ENUM(NSInteger, SMRSideMenuTrangleStyle) {
     SMRSideMenuTrangleStyleRight,   // 向右
 };
 
+@class SMRShadowItem;
 @class SMRSideMenuView;
 /// 定制调试时的block
 typedef CGFloat(^SMRWebSideMenuItemHeightBlock)(SMRSideMenuView *menu, UIView *item, NSInteger index);
@@ -49,6 +50,13 @@ typedef void(^SMRWebSideMenuTouchedBlock)(SMRSideMenuView *menu, UIView *item, N
 typedef void(^SMRWebSideMenuWillDismissBlock)(SMRSideMenuView *menu);
 
 @interface SMRSideMenuView : UIView
+
+@property (nonatomic, strong, readonly) UIView *parentView;
+@property (nonatomic, strong, readonly) UIView *contentView;
+@property (nonatomic, strong, readonly) UIImageView *trangleView;
+
+@property (nonatomic, strong, readonly) UIImageView *shadowView;
+@property (nonatomic, assign) UIEdgeInsets shadowEdgeInsets;///< {8,8,8,8}
 
 @property (nonatomic, copy  ) SMRWebSideMenuItemHeightBlock itemHeightBlock; ///< 默认44
 @property (nonatomic, copy  ) SMRWebSideMenuTouchedBlock menuTouchedBlock;
@@ -63,6 +71,8 @@ typedef void(^SMRWebSideMenuWillDismissBlock)(SMRSideMenuView *menu);
 @property (nonatomic, assign) CGFloat minHeightOfContent; ///< view.height
 @property (nonatomic, assign) CGFloat maxHeightOfContent; ///< view.height
 @property (nonatomic, assign) BOOL scrollEnabled; ///< default:YES
+
+@property (nonatomic, strong, readonly) UITableView *tableView;
 
 - (void)loadMenuWithItems:(NSArray<UIView *> *)menuItems
                 menuWidth:(CGFloat)menuWidth

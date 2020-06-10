@@ -77,6 +77,22 @@ WKNavigationDelegate>
     [self reloadWeb];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    id<SMRWebNavigationViewConfig> navigationViewConfig = [SMRWebConfig shareConfig].webNavigationViewConfig;
+    if ([navigationViewConfig respondsToSelector:@selector(webViewWillAppear:)]) {
+        [navigationViewConfig webViewWillAppear:self];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    id<SMRWebNavigationViewConfig> navigationViewConfig = [SMRWebConfig shareConfig].webNavigationViewConfig;
+    if ([navigationViewConfig respondsToSelector:@selector(webViewWillDisappear:)]) {
+        [navigationViewConfig webViewWillDisappear:self];
+    }
+}
+
 - (SMRNavigationView *)navigationViewInitialization {
     id<SMRWebNavigationViewConfig> navigationViewConfig = [SMRWebConfig shareConfig].webNavigationViewConfig;
     if ([navigationViewConfig respondsToSelector:@selector(navigationViewOfWebController:)]) {

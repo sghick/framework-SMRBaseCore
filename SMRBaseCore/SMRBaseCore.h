@@ -53,6 +53,7 @@
 #import "SMRLinkLabel.h"
 #import "SMRAlertViewButton.h"
 #import "SMRSideMenuView.h"
+#import "UIView+SMRShadowView.h"
 
 /// SMRUtilsKit
 #import "SMRMatrixCalculator.h"
