@@ -15,16 +15,16 @@
 @implementation UIView (SMRShadowView)
 
 - (void)setShadowWithItem:(SMRShadowItem *)shadowItem {
-    [self setShadowWithItem:shadowItem shadowPath:NULL];
+    [self setShadowWithItem:shadowItem shadowPath:nil];
 }
 
-- (void)setShadowWithItem:(SMRShadowItem *)shadowItem shadowPath:(CGPathRef)shadowPath {
+- (void)setShadowWithItem:(SMRShadowItem *)shadowItem shadowPath:(UIBezierPath *)shadowPath {
     self.layer.shadowColor = shadowItem.shadowColor.CGColor;
     self.layer.shadowOpacity = shadowItem.shadowOpacity;
     self.layer.shadowOffset = shadowItem.shadowOffset;
     self.layer.cornerRadius = shadowItem.cornerRadius;
     self.layer.shadowRadius = shadowItem.shadowRadius;
-    self.layer.shadowPath = shadowPath;
+    self.layer.shadowPath = shadowPath.CGPath;
 }
 
 @end

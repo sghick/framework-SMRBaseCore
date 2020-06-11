@@ -41,12 +41,20 @@ UITableViewDataSource >
 - (void)createSubviews {
     _scrollEnabled = YES;
     _maxHeightOfContent = self.bounds.size.height;
-    _shadowEdgeInsets = UIEdgeInsetsMake(9, 7.5, 8, 9.5);
     
     [self addSubview:self.contentView];
     [self.contentView addSubview:self.shadowView];
     [self.contentView addSubview:self.trangleView];
     [self.contentView addSubview:self.tableView];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    SMRShadowItem *item = [self shadowItem];
+    [self.shadowView setShadowWithItem:item
+                            shadowPath:[self rectPath]];
+    [self.trangleView setShadowWithItem:item
+                             shadowPath:[self tranglePath]];
 }
 
 #pragma mark - UITableViewDelegate, UITableViewDataSource
@@ -142,14 +150,33 @@ UITableViewDataSource >
 
 #pragma mark - Private
 
-- (CGPathRef)tranglePath {
+- (UIBezierPath *)rectPath {
+    UIBezierPath *path =
+    [UIBezierPath bezierPathWithRoundedRect:self.shadowView.bounds
+                          byRoundingCorners:UIRectCornerAllCorners
+                                cornerRadii:CGSizeMake(5, 5)];
+    return path;
+    
+}
+
+- (UIBezierPath *)tranglePath {
     UIBezierPath *bpath = [UIBezierPath bezierPath];
     CGFloat sp = 3;
     [bpath moveToPoint:CGPointMake(0, 8 - sp)];
     [bpath addLineToPoint:CGPointMake(5.5, -sp)];
     [bpath addLineToPoint:CGPointMake(11, 8 - sp)];
     
-    return bpath.CGPath;
+    return bpath;
+}
+
+- (SMRShadowItem *)shadowItem {
+    SMRShadowItem *item = [[SMRShadowItem alloc] init];
+    item.shadowColor = [UIColor smr_colorWithHexRGB:@"#C0C0C0"];
+    item.shadowOpacity = 0.4;
+    item.shadowRadius = 3;
+    item.cornerRadius = 5;
+    item.shadowOffset = CGSizeMake(1, 1);
+    return item;
 }
 
 #pragma mark - Style - Trangle
@@ -300,7 +327,7 @@ UITableViewDataSource >
 - (UIImageView *)shadowView {
     if (!_shadowView) {
         UIImageView *view = [[UIImageView alloc] init];
-        view.image = [SMRUIKitBundle imageNamed:@"menu_alert_shadow@3x"];
+        view.backgroundColor = [UIColor clearColor];
         _shadowView = view;
     }
     return _shadowView;
@@ -318,11 +345,6 @@ UITableViewDataSource >
     if (!_trangleView) {
         UIImageView *view = [[UIImageView alloc] init];
         view.image = [SMRUIKitBundle imageNamed:@"menu_alert_trangle@3x"];
-        SMRShadowItem *item = [[SMRShadowItem alloc] init];
-        item.shadowColor = [UIColor smr_colorWithHexRGB:@"#C0C0C0"];
-        item.shadowOpacity = 0.2;
-        item.shadowRadius = 1.5;
-        [view setShadowWithItem:item shadowPath:[self tranglePath]];
         _trangleView = view;
     }
     return _trangleView;

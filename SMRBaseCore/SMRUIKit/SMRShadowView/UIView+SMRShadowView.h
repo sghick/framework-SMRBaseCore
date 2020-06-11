@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setShadowWithItem:(SMRShadowItem *)shadowItem;
 /** 如果path是视图大小而定的, 建议在layoutSubviews方法中使用 */
-- (void)setShadowWithItem:(SMRShadowItem *)shadowItem shadowPath:(nullable CGPathRef)shadowPath;
+- (void)setShadowWithItem:(SMRShadowItem *)shadowItem shadowPath:(nullable UIBezierPath *)shadowPath;
 
 @end
 

@@ -56,7 +56,7 @@ typedef void(^SMRWebSideMenuWillDismissBlock)(SMRSideMenuView *menu);
 @property (nonatomic, strong, readonly) UIImageView *trangleView;
 
 @property (nonatomic, strong, readonly) UIImageView *shadowView;
-@property (nonatomic, assign) UIEdgeInsets shadowEdgeInsets;///< {8,8,8,8}
+@property (nonatomic, assign) UIEdgeInsets shadowEdgeInsets;///< {0,0,0,0}
 
 @property (nonatomic, copy  ) SMRWebSideMenuItemHeightBlock itemHeightBlock; ///< 默认44
 @property (nonatomic, copy  ) SMRWebSideMenuTouchedBlock menuTouchedBlock;
