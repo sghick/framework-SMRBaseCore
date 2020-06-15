@@ -1,34 +1,37 @@
 //
-//  SMRUtils.h
+//  SMRUtils+ThirdEx.h
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/2/14.
-//  Copyright © 2019 sumrise. All rights reserved.
+//  Created by Tinswin on 2020/6/15.
+//  Copyright © 2020 sumrise. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import "SMRUtils.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SMRUtils : NSObject
+@interface SMRUtils (ThirdEx)
 
 + (NSMutableAttributedString *)yy_attributedStringWithTags:(NSArray<NSString *> *)tags
                                                   textFont:(UIFont *)textFont
                                                  textColor:(UIColor *)textColor
                                           hilitedTextColor:(UIColor *)hilitedTextColor
-                                                  tagSpace:(NSString *)tagSpace
+                                                  tagSpace:(nullable NSString *)tagSpace
                                                  lineSpace:(CGFloat)lineSpace
                                                borderWidth:(CGFloat)borderWidth
-                                               borderColor:(UIColor *)borderColor
+                                               borderColor:(nullable UIColor *)borderColor
                                               cornerRadius:(CGFloat)cornerRadius
                                               borderInsets:(UIEdgeInsets)borderInsets
-                                           backgroundColor:(UIColor *)backgroundColor
+                                           backgroundColor:(nullable UIColor *)backgroundColor
                                                  tapAction:(void (^)(NSString *text, NSInteger index))tapAction;
 
 + (void)sd_downloadAndCacheImageWithURL:(nullable NSURL *)url
                                  toDisk:(BOOL)toDisk
                              completion:(nullable void(^)(UIImage *image))completion;
+
++ (void)sd_downloadAndCacheImageAndDataWithURL:(nullable NSURL *)url
+                                        toDisk:(BOOL)toDisk
+                                    completion:(nullable void(^)(UIImage *image, NSData *data))completion;
 
 @end
 

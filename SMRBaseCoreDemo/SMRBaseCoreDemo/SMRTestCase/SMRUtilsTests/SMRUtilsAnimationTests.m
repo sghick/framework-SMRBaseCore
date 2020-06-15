@@ -7,6 +7,7 @@
 //
 
 #import "SMRUtilsAnimationTests.h"
+#import "SMRCommon.h"
 
 @implementation SMRUtilsAnimationTests
 

@@ -8,6 +8,7 @@
 
 #import "SMRModelTests.h"
 #import "SMRTestPersonModels.h"
+#import "SMRUIKit.h"
 
 @implementation SMRModelTests
 

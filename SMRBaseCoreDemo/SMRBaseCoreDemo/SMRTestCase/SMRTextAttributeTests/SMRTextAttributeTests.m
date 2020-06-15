@@ -8,6 +8,7 @@
 
 #import "SMRTextAttributeTests.h"
 #import "PureLayout.h"
+#import "SMRCommon.h"
 
 @implementation SMRTextAttributeTests
 

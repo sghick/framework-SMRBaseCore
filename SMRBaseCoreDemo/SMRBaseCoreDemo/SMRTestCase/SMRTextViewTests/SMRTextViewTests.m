@@ -7,6 +7,8 @@
 //
 
 #import "SMRTextViewTests.h"
+#import "SMRCommon.h"
+#import "SMRUIKit.h"
 
 @implementation SMRTextViewTests
 

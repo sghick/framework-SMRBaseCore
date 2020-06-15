@@ -7,7 +7,8 @@
 //
 
 #import "SMRYYLabelTests.h"
-#import "SMRUtils.h"
+#import "SMRCommon.h"
+#import "SMRUIKit.h"
 #import <YYText/YYText.h>
 
 typedef void(^SMRYYTextRangeBlock)(NSString *string, NSString *text, NSRange range);

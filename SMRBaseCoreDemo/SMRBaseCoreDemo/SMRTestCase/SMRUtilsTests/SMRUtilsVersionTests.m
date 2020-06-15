@@ -7,6 +7,7 @@
 //
 
 #import "SMRUtilsVersionTests.h"
+#import "SMRCommon.h"
 
 #define version_code1(v) ([SMRUtils convertToCodeWithVersion:v])
 #define version_code2(v) ([SMRUtils convertToCodeWithVersion:v buildNumber:YES])

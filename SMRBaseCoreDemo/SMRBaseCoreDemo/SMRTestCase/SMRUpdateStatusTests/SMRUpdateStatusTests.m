@@ -8,6 +8,8 @@
 
 #import "SMRUpdateStatusTests.h"
 #import <SMRDebug/SMRDebuger.h>
+#import "SMRCommon.h"
+#import "SMRUIKit.h"
 
 @interface SMRUpdateStatusConfig : NSObject<SMRUpdateStatusManagerConfig>
 

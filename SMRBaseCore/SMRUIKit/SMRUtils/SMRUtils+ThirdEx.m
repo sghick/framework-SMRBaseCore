@@ -1,17 +1,17 @@
 //
-//  SMRUtils.m
+//  SMRUtils+ThirdEx.m
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/2/14.
-//  Copyright © 2019 sumrise. All rights reserved.
+//  Created by Tinswin on 2020/6/15.
+//  Copyright © 2020 sumrise. All rights reserved.
 //
 
-#import "SMRUtils.h"
+#import "SMRUtils+ThirdEx.h"
 #import "SDImageCache.h"
 #import "SDWebImageDownloader.h"
 #import <YYText/YYText.h>
 
-@implementation SMRUtils
+@implementation SMRUtils (ThirdEx)
 
 + (NSMutableAttributedString *)yy_attributedStringWithTags:(NSArray<NSString *> *)tags
                                                   textFont:(UIFont *)textFont
@@ -65,7 +65,7 @@
 
 + (void)sd_downloadAndCacheImageWithURL:(nullable NSURL *)url
                                  toDisk:(BOOL)toDisk
-                             completion:(nullable void(^)(UIImage *))completion {
+                             completion:(nullable void(^)(UIImage *image))completion {
     UIImage *image = [[SDImageCache sharedImageCache] imageFromCacheForKey:url.absoluteString];
     if (!image) {
         [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:url completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
@@ -77,6 +77,24 @@
         }];
     } else {
         completion(image);
+    }
+}
+
++ (void)sd_downloadAndCacheImageAndDataWithURL:(nullable NSURL *)url
+                                        toDisk:(BOOL)toDisk
+                                    completion:(nullable void(^)(UIImage *image, NSData *data))completion {
+    UIImage *image = [[SDImageCache sharedImageCache] imageFromCacheForKey:url.absoluteString];
+    NSData *data = [[SDImageCache sharedImageCache] diskImageDataForKey:url.absoluteString];
+    if (!image) {
+        [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:url completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
+            [[SDImageCache sharedImageCache] storeImage:image imageData:data forKey:url.absoluteString toDisk:toDisk completion:^{
+                if (completion) {
+                    completion(image, data);
+                }
+            }];
+        }];
+    } else {
+        completion(image, data);
     }
 }
 

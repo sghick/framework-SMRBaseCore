@@ -7,6 +7,7 @@
 //
 
 #import "SMRUtilsValidateTests.h"
+#import "SMRCommon.h"
 
 @implementation SMRUtilsValidateTests
 
