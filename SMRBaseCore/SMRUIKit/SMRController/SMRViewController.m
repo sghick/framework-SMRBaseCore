@@ -2,24 +2,25 @@
 //  SMRViewController.m
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/1/21.
-//  Copyright © 2019 sumrise. All rights reserved.
+//  Created by 丁治文 on 2018/12/19.
+//  Copyright © 2018 BaoDashi. All rights reserved.
 //
 
 #import "SMRViewController.h"
 #import "SMRNavigationController.h"
-#import "SDImageCache.h"
+#import "SMRGlobalCache.h"
 #import "SMRNetwork.h"
-#import "IQKeyboardManager.h"
 #import "SMRLog.h"
 
 @interface SMRViewController ()
+
+@property (copy  , nonatomic) NSString *UMPageName;
 
 @end
 
 @implementation SMRViewController
 
-@synthesize pageName = _pageName;
+@synthesize frontImageView = _frontImageView;
 
 - (void)dealloc {
     base_core_log(@"成功释放控制器:<%@: %p> %@", [self class], &self, self.title);
@@ -28,8 +29,8 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    base_core_log(@"内存警告:<%@: %p> %@", [self class], &self, self.title);
-    [[SDImageCache sharedImageCache] clearMemory];
+    base_core_warning_log(@"内存警告:<%@: %p> %@", [self class], &self, self.title);
+    [SMRGlobalCache clearUnnecessaryCaches];
 }
 
 - (instancetype)init {
@@ -91,6 +92,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self.view endEditing:YES];
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
@@ -99,6 +101,36 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
+}
+
+#pragma mark - FrontImageView
+
+- (void)showFrontImageView {
+    if (!self.frontImageView.superview) {
+        [self.view addSubview:self.frontImageView];
+        self.frontImageView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    }
+    self.frontImageView.alpha = 1;
+    self.frontImageView.hidden = NO;
+    [self.view bringSubviewToFront:self.frontImageView];
+}
+
+- (void)hideFrontImageView {
+    if (self.frontImageView.hidden) {
+        return;
+    }
+    [UIView animateWithDuration:0.3 animations:^{
+        self.frontImageView.alpha = 0;
+    } completion:^(BOOL finished) {
+        self.frontImageView.hidden = YES;
+    }];
+}
+
+- (UIImageView *)frontImageView {
+    if (!_frontImageView) {
+        _frontImageView = [[UIImageView alloc] init];
+    }
+    return _frontImageView;
 }
 
 #pragma mark - RemoveWhenViewDidLoad
@@ -155,6 +187,10 @@
     }
 }
 
+- (void)query:(SMRNetAPI *)api callback:(nullable SMRAPICallback *)callback {
+    [[SMRNetManager sharedManager] query:api callback:callback];
+}
+
 #pragma mark - Getters/Setters
 
 - (void)setIsMainPage:(BOOL)isMainPage {
@@ -170,7 +206,7 @@
     return _pageName;
 }
 
-- (UIScrollViewContentInsetAdjustmentBehavior)adjustmentBehavior API_AVAILABLE(ios(11.0)) {
+- (UIScrollViewContentInsetAdjustmentBehavior)adjustmentBehavior  API_AVAILABLE(ios(11.0)) {
     return UIScrollViewContentInsetAdjustmentAutomatic;
 }
 

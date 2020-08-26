@@ -43,15 +43,7 @@
         return;
     }
     // 为其它链接
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (!forceToApp && [[UIApplication sharedApplication] canOpenURL:jURL]) {
-            [[UIApplication sharedApplication] openURL:jURL];
-            return;
-        } else {
-            [[UIApplication sharedApplication] openURL:jURL];
-            return;
-        }
-    });
+    [self jumpToApp:url forceToApp:forceToApp];
 }
 
 + (void)jumpToWeb:(NSString *)url webParameter:(SMRWebControllerParameter *)webParameter {
@@ -70,6 +62,32 @@
             [SMRNavigator pushOrPresentToViewController:web animated:YES];
         }
     }];
+}
+
++ (void)jumpToApp:(NSString *)url forceToApp:(BOOL)forceToApp {
+    [self _jumpToApp:url options:nil forceToApp:forceToApp];
+}
+
++ (void)_jumpToApp:(NSString *)url options:(NSDictionary<UIApplicationOpenExternalURLOptionsKey, id> *)options forceToApp:(BOOL)forceToApp {
+    // 进主队列跳转
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSURL *jURL = [NSURL URLWithString:url];
+        if (!forceToApp && [[UIApplication sharedApplication] canOpenURL:jURL]) {
+            if (@available(iOS 10.0, *)) {
+                [[UIApplication sharedApplication] openURL:jURL options:options completionHandler:nil];
+            } else {
+                [[UIApplication sharedApplication] openURL:jURL];
+            }
+            return;
+        } else {
+            if (@available(iOS 10.0, *)) {
+                [[UIApplication sharedApplication] openURL:jURL options:options completionHandler:nil];
+            } else {
+                [[UIApplication sharedApplication] openURL:jURL];
+            }
+            return;
+        }
+    });
 }
 
 + (BOOL)checkWebURL:(NSString *)url {

@@ -1,14 +1,13 @@
 //
 //  SMRNavigationDefine.h
-//  SMRBaseCoreDemo
+//  SMRGeneralUseDemo
 //
-//  Created by 丁治文 on 2019/1/21.
+//  Created by 丁治文 on 2019/1/9.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
 #ifndef SMRNavigationDefine_h
 #define SMRNavigationDefine_h
-#import <UIKit/UIKit.h>
 
 #ifndef IS_IPHONEX_SERIES
 #define IS_IPHONEX_SERIES \

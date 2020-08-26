@@ -1,15 +1,12 @@
 //
 //  SMRDBInsertOption.m
-//  SMRDBDemo
+//  SMRDataBaseDemo
 //
-//  Created by 丁治文 on 2018/9/23.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/18.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "SMRDBInsertOption.h"
-#import "SMRDBAdapter.h"
-#import "SMRDBMapper.h"
-#import "SMRDBTableOption.h"
 
 @implementation SMRDBInsertOption
 
@@ -18,7 +15,10 @@
 }
 
 - (instancetype)initWithObjects:(NSArray *)objs {
-    self = [super init];
+    Class cls = [objs.firstObject class];
+    self = [super initWithTableName:NSStringFromClass(cls)
+                         modelClass:cls
+                        primaryKeys:nil];
     if (self) {
         _objects = objs;
         _insertType = SMRDBInsertOptionTypeInsertOrReplace;
@@ -26,48 +26,42 @@
     return self;
 }
 
-- (NSString *)tableName {
-    if (_tableName == nil) {
-        if (_objects != nil) {
-            return NSStringFromClass([_objects.firstObject class]);
-        }
+- (NSString *)sql {
+    SMRDBMapper *dbMapper = self.dbMapper;
+    if (!dbMapper) {
+        return nil;
     }
-    return _tableName;
+    NSString *sql = nil;
+    switch (self.insertType) {
+        case SMRDBInsertOptionTypeInsert:{sql = [dbMapper sqlForInsert];} break;
+        case SMRDBInsertOptionTypeInsertOrReplace:{sql = [dbMapper sqlForInsertOrReplace];} break;
+        case SMRDBInsertOptionTypeInsertOrIgnore:{sql = [dbMapper sqlForInsertOrIgnore];} break;
+        default: break;
+    }
+    return sql;
 }
 
 - (int)excuteInTransaction:(id<SMRTransactionItemDelegate>)item rollback:(BOOL *)rollback {
-    int count = 0;
-    SMRDBMapper *dbMapper = [self dbMapper];
-    if (dbMapper == nil) {
-        return count;
+    NSString *sql = self.sql;
+    base_core_datas_log(@"excute insert:\n%@", sql);
+    if (sql == nil) {
+        return 0;
     }
     
-    BOOL isTableModifiedSuccess = [SMRDBTableOption createAndAlterTableWithDbMapper:dbMapper inTransaction:item rollback:rollback];
-    if (isTableModifiedSuccess == YES) {
-        NSString *sql = nil;
-        switch (self.insertType) {
-            case SMRDBInsertOptionTypeInsert:{sql = [dbMapper sqlForInsert];} break;
-            case SMRDBInsertOptionTypeInsertOrReplace:{sql = [dbMapper sqlForInsertOrReplace];} break;
-            case SMRDBInsertOptionTypeInsertOrIgnore:{sql = [dbMapper sqlForInsertOrIgnore];} break;
-            default: break;
+    int count = 0;
+    SMRDBMapper *dbMapper = self.dbMapper;
+    for (id model in self.objects) {
+        NSDictionary *params = [self.dbParser sqlParamsDictFromModel:model withDBMapper:dbMapper];
+        if (self.generalParam) {
+            NSMutableDictionary *gen = [NSMutableDictionary dictionaryWithDictionary:params];
+            [gen setValuesForKeysWithDictionary:self.generalParam];
+            params = [NSDictionary dictionaryWithDictionary:gen];
         }
-        if (sql == nil) {
-            return count;
-        }
-        
-        for (id model in self.objects) {
-            NSDictionary *params = [[SMRDBAdapter shareInstance].dbParser sqlParamsDictFromModel:model withDBMapper:dbMapper];
-            if (self.generalParam) {
-                NSMutableDictionary *gen = [NSMutableDictionary dictionaryWithDictionary:params];
-                [gen setValuesForKeysWithDictionary:self.generalParam];
-                params = [NSDictionary dictionaryWithDictionary:gen];
-            }
-            BOOL result = [[[SMRDBAdapter shareInstance].dbManager class] excuteSQL:sql
-                                                             withParamsInDictionary:params
-                                                                      inTransaction:item
-                                                                           rollback:rollback];
-            count += result;
-        }
+        BOOL result = [self.dbManager excuteSQL:sql
+                                                         withParamsInDictionary:params
+                                                                  inTransaction:item
+                                                                       rollback:rollback];
+        count += result;
     }
     return count;
 }
@@ -76,12 +70,20 @@
     return @([self excuteInTransaction:item rollback:rollback]);
 }
 
-- (SMRDBMapper *)dbMapper {
-    Class modelClass = [self.objects.firstObject class];
-    SMRDBMapper *dbMapper = [SMRDBMapper dbMapperWithClass:modelClass
-                                                 tableName:self.tableName
-                                               primaryKeys:self.primaryKeys];
-    return dbMapper;
+#pragma mark - Base
+
+- (int)excute {
+    [self setAlterTableWithModelClass:self.modelClass
+                            tableName:self.tableName
+                          primaryKeys:self.primaryKeys];
+    return [super excute];
+}
+
+- (id)query {
+    [self setAlterTableWithModelClass:self.modelClass
+                            tableName:self.tableName
+                          primaryKeys:self.primaryKeys];
+    return [super query];
 }
 
 @end

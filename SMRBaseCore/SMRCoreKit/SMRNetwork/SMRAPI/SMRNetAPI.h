@@ -2,8 +2,8 @@
 //  SMRNetAPI.h
 //  SMRNetworkDemo
 //
-//  Created by 丁治文 on 2018/10/6.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/18.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -32,7 +32,7 @@ typedef void(^SMRNetAPICacheOrSuccessBlock)(SMRNetAPI *api, id response, BOOL fr
 
 /** 常用请求的回调方式1 */
 + (instancetype)callbackWithSuccessBlock:(SMRNetAPISuccessBlock)successBlock
-                             faildBlock:(SMRNetAPIFaildBlock)faildBlock;
+                              faildBlock:(SMRNetAPIFaildBlock)faildBlock;
 
 /** 常用请求的回调方式2 */
 + (instancetype)callbackWithCacheBlock:(SMRNetAPICacheBlock)cacheBlock

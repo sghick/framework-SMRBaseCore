@@ -2,7 +2,7 @@
 //  UIView+SMRResponder.h
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/2/13.
+//  Created by 丁治文 on 2019/1/24.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 

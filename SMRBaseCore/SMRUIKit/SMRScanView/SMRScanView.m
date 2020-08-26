@@ -40,7 +40,7 @@
     style.margin = [SMRUIAdapter value:40.0];
     style.animationStyle = SMRScanViewAnimationStyleLineMove;
     style.animationImage = [SMRUIKitBundle imageNamed:@"photo_scan_line@3x"];
-    style.colorOfOtherArea = [[UIColor smr_colorWithHexRGB:@"#000000"] smr_colorWithAlphaComponent:0.5];
+    style.colorOfOtherArea = [[UIColor smr_blackColor] smr_colorWithAlphaComponent:0.5];
     return style;
 }
 

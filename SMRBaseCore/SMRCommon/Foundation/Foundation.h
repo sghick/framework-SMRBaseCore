@@ -2,7 +2,7 @@
 //  Foundation.h
 //  SMRBaseCoreDemo
 //
-//  Created by Tinswin on 2020/6/15.
+//  Created by Tinswin on 2020/6/11.
 //  Copyright © 2020 sumrise. All rights reserved.
 //
 
@@ -15,6 +15,7 @@
 #import "NSTimer+Weak.h"
 
 #import "SMRBaseCoreInfoHelper.h"
+#import "SMREnumVessel.h"
 #import "SMRLog.h"
 #import "SMRAppInfo.h"
 #import "SMRCryptor.h"
@@ -26,6 +27,7 @@
 #import "SMRImageUploadService.h"
 #import "SMRSettingAuthorized.h"
 #import "SMRUpdateStatusManager.h"
+#import "SMRUDManager.h"
 #import "SMRRouter.h"
 
 #endif /* Foundation_h */

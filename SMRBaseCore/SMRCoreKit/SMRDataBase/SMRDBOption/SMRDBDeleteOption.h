@@ -1,26 +1,14 @@
 //
 //  SMRDBDeleteOption.h
-//  SMRDBDemo
+//  SMRDataBaseDemo
 //
-//  Created by 丁治文 on 2018/9/23.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/18.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "SMRDBOption.h"
 
 @interface SMRDBDeleteOption : SMRDBOption
-
-/**
- Optional,表名
- default:NSStringFromClass(modelClass)
- */
-@property (nonatomic, copy) NSString  *tableName;
-
-/**
- Optional,类名,指定删除的表名
- default:NULL
- */
-@property (nonatomic, assign) Class     modelClass;
 
 /**
  Optional,为sql添加条件
@@ -60,5 +48,4 @@
  @return DeleteOption
  */
 - (instancetype)initWithTableName:(NSString *)tableName;
-
 @end

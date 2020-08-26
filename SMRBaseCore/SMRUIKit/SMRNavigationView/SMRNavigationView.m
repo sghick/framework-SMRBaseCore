@@ -2,7 +2,7 @@
 //  SMRNavigationView.m
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/1/21.
+//  Created by 丁治文 on 2019/1/7.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
@@ -108,7 +108,7 @@ static SMRNavigationView *_appearanceNavigationView = nil;
             margin = [SMRUIAdapter value:65];
         }
         // 恢复显示标题
-        if (!self.titleLabelHidden) {
+        if (!self.titleLabel.hidden) {
             [super setCenterView:self.titleLabel margin:margin];
         }
     }

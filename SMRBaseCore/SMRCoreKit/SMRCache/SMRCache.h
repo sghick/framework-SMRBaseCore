@@ -1,6 +1,6 @@
 //
 //  SMRCache.h
-//  SMRBaseCoreDemo
+//  Gucci
 //
 //  Created by 丁治文 on 2019/3/14.
 //  Copyright © 2019 sumrise. All rights reserved.

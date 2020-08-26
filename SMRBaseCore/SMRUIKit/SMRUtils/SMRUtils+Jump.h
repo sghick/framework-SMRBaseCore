@@ -21,14 +21,20 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)jumpToAnyURL:(NSString *)url webParameter:(nullable SMRWebControllerParameter *)webParameter forceToApp:(BOOL)forceToApp;
 + (void)jumpToAnyURL:(NSString *)url webParameter:(nullable SMRWebControllerParameter *)webParameter forceToApp:(BOOL)forceToApp presentOnly:(BOOL)presentOnly;
 
+
 /**
  对web URL的响应方法
- 
+
  @param url web URL
  @param webParameter web需要的参数 如分享相关参数
  */
 + (void)jumpToWeb:(NSString *)url webParameter:(nullable SMRWebControllerParameter*)webParameter;
-+ (void)jumpToWeb:(NSString *)url webParameter:(SMRWebControllerParameter *)webParameter presentOnly:(BOOL)presentOnly;
++ (void)jumpToWeb:(NSString *)url webParameter:(nullable SMRWebControllerParameter*)webParameter presentOnly:(BOOL)presentOnly;
+
+/**
+ 系统OpenURL方法
+ */
++ (void)jumpToApp:(NSString *)url forceToApp:(BOOL)forceToApp;
 
 /**
  是否为web的URL

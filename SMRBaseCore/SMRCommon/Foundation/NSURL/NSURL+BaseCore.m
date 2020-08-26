@@ -2,8 +2,8 @@
 //  NSURL+BaseCore.m
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2018/10/3.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by Tinswin on 2020/4/20.
+//  Copyright © 2020 sumrise. All rights reserved.
 //
 
 #import "NSURL+BaseCore.h"

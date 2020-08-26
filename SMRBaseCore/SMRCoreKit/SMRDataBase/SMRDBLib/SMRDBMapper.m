@@ -1,9 +1,9 @@
 //
 //  SMRDBMapper.m
-//  SMRDBDemo
+//  SMRDataBaseDemo
 //
-//  Created by 丁治文 on 2018/9/22.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/17.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "SMRDBMapper.h"
@@ -273,6 +273,7 @@
     } else {
         sql = [NSString stringWithFormat:@"DELETE FROM '%@'", self.table_name];
     }
+    sql = [self sqlForReplaceFromSql:sql];
     return sql;
 }
 
@@ -290,6 +291,7 @@
         } else {
             sql = [NSString stringWithFormat:@"UPDATE '%@' set %@", self.table_name, set];
         }
+        sql = [self sqlForReplaceFromSql:sql];
         return sql;
     } else {
         return nil;
@@ -303,6 +305,7 @@
     } else {
         sql = [NSString stringWithFormat:@"UPDATE '%@'", self.table_name];
     }
+    sql = [self sqlForReplaceFromSql:sql];
     return sql;
 }
 
@@ -313,6 +316,7 @@
     } else {
         sql = [NSString stringWithFormat:@"SELECT * FROM '%@'", self.table_name];
     }
+    sql = [self sqlForReplaceFromSql:sql];
     return sql;
 }
 
@@ -324,7 +328,16 @@
     } else {
         sql = [NSString stringWithFormat:@"SELECT * FROM '%@' %@", self.table_name, limitSql];
     }
+    sql = [self sqlForReplaceFromSql:sql];
     return sql;
+}
+
+
+- (NSString *)sqlForReplaceFromSql:(NSString *)sql {
+    if (!sql || !self.table_name) {
+        return sql;
+    }
+    return [sql stringByReplacingOccurrencesOfString:@":tb" withString:[NSString stringWithFormat:@"'%@'", self.table_name]];
 }
 
 #pragma mark - Mappers/Getters

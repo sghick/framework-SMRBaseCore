@@ -10,4 +10,8 @@
 
 @implementation SMRUtils
 
++ (void)endEditing:(BOOL)edit {
+    [[UIApplication sharedApplication].delegate.window endEditing:edit];
+}
+
 @end

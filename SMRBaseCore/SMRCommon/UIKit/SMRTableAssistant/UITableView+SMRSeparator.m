@@ -1,9 +1,9 @@
 //
 //  UITableView+SMRSeparator.m
-//  SeperatorLine
+//  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 16/7/11.
-//  Copyright © 2016年 丁治文. All rights reserved.
+//  Created by 丁治文 on 2018/12/24.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "UITableView+SMRSeparator.h"
@@ -12,15 +12,15 @@
 #import <objc/runtime.h>
 
 /// On
-NSString * const SMRSeperatorsFormatAllNone = @"On";
+NSString * const SMRSeperatorsFormatNone = @"On";
 /// Fn
-NSString * const SMRSeperatorsFormatAllLong = @"Fn";
+NSString * const SMRSeperatorsFormatLong = @"Fn";
 /// Ln
-NSString * const SMRSeperatorsFormatAllLeftLess = @"Ln";
+NSString * const SMRSeperatorsFormatLeftLess = @"Ln";
 /// Rn
-NSString * const SMRSeperatorsFormatAllRightLess = @"Rn";
+NSString * const SMRSeperatorsFormatRightLess = @"Rn";
 /// Cn
-NSString * const SMRSeperatorsFormatAllCenterLess = @"Cn";
+NSString * const SMRSeperatorsFormatCenterLess = @"Cn";
 
 @interface UITableView ()
 
@@ -28,7 +28,7 @@ NSString * const SMRSeperatorsFormatAllCenterLess = @"Cn";
 
 @end
 
-@implementation UITableView (SMRSeparator)
+@implementation UITableView (Separator)
 
 #pragma mark - Getters/Setters
 // didMarkedCustom
@@ -196,7 +196,7 @@ static const char SPRightMarginKey = '\0';
 }
 
 
-// 隐藏多余的view
+// private 隐藏多余的view
 - (void)smr_setExtraCellLineHidden {
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor clearColor];

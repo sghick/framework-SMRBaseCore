@@ -1,9 +1,9 @@
 //
 //  SMRTarget.m
-//  SMRBaseCoreDemo
+//  SMRRouterDemo
 //
-//  Created by 丁治文 on 2018/10/4.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/14.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "SMRTarget.h"
@@ -14,7 +14,7 @@
 @implementation SMRTarget
 
 /// excute any
-- (id)action:(NSDictionary *)params {
+- (id)action:(nullable NSDictionary *)params {
     NSString *obj_class = params[@"obj_class"];
     NSString *selector = params[@"selector"];
     NSArray *selector_params = [params[@"selector_params"] componentsSeparatedByString:@","];
@@ -39,18 +39,18 @@
         [invocation invoke];
         return obj;
     } else {
-        base_core_log(@"unknow obj class or selector:%@,%@", obj_class, selector);
+        base_core_warning_log(@"unknow obj class or selector:%@,%@", obj_class, selector);
         return nil;
     }
 }
 
-- (void)actionOpen:(NSDictionary *)params {
+- (void)actionOpen:(nullable NSDictionary *)params {
     id obj = [self action:params];
     if ([obj isKindOfClass:[UIViewController class]]) {
         UIViewController *controller = (UIViewController *)obj;
         [SMRNavigator pushOrPresentToViewController:controller animated:YES];
     } else {
-        base_core_log(@"unknow view controller to open");
+        base_core_warning_log(@"unknow view controller to open");
     }
 }
 
@@ -148,7 +148,7 @@ NSString * const k_perform_open = @"k_perform_open";
                                           forceReset:NO controller:controller
                                            openBlock:openActionBlock];
                     }
-                openPathActionBlock:^(UIViewController * _Nonnull controller) {
+                openPathActionBlock:^(UIViewController *controller) {
                     // 如果目前控制器存在于目标Tab中,直接切换;否则,不切换Tab,仅在当前位置直接打开目标控制器
                     UIViewController *main = [SMRNavigator getRootTabNavigationControllerWithTab:toChangeTab];
                     [self p_changeTabIfCondition:(BOOL)main
@@ -187,7 +187,7 @@ NSString * const k_perform_open = @"k_perform_open";
 NSString * const k_perform_last_url = @"k_perform_last_url";
 @implementation SMRTarget (SMRLastURL)
 
-- (void)supportedLastURLActionWithParams:(NSDictionary *)params {
+- (void)supportedLastURLActionWithParams:(nullable NSDictionary *)params {
     NSString *lastUrl = params[k_perform_last_url];
     NSURL *url = [NSURL URLWithString:lastUrl];
     if (url) {
@@ -203,7 +203,7 @@ NSString * const k_perform_last_url = @"k_perform_last_url";
 NSString * const k_change_tab = @"k_change_tab";
 
 @implementation SMRTarget (SMRChangeTab)
-- (void)supportedResetRoot:(NSDictionary *)params {
+- (void)supportedResetRoot:(nullable NSDictionary *)params {
     // 如果传了tab参数,则进行tab切换
     NSString *tab = params[k_change_tab];
     if (tab) {
@@ -213,3 +213,4 @@ NSString * const k_change_tab = @"k_change_tab";
 }
 
 @end
+

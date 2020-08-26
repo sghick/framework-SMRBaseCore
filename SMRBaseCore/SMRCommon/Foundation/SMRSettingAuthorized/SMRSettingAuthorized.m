@@ -1,12 +1,14 @@
 //
 //  SMRSettingAuthorized.m
-//  SMRBaseCore
+//  SMRBaseCoreDemo
 //
 //  Created by 丁治文 on 2019/7/11.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
 #import "SMRSettingAuthorized.h"
+#import <UIKit/UIApplication.h>
+#import <UIKit/UIUserNotificationSettings.h>
 #import <UserNotifications/UserNotifications.h>
 #import <Photos/Photos.h>
 

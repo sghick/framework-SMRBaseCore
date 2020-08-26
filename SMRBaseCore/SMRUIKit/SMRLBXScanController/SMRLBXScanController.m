@@ -41,7 +41,7 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = [UIColor smr_blackColor];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -128,7 +128,7 @@
     [_qRScanView stopDeviceReadying];
     [_qRScanView startScanAnimation];
     
-    self.backView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    self.backView.backgroundColor = [[UIColor smr_blackColor] colorWithAlphaComponent:0.5];
 }
 
 #pragma mark - 扫码结果处理
@@ -294,7 +294,7 @@
     //线条上下移动图片
     style.animationImage = [UIImage imageNamed:@"photo_scan_line"];
     //非识别区域背景色值
-    style.notRecoginitonArea = [[UIColor blackColor] smr_colorWithAlphaComponent:0.5];
+    style.notRecoginitonArea = [[UIColor smr_blackColor] smr_colorWithAlphaComponent:0.5];
     
     return style;
 }
@@ -304,7 +304,7 @@
 - (UIView *)backView {
     if (!_backView) {
         _backView = [[UIView alloc] init];
-        _backView.backgroundColor = [[UIColor blackColor] smr_colorWithAlphaComponent:0.5];
+        _backView.backgroundColor = [[UIColor smr_blackColor] smr_colorWithAlphaComponent:0.5];
     }
     return _backView;
 }

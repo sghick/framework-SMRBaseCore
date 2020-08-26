@@ -41,6 +41,8 @@ typedef NS_ENUM(NSInteger,kUpdateStatusType) {
 @optional
 /** 返回账户名,可空 */
 - (NSString *)userName;
+/** 返回实际时间,可空,默认系统时间 */
+- (NSTimeInterval)currentTime;
 
 /** 返回YES,将会在此刻被自动标记为已读状态 */
 - (BOOL)shouldAutoReadWithStatus:(SMRUpdateStatus *)status;
@@ -49,8 +51,10 @@ typedef NS_ENUM(NSInteger,kUpdateStatusType) {
 
 @interface SMRUpdateStatusManager : NSObject
 
-/** 保证用户名发生变化时实时更新 */
-@property (copy  , nonatomic) NSString *userName;
+/** 为保证用户名发生变化时实时更新,可通过config设置 */
+@property (copy  , nonatomic, readonly) NSString *userName;
+/** 为保证时间与服务器同步,可通过config设置 */
+@property (assign, nonatomic, readonly) NSTimeInterval currentTime;
 
 #pragma mark - Based Use
 

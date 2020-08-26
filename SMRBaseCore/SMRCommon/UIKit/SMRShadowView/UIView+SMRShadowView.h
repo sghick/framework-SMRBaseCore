@@ -22,9 +22,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (SMRShadowView)
 
+/** 设置阴影 */
 - (void)setShadowWithItem:(SMRShadowItem *)shadowItem;
-/** 如果path是视图大小而定的, 建议在layoutSubviews方法中使用 */
+/** 设置阴影, 如果path是视图大小而定的, 建议在layoutSubviews方法中使用 */
 - (void)setShadowWithItem:(SMRShadowItem *)shadowItem shadowPath:(nullable UIBezierPath *)shadowPath;
+
+/** 添加倒影 */
+- (void)addReflection;
+- (CALayer *)reflectionLayer;
 
 @end
 

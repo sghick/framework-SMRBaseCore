@@ -10,6 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSInteger, SMRMatrixCalculatorType) {
+    SMRMatrixCalculatorTypeVertical     = 0,    ///< 纵向矩阵
+    SMRMatrixCalculatorTypeHorizontal   = 1,    ///< 横向矩阵
+};
+
 typedef struct SMRMatrix {
     NSUInteger index;       ///< 线性结构的索引下标
     NSUInteger columnCount; ///< 矩阵每行的个数
@@ -57,13 +62,8 @@ NS_INLINE NSRange SMRMatrixGetRange(NSUInteger row, NSUInteger count, NSUInteger
     return range;
 }
 
-typedef NS_ENUM(NSInteger, SMRMatrixCalculatorType) {
-    SMRMatrixCalculatorTypeVertical     = 0,    ///< 纵向矩阵
-    SMRMatrixCalculatorTypeHorizontal   = 1,    ///< 横向矩阵
-};
-
 /**
- 矩阵布局计算器,模型的下标位置等都以0开始,目前仅支持横向计算
+ 矩阵布局计算器,模型的下标位置等都以0开始
  */
 @interface SMRMatrixCalculator : NSObject
 

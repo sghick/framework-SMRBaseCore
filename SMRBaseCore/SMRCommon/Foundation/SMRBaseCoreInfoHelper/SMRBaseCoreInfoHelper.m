@@ -19,6 +19,16 @@
     return value.boolValue;
 }
 
++ (BOOL)baseCoreDatasLog {
+    NSNumber *value = [self configWithKey:@"Base Core Datas Log"];
+    return value.boolValue;
+}
+
++ (BOOL)baseCoreWarningLog {
+    NSNumber *value = [self configWithKey:@"Base Core Warning Log"];
+    return value.boolValue;
+}
+
 + (CGFloat)marginWithScale:(CGFloat)scale {
     CGFloat margin = 20*scale;
     NSString *value = [self configWithKey:@"Adapter Margin"];

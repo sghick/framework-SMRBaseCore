@@ -12,6 +12,10 @@
 
 + (UIImage *)transformViewToImage:(UIView *)view {
     CGSize size = view.frame.size;
+    if ([view isKindOfClass:[UIScrollView class]]) {
+        assert(0);
+    }
+    
     UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *combinationImage = UIGraphicsGetImageFromCurrentImageContext();

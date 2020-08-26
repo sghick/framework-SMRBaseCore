@@ -1,8 +1,8 @@
 //
 //  SMRNetInfo.m
-//  SMRBaseCoreDemo
+//  SMRNetworkDemo
 //
-//  Created by 丁治文 on 2019/1/21.
+//  Created by 丁治文 on 2019/1/15.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
@@ -17,7 +17,7 @@
 
 + (void)syncNetInfoWithResponse:(NSHTTPURLResponse *)response {
     if (![response isKindOfClass:[NSHTTPURLResponse class]]) {
-        base_core_log(@"请求失败或收接到非 NSHTTPURLResponse 对象,无法同步NetInfo.");
+        base_core_warning_log(@"请求失败或收接到非 NSHTTPURLResponse 对象,无法同步NetInfo.");
         return;
     }
     NSString *rfcDateString = response.allHeaderFields[@"Date"];
@@ -41,13 +41,13 @@
 
 + (void)syncDateWithServerDate:(NSDate *)serverDate {
     double delta = [serverDate timeIntervalSince1970] - [[NSDate date] timeIntervalSince1970];
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *ud = [self netUserDefaults];
     [ud setObject:[NSNumber numberWithDouble:delta] forKey:@"serverSyncDate"];
 }
 
 + (NSDate *)syncedDate {
     NSDate *now = [NSDate date];
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *ud = [self netUserDefaults];
     if([ud objectForKey:@"serverSyncDate"]) {
         double synced = [now timeIntervalSince1970] + [[ud objectForKey:@"serverSyncDate"] doubleValue];
         NSDate *syncedDate = [NSDate dateWithTimeIntervalSince1970:synced];

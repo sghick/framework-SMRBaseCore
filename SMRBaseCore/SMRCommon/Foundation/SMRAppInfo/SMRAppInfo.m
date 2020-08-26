@@ -49,7 +49,7 @@ static NSString *_webPureUserAgent;
     return _webPureUserAgent;
 }
 + (NSString *)webPureUserAgentByAppendings:(NSArray<NSString *> *)appendings {
-    NSString *userAgent = [self webPureUserAgent];
+    NSString *userAgent = [self webPureUserAgent] ?: @"";
     for (NSString *append in appendings) {
         userAgent = [userAgent stringByAppendingFormat:@" %@", append];
     }

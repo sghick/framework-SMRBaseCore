@@ -1,13 +1,15 @@
 //
 //  SMRLifecycle.h
-//  SMRLifecycleDemo
+//  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2018/7/17.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/17.
+//  Copyright © 2018 BaoDashi. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "SMRLifecycleLogDelegate.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, SMRLifecycleType) {
     SMRLifecycleTypeLaunch           = 0,    // 每次启动为一周期
@@ -24,7 +26,7 @@ typedef NS_ENUM(NSInteger, SMRLifecycleType) {
 
 @property (nonatomic, strong, readonly) NSString *launchUUID;       ///< 当前启动标识
 @property (nonatomic, strong, readonly) NSString *version;          ///< app版本号
-@property (nonatomic, strong, readonly) NSString *customVersion;    ///< 自定义版本号
+@property (nonatomic, strong, readonly, nullable) NSString *customVersion;    ///< 自定义版本号
 @property (nonatomic, strong, readonly) NSString *installUUID;      ///< 当前安装标识
 
 /// 获取一个单例对象
@@ -36,7 +38,7 @@ typedef NS_ENUM(NSInteger, SMRLifecycleType) {
 /// 在appDelegate的启动方法中设置,每次最多能生效一次
 + (void)setAppLaunch; ///<默认使用当前target的版本号
 + (void)setAppLaunchWithVersion:(NSString *)version;
-+ (void)setAppLaunchWithVersion:(NSString *)version customVersion:(NSString *)customVersion;
++ (void)setAppLaunchWithVersion:(NSString *)version customVersion:(nullable NSString *)customVersion;
 
 /**
  检查identifier在某生命周期中是否超过checkcount值
@@ -72,3 +74,5 @@ typedef NS_ENUM(NSInteger, SMRLifecycleType) {
 + (void)clearLifecycleWithIdentifier:(NSString *)identifier;
 
 @end
+
+NS_ASSUME_NONNULL_END

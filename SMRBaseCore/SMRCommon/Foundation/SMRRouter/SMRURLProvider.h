@@ -1,9 +1,9 @@
 //
 //  SMRURLProvider.h
-//  SMRBaseCoreDemo
+//  SMRRouterDemo
 //
 //  Created by 丁治文 on 2018/12/14.
-//  Copyright © 2018 sumrise.com. All rights reserved.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-typedef NSString *(^SMRURLRouterParserTargetBlock)(NSString *target);
+typedef NSString *_Nullable(^SMRURLRouterParserTargetBlock)(NSString *target);
 @interface SMRRouterURLParser : NSObject
 
 @property (nonatomic, copy  , readonly) NSString *targetPrefix;

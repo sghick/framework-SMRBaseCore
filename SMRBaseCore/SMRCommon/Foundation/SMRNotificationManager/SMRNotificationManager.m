@@ -2,12 +2,11 @@
 //  SMRNotificationManager.m
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/6/5.
+//  Created by 丁治文 on 2019/5/10.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
 #import "SMRNotificationManager.h"
-#import <UIKit/UIKit.h>
 
 NSString * kSMRWillJumpFromPushNotificaation = @"kSMRWillJumpFromPushNotificaation";
 
@@ -100,6 +99,18 @@ NSString * kSMRWillJumpFromPushNotificaation = @"kSMRWillJumpFromPushNotificaati
     _pushURL = nil;
     _userInfo = nil;
     _fromType = SMRPushFromTypeNone;
+}
+
+- (void)clearIconBadgeNumber {
+    if (@available(iOS 11.0, *)) {
+        [UIApplication sharedApplication].applicationIconBadgeNumber = -1;
+    } else {
+        UILocalNotification *clearEpisodeNotification = [[UILocalNotification alloc] init];
+        clearEpisodeNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:(0.3)];
+        clearEpisodeNotification.timeZone = [NSTimeZone defaultTimeZone];
+        clearEpisodeNotification.applicationIconBadgeNumber = -1;
+        [[UIApplication sharedApplication] scheduleLocalNotification:clearEpisodeNotification];
+    }
 }
 
 + (NSString *)deviceTokenWithData:(NSData *)data {

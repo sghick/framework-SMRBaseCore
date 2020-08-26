@@ -62,6 +62,16 @@
     [SMRNavigationView appearance].appearanceBlock = appearanceBlock;
 }
 
+- (void)setAlertViewStyle:(SMRAlertViewStyle)alertViewStyle {
+    _alertViewStyle = alertViewStyle;
+    [SMRAlertView smr_appearance].alertViewStyle = alertViewStyle;
+}
+
+- (void)setAlertTitleColor:(UIColor *)alertTitleColor {
+    _alertTitleColor = alertTitleColor;
+    [SMRAlertView smr_appearance].titleColor = alertTitleColor;
+}
+
 #pragma mark - Setters BaseUtils
 
 - (void)setUpdateStatusManagerConfig:(id<SMRUpdateStatusManagerConfig>)updateStatusManagerConfig {

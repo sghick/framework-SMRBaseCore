@@ -2,9 +2,13 @@
 //  SMRWebController.h
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/3/26.
-//  Copyright © 2019 sumrise. All rights reserved.
+//  Created by Tinswin on 2019/2/15.
+//  Copyright © 2019年 sumrise. All rights reserved.
 //
+
+/**
+ WKWebController推荐阅读了解:https://www.cnblogs.com/hero11223/p/9168377.html
+ */
 
 #import "SMRNavFatherController.h"
 

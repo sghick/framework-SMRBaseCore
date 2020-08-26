@@ -2,8 +2,8 @@
 //  NSTimer+Weak.m
 //  SMRBaseCoreDemo
 //
-//  Created by Tinswin on 2020/6/15.
-//  Copyright © 2020 sumrise. All rights reserved.
+//  Created by Tinswin on 2019/3/18.
+//  Copyright © 2019年 sumrise. All rights reserved.
 //
 
 #import "NSTimer+Weak.h"

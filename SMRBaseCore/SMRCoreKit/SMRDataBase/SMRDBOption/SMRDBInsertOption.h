@@ -1,9 +1,9 @@
 //
 //  SMRDBInsertOption.h
-//  SMRDBDemo
+//  SMRDataBaseDemo
 //
-//  Created by 丁治文 on 2018/9/23.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/18.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "SMRDBOption.h"
@@ -15,18 +15,6 @@ typedef NS_ENUM(NSInteger, SMRDBInsertOptionType) {
 };
 
 @interface SMRDBInsertOption : SMRDBOption
-
-/**
- Optional,表名
- default:objs.firstObject.class
- */
-@property (nonatomic, copy) NSString  *tableName;
-
-/**
- Optional,创建表时指定的主键
- default:nil
- */
-@property (nonatomic, strong) NSArray   *primaryKeys;
 
 /**
  要被插入的数据源
@@ -56,3 +44,4 @@ typedef NS_ENUM(NSInteger, SMRDBInsertOptionType) {
 - (instancetype)initWithObjects:(NSArray *)objs;
 
 @end
+

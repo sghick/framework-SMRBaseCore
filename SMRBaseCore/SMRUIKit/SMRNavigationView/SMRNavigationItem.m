@@ -1,8 +1,8 @@
 //
 //  SMRNavigationItem.m
-//  SMRBaseCoreDemo
+//  SMRGeneralUseDemo
 //
-//  Created by 丁治文 on 2019/1/21.
+//  Created by 丁治文 on 2019/1/9.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
@@ -14,17 +14,33 @@
 
 @implementation SMRNavigationTheme
 
-// 普通主题, default
 + (SMRNavigationTheme *)themeForNormal {
     SMRNavigationTheme *item = [[SMRNavigationTheme alloc] init];
     item.splitLineHidden = NO;
-    item.splitLineColor = [UIColor grayColor];
-    item.characterColor = [UIColor blackColor];
+    item.splitLineColor = [UIColor colorWithWhite:0.92 alpha:1];
+    item.characterColor = [UIColor colorWithWhite:0.2 alpha:1];
     item.backgroudColor = [UIColor whiteColor];
     return item;
 }
 
-// 透明主题, 背景为透明, 文字为白色
++ (SMRNavigationTheme *)themeForRed {
+    SMRNavigationTheme *item = [[SMRNavigationTheme alloc] init];
+    item.splitLineHidden = YES;
+    item.splitLineColor = [UIColor clearColor];
+    item.characterColor = [UIColor whiteColor];
+    item.backgroudColor = [UIColor colorWithWhite:0.94 alpha:1];
+    return item;
+}
+
++ (SMRNavigationTheme *)themeForBlack {
+    SMRNavigationTheme *item = [[SMRNavigationTheme alloc] init];
+    item.splitLineHidden = YES;
+    item.splitLineColor = [UIColor clearColor];
+    item.characterColor = [UIColor whiteColor];
+    item.backgroudColor = [UIColor colorWithWhite:0.2 alpha:1];
+    return item;
+}
+
 + (SMRNavigationTheme *)themeForAlpha {
     SMRNavigationTheme *item = [[SMRNavigationTheme alloc] init];
     item.splitLineHidden = YES;

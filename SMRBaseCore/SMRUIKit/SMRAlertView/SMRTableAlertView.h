@@ -2,7 +2,7 @@
 //  SMRTableAlertView.h
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/2/13.
+//  Created by 丁治文 on 2019/2/14.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
@@ -47,6 +47,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SMRTableAlertView : SMRContentMaskView<SMRTableAlertViewProtocol>
 
 @property (strong, nonatomic) UITableView *tableView;
+
+/** 仅标记需要刷新view */
+- (void)smr_setNeedsReloadView;
+/** 立即刷新view */
+- (void)smr_reloadViewIfNeeded;
 
 @end
 

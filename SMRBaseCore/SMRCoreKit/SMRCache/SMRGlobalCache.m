@@ -1,6 +1,6 @@
 //
 //  SMRGlobalCache.m
-//  SMRBaseCoreDemo
+//  Gucci
 //
 //  Created by 丁治文 on 2019/3/14.
 //  Copyright © 2019 sumrise. All rights reserved.
@@ -91,7 +91,7 @@
             NSString *sourceFile = [oldPath stringByAppendingPathComponent:sourceFileName];
             NSString *destFile = [newPath stringByAppendingPathComponent:sourceFileName];
             if (![fileManager moveItemAtPath:sourceFile toPath:destFile error:&error]) {
-                base_core_log(@"Error: %@", error);
+                base_core_warning_log(@"Error: %@", error);
             }
         }
         [fileManager removeItemAtPath:oldPath error:nil];

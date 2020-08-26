@@ -1,9 +1,9 @@
 //
 //  SMRTableAssistant.h
-//  SMRTableAssistantDemo
+//  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2018/11/5.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/24.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #ifndef SMRTableAssistant_h

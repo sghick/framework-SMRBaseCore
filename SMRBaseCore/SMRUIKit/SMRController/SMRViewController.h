@@ -2,8 +2,8 @@
 //  SMRViewController.h
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/1/21.
-//  Copyright © 2019 sumrise. All rights reserved.
+//  Created by 丁治文 on 2018/12/19.
+//  Copyright © 2018 BaoDashi. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -27,12 +27,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@class SMRNetAPI;
+@class SMRAPICallback;
 @interface SMRViewController : UIViewController<SMRViewControllerAdapterDelegate>
 
-/**
- 页面名字,默认为类名,若需要更换,请重写get方法
- */
-@property (copy  , nonatomic, readonly) NSString *pageName;
+/** 前置图片,可用来做缺省样式 */
+@property (strong, nonatomic, readonly) UIImageView *frontImageView;
+
+/** 页面名称 */
+@property (strong, nonatomic) NSString *pageName;
 
 /**
  设置为首页展示的属性,默认NO
@@ -52,8 +55,18 @@ NS_ASSUME_NONNULL_BEGIN
 /** 记录一次性移除个数,与indexSetForRemoveWhenViewDidLoad配合使用,默认为1,需要手动累加 */
 @property (assign, nonatomic) NSInteger recentyCount;
 
+
+/** 前置图 */
+- (void)showFrontImageView;
+- (void)hideFrontImageView;
+
 /** 栈中recentyCount个控制器 */
 - (NSIndexSet *)recentyIndexSet;
+
+/**
+ 发起网络请求
+ */
+- (void)query:(SMRNetAPI *)api callback:(nullable SMRAPICallback *)callback __deprecated_msg("已废弃,使用-[SMRNetAPI queryWithCallback:]");
 
 /**
  @override

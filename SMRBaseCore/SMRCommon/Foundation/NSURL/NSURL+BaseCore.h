@@ -2,8 +2,8 @@
 //  NSURL+BaseCore.h
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2018/10/3.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by Tinswin on 2020/4/20.
+//  Copyright © 2020 sumrise. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURL *)smr_URLByAppendParams:(NSDictionary *)params;
 - (NSURL *)smr_URLByAppendQuery:(NSString *)query;
 /// 获取url参数
-- (nullable NSDictionary *)smr_parseredParams;
+- (NSDictionary *)smr_parseredParams;
 
 /// 获取一个数据类型的参数
 + (NSArray *)smr_buildArrayTypeWithParam:(id)param;

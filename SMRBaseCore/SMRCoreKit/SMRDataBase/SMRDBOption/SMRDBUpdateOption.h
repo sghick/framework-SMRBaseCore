@@ -1,20 +1,14 @@
 //
 //  SMRDBUpdateOption.h
-//  SMRDBDemo
+//  SMRDataBaseDemo
 //
-//  Created by 丁治文 on 2018/9/23.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/18.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "SMRDBOption.h"
 
 @interface SMRDBUpdateOption : SMRDBOption
-
-/**
- Optional,表名
- default:object.class
- */
-@property (nonatomic, copy) NSString  *tableName;
 
 /**
  要被修改的数据源
@@ -58,3 +52,4 @@
 - (instancetype)initWithTableName:(NSString *)tableName where:(NSString *)where paramsArray:(NSArray *)paramsArray;
 
 @end
+

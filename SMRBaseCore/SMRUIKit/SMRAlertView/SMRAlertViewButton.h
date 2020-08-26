@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, SMRAlertViewStyle);
+
 typedef NS_ENUM(NSInteger, SMRAlertViewButtonFunction) {
     SMRAlertViewButtonFunctionSure,
     SMRAlertViewButtonFunctionCancel,

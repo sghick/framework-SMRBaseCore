@@ -88,4 +88,3 @@ typedef NS_ENUM(NSInteger, SMRGeneralButtonColor) {
 @end
 
 NS_ASSUME_NONNULL_END
-

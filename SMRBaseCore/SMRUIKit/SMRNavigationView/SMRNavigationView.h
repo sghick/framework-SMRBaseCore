@@ -2,7 +2,7 @@
 //  SMRNavigationView.h
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/1/21.
+//  Created by 丁治文 on 2019/1/7.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
@@ -65,19 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, weak  ) id<SMRNavigationViewDelegate> delegate;
 
-#pragma mark - For SubClass
 
-/**
- 子类设置item隐藏显示的方法
- */
-- (void)layoutNavigationAccessories NS_REQUIRES_SUPER;
-
-/**
- 子类设置主题变化时的方法
- */
-- (void)navigationViewNeedResetToTheme:(SMRNavigationTheme *)theme NS_REQUIRES_SUPER;
-
-#pragma mark - For Custom
 
 /**
  用于创建全局样式的实例
@@ -98,6 +86,18 @@ NS_ASSUME_NONNULL_BEGIN
  *  设置渐变逻辑block处理的方法
  */
 - (void)setGradationBlock:(NavigationViewGradationBlock)gradationBlock;
+
+#pragma mark - For SubClass
+
+/**
+ 子类设置item隐藏显示的方法
+ */
+- (void)layoutNavigationAccessories NS_REQUIRES_SUPER;
+
+/**
+ 子类设置主题变化时的方法
+ */
+- (void)navigationViewNeedResetToTheme:(SMRNavigationTheme *)theme NS_REQUIRES_SUPER;
 
 #pragma mark - Utils
 

@@ -34,6 +34,10 @@
     return api;
 }
 
+- (void)clearQueue {
+    [self.queueArray removeAllObjects];
+}
+
 #pragma mark - Getters
 
 - (NSMutableArray *)queueArray {

@@ -1,13 +1,15 @@
 //
 //  UITableView+SMRSections.h
-//  SMRTableAssistantDemo
+//  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2018/11/10.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/24.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "SMRSections.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class UITableView;
 @protocol UITableViewSectionsDelegate <NSObject>
@@ -50,9 +52,15 @@
 - (void)smr_reloadRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation NS_AVAILABLE_IOS(3_0);
 - (void)smr_moveRowAtIndexPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)newIndexPath NS_AVAILABLE_IOS(5_0);
 
+- (void)smr_scrollToTopWithAnimated:(BOOL)animated;
+- (void)smr_scrollToBottomWithAnimated:(BOOL)animated;
+- (void)smr_scrollToRowAtSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey scrollPosition:(UITableViewScrollPosition)scrollPosition animated:(BOOL)animated;
+- (void)smr_scrollToRowAtIndexPath:(NSIndexPath *)indexPath atScrollPosition:(UITableViewScrollPosition)scrollPosition animated:(BOOL)animated;
+
 /// 获取数据控制源粒子
 - (SMRSection *)sectionWithIndexPathSection:(NSInteger)indexPathSection;
 - (SMRRow *)rowWithIndexPath:(NSIndexPath *)indexPath;
+- (SMRRow *)rowWithCell:(UITableViewCell *)cell;
 
 /// 设置展开折叠状态
 - (void)smr_setCellUnfoldStatus:(BOOL)unfold key:(NSString *)key;
@@ -62,3 +70,5 @@
 - (void)smr_removeAllUnfoldStatus;
 
 @end
+
+NS_ASSUME_NONNULL_END

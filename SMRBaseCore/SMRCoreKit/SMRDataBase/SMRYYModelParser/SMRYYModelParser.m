@@ -1,9 +1,9 @@
 //
 //  SMRYYModelParser.m
-//  SMRDBDemo
+//  SMRDataBaseDemo
 //
-//  Created by 丁治文 on 2018/9/23.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/18.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "SMRYYModelParser.h"
@@ -129,7 +129,7 @@
     id responseObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&err];
     //data转换成dic或者数组
     if (err) {
-        base_core_log(@"json解析失败：%@",err);
+        base_core_warning_log(@"json解析失败：%@",err);
         return nil;
     }
     return responseObject;

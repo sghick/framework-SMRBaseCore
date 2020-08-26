@@ -1,27 +1,14 @@
 //
 //  SMRDBSelectOption.h
-//  SMRDBDemo
+//  SMRDataBaseDemo
 //
-//  Created by 丁治文 on 2018/9/23.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/18.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "SMRDBOption.h"
 
 @interface SMRDBSelectOption : SMRDBOption
-
-/**
- Optional,表名
- default:NSStringFromClass(modelClass)
- */
-@property (nonatomic, copy) NSString  *tableName;
-
-/**
- Optional,类名,指定查询的表名
- default:nil
- 如果modelClass没有值,查询结果将返回一个字典
- */
-@property (nonatomic, assign) Class     modelClass;
 
 /**
  Optional,查询结果中处理成对象的子对象映射
@@ -76,3 +63,4 @@
 - (instancetype)initWithTableName:(NSString *)tableName;
 
 @end
+

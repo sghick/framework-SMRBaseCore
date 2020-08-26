@@ -7,7 +7,6 @@
 //
 
 #import "SMRUpdateStatusManager.h"
-#import "SMRNetInfo.h"
 
 NSString * const _discriminationUserName             = @"discriminationUserName_updateStatus03a7jf";
 NSString * const _smr_update_status_prefix           = @"smr_update_status_prefix_";
@@ -105,11 +104,18 @@ NSString * const _smr_update_status_prefix           = @"smr_update_status_prefi
     return @"";
 }
 
+- (NSTimeInterval)currentTime {
+    if ([self.config respondsToSelector:@selector(currentTime)]) {
+        return [self.config currentTime];
+    }
+    return [[NSDate date] timeIntervalSince1970];
+}
+
 - (void)autoMakeStateReadIfNeededWithUpdateStatus:(SMRUpdateStatus *)updateStatus {
     if ([self.config respondsToSelector:@selector(shouldAutoReadWithStatus:)]) {
         BOOL autoMakeRead = [self.config shouldAutoReadWithStatus:updateStatus];
         if (autoMakeRead) {
-            [self makeStateReadWithKey:updateStatus.key readTime:[[SMRNetInfo syncedDate] timeIntervalSince1970]];
+            [self makeStateReadWithKey:updateStatus.key readTime:self.currentTime];
         }
     }
 }
@@ -218,7 +224,7 @@ NSString * const _smr_update_status_prefix           = @"smr_update_status_prefi
 
 + (void)makeStateReadWithKey:(NSString *)key {
     SMRUpdateStatusManager *manager = [SMRUpdateStatusManager sharedManager];
-    [manager makeStateReadWithKey:key readTime:[[SMRNetInfo syncedDate] timeIntervalSince1970]];
+    [manager makeStateReadWithKey:key readTime:manager.currentTime];
 }
 
 + (void)makeMainStateReadWithKey:(NSString *)key {
@@ -246,7 +252,7 @@ NSString * const _smr_update_status_prefix           = @"smr_update_status_prefi
 + (void)setUpdateStatusWithKey:(NSString *)key andType:(kUpdateStatusType)updateStatusType {
     SMRUpdateStatus *updateStatus = [[SMRUpdateStatus alloc] init];
     updateStatus.key = key;
-    updateStatus.type = updateStatusType;
+    updateStatus.type = (int32_t)updateStatusType;
     [self setUpdateStatus:updateStatus];
 }
 

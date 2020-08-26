@@ -1,9 +1,9 @@
 //
 //  SMRDBMapper.h
-//  SMRDBDemo
+//  SMRDataBaseDemo
 //
-//  Created by 丁治文 on 2018/9/22.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/17.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -51,6 +51,8 @@
 - (NSString *)sqlForUpdateSetWhere:(NSString *)where;
 - (NSString *)sqlForSelectWhere:(NSString *)where;
 - (NSString *)sqlForSelectWhere:(NSString *)where limit:(NSRange)limit;
+
+- (NSString *)sqlForReplaceFromSql:(NSString *)sql;
 
 #pragma mark - Mappers/Getters
 - (NSString *)table_description;

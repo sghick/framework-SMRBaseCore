@@ -1,6 +1,6 @@
 //
 //  SMRImageLabel.m
-//  SMRBaseCore
+//  SMRBaseCoreDemo
 //
 //  Created by 丁治文 on 2019/9/23.
 //  Copyright © 2019 sumrise. All rights reserved.

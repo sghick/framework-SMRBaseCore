@@ -2,8 +2,8 @@
 //  SMRNetManager.m
 //  SMRNetworkDemo
 //
-//  Created by 丁治文 on 2018/10/6.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/18.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "SMRNetManager.h"
@@ -11,18 +11,19 @@
 #import "SMRSession.h"
 #import "SMRNetAPI.h"
 #import "SMRNetAPIQueue.h"
-#import "SMRNetDedouncer.h"
+#import "SMRNetDebouncer.h"
 #import "SMRNetCache.h"
 #import "SMRNetInfo.h"
 #import "NSError+SMRNetwork.h"
 #import "SMRLog.h"
+#import "SMRAFSession.h"
 
 @interface SMRNetManager ()
 
 @property (strong, nonatomic) NSLock *lock;
 @property (strong, nonatomic) SMRNetAPIQueue *netAPIQueue;
 @property (strong, nonatomic) SMRNetCache *netCache;
-@property (strong, nonatomic) SMRNetDedouncer<SMRNetAPI *> *dedouncer;
+@property (strong, nonatomic) SMRNetDebouncer<SMRNetAPI *> *debouncer;
 
 @end
 
@@ -46,7 +47,8 @@
 }
 
 - (void)startWithSession:(SMRSession *)session config:(SMRNetConfig *)config {
-    _session = session ?: [[SMRSession alloc] init];
+    // TODO:分享AFN之后可以将这里设置为使用默认的 SMRSession
+    _session = session ?: [[SMRAFSession alloc] init];
     _config = config ?: [[SMRNetConfig alloc] init];
     [_session configration:_config];
 }
@@ -60,7 +62,7 @@
     SMRNetAPI *api = [self.netAPIQueue dequeue];
     while (api) {
         api.callback.retryCount++;
-        [self queryAPIWithoutDedouncer:api];
+        [self queryAPIWithoutDebouncer:api];
         api = [self.netAPIQueue dequeue];
     }
 }
@@ -91,12 +93,12 @@
     api.callback = callback;
     
     NSInteger maxCount = [self.config maxCountForDedounce];
-    [self.dedouncer dedounce:api identifier:api.identifier maxCount:maxCount resultBlock:^(SMRNetDedouncer *dedouncer, SMRNetAPI *obj) {
-        [self queryAPIWithoutDedouncer:api];
+    [self.debouncer dedounce:api identifier:api.identifier maxCount:maxCount resultBlock:^(SMRNetDebouncer *debouncer, SMRNetAPI *obj) {
+        [self queryAPIWithoutDebouncer:api];
     }];
 }
 
-- (void)queryAPIWithoutDedouncer:(SMRNetAPI *)api {
+- (void)queryAPIWithoutDebouncer:(SMRNetAPI *)api {
     base_core_log(@"发起API:%@", api.identifier);
     // 创建task
     NSURLSessionTask *task = [self dataTaskWithAPI:api];
@@ -145,8 +147,8 @@
             [self.netCache addObject:responseObject policy:api.cachePolicy];
         }
         // 处理防抖结果
-        NSArray<SMRNetAPI *> *dedouncedAPIs = [self.dedouncer objectForDedouncedWithIdentifier:api.identifier];
-        [self.dedouncer removeObjectForDedouncedWithIdentifier:api.identifier];
+        NSArray<SMRNetAPI *> *dedouncedAPIs = [self.debouncer objectForDedouncedWithIdentifier:api.identifier];
+        [self.debouncer removeObjectForDedouncedWithIdentifier:api.identifier];
         // 请求成功的回调
         if (callback.successBlock) {
             callback.successBlock(api, responseObject);
@@ -168,7 +170,7 @@
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         id response = [self.session parserToResponseWithError:error];
         if (self.config.debugLog) {
-            base_core_log(@"API请求错误:%@,\n\tresponse=%@,\n%@", api, response, error);
+            base_core_warning_log(@"API请求错误:%@,\n\tresponse=%@,\n%@", api, response, error);
         }
         // 同步时间和Cookie
         [SMRNetInfo syncNetInfoWithResponse:(NSHTTPURLResponse *)task.response];
@@ -182,8 +184,8 @@
         BOOL shouldCallback = (!willRetry && !willQueryNewAPI);
         if (shouldCallback && callback.faildBlock) {
             // 处理防抖结果
-            NSArray<SMRNetAPI *> *dedouncedAPIs = [self.dedouncer objectForDedouncedWithIdentifier:api.identifier];
-            [self.dedouncer removeObjectForDedouncedWithIdentifier:api.identifier];
+            NSArray<SMRNetAPI *> *dedouncedAPIs = [self.debouncer objectForDedouncedWithIdentifier:api.identifier];
+            [self.debouncer removeObjectForDedouncedWithIdentifier:api.identifier];
             
             callback.faildBlock(api, response, error);
             for (SMRNetAPI *deapi in dedouncedAPIs) {
@@ -327,7 +329,7 @@
     BOOL shouldRetry = (canRetry && (callback.retryCount < api.maxRetryTime));
     if (shouldRetry) {
         callback.retryCount++;
-        [[SMRNetManager sharedManager] queryAPIWithoutDedouncer:api];
+        [[SMRNetManager sharedManager] queryAPIWithoutDebouncer:api];
     }
     return shouldRetry;
 }
@@ -356,7 +358,7 @@
             // API初始化成功后开启其它API请求
             [self p_resumeAllTask];
         } faildBlock:^(SMRNetAPI *api, id response, NSError *error) {
-            base_core_log(@"初始化API失败:%@,%@", api.identifier, error);
+            base_core_warning_log(@"初始化API失败:%@,%@", api.identifier, error);
             // API初始化失败后,向所有队列中API发送失败消息
             [self p_callbackAllFaildTaskWithError:error];
         } uploadProgress:nil downloadProgress:nil];
@@ -364,7 +366,7 @@
         base_core_log(@"初始化API中:%@", nAPI.identifier);
         // 先发起本次初始化API
         nAPI.callback = callback;
-        [self queryAPIWithoutDedouncer:nAPI];
+        [self queryAPIWithoutDebouncer:nAPI];
         // 挂起其它API,直到API初始化API判定成功
         [self p_suspendAllTask];
     }
@@ -470,13 +472,13 @@
     return _netCache;
 }
 
-- (SMRNetDedouncer<SMRNetAPI *> *)dedouncer {
+- (SMRNetDebouncer<SMRNetAPI *> *)debouncer {
     [self.lock lock];
-    if (!_dedouncer) {
-        _dedouncer = [[SMRNetDedouncer alloc] init];
+    if (!_debouncer) {
+        _debouncer = [[SMRNetDebouncer alloc] init];
     }
     [self.lock unlock];
-    return _dedouncer;
+    return _debouncer;
 }
 
 @end

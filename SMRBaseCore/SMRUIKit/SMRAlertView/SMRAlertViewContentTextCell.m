@@ -41,8 +41,7 @@ SMRLinkLabelDelegate>
 - (void)updateConstraints {
     if (!self.didLoadLayout) {
         self.didLoadLayout = YES;
-        [self.contentLabel autoCenterInSuperview];
-        [self.contentLabel autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.contentView];
+        [self.contentLabel autoPinEdgesToSuperviewEdges];
     }
     [super updateConstraints];
 }
@@ -87,6 +86,12 @@ SMRLinkLabelDelegate>
     SMRAlertViewContentTextCell *cell = [[SMRAlertViewContentTextCell alloc] init];
     cell.attributeText = attributeText;
     CGFloat height = [cell.contentLabel systemLayoutSizeFittingSize:CGSizeMake(fitWidth, CGFLOAT_MAX)].height;
+    if (@available(iOS 13.0, *)) {
+        // None
+    } else {
+        // fix:iOS12的系统cell的精度会因为特殊字符'~'而有损失
+        height = height + 1;
+    }
     return height;
 }
 

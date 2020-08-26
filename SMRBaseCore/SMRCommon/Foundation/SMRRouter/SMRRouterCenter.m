@@ -1,9 +1,9 @@
 //
 //  SMRRouterCenter.m
-//  SMRBaseCoreDemo
+//  SMRRouterDemo
 //
-//  Created by 丁治文 on 2018/10/2.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/14.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "SMRRouterCenter.h"
@@ -212,7 +212,7 @@
     [center releaseCachedTargetWithKey:[NSString stringWithFormat:@"%@%@", NSStringFromClass(target.class), cacheKey ?: cacheKey]];
 }
 
-+ (id)p_performWithTarget:(NSString *)target action:(NSString *)action params:(nullable NSDictionary *)params shouldCacheTargetWithKey:(NSString *)cacheKey {
++ (id)p_performWithTarget:(NSString *)target action:(NSString *)action params:(NSDictionary *)params shouldCacheTargetWithKey:(NSString *)cacheKey {
     SMRRouterCenter *center = [SMRRouterCenter sharedCenter];
     return [center performTarget:target action:action params:params shouldCacheTargetWithKey:cacheKey];;
 }
@@ -227,10 +227,10 @@
     SMRURLParserItem *parserItem = [center.config.urlProvider.parser parserWithUrl:url additionParams:nil];
     return [SMRRouterCenter canResponseTarget:parserItem.target action:parserItem.action];
 }
-+ (id)performWithUrl:(NSURL *)url params:(nullable NSDictionary *)params {
++ (nullable id)performWithUrl:(NSURL *)url params:(nullable NSDictionary *)params {
     return [self performWithUrl:url params:params shouldCacheTarget:NO];
 }
-+ (id)performWithUrl:(NSURL *)url params:(nullable NSDictionary *)params shouldCacheTarget:(BOOL)shouldCacheTarget {
++ (nullable id)performWithUrl:(NSURL *)url params:(nullable NSDictionary *)params shouldCacheTarget:(BOOL)shouldCacheTarget {
     SMRRouterCenter *center = [SMRRouterCenter sharedCenter];
     if (![self p_checkSchemeResponsableWithConfig:center.config url:url]) {
         return nil;

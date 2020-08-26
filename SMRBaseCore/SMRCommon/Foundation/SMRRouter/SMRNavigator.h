@@ -1,18 +1,20 @@
 //
 //  SMRNavigator.h
-//  SMRBaseCoreDemo
+//  SMRRouterDemo
 //
-//  Created by 丁治文 on 2018/10/2.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/14.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-typedef UIViewController *(^SMRMainwindowRootController)(UIViewController *root);
-typedef UIViewController *(^SMRKeywindowRootController)(void);
-typedef UITabBarController *(^SMRRootTabbarController)(void);
-typedef UINavigationController *(^SMRRootTabNavigationController)(NSInteger tab);
-typedef UINavigationController *(^SMRChangeRootTabNavigationController)(NSInteger tab);
+NS_ASSUME_NONNULL_BEGIN
+
+typedef UIViewController  * _Nullable (^SMRMainwindowRootController)(UIViewController *root);
+typedef UIViewController * _Nullable (^SMRKeywindowRootController)(void);
+typedef UITabBarController * _Nullable (^SMRRootTabbarController)(void);
+typedef UINavigationController * _Nullable (^SMRRootTabNavigationController)(NSInteger tab);
+typedef UINavigationController * _Nullable (^SMRChangeRootTabNavigationController)(NSInteger tab);
 
 @interface SMRNavigator : NSObject
 
@@ -31,7 +33,7 @@ typedef UINavigationController *(^SMRChangeRootTabNavigationController)(NSIntege
 + (instancetype)sharedNavigator;
 
 /// 重置堆栈
-+ (void)resetToRootViewControllerWithCompletion:(void (^)(void))completion;
++ (void)resetToRootViewControllerWithCompletion:(nullable void (^)(void))completion;
 /// 获取最顶层的VC,center默认使用此控制器跳转
 + (UIViewController *)getMainwindowTopController;
 
@@ -58,3 +60,5 @@ typedef UINavigationController *(^SMRChangeRootTabNavigationController)(NSIntege
 + (void)popOrDismissViewController:(UIViewController *)viewController animated:(BOOL)animated;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -1,40 +1,35 @@
 //
 //  SMRDBSelectOption.m
-//  SMRDBDemo
+//  SMRDataBaseDemo
 //
-//  Created by 丁治文 on 2018/9/23.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/18.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "SMRDBSelectOption.h"
-#import "SMRDBAdapter.h"
-#import "SMRDBMapper.h"
 
 @implementation SMRDBSelectOption
 
 - (instancetype)initWithModelClass:(Class)modelClass {
-    self = [super init];
-    if (self) {
-        _modelClass = modelClass;
-    }
+    return [super initWithTableName:NSStringFromClass(modelClass)
+                         modelClass:modelClass
+                        primaryKeys:nil];
     return self;
 }
 
 - (instancetype)initWithTableName:(NSString *)tableName {
-    self = [super init];
-    if (self) {
-        _tableName = tableName;
-    }
-    return self;
+    return [super initWithTableName:tableName];
 }
 
-- (NSString *)tableName {
-    if (_tableName == nil) {
-        if (_modelClass != NULL) {
-            return NSStringFromClass(_modelClass);
-        }
+- (NSString *)sql {
+    SMRDBMapper *dbMapper = [self dbMapper];
+    if (dbMapper == nil) {
+        return nil;
     }
-    return _tableName;
+    
+    BOOL validLimit = (self.limit.location != NSNotFound) && (self.limit.length != NSNotFound);
+    NSString *sql = validLimit?[dbMapper sqlForSelectWhere:self.where limit:self.limit]:[dbMapper sqlForSelectWhere:self.where];
+    return sql;
 }
 
 - (int)excuteInTransaction:(id<SMRTransactionItemDelegate>)item rollback:(BOOL *)rollback {
@@ -43,22 +38,23 @@
 }
 
 - (id)queryInTransaction:(id<SMRTransactionItemDelegate>)item rollback:(BOOL *)rollback {
+    NSString *sql = self.sql;
+    base_core_datas_log(@"excute select:\n%@", sql);
+    if (!sql.length) {
+        return nil;
+    }
+    
     NSArray *results = nil;
     SMRDBMapper *dbMapper = [self dbMapper];
-    if (dbMapper == nil) {
-        return results;
-    }
-    BOOL validLimit = (self.limit.location != NSNotFound) && (self.limit.length != NSNotFound);
-    NSString *sql = validLimit?[dbMapper sqlForSelectWhere:self.where limit:self.limit]:[dbMapper sqlForSelectWhere:self.where];
     if (self.paramsArray) {
-        results = [[[SMRDBAdapter shareInstance].dbManager class] querySQL:sql withParamsInArray:self.paramsArray inTransaction:item rollback:rollback];
+        results = [self.dbManager querySQL:sql withParamsInArray:self.paramsArray inTransaction:item rollback:rollback];
     } else {
-        results = [[[SMRDBAdapter shareInstance].dbManager class] querySQL:sql withParamsInDictionary:self.paramsDict inTransaction:item rollback:rollback];
+        results = [self.dbManager querySQL:sql withParamsInDictionary:self.paramsDict inTransaction:item rollback:rollback];
     }
     if (results && self.modelClass) {
         NSMutableArray *array = [NSMutableArray array];
         for (NSDictionary *dict in results) {
-            NSObject *obj = [[SMRDBAdapter shareInstance].dbParser modelFromDict:dict class:self.modelClass withDBMapper:dbMapper];
+            NSObject *obj = [self.dbParser modelFromDict:dict class:self.modelClass withDBMapper:dbMapper];
             if (obj) {
                 [array addObject:obj];
             }
@@ -70,9 +66,4 @@
     return results;
 }
 
-- (SMRDBMapper *)dbMapper {
-    SMRDBMapper *dbMapper = [SMRDBMapper dbMapperWithClass:self.modelClass
-                                                 tableName:self.tableName];
-    return dbMapper;
-}
 @end

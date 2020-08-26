@@ -2,7 +2,7 @@
 //  SMRPhoneInfo.h
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/1/21.
+//  Created by 丁治文 on 2019/1/2.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
@@ -22,22 +22,34 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  IDFA
- 与其它厂商App进行沟通的标识
- 需要用户打开广告追踪开关,并且需要为Apple提供使用原因
  */
-+ (NSString *)imeiString;
++ (NSString *)imeiString __deprecated_msg("已废弃");
 
 /**
  IDFV
  与本账号下其它App进行沟通的标识
  [注意]对于运行在同一个设备，并且来自同一个供应商的所有App，这个值都是相同的。
  这个值首次执行app时会被保存在系统keychain中
- 如果未获取到,将会返回一个随机生成的uuid,并且这个uuid将保存在系统keychain中,之后如果有需要可以使用originalUUID来代替
+ 如果未获取到,将会返回一个随机生成的uuid,并且这个uuid将保存在系统keychain中
  */
-+ (NSString *)imsiString;
++ (NSString *)imsiString __deprecated_msg("已废弃");
 
 /**
- 手机系统名称:iOS
+ IDFA
+ 与其它厂商App进行沟通的标识
+ 需要用户打开广告追踪开关,并且需要为Apple提供使用原因
+*/
++ (NSString *)IDFAString;
+
+/**
+ IDFV
+ 与本账号下其它App进行沟通的标识
+ [注意]对于运行在同一个设备，并且来自同一个供应商的所有App，这个值都是相同的。
+*/
++ (NSString *)IDFVString;
+
+/**
+ 手机系统名称:Apple
  */
 + (NSString *)systemName;
 
@@ -46,7 +58,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (NSString *)systemVersionString;
 
-#warning Check: 推荐由后台进行识别,发新版本后,客户端需要配合后台更新对应的列表.
 /**
  获取手机型号,如: "iPhone10,2" 表示 "iPhone 8 Plus"
  */
@@ -65,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  web的UserAgent
  */
- + (void)webUserAgentForWK:(void (^)(NSString *ua))completion;
++ (void)webUserAgentForWK:(void (^)(NSString *ua))completion;
 
 /**
  app的UserAgent

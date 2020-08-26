@@ -2,7 +2,7 @@
 //  UIKit.h
 //  SMRBaseCoreDemo
 //
-//  Created by Tinswin on 2020/6/15.
+//  Created by Tinswin on 2020/6/11.
 //  Copyright © 2020 sumrise. All rights reserved.
 //
 
@@ -16,8 +16,10 @@
 #import "UIView+SMRResponder.h"
 #import "UIView+SMRGesture.h"
 #import "UIView+SMRShadowView.h"
+#import "UIView+SMRBadge.h"
 
-#import "SMRInitialConfig.h"
+#import "SMRReuseQueue.h"
+#import "SMRUIAppearance.h"
 #import "SMRAdapter.h"
 #import "SMRTableAssistant.h"
 #import "SMRTextAttribute.h"

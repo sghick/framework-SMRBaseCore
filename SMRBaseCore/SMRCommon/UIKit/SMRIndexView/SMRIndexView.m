@@ -225,7 +225,7 @@
         // if index items are smaller than 5.0 points display alert and do not display index at all
         if (currentItemSize.height < 5.0) {
             //[NSException raise:@"Too many items in index" format:@"Items are to small to be legible"];
-            base_core_log(@" ******* Too many items in index. Items are too small to be legible. Index won't be displayed. *******");
+            base_core_warning_log(@" ******* Too many items in index. Items are too small to be legible. Index won't be displayed. *******");
             return;
         }
         indexSize.height += entireHeight;

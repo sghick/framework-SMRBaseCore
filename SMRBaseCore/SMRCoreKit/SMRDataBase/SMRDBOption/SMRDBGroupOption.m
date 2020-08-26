@@ -1,14 +1,25 @@
 //
 //  SMRDBGroupOption.m
-//  SMRDBDemo
+//  SMRDataBaseDemo
 //
-//  Created by 丁治文 on 2018/9/23.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/18.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "SMRDBGroupOption.h"
 
 @implementation SMRDBGroupOption
+
+- (NSString *)sql {
+    NSMutableString *sql = [NSMutableString string];
+    for (id<SMRDBOption> opt in self.options) {
+        NSString *s = opt.sql;
+        if (s) {
+            [sql stringByAppendingFormat:@"%@;\n", s];
+        }
+    }
+    return [sql copy];
+}
 
 - (int)excuteInTransaction:(id<SMRTransactionItemDelegate>)item rollback:(BOOL *)rollback {
     int count = 0;

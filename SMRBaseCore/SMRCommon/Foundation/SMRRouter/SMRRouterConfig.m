@@ -1,9 +1,9 @@
 //
 //  SMRRouterConfig.m
-//  SMRBaseCoreDemo
+//  SMRRouterDemo
 //
-//  Created by 丁治文 on 2018/10/4.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/14.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "SMRRouterConfig.h"

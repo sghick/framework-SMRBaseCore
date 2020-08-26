@@ -31,6 +31,7 @@ typedef NS_ENUM(NSInteger, SMRContentMaskViewContentAlignment) {
 typedef void(^SMRContentMaskViewTouchedBlock)(id maskView);
 
 @interface SMRContentMaskView : UIView<SMRContentMaskViewProtocol>
+
 /// 是否已设置过一次约束
 @property (assign, nonatomic, readonly) BOOL didLoadLayout;
 /// 视频的布局对齐方式

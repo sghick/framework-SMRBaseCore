@@ -7,7 +7,7 @@
 //
 
 #import "SMRUtilsVersionTests.h"
-#import "SMRCommon.h"
+#import "SMRUtilsCommonHeader.h"
 
 #define version_code1(v) ([SMRUtils convertToCodeWithVersion:v])
 #define version_code2(v) ([SMRUtils convertToCodeWithVersion:v buildNumber:YES])
@@ -18,11 +18,16 @@
 @implementation SMRUtilsVersionTests
 
 - (id)begin {
-    [self testVersionCodeWithoutBuildNumber];
-    [self testVersionCodeWithBuildNumber];
+    SMRNavFatherController *controller = [[SMRNavFatherController alloc] init];
+    controller.navigationView.title = @"测试d";
+    [SMRNavigator pushOrPresentToViewController:controller animated:YES];
+    [SMRUtils showHUD];
     
-    [self testVersionCompareWithoutBuildNumber];
-    [self testVersionCompareWithBuildNumber];
+//    [self testVersionCodeWithoutBuildNumber];
+//    [self testVersionCodeWithBuildNumber];
+//
+//    [self testVersionCompareWithoutBuildNumber];
+//    [self testVersionCompareWithBuildNumber];
     
     return self;
 }

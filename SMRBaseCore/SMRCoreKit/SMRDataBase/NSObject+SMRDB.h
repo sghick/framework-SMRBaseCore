@@ -1,9 +1,9 @@
 //
 //  NSObject+SMRDB.h
-//  SMRDBDemo
+//  SMRDataBaseDemo
 //
-//  Created by 丁治文 on 2018/9/23.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/17.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -12,6 +12,11 @@
 
 #pragma mark - DefaultTableName
 + (NSString *)tableName;
+
++ (void)setNeedsAlterTable;
++ (void)setNeedsAlterTableWithPrimaryKeys:(NSArray<NSString *> *)primaryKeys;
++ (BOOL)alterTable;
++ (BOOL)alterTableWithPrimaryKeys:(NSArray<NSString *> *)primaryKeys;
 
 + (BOOL)insertOrReplace:(NSArray *)objs; ///< 常规插入数据
 + (BOOL)insertOrReplace:(NSArray *)objs generalParam:(NSDictionary *)generalParam; ///< 插入数据中统一某字段的值:{key<字段名>:value<要统一的值>}
@@ -36,6 +41,11 @@
 + (BOOL)deleteWhere:(NSString *)where paramsArray:(NSArray *)params; ///< 按条件删除数据+条件参数
 
 #pragma mark - OtherTableName
++ (void)setNeedsAlterTableWithTableName:(NSString *)tableName;
++ (void)setNeedsAlterTableWithPrimaryKeys:(NSArray<NSString *> *)primaryKeys tableName:(NSString *)tableName;
++ (BOOL)alterTableWithTableName:(NSString *)tableName;
++ (BOOL)alterTableWithPrimaryKeys:(NSArray<NSString *> *)primaryKeys tableName:(NSString *)tableName;
+
 + (BOOL)insertOrReplace:(NSArray *)objs intoTable:(NSString *)tableName;
 + (BOOL)insertOrReplace:(NSArray *)objs generalParam:(NSDictionary *)generalParam intoTable:(NSString *)tableName;
 + (BOOL)insertOrReplace:(NSArray *)objs primaryKeys:(NSArray *)primaryKeys intoTable:(NSString *)tableName;
@@ -56,9 +66,5 @@
 + (BOOL)deleteAllFromTable:(NSString *)tableName;
 + (BOOL)deleteWhere:(NSString *)where fromTable:(NSString *)tableName;
 + (BOOL)deleteWhere:(NSString *)where paramsArray:(NSArray *)params fromTable:(NSString *)tableName;
-
-#pragma mark - Utils
-/// 将sql中 (:tb) 替换为 tableName
-+ (NSString *)sqlForReplaceTableName:(NSString *)tableName fromSql:(NSString *)sql;
 
 @end

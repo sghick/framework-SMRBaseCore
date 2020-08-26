@@ -2,8 +2,8 @@
 //  SMRModelAPIParamsDelegate.h
 //  SMRModelDemo
 //
-//  Created by 丁治文 on 2018/7/21.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/18.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

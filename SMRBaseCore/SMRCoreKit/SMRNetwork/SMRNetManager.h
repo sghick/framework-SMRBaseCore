@@ -2,8 +2,8 @@
 //  SMRNetManager.h
 //  SMRNetworkDemo
 //
-//  Created by 丁治文 on 2018/10/6.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/18.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** API请求2 */
 - (void)query:(SMRNetAPI *)api callback:(SMRAPICallback *)callback __deprecated_msg("已废弃,使用-[SMRNetAPI queryWithCallback:]");
 /** API请求(不通过节流器) */
-- (void)queryAPIWithoutDedouncer:(SMRNetAPI *)api;
+- (void)queryAPIWithoutDebouncer:(SMRNetAPI *)api;
 
 @end
 

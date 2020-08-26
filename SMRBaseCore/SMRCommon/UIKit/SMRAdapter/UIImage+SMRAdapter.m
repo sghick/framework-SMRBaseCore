@@ -2,7 +2,7 @@
 //  UIImage+SMRAdapter.m
 //  SMRBaseCoreDemo
 //
-//  Created by Tinswin on 2019/10/14.
+//  Created by 丁治文 on 2019/1/23.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
@@ -84,6 +84,10 @@
     CGContextRelease(ctx);
     CGImageRelease(cgimg);
     return img;
+}
+
++ (UIImage *)smr_imageNamed:(NSString *)name {
+    return [self imageNamed:name];
 }
 
 @end

@@ -2,56 +2,37 @@
 //  SMRAlertView.h
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/2/13.
+//  Created by 丁治文 on 2019/2/14.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
-#import "SMRTableAlertView.h"
+#import "SMRCustomAlertView.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
-typedef NS_ENUM(NSInteger, SMRAlertViewStyle) {
-    SMRAlertViewStyleOrange     = 0,    ///< 橙色经典样式
-    SMRAlertViewStyleWhite      = 1,    ///< 白色经典样式
-};
-
-/** 定义深色按钮,仅能定制right/center位置 */
-typedef NS_ENUM(NSInteger, SMRAlertViewButtonDeepColorType) {
-    SMRAlertViewButtonDeepColorTypeNone     = 0,
-    SMRAlertViewButtonDeepColorTypeCancel   = 1,
-    SMRAlertViewButtonDeepColorTypeSure     = 2,
-    SMRAlertViewButtonDeepColorTypeDelete   = 3,
-};
 
 @class SMRAlertView;
 typedef void(^SMRAlertPhoneLinkTouchedBlock)(SMRAlertView *alert, NSString *phone);
 typedef void(^SMRAlertLinkTouchedBlock)(SMRAlertView *alert, NSURL *url);
 
-@protocol SMRAlertViewBottomButtonProtocol <NSObject>
+@interface SMRAlertView : SMRCustomAlertView
 
-/** 确定按钮的响应action,子类自定义按钮样式时可以用做按钮的action */
-- (void)sureBtnAction:(UIButton *)sender;
-/** 取消按钮的响应action,子类自定义按钮样式时可以用做按钮的action */
-- (void)cancelBtnAction:(UIButton *)sender;
+// cmp-title
+@property (copy  , nonatomic) NSString *title;
+// cmp-content
+@property (copy  , nonatomic) NSString *content;
+@property (copy  , nonatomic) NSAttributedString *attributeContent;
+// cmp-image
+@property (copy  , nonatomic) NSString *imageURL;
+@property (strong, nonatomic) UIImage *image;
+@property (assign, nonatomic) CGSize imageSize;
+@property (assign, nonatomic) CGFloat imageSpace;
+// cmp-textField
+@property (assign, nonatomic) BOOL useTextField;
+@property (strong, nonatomic) UITextField *textField;
 
-@end
-
-@interface SMRAlertView : SMRTableAlertView<SMRAlertViewBottomButtonProtocol>
-
-@property (copy  , nonatomic, readonly) NSString *imageURL;
-@property (copy  , nonatomic, readonly) NSString *title;
-@property (copy  , nonatomic, readonly) NSString *content;
-@property (copy  , nonatomic, readonly) NSAttributedString *attributeContent;
-@property (copy  , nonatomic, readonly) NSArray<NSString *> *buttonTitles;
-@property (assign, nonatomic, readonly) SMRAlertViewButtonDeepColorType deepColorType;
-
-/// 默认NO,值为YES时,将取消按钮和确定按钮对掉,一个按钮时变为取消按钮
-@property (assign, nonatomic) BOOL reversCancleAndSureButtonPostion;
-
+/** 仅支持通过initialConfig设置 */
+@property (strong, nonatomic) UIColor *titleColor;
 @property (assign, nonatomic) NSTextAlignment contentTextAlignment; ///< 文字内容的对齐方式,默认居中对齐
-
-@property (copy  , nonatomic) SMRContentMaskViewTouchedBlock cancelButtonTouchedBlock;  ///< 取消按钮的点击事件,left
-@property (copy  , nonatomic) SMRContentMaskViewTouchedBlock sureButtonTouchedBlock;    ///< 确定按钮的点击事件,right/center
 
 @property (copy  , nonatomic, nullable) SMRAlertPhoneLinkTouchedBlock phoneLinkTouchedBlock;
 @property (copy  , nonatomic, nullable) SMRAlertLinkTouchedBlock linkTouchedBlock;
@@ -61,6 +42,9 @@ typedef void(^SMRAlertLinkTouchedBlock)(SMRAlertView *alert, NSURL *url);
 /// 在内容下方展示一张图片
 - (void)addImage:(UIImage *)image size:(CGSize)size space:(CGFloat)space;
 - (void)addImageURL:(NSString *)imageURL size:(CGSize)size space:(CGFloat)space;
+
+/// 默认弹窗
++ (instancetype)alertView;
 
 /// NString content
 + (instancetype)alertViewWithContent:(NSString *)content
@@ -79,6 +63,11 @@ typedef void(^SMRAlertLinkTouchedBlock)(SMRAlertView *alert, NSURL *url);
                   attributeContent:(NSAttributedString *)attributeContent
                       buttonTitles:(NSArray<NSString *> *)buttonTitles
                      deepColorType:(SMRAlertViewButtonDeepColorType)deepColorType;
+
+/// NSTextField
++ (instancetype)alertViewWithTextFieldAndButtonTitles:(NSArray<NSString *> *)buttonTitles
+                                        deepColorType:(SMRAlertViewButtonDeepColorType)deepColorType
+                                          configStyle:(nullable UITextField * (^)(UITextField *textField))configStyle;
 
 @end
 

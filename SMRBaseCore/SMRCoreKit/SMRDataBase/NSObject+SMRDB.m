@@ -1,9 +1,9 @@
 //
 //  NSObject+SMRDB.m
-//  SMRDBDemo
+//  SMRDataBaseDemo
 //
-//  Created by 丁治文 on 2018/9/23.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/17.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "NSObject+SMRDB.h"
@@ -20,6 +20,19 @@
 #pragma mark - DefaultTableName
 + (NSString *)tableName {
     return NSStringFromClass([self class]);
+}
+
++ (void)setNeedsAlterTable {
+    return [self setNeedsAlterTableWithTableName:[self tableName]];
+}
++ (void)setNeedsAlterTableWithPrimaryKeys:(NSArray<NSString *> *)primaryKeys {
+    return [self setNeedsAlterTableWithPrimaryKeys:primaryKeys tableName:[self tableName]];
+}
++ (BOOL)alterTable {
+    return [self alterTableWithTableName:[self tableName]];
+}
++ (BOOL)alterTableWithPrimaryKeys:(NSArray<NSString *> *)primaryKeys {
+    return [self alterTableWithPrimaryKeys:primaryKeys tableName:[self tableName]];
 }
 
 + (BOOL)insertOrReplace:(NSArray *)objs {
@@ -83,6 +96,31 @@
 
 #pragma mark - OtherTableName
 
++ (void)setNeedsAlterTableWithTableName:(NSString *)tableName {
+    NSArray *primaryKeys = nil;
+    return [self setNeedsAlterTableWithPrimaryKeys:primaryKeys
+                                         tableName:tableName];
+}
++ (void)setNeedsAlterTableWithPrimaryKeys:(NSArray<NSString *> *)primaryKeys tableName:(NSString *)tableName {
+    SMRDBOption *option = [[SMRDBOption alloc] initWithTableName:tableName];
+    [option setAlterTableWithModelClass:self.class
+                              tableName:tableName
+                            primaryKeys:primaryKeys];
+}
+
++ (BOOL)alterTableWithTableName:(NSString *)tableName {
+    NSArray *primaryKeys = nil;
+    return [self alterTableWithPrimaryKeys:primaryKeys
+                                 tableName:tableName];
+}
++ (BOOL)alterTableWithPrimaryKeys:(NSArray<NSString *> *)primaryKeys tableName:(NSString *)tableName {
+    SMRDBOption *option = [[SMRDBOption alloc] initWithTableName:tableName];
+    [option setAlterTableWithModelClass:self.class
+                              tableName:tableName
+                            primaryKeys:primaryKeys];
+    return [option excute];
+}
+
 + (BOOL)insertOrReplace:(NSArray *)objs intoTable:(NSString *)tableName {
     return [self insertOrReplace:objs generalParam:nil primaryKeys:nil intoTable:tableName];
 }
@@ -144,15 +182,15 @@
     return [self selectWhere:where limit:NSMakeRange(0, 1) paramsArray:params fromTable:tableName].firstObject;
 }
 + (NSArray *)selectSql:(NSString *)sql paramsArray:(NSArray *)params fromTable:(NSString *)tableName {
-    SMRDBSqlOption *option = [[SMRDBSqlOption alloc] init];
-    option.sql = [self sqlForReplaceTableName:tableName fromSql:sql];
+    SMRDBSqlOption *option = [[SMRDBSqlOption alloc] initWithTableName:tableName];
+    option.sql = sql;
     option.paramsArray = params;
     NSArray *results = [option query];
     return [option parserResultsToModel:results withModelClass:[self class]];
 }
 + (id)selectConcreteSql:(NSString *)sql paramsArray:(NSArray *)params concreteKey:(NSString *)concreteKey fromTable:(NSString *)tableName {
-    SMRDBSqlOption *option = [[SMRDBSqlOption alloc] init];
-    option.sql = [self sqlForReplaceTableName:tableName fromSql:sql];;
+    SMRDBSqlOption *option = [[SMRDBSqlOption alloc] initWithTableName:tableName];
+    option.sql = sql;
     option.paramsArray = params;
     NSArray *results = [option query];
     if (concreteKey) {
@@ -186,14 +224,6 @@
     option.where = where;
     option.paramsArray = params;
     return [option excute];
-}
-
-#pragma mark - Utils
-+ (NSString *)sqlForReplaceTableName:(NSString *)tableName fromSql:(NSString *)sql {
-    if (!sql || !tableName) {
-        return sql;
-    }
-    return [sql stringByReplacingOccurrencesOfString:@":tb" withString:[NSString stringWithFormat:@"'%@'", tableName]];
 }
 
 @end

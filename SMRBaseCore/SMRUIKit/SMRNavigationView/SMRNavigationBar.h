@@ -1,8 +1,8 @@
 //
 //  SMRNavigationBar.h
-//  SMRBaseCoreDemo
+//  SMRGeneralUseDemo
 //
-//  Created by 丁治文 on 2019/1/21.
+//  Created by 丁治文 on 2019/1/11.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
@@ -11,7 +11,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SMRNavigationBar : UIView
+@protocol SMRNavigationBarProtocol <NSObject>
+
+/** 返回内容视图的top,默认是height - contentHeight */
+- (CGFloat)topOfContentView;
+
+@end
+
+@interface SMRNavigationBar : UIView<SMRNavigationBarProtocol>
 
 /**
  *  图片背景,默认无图片
@@ -39,7 +46,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) CGFloat bottom;
 
 /**
- *  控制管理nav的对象
+ *  设置navigationView的theme
+ */
+@property (nonatomic, strong) SMRNavigationItem *item;
+
+/**
+ *  控制管理nav的对象,将在初始化时调用
  */
 + (SMRNavigationItem *)navigationItem;
 

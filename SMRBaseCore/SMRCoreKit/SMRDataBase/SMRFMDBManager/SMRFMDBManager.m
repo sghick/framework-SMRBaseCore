@@ -1,9 +1,9 @@
 //
 //  SMRFMDBManager.m
-//  SMRDBDemo
+//  SMRDataBaseDemo
 //
-//  Created by 丁治文 on 2018/9/23.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/18.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "SMRFMDBManager.h"
@@ -70,7 +70,7 @@ static SMRFMDBManager *_sharedDBManager;
     return (version > [self localVersionWithDBPath:dbPath]);
 }
 
-#pragma mark - 数据库操作
+#pragma mark - Options
 
 - (SMRDBStatus)connectDatabaseWithName:(NSString *)name withVersion:(double)version {
     SMRDBStatus status = [self connectDatabaseWithName:name];
@@ -122,14 +122,14 @@ static SMRFMDBManager *_sharedDBManager;
         NSError *error = nil;
         [fileManager removeItemAtPath:[self getDBFilePath] error:&error];
         if (error != nil) {
-            base_core_log(@"remove database error");
+            base_core_warning_log(@"remove database error");
             return NO;
         } else {
             base_core_log(@"remove database successfully");
             return YES;
         }
     } else {
-        base_core_log(@"There is no database!");
+        base_core_warning_log(@"There is no database!");
         return YES;
     }
 }
@@ -188,36 +188,34 @@ static SMRFMDBManager *_sharedDBManager;
     }];
 }
 
-+ (BOOL)excuteSQLs:(NSArray *)sqlArray inTransaction:(id<SMRTransactionItemDelegate>)transaction rollback:(BOOL *)rollback {
+- (BOOL)excuteSQLs:(NSArray *)sqlArray inTransaction:(id<SMRTransactionItemDelegate>)transaction rollback:(BOOL *)rollback {
     __block BOOL result = NO;
     SMRTransactionItem *item = (SMRTransactionItem *)transaction;
     for (NSString *sql in sqlArray) {
-        // validate SQL
+        // 跳过空sql
+        if (!sql.length) {
+            continue;
+        }
+        // 验证sql
         NSError *error = nil;
         result = [item.db validateSQL:sql error:&error];
         if (result == NO || error != nil) {
             *rollback = YES;
-            return result;
+            [self _printFaildLogWithSql:sql type:@"validate"];
+            break;
         }
-        
-        // execute SQL
+        // 执行SQL
         result = [item.db executeUpdate:[NSString stringWithFormat:@"%@;", sql]];
         if (result == NO) {
             *rollback = YES;
-            return result;
+            [self _printFaildLogWithSql:sql type:@"execute"];
+            break;
         }
-    }
-    
-    if (result == YES) {
-        // sql 语句执行成功
-    } else {
-        // sql 语句执行失败
-        base_core_log(@"SMRDBManager: sqls excute unsuccessfully<==>%@", sqlArray);
     }
     return result;
 }
 
-+ (BOOL)excuteSQL:(NSString *)sql withParamsInDictionary:(NSDictionary *)params inTransaction:(id<SMRTransactionItemDelegate>)transaction rollback:(BOOL *)rollback {
+- (BOOL)excuteSQL:(NSString *)sql withParamsInDictionary:(NSDictionary *)params inTransaction:(id<SMRTransactionItemDelegate>)transaction rollback:(BOOL *)rollback {
     if (sql == nil || sql.length == 0) {
         return NO;
     }
@@ -227,25 +225,20 @@ static SMRFMDBManager *_sharedDBManager;
     result = [item.db validateSQL:sql error:&error];
     if (result == NO || error != nil) {
         *rollback = YES;
+        [self _printFaildLogWithSql:sql type:@"validate"];
         return NO;
     }
     
     result = [item.db executeUpdate:sql withParameterDictionary:params];
     if (result == NO) {
         *rollback = YES;
+        [self _printFaildLogWithSql:sql type:@"execute"];
         return NO;
-    }
-    
-    if (result == YES) {
-        // sql 语句执行成功
-    } else {
-        // sql 语句执行失败
-        base_core_log(@"SMRDBManager: sqls excute unsuccessfully<==>%@", sql);
     }
     return result;
 }
 
-+ (BOOL)excuteSQL:(NSString *)sql withParamsInArray:(NSArray *)params inTransaction:(id<SMRTransactionItemDelegate>)transaction rollback:(BOOL *)rollback {
+- (BOOL)excuteSQL:(NSString *)sql withParamsInArray:(NSArray *)params inTransaction:(id<SMRTransactionItemDelegate>)transaction rollback:(BOOL *)rollback {
     if (sql == nil || sql.length == 0) {
         return NO;
     }
@@ -255,25 +248,20 @@ static SMRFMDBManager *_sharedDBManager;
     result = [item.db validateSQL:sql error:&error];
     if (result == NO || error != nil) {
         *rollback = YES;
+        [self _printFaildLogWithSql:sql type:@"validate"];
         return NO;
     }
     
     result = [item.db executeUpdate:sql withArgumentsInArray:params];
     if (result == NO) {
         *rollback = YES;
+        [self _printFaildLogWithSql:sql type:@"execute"];
         return NO;
-    }
-    
-    if (result == YES) {
-        // sql 语句执行成功
-    } else {
-        // sql 语句执行失败
-        base_core_log(@"SMRDBManager: sqls excute unsuccessfully<==>%@", sql);
     }
     return result;
 }
 
-+ (NSArray *)querySQL:(NSString *)sql withParamsInDictionary:(NSDictionary *)params inTransaction:(id<SMRTransactionItemDelegate>)transaction rollback:(BOOL *)rollback {
+- (NSArray *)querySQL:(NSString *)sql withParamsInDictionary:(NSDictionary *)params inTransaction:(id<SMRTransactionItemDelegate>)transaction rollback:(BOOL *)rollback {
     SMRTransactionItem *item = (SMRTransactionItem *)transaction;
     if (sql == nil || sql.length == 0 || item.queue == nil) {
         return nil;
@@ -282,18 +270,19 @@ static SMRFMDBManager *_sharedDBManager;
     NSError *error = nil;
     BOOL result = [item.db validateSQL:sql error:&error];
     if (result == NO || error != nil) {
+        [self _printFaildLogWithSql:sql type:@"validate"];
         return nil;
     }
     
     NSMutableArray *ret = [NSMutableArray array];
-    FMResultSet * set = [item.db executeQuery:sql withParameterDictionary:params];
+    FMResultSet *set = [item.db executeQuery:sql withParameterDictionary:params];
     while ([set next]) {
         [ret addObject:[set resultDictionary]];
     }
     return [NSArray arrayWithArray:ret];
 }
 
-+ (NSArray *)querySQL:(NSString *)sql withParamsInArray:(NSArray *)params inTransaction:(id<SMRTransactionItemDelegate>)transaction rollback:(BOOL *)rollback {
+- (NSArray *)querySQL:(NSString *)sql withParamsInArray:(NSArray *)params inTransaction:(id<SMRTransactionItemDelegate>)transaction rollback:(BOOL *)rollback {
     SMRTransactionItem *item = (SMRTransactionItem *)transaction;
     if (sql == nil || sql.length == 0 || item.queue == nil) {
         return nil;
@@ -302,15 +291,22 @@ static SMRFMDBManager *_sharedDBManager;
     NSError *error = nil;
     BOOL result = [item.db validateSQL:sql error:&error];
     if (result == NO || error != nil) {
+        [self _printFaildLogWithSql:sql type:@"validate"];
         return nil;
     }
     
     NSMutableArray *ret = [NSMutableArray array];
-    FMResultSet * set = [item.db executeQuery:sql withArgumentsInArray:params];
+    FMResultSet *set = [item.db executeQuery:sql withArgumentsInArray:params];
     while ([set next]) {
         [ret addObject:[set resultDictionary]];
     }
     return [NSArray arrayWithArray:ret];
+}
+
+#pragma mark - Logs
+
+- (void)_printFaildLogWithSql:(NSString *)sql type:(NSString *)type {
+    base_core_warning_log(@"SMRDBManager: sql %@ unsuccessfully<==>%@", type, sql);
 }
 
 @end

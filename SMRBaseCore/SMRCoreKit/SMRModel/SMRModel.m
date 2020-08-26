@@ -2,8 +2,8 @@
 //  SMRModel.m
 //  SMRModelDemo
 //
-//  Created by 丁治文 on 2018/7/21.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/18.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "SMRModel.h"
@@ -25,6 +25,9 @@
 }
 
 + (NSArray *)smr_arrayWithArray:(NSArray *)array {
+    if ([[self new] isKindOfClass:[NSArray class]]) {
+        return array;
+    }
     return [NSArray yy_modelArrayWithClass:[self class] json:array];
 }
 
@@ -36,9 +39,38 @@
     return [NSArray yy_modelArrayWithClass:[self class] json:realArray];
 }
 
++ (instancetype)smr_instanceWithJsonString:(NSString *)jsonString {
+    return [self smr_instanceWithDictionary:[self smr_jsonObjectWithJsonString:jsonString]];
+}
+
++ (NSArray *)smr_arrayWithJsonString:(NSString *)jsonString {
+    return [self smr_arrayWithArray:[self smr_jsonObjectWithJsonString:jsonString]];
+}
+
++ (id)smr_jsonObjectWithJsonString:(NSString *)jsonString {
+    if (jsonString == nil) {
+        return nil;
+    }
+    
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err;
+    id jsonObj = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                         options:NSJSONReadingMutableContainers
+                                                           error:&err];
+    if (err) {
+        base_core_warning_log(@"json解析失败：%@",err);
+        return nil;
+    }
+    return jsonObj;
+}
+
 - (NSDictionary *)smr_toDictionary {
     NSDictionary *dict = [NSObject dictionaryWithJsonString:[self yy_modelToJSONString]];
     return dict;
+}
+
+- (NSString *)smr_toJSONString {
+    return [self yy_modelToJSONString];
 }
 
 + (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString {
@@ -52,7 +84,7 @@
                                                         options:NSJSONReadingMutableContainers
                                                           error:&err];
     if (err) {
-        base_core_log(@"json解析失败：%@",err);
+        base_core_warning_log(@"json解析失败：%@",err);
         return nil;
     }
     return dic;

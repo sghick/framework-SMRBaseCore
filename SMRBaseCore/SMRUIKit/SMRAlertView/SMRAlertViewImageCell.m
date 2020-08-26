@@ -60,7 +60,7 @@
 
 - (void)setImageSize:(CGSize)imageSize {
     _imageSize = imageSize;
-    [self setNeedsUpdateConstraints];;
+    [self setNeedsUpdateConstraints];
 }
 
 #pragma mark - Getters

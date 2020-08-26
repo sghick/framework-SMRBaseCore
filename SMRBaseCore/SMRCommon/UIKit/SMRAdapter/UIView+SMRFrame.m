@@ -2,8 +2,8 @@
 //  UIView+SMRFrame.m
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/1/21.
-//  Copyright © 2019 sumrise. All rights reserved.
+//  Created by Tinswin on 2018/12/21.
+//  Copyright © 2018年 BaoDashi. All rights reserved.
 //
 
 #import "UIView+SMRFrame.h"

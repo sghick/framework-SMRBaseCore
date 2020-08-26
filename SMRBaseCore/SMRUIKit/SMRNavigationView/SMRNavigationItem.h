@@ -1,8 +1,8 @@
 //
 //  SMRNavigationItem.h
-//  SMRBaseCoreDemo
+//  SMRGeneralUseDemo
 //
-//  Created by 丁治文 on 2019/1/21.
+//  Created by 丁治文 on 2019/1/9.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
@@ -31,6 +31,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 // 普通主题, default
 + (SMRNavigationTheme *)themeForNormal;
+
+// 红色主题, 背景为红色, 文字为白色
++ (SMRNavigationTheme *)themeForRed;
+
+// 黑色主题, 背景为黑色, 文字为白色
++ (SMRNavigationTheme *)themeForBlack;
 
 // 透明主题，背景为透明，文字为白色
 + (SMRNavigationTheme *)themeForAlpha;

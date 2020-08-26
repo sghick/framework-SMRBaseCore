@@ -15,6 +15,8 @@
  配置表的key:Base Core Config,以下所有值请在这个配置下写,如:
  Base Core Config:{
                     Base Core Log:YES,
+                    Base Core Datas Log:YES,
+                    Base Core Warning Log:YES,
                     Adapter Margin:20*scale,
                     TableViewSeperator Left Margin:20*scale,
                     TableViewSeperator Right Margin:20*scale
@@ -23,6 +25,8 @@
  | key | value |
  | ------ | ------ |
  | Base Core Log | YES |
+ | Base Core Datas Log | YES |
+ | Base Core Warning Log | YES |
  | Adapter Margin | 20*scale |
  | TableViewSeperator Left Margin | 20*scale |
  | TableViewSeperator Right Margin | 20*scale |
@@ -40,6 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** 获取log开头 */
 + (BOOL)baseCoreLog;
++ (BOOL)baseCoreDatasLog;
++ (BOOL)baseCoreWarningLog;
 
 /** 获取margin值 */
 + (CGFloat)marginWithScale:(CGFloat)scale;

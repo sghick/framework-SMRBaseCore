@@ -1,9 +1,9 @@
 //
 //  SMRRouterCenter+SMROpen.h
-//  SMRBaseCoreDemo
+//  SMRRouterDemo
 //
-//  Created by 丁治文 on 2018/10/12.
-//  Copyright © 2018 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/14.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "SMRRouterCenter.h"
@@ -27,4 +27,3 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
-

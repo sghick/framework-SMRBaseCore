@@ -2,7 +2,7 @@
 //  SMRSession.h
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/1/21.
+//  Created by 丁治文 on 2019/1/17.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@class SMRNetDedouncer<SMRNetAPI>;
+@class SMRNetDebouncer<SMRNetAPI>;
 @interface SMRSession : NSObject<
 SMRSessionConfigProtocol,
 SMRSessionUtilsProtocol,

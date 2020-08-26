@@ -36,15 +36,15 @@ extern NSString * const SMRValidateFormatNumber6;       ///< 6位纯数字
 
 /**
  系统自带的谓词匹配
- 
+
  @param validateString 待匹配的字符串
  @param predicateFormat 谓词
- 1.比较运算符>,<,==,>=,<=,!=
- 2.范围运算符：IN、BETWEEN
- 3.字符串本身:SELF
- 4.字符串相关：BEGINSWITH、ENDSWITH、CONTAINS
- 5.通配符：LIKE
- 6.正则表达式：MATCHES
+                            1.比较运算符>,<,==,>=,<=,!=
+                            2.范围运算符：IN、BETWEEN
+                            3.字符串本身:SELF
+                            4.字符串相关：BEGINSWITH、ENDSWITH、CONTAINS
+                            5.通配符：LIKE
+                            6.正则表达式：MATCHES
  @param regex 正则表达式
  @return 验证结果
  */

@@ -2,8 +2,8 @@
 //  SMRModel.h
 //  SMRModelDemo
 //
-//  Created by 丁治文 on 2018/7/21.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/18.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -51,10 +51,36 @@ NSCopying>
 + (NSArray *)smr_arrayWithDictionary:(NSDictionary *)dict key:(NSString *)key;
 
 /**
+ jsonString转成对象
+ @param jsonString 数组json字符串
+ */
++ (instancetype)smr_instanceWithJsonString:(NSString *)jsonString;
+
+/**
+ jsonString转成数组
+ @param jsonString 数组json字符串
+ */
++ (NSArray *)smr_arrayWithJsonString:(NSString *)jsonString;
+
+/**
+ jsonString转成对象
+ @param jsonString 数组json字符串
+*/
++ (id)smr_jsonObjectWithJsonString:(NSString *)jsonString;
+
+/**
  model转成字典
  
  @return 字典对象
  */
 - (NSDictionary *)smr_toDictionary;
+
+
+/**
+model转成json
+
+@return jsonString
+*/
+- (NSString *)smr_toJSONString;
 
 @end

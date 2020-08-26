@@ -2,7 +2,7 @@
 //  SMRSliderBarContentView.m
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/3/18.
+//  Created by 丁治文 on 2019/3/7.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
@@ -41,7 +41,7 @@ UIScrollViewDelegate>
 }
 
 - (void)createSubviews {
-    self.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    self.backgroundColor = [UIColor smr_labelGrayColor];
     [self addSubview:self.scrollView];
     [self setNeedsUpdateConstraints];
 }
@@ -107,10 +107,10 @@ UIScrollViewDelegate>
 
 - (void)prepareMoveTrackerFollowScrollView:(UIScrollView *)scrollView {
     // 当滑到边界时，继续通过scrollView的bouces效果滑动时，直接return
-    //    if (scrollView.contentOffset.x < 0 ||
-    //        (scrollView.contentOffset.x > scrollView.contentSize.width - scrollView.bounds.size.width)) {
-    //        return;
-    //    }
+//    if (scrollView.contentOffset.x < 0 ||
+//        (scrollView.contentOffset.x > scrollView.contentSize.width - scrollView.bounds.size.width)) {
+//        return;
+//    }
     // 当前偏移量
     CGFloat currentOffSetX = scrollView.contentOffset.x;
     CGFloat progress = currentOffSetX/scrollView.bounds.size.width;
@@ -122,7 +122,7 @@ UIScrollViewDelegate>
     BOOL didScrollToAnIndex = (progress == pIndex);
     if (self.lastRealTimeDirect > 0) {
         // 右滑
-        //        didScrollToAnIndex = didScrollToAnIndex || (pLastIndex != pIndex);
+//        didScrollToAnIndex = didScrollToAnIndex || (pLastIndex != pIndex);
     } else {
         // 左滑
         didScrollToAnIndex = didScrollToAnIndex || (pLastIndex != pIndex);

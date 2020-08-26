@@ -1,12 +1,13 @@
 //
 //  SMRLifecycleLogDelegate.h
-//  SMRLifecycleDemo
+//  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2018/7/18.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/17.
+//  Copyright © 2018 BaoDashi. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#ifndef SMRLifecycleLogDelegate_h
+#define SMRLifecycleLogDelegate_h
 
 /// 接收log的代理
 @class SMRLifecycle;
@@ -16,3 +17,5 @@
 - (void)didRecivedLifecycle:(SMRLifecycle *)lifecycle log:(NSString *)log;
 
 @end
+
+#endif /* SMRLifecycleLogDelegate_h */

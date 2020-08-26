@@ -14,15 +14,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** toast */
 + (void)toast:(NSString *)toast;
-+ (void)toast:(NSString *)toast inView:(UIView *)inView;
++ (void)toast:(NSString *)toast inView:(nullable UIView *)inView;
 
 /** 展示HUD */
 + (void)showHUD;
-+ (void)showHUDInView:(UIView *)inView;
++ (void)showHUDInView:(nullable UIView *)inView;
++ (void)showHUDWithTitle:(nullable NSString *)title;
++ (void)showHUDWithTitle:(nullable NSString *)title inView:(nullable UIView *)inView;
 
 /** 隐藏HUD */
 + (void)hideHUD;
-+ (void)hideHUDInView:(UIView *)inView;
++ (void)hideHUDInView:(nullable UIView *)inView;
 
 @end
 

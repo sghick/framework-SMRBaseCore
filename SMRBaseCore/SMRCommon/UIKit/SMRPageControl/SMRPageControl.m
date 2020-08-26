@@ -1,6 +1,6 @@
 //
 //  SMRPageControl.m
-//  SMRBaseCore
+//  SMRBaseCoreDemo
 //
 //  Created by Tinswin on 2019/11/18.
 //  Copyright © 2019 sumrise. All rights reserved.

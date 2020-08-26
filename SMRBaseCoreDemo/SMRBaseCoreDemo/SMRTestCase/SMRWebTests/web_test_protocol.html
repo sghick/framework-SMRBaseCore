@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rrr</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+
+        input{
+            
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+    
+</head>
+<body>
+    <input id="input" type="button" value="分享" onclick="share()" style="font-size:50px;"/>
+    <input id="input" type="button" value="UA" onclick="userAgent()" style="font-size:50px;"/>
+    <input id="input" type="button" value="Cookie" onclick="userCookie()" style="font-size:50px;"/>
+</body>
+
+
+<script>
+
+window.onload=function() {
+    alert(navigator.userAgent)
+    alert(document.cookie)
+}
+/// native call js, web可以随便起方法名,但参数必须提前定义好
+function native_share_finished(status) {
+    if (status == 0) {
+        alert("分享失败");
+    } else if (status == 1) {
+        alert("分享成功");
+    } else if (status == 2) {
+        alert("未知结果");
+    } else {
+        alert(status);
+    }
+}
+
+/// js call oc
+function share() {
+    var share_image_url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558695428589&di=bb7b4ba85f401b8b407a765f19b02f74&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F015ef05cbf213da801208f8b24977e.jpg%401280w_1l_2o_100sh.jpg";
+    var share_url = "http://www.sumrise.com/";
+    var shareParams = {"share_title":"分享标题","share_summary":"分享简介","share_image_url":share_image_url,"share_url":share_url}
+    var callback = "native_share_finished(%status%)"
+    window.webkit.messageHandlers.native_share.postMessage([callback, shareParams]);
+}
+
+function userAgent() {
+    alert(navigator.userAgent)
+}
+
+function userCookie() {
+    alert(document.cookie)
+}
+
+</script>
+</html>

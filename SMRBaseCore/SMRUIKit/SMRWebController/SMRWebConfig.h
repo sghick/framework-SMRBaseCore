@@ -2,8 +2,8 @@
 //  SMRWebConfig.h
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/5/6.
-//  Copyright © 2019 sumrise. All rights reserved.
+//  Created by Tinswin on 2019/4/10.
+//  Copyright © 2019年 sumrise. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -39,6 +39,9 @@ FOUNDATION_EXPORT NSString * const kWebHandlerForMessage;
 + (instancetype)handlerWithName:(NSString *)name
                             web:(SMRWebController *)webController
                         recived:(nullable SMRWKScriptMessageRecivedBlock)recivedBlock;
++ (instancetype)handlerWithWebController:(SMRWebController *)webController
+                                    name:(NSString *)name
+                            recivedBlock:(SMRWKScriptMessageRecivedBlock)recivedBlock __deprecated_msg("方法已废弃");
 
 @end
 
@@ -62,13 +65,15 @@ FOUNDATION_EXPORT NSString * const kWebHandlerForMessage;
 
 @class SMRWebController;
 @class SMRNavigationView;
-@protocol SMRWebNavigationViewConfig <NSObject>
+@protocol SMRWebNavigationViewConfig <WKNavigationDelegate>
 
 @optional
 /** 返回一个自定义的navigationView */
-- (SMRNavigationView *)navigationViewOfWebController:(SMRWebController *)webController;
+- (SMRNavigationView *)navigationViewOfWebController:(SMRWebController *)web;
+- (void)webViewDidLoad:(SMRWebController *)web;
 - (void)webViewWillAppear:(SMRWebController *)web;
 - (void)webViewWillDisappear:(SMRWebController *)web;
+- (BOOL)canLoadRequest:(NSURLRequest *)request web:(SMRWebController *)web; ///< 默认当YES处理
 
 @end
 
@@ -79,7 +84,7 @@ FOUNDATION_EXPORT NSString * const kWebHandlerForMessage;
 
 @end
 
-@protocol SMRWebReplaceConfig <WKNavigationDelegate>
+@protocol SMRWebReplaceConfig <NSObject>
 
 @optional
 /** YES为url有参数需要替换 */

@@ -2,8 +2,8 @@
 //  SMRWebConfig.m
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/5/6.
-//  Copyright © 2019 sumrise. All rights reserved.
+//  Created by Tinswin on 2019/4/10.
+//  Copyright © 2019年 sumrise. All rights reserved.
 //
 
 #import "SMRWebConfig.h"
@@ -23,7 +23,7 @@ NSString * const kWebHandlerForMessage = @"message";
                             web:(SMRWebController *)webController
                          target:(nonnull NSString *)target
                          action:(nonnull NSString *)action {
-    SMRWKScriptMessageHandler *handler = [[SMRWKScriptMessageHandler alloc] init];
+    SMRWKScriptMessageHandler *handler = [[self alloc] init];
     handler.webController = webController;
     handler.name = name;
     handler.target = target;
@@ -34,7 +34,7 @@ NSString * const kWebHandlerForMessage = @"message";
 + (instancetype)handlerWithName:(NSString *)name
                             web:(SMRWebController *)webController
                         recived:(SMRWKScriptMessageRecivedBlock)recivedBlock {
-    SMRWKScriptMessageHandler *handler = [[SMRWKScriptMessageHandler alloc] init];
+    SMRWKScriptMessageHandler *handler = [[self alloc] init];
     handler.webController = webController;
     handler.name = name;
     handler.recivedBlock = recivedBlock;
@@ -44,7 +44,7 @@ NSString * const kWebHandlerForMessage = @"message";
 + (instancetype)handlerWithWebController:(SMRWebController *)webController
                                     name:(NSString *)name
                             recivedBlock:(SMRWKScriptMessageRecivedBlock)recivedBlock {
-    SMRWKScriptMessageHandler *handler = [[SMRWKScriptMessageHandler alloc] init];
+    SMRWKScriptMessageHandler *handler = [[self alloc] init];
     handler.webController = webController;
     handler.name = name;
     handler.recivedBlock = recivedBlock;

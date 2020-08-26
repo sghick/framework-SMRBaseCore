@@ -1,19 +1,20 @@
 //
 //  SMRDBUpdateOption.m
-//  SMRDBDemo
+//  SMRDataBaseDemo
 //
-//  Created by 丁治文 on 2018/9/23.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/18.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "SMRDBUpdateOption.h"
-#import "SMRDBAdapter.h"
-#import "SMRDBMapper.h"
 
 @implementation SMRDBUpdateOption
 
 - (instancetype)initWithObject:(NSObject *)obj {
-    self = [super init];
+    Class cls = [obj class];
+    self = [super initWithTableName:NSStringFromClass(cls)
+                         modelClass:cls
+                        primaryKeys:nil];
     if (self) {
         _object = obj;
     }
@@ -21,37 +22,37 @@
 }
 
 - (instancetype)initWithTableName:(NSString *)tableName where:(NSString *)where paramsArray:(NSArray *)paramsArray {
-    self = [super init];
+    self = [super initWithTableName:tableName];
     if (self) {
-        _tableName = tableName;
         _where = where;
         _paramsArray = paramsArray;
     }
     return self;
 }
 
-- (NSString *)tableName {
-    if (_tableName == nil) {
-        if (_object != nil) {
-            return NSStringFromClass([_object class]);
-        }
+- (NSString *)sql {
+    SMRDBMapper *dbMapper = [self dbMapper];
+    if (dbMapper == nil) {
+        return nil;
     }
-    return _tableName;
+    NSString *sql = self.object ? [dbMapper sqlForUpdateWhere:self.where] : [dbMapper sqlForUpdateSetWhere:self.where];;
+    return sql;
 }
 
 - (int)excuteInTransaction:(id<SMRTransactionItemDelegate>)item rollback:(BOOL *)rollback {
-    SMRDBMapper *dbMapper = [self dbMapper];
-    if (dbMapper == nil) {
-        return NO;
+    NSString *sql = self.sql;
+    base_core_datas_log(@"excute update:\n%@", sql);
+    if (!sql.length) {
+        return 0;
     }
+    
+    SMRDBMapper *dbMapper = [self dbMapper];
     if (self.object) {
-        NSDictionary *params = [[SMRDBAdapter shareInstance].dbParser sqlParamsDictFromModel:self.object withDBMapper:dbMapper];
-        NSString *sql = [dbMapper sqlForUpdateWhere:self.where];
-        BOOL isSuccess = [[[SMRDBAdapter shareInstance].dbManager class] excuteSQL:sql withParamsInDictionary:params inTransaction:item rollback:rollback];
+        NSDictionary *params = [self.dbParser sqlParamsDictFromModel:self.object withDBMapper:dbMapper];
+        BOOL isSuccess = [self.dbManager excuteSQL:sql withParamsInDictionary:params inTransaction:item rollback:rollback];
         return isSuccess;
     } else {
-        NSString *sql = [dbMapper sqlForUpdateSetWhere:self.where];
-        BOOL isSuccess = [[[SMRDBAdapter shareInstance].dbManager class] excuteSQL:sql withParamsInArray:self.paramsArray inTransaction:item rollback:rollback];
+        BOOL isSuccess = [self.dbManager excuteSQL:sql withParamsInArray:self.paramsArray inTransaction:item rollback:rollback];
         return isSuccess;
     }
 }

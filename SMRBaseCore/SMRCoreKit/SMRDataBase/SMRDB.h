@@ -1,9 +1,9 @@
 //
 //  SMRDB.h
-//  SMRDBDemo
+//  SMRDataBaseDemo
 //
-//  Created by 丁治文 on 2018/9/22.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/17.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #ifndef SMRDB_h
@@ -11,16 +11,10 @@
 
 #import "SMRFMDBManager.h"
 #import "SMRYYModelParser.h"
-#import "SMRDBAdapter.h"
 
 #import "NSObject+SMRDB.h"
 
-#import "SMRDBGroupOption.h"
-#import "SMRDBDeleteOption.h"
-#import "SMRDBInsertOption.h"
-#import "SMRDBSelectOption.h"
-#import "SMRDBUpdateOption.h"
-#import "SMRDBSqlOption.h"
-#import "SMRDBUtilOption.h"
+#import "SMRDBLib.h"
+#import "SMRDBOptions.h"
 
 #endif /* SMRDB_h */

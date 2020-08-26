@@ -25,7 +25,7 @@
         totalFreeSpace = [freeFileSystemSizeInBytes doubleValue];
         base_core_log(@"Memory Capacity of %f MiB with %f MiB Free memory available.", ((totalSpace/1024.0f)/1024.0f), ((totalFreeSpace/1024.0f)/1024.0f));
     } else {
-        base_core_log(@"Error Obtaining System Memory Info: Domain = %@, Code = %ld", [error domain], (long)[error code]);
+        base_core_warning_log(@"Error Obtaining System Memory Info: Domain = %@, Code = %ld", [error domain], (long)[error code]);
     }
     return ((totalFreeSpace/1024.0f)/1024.0f);
 }

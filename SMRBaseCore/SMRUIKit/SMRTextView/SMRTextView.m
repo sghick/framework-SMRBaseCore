@@ -36,8 +36,8 @@ UITextViewDelegate>
 }
 
 - (void)createSMRTextViewSubviews {
-    self.layer.borderColor = [UIColor smr_colorWithHexRGB:@"#999999"].CGColor;
-    self.layer.borderWidth = 1.0/[UIScreen mainScreen].scale;
+    self.layer.borderColor = [UIColor smr_darkGrayColor].CGColor;
+    self.layer.borderWidth = LINE_HEIGHT;
     self.layer.cornerRadius = [SMRUIAdapter value:1.0];
 
     self.contentTextView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
@@ -53,11 +53,13 @@ UITextViewDelegate>
         [self.contentTextView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(insets.top - contentOffset,
                                                                                       insets.left - contentOffset,
                                                                                       insets.bottom - contentOffset,
-                                                                                      insets.right - contentOffset)];
+                                                                                      insets.right - contentOffset) excludingEdge:ALEdgeBottom];
 
         [self.placeHolderLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:insets.top];
         [self.placeHolderLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:insets.left];
+        [self.placeHolderLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:insets.right];
         
+         [self.countLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.contentTextView withOffset:[SMRUIAdapter value:2]];
         [self.countLabel autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:insets.bottom];
         [self.countLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:insets.right];
         
@@ -154,7 +156,7 @@ UITextViewDelegate>
         _contentTextView.delegate = self;
         _contentTextView.scrollEnabled = YES;
         _contentTextView.textAlignment = NSTextAlignmentLeft;
-        _contentTextView.textColor = [UIColor smr_colorWithHexRGB:@"#333333"];
+        _contentTextView.textColor = [UIColor smr_generalBlackColor];
         _contentTextView.font = [UIFont smr_systemFontOfSize:12.0];
     }
     return _contentTextView;
@@ -163,7 +165,7 @@ UITextViewDelegate>
 - (UILabel *)countLabel {
     if (_countLabel == nil) {
         _countLabel = [[UILabel alloc] init];
-        _countLabel.textColor = [UIColor smr_colorWithHexRGB:@"#333333"];
+        _countLabel.textColor = [UIColor smr_generalBlackColor];
         _countLabel.font = [UIFont smr_systemFontOfSize:10];
         _countLabel.text = [self p_ountTextWithCount:0 maxLength:_maxLength format:_countFormat];
         _countLabel.hidden = YES;

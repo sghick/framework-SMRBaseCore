@@ -8,56 +8,56 @@
 
 #import "SMRGeneralButton.h"
 #import "SMRUIAdapter.h"
-#import "UIColor+SMR.h"
-#import "UIFont+SMR.h"
+#import "UIColor+SMRTransform.h"
+#import "UIFont+SMRAdapter.h"
 #import "SMRUtils+UIImage.h"
 
 @implementation SMRGeneralButton
 
 + (UIColor *)buttonColor:(SMRGeneralButtonColor)color {
     switch (color) {
-        case SMRGeneralButtonColorOrange: { return [UIColor smr_colorWithHexRGB:@"#F19722"];} break;
-        case SMRGeneralButtonColorBlack: { return [UIColor smr_colorWithHexRGB:@"#333333"];} break;
-        case SMRGeneralButtonColorWhite: { return [UIColor smr_colorWithHexRGB:@"#FFFFFF"];} break;
-        case SMRGeneralButtonColorRed: { return [UIColor smr_colorWithHexRGB:@"#D12920"];} break;
+        case SMRGeneralButtonColorOrange: { return [UIColor smr_generalOrangeColor];} break;
+        case SMRGeneralButtonColorBlack: { return [UIColor smr_alertBlackColor];} break;
+        case SMRGeneralButtonColorWhite: { return [UIColor smr_whiteColor];} break;
+        case SMRGeneralButtonColorRed: { return [UIColor smr_generalRedColor];} break;
         // 默认颜色
-        default: { return [UIColor smr_colorWithHexRGB:@"#F19722"];} break;
+        default: { return [UIColor smr_generalOrangeColor];} break;
     }
     return nil;
 }
 
 + (UIColor *)buttonTitleColor:(SMRGeneralButtonColor)color {
     switch (color) {
-        case SMRGeneralButtonColorOrange: { return [UIColor smr_colorWithHexRGB:@"#FFFFFF"];} break;
-        case SMRGeneralButtonColorBlack: { return [UIColor smr_colorWithHexRGB:@"#FFFFFF"];} break;
-        case SMRGeneralButtonColorWhite: { return [UIColor smr_colorWithHexRGB:@"#333333"];} break;
-        case SMRGeneralButtonColorRed: { return [UIColor smr_colorWithHexRGB:@"#FFFFFF"];} break;
+        case SMRGeneralButtonColorOrange: { return [UIColor smr_whiteColor];} break;
+        case SMRGeneralButtonColorBlack: { return [UIColor smr_whiteColor];} break;
+        case SMRGeneralButtonColorWhite: { return [UIColor smr_alertBlackColor];} break;
+        case SMRGeneralButtonColorRed: { return [UIColor smr_whiteColor];} break;
         // 默认颜色
-        default: { return [UIColor smr_colorWithHexRGB:@"#FFFFFF"];} break;
+        default: { return [UIColor smr_whiteColor];} break;
     }
     return nil;
 }
 
 + (UIColor *)buttonBorderColor:(SMRGeneralButtonColor)color {
     switch (color) {
-        case SMRGeneralButtonColorOrange: { return [UIColor smr_colorWithHexRGB:@"#F19722"];} break;
-        case SMRGeneralButtonColorBlack: { return [UIColor smr_colorWithHexRGB:@"#999999"];} break;
-        case SMRGeneralButtonColorWhite: { return [UIColor smr_colorWithHexRGB:@"#FFFFFF"];} break;
-        case SMRGeneralButtonColorRed: { return [UIColor smr_colorWithHexRGB:@"#D12920"];} break;
+        case SMRGeneralButtonColorOrange: { return [UIColor smr_generalOrangeColor];} break;
+        case SMRGeneralButtonColorBlack: { return [UIColor smr_darkGrayColor];} break;
+        case SMRGeneralButtonColorWhite: { return [UIColor smr_whiteColor];} break;
+        case SMRGeneralButtonColorRed: { return [UIColor smr_generalRedColor];} break;
         // 默认颜色
-        default: { return [UIColor smr_colorWithHexRGB:@"#F19722"];} break;
+        default: { return [UIColor smr_generalOrangeColor];} break;
     }
     return nil;
 }
 
 + (UIColor *)buttonBorderTitleColor:(SMRGeneralButtonColor)color {
     switch (color) {
-        case SMRGeneralButtonColorOrange: { return [UIColor smr_colorWithHexRGB:@"#F19722"];} break;
-        case SMRGeneralButtonColorBlack: { return [UIColor smr_colorWithHexRGB:@"#333333"];} break;
-        case SMRGeneralButtonColorWhite: { return [UIColor smr_colorWithHexRGB:@"#FFFFFF"];} break;
-        case SMRGeneralButtonColorRed: { return [UIColor smr_colorWithHexRGB:@"#D12920"];} break;
+        case SMRGeneralButtonColorOrange: { return [UIColor smr_generalOrangeColor];} break;
+        case SMRGeneralButtonColorBlack: { return [UIColor smr_alertBlackColor];} break;
+        case SMRGeneralButtonColorWhite: { return [UIColor smr_whiteColor];} break;
+        case SMRGeneralButtonColorRed: { return [UIColor smr_generalRedColor];} break;
         // 默认颜色
-        default: { return [UIColor smr_colorWithHexRGB:@"#F19722"];} break;
+        default: { return [UIColor smr_generalOrangeColor];} break;
     }
     return nil;
 }
@@ -122,26 +122,21 @@
         [self setTitleColor:titleColor forState:UIControlStateNormal];
     }
 }
-+ (instancetype)roundButtonWithTitle:(nullable NSString *)title
-                               target:(id)target
-                               action:(SEL)action {
++ (instancetype)roundButtonWithTitle:(nullable NSString *)title target:(id)target action:(SEL)action {
     return [self roundButtonWithTitle:title
                                  font:[UIFont smr_boldSystemFontOfSize:15]
                                target:target
                                action:action];
 }
-+ (instancetype)roundButtonWithTitle:(nullable NSString *)title
-                                font:(nullable UIFont *)font
-                              target:(id)target
-                              action:(SEL)action {
++ (instancetype)roundButtonWithTitle:(nullable NSString *)title font:(nullable UIFont *)font target:(id)target action:(SEL)action {
     return [self defaultButtonWithTitle:title
                                  target:target
                                  action:action
                             normalColor:[self.class buttonColor:SMRGeneralButtonColorDefaul]
-                           disableColor:[UIColor smr_colorWithHexRGB:@"#CDCDCD"]
+                           disableColor:[UIColor smr_disableGrayColor]
                              titleColor:[self.class buttonTitleColor:SMRGeneralButtonColorDefaul]
                                    font:font
-                            cornerRadius:6];
+                           cornerRadius:6];
 }
 
 #pragma mark - RectButton
@@ -164,7 +159,7 @@
     return [self rectButtonWithTitle:title
                                 font:[UIFont smr_boldSystemFontOfSize:15]
                               target:target
-                              action:action];;
+                              action:action];
 }
 
 + (instancetype)rectButtonWithTitle:(NSString *)title font:(UIFont *)font target:(id)target action:(SEL)action {
@@ -172,7 +167,7 @@
                                  target:target
                                  action:action
                             normalColor:[self.class buttonColor:SMRGeneralButtonColorDefaul]
-                           disableColor:[UIColor smr_colorWithHexRGB:@"#CDCDCD"]
+                           disableColor:[UIColor smr_disableGrayColor]
                              titleColor:[self.class buttonTitleColor:SMRGeneralButtonColorDefaul]
                                    font:font
                            cornerRadius:0];
@@ -209,11 +204,7 @@
                                 action:action];
 }
 
-+ (instancetype)borderButtonWithColor:(UIColor *)color
-                                 font:(nullable UIFont *)font
-                                title:(nullable NSString *)title
-                               target:(id)target
-                               action:(SEL)action {
++ (instancetype)borderButtonWithColor:(UIColor *)color font:(nullable UIFont *)font title:(nullable NSString *)title target:(id)target action:(SEL)action {
     SMRGeneralButton *btn = [SMRGeneralButton buttonWithType:UIButtonTypeCustom];
     title ? [btn setTitle:title forState:UIControlStateNormal] : NULL;
     color ? [btn setTitleColor:color forState:UIControlStateNormal] : NULL;

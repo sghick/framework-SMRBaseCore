@@ -1,9 +1,9 @@
 //
 //  UITableView+SMRSeparator.h
-//  SeperatorLine
+//  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 16/7/11.
-//  Copyright © 2016年 丁治文. All rights reserved.
+//  Created by 丁治文 on 2018/12/24.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -12,8 +12,8 @@
  format格式:
  
  说明:以下所有下标请以0开始计算
-     正数计算时:数组下标值,如{2,3},表示正数下标为2的位置,往后数3个的范围;
-     倒数计算时:为正常数值,如-{3,2},表示倒第3行开始,往前数2个的范围.
+ 正数计算时:数组下标值,如{2,3},表示正数下标为2的位置,往后数3个的范围;
+ 倒数计算时:为正常数值,如-{3,2},表示倒第3行开始,往前数2个的范围.
  
  符号:
  -:倒数:倒数位置
@@ -42,24 +42,24 @@
  "Fn",表示:全部为F样式
  "Ln|L2|F3|F-4|L-3",表示:第2行为L,第3行为F,倒数第4行为F,最后3行为L,其他的为L
  "Cn|R{0,2}|F3|F-{3,2}|L-1",表示:第0行到第2行为R,第3行为F,倒数第3行至倒数第4行2个行为F,最后一行为L,其他的为C
-
+ 
  [补充]以上格式中以分隔符'|'分隔的单位,与顺序无关,但顺序的不同可能会对执行时间产生细微的影响.
  [推荐]估计占某种样式最多的,请尽量往前写.
-      带n的格式块写在最前.
+ 带n的格式块写在最前.
  */
 
 /// On
-extern NSString * const SMRSeperatorsFormatAllNone;
+extern NSString * const SMRSeperatorsFormatNone;
 /// Fn
-extern NSString * const SMRSeperatorsFormatAllLong;
+extern NSString * const SMRSeperatorsFormatLong;
 /// Ln
-extern NSString * const SMRSeperatorsFormatAllLeftLess;
+extern NSString * const SMRSeperatorsFormatLeftLess;
 /// Rn
-extern NSString * const SMRSeperatorsFormatAllRightLess;
+extern NSString * const SMRSeperatorsFormatRightLess;
 /// Cn
-extern NSString * const SMRSeperatorsFormatAllCenterLess;
+extern NSString * const SMRSeperatorsFormatCenterLess;
 
-@interface UITableView (SMRSeparator)
+@interface UITableView (Separator)
 
 @property (nonatomic, assign) CGFloat leftMargin;///< default:20*scale|info.plist
 @property (nonatomic, assign) CGFloat rightMargin;///< default:20*scale|info.plist
@@ -78,9 +78,5 @@ extern NSString * const SMRSeperatorsFormatAllCenterLess;
  */
 - (void)smr_setSeparatorsWithFormat:(NSString *)format cell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath;
 
-/**
- 隐藏底部额外的线
- */
-- (void)smr_setExtraCellLineHidden;
 
 @end

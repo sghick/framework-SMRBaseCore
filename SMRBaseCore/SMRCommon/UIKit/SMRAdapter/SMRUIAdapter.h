@@ -2,7 +2,7 @@
 //  SMRUIAdapter.h
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/2/13.
+//  Created by 丁治文 on 2019/1/23.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
@@ -31,6 +31,8 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 (isPhoneX);})
 // 获得当前版本号
 #define SYSTEM_VERSION [UIDevice currentDevice].systemVersion
+// 顶部状态条调试
+#define TOPWITHSTATUSBAR_HEIGHT (IS_IPHONEX_SERIES ? 44.f : 20.f)
 // 底部安全区域 + tabBar高度
 #define BOTTOMWITHTABBAR_HEIGHT (IS_IPHONEX_SERIES ? (49.f+34.f) : 49.f)
 // 底部安全区域

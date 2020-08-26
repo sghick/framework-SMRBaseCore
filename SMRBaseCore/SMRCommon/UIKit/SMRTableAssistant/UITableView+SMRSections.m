@@ -1,9 +1,9 @@
 //
 //  UITableView+SMRSections.m
-//  SMRTableAssistantDemo
+//  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2018/11/10.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/24.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "UITableView+SMRSections.h"
@@ -102,6 +102,39 @@ static const char SMRUnfoldStatusPropertyKey = '\0';
     [self moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
 }
 
+- (void)smr_scrollToTopWithAnimated:(BOOL)animated {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self smr_scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:animated];
+}
+
+- (void)smr_scrollToBottomWithAnimated:(BOOL)animated {
+    NSInteger lastSection = self.numberOfSections - 1;
+    NSInteger lastRow = [self numberOfRowsInSection:lastSection] - 1;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:lastRow inSection:lastSection];
+    [self smr_scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
+}
+
+- (void)smr_scrollToRowAtSectionKey:(NSInteger)sectionKey rowKey:(NSInteger)rowKey scrollPosition:(UITableViewScrollPosition)scrollPosition animated:(BOOL)animated {
+    NSIndexPath *indexPath = [self.sections indexPathWithSectionKey:sectionKey rowKey:rowKey];
+    [self smr_scrollToRowAtIndexPath:indexPath atScrollPosition:scrollPosition animated:animated];
+}
+
+- (void)smr_scrollToRowAtIndexPath:(NSIndexPath *)indexPath atScrollPosition:(UITableViewScrollPosition)scrollPosition animated:(BOOL)animated {
+    if (!indexPath) {
+        return;
+    }
+    NSInteger lastSection = self.numberOfSections - 1;
+    if ((indexPath.section < 0) || (indexPath.section > lastSection)) {
+        return;
+    }
+    NSInteger lastRow = [self numberOfRowsInSection:lastSection] - 1;
+    if ((indexPath.row < 0) || (indexPath.row > lastRow)) {
+        return;
+    }
+    
+    [self scrollToRowAtIndexPath:indexPath atScrollPosition:scrollPosition animated:animated];
+}
+
 #pragma mark - Utils
 
 - (SMRSection *)sectionWithIndexPathSection:(NSInteger)indexPathSection {
@@ -109,6 +142,10 @@ static const char SMRUnfoldStatusPropertyKey = '\0';
 }
 
 - (SMRRow *)rowWithIndexPath:(NSIndexPath *)indexPath {
+    return [self.sections rowWithIndexPath:indexPath];
+}
+- (SMRRow *)rowWithCell:(UITableViewCell *)cell {
+    NSIndexPath *indexPath = [self indexPathForCell:cell];
     return [self.sections rowWithIndexPath:indexPath];
 }
 

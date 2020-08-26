@@ -1,9 +1,9 @@
 //
 //  SMRDBAdapter.h
-//  SMRDBDemo
+//  SMRDataBaseDemo
 //
-//  Created by 丁治文 on 2018/9/23.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/18.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -11,8 +11,14 @@
 
 @interface SMRDBAdapter : NSObject
 
-@property (nonatomic, strong) id<SMRDBManagerProtocol>  dbManager;  ///< 基本数据库,不可空
-@property (nonatomic, strong) id<SMRDBParserDelegate>   dbParser;   ///< 可以设置解析数据,否则将使用默认解析器
+/** 是否输入执行的sql,默认NO */
+@property (nonatomic, assign) BOOL logForSql;
+
+/** 基本数据库,不可空 */
+@property (nonatomic, strong) id<SMRDBManagerProtocol>  dbManager;
+
+/** 可以设置解析数据,否则将使用默认解析器 */
+@property (nonatomic, strong) id<SMRDBParserDelegate>   dbParser;
 
 + (instancetype)shareInstance;
 

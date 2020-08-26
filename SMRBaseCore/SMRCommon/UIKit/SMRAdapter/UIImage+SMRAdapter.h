@@ -2,7 +2,7 @@
 //  UIImage+SMRAdapter.h
 //  SMRBaseCoreDemo
 //
-//  Created by Tinswin on 2019/10/14.
+//  Created by 丁治文 on 2019/1/23.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
@@ -12,7 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImage (SMRAdapter)
 
-+ (UIImage *)smr_fixOrientation:(UIImage *)aImage;
++ (UIImage *)smr_fixOrientation:(UIImage*)aImage;
++ (UIImage *)smr_imageNamed:(NSString *)name;
 
 @end
 

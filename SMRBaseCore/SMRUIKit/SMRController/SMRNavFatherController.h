@@ -1,8 +1,8 @@
 //
 //  SMRNavFatherController.h
-//  SMRBaseCoreDemo
+//  SMRGeneralUseDemo
 //
-//  Created by 丁治文 on 2019/1/21.
+//  Created by 丁治文 on 2019/1/8.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 

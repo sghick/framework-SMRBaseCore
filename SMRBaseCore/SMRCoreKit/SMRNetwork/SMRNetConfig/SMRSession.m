@@ -2,7 +2,7 @@
 //  SMRSession.m
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/1/21.
+//  Created by 丁治文 on 2019/1/17.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
@@ -49,17 +49,17 @@
 #pragma mark - SMRSessionUtilsProtocol
 
 - (BOOL)reachable {
-    NSAssert(nil, @"未实现此方法");
+//    NSAssert(nil, @"未实现此方法");
     return YES;
 }
 
 - (BOOL)reachableViaWWAN {
-    NSAssert(nil, @"未实现此方法");
+//    NSAssert(nil, @"未实现此方法");
     return YES;
 }
 
 - (BOOL)reachableViaWiFi {
-    NSAssert(nil, @"未实现此方法");
+//    NSAssert(nil, @"未实现此方法");
     return YES;
 }
 

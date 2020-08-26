@@ -1,13 +1,14 @@
 //
 //  SMRNavigationBar.m
-//  SMRBaseCoreDemo
+//  SMRGeneralUseDemo
 //
-//  Created by 丁治文 on 2019/1/21.
+//  Created by 丁治文 on 2019/1/11.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
 #import "SMRNavigationBar.h"
 #import "PureLayout.h"
+#import "SMRUIAdapter.h"
 
 @interface SMRNavigationBar ()
 
@@ -18,6 +19,7 @@
 
 @implementation SMRNavigationBar
 
+@synthesize item = _item;
 @synthesize backgroundImageView = _backgroundImageView;
 @synthesize contentView = _contentView;
 @synthesize splitLine = _splitLine;
@@ -51,9 +53,17 @@
         [self.splitLine autoPinEdgeToSuperviewEdge:ALEdgeLeft];
         [self.splitLine autoPinEdgeToSuperviewEdge:ALEdgeRight];
         [self.splitLine autoPinEdgeToSuperviewEdge:ALEdgeBottom];
-        [self.splitLine autoSetDimension:ALDimensionHeight toSize:1.0/[UIScreen mainScreen].scale];
+        [self.splitLine autoSetDimension:ALDimensionHeight toSize:LINE_HEIGHT];
     }
     [super updateConstraints];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+
+    CGFloat top = self.topOfContentView;
+    self.contentView.frame = CGRectMake(0, top, CGRectGetWidth([UIScreen mainScreen].bounds), self.item.heightOfNavigationContent);
+    self.backgroundImageView.frame = CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), self.item.heightOfNavigation);
 }
 
 /**
@@ -65,8 +75,14 @@
     item.leftMargin = 20;
     item.rightMargin = 20;
     item.heightOfNavigationContent = 44.0;
-    item.heightOfNavigation = item.heightOfNavigationContent + (IS_IPHONEX_SERIES ? 44.0 : 20.0);
+    item.heightOfNavigation = item.heightOfNavigationContent + TOPWITHSTATUSBAR_HEIGHT;
     return item;
+}
+
+#pragma mark - SMRNavigationBarProtocol
+
+- (CGFloat)topOfContentView {
+    return self.item.heightOfNavigation - self.item.heightOfNavigationContent;
 }
 
 #pragma mark - ContentViews
@@ -99,14 +115,26 @@
     }
 }
 
-#pragma mark - Setters/Getters
+#pragma mark - Setters
+
+- (void)setItem:(SMRNavigationItem *)item {
+    _item = item;
+    [self setNeedsLayout];
+}
+
+#pragma mark - Getters
+
+- (SMRNavigationItem *)item {
+    if (!_item) {
+        _item = [self.class navigationItem];
+    }
+    return _item;
+}
 
 - (UIImageView *)backgroundImageView {
     if (_backgroundImageView == nil) {
-        UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectMake(0,
-                                                                          0,
-                                                                          CGRectGetWidth([UIScreen mainScreen].bounds),
-                                                                          [SMRNavigationBar navigationItem].heightOfNavigation)];
+        UIImageView *view = [[UIImageView alloc] init];
+        view.frame = CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), self.item.heightOfNavigation);
         view.contentMode = UIViewContentModeScaleToFill;
         _backgroundImageView = view;
     }
@@ -115,11 +143,9 @@
 
 - (UIView *)contentView {
     if (_contentView == nil) {
-        CGFloat cal = [SMRNavigationBar navigationItem].heightOfNavigation - [SMRNavigationBar navigationItem].heightOfNavigationContent;
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                cal,
-                                                                CGRectGetWidth([UIScreen mainScreen].bounds),
-                                                                [SMRNavigationBar navigationItem].heightOfNavigationContent)];
+        CGFloat top = self.topOfContentView;
+        UIView *view = [[UIView alloc] init];
+        view.frame = CGRectMake(0, top, CGRectGetWidth([UIScreen mainScreen].bounds), self.item.heightOfNavigationContent);
         _contentView = view;
     }
     return _contentView;

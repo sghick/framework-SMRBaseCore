@@ -2,7 +2,7 @@
 //  SMRSliderBarContentView.h
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/3/18.
+//  Created by 丁治文 on 2019/3/7.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 

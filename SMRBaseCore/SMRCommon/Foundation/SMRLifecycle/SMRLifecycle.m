@@ -1,14 +1,14 @@
 //
 //  SMRLifecycle.m
-//  SMRLifecycleDemo
+//  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2018/7/17.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/17.
+//  Copyright © 2018 BaoDashi. All rights reserved.
 //
 
 #import "SMRLifecycle.h"
 
-NSString * const kPrefixHeaderForLifecycleManager = @"kLifecycleADERIUASDKJ21349LKJAF3";
+NSString * const kPrefixHeaderForLifecycleManager = @"kLifecycleERASDFJELAISJFEKLS734L";
 
 @interface SMRLifecycle ()
 
@@ -87,7 +87,7 @@ static dispatch_once_t _lifecyclemanageronceToken;
     [[NSUserDefaults standardUserDefaults] setObject:version forKey:[NSString stringWithFormat:@"%@_%@", kPrefixHeaderForLifecycleManager, @"version"]];
 }
 
-- (void)setCustomVersion:(NSString *)customVersion {
+- (void)setCustomVersion:(nullable NSString *)customVersion {
     _customVersion = customVersion;
     [[NSUserDefaults standardUserDefaults] setObject:customVersion forKey:[NSString stringWithFormat:@"%@_%@", kPrefixHeaderForLifecycleManager, @"customVersion"]];
 }
@@ -267,7 +267,7 @@ static dispatch_once_t _lifecyclemanageronceToken;
 + (void)setAppLaunchWithVersion:(NSString *)version {
     [self setAppLaunchWithVersion:version customVersion:nil];
 }
-+ (void)setAppLaunchWithVersion:(NSString *)version customVersion:(NSString *)customVersion {
++ (void)setAppLaunchWithVersion:(NSString *)version customVersion:(nullable NSString *)customVersion {
     SMRLifecycle *lifecycle = [SMRLifecycle shareInstance];
     if (lifecycle.didSetAppLaunch == NO) {
         lifecycle.didSetAppLaunch = YES;

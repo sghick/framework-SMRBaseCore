@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SMRUtils : NSObject
 
++ (void)endEditing:(BOOL)edit;
+
 @end
 
 NS_ASSUME_NONNULL_END

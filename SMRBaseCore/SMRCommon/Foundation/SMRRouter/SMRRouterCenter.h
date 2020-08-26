@@ -1,9 +1,9 @@
 //
 //  SMRRouterCenter.h
-//  SMRBaseCoreDemo
+//  SMRRouterDemo
 //
-//  Created by 丁治文 on 2018/10/2.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/14.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -37,10 +37,9 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - URL Deals
 /// scheme://target/action?param1=a&param2=b
 + (BOOL)canResponseWithUrl:(NSURL *)url;
-+ (id)performWithUrl:(NSURL *)url params:(nullable NSDictionary *)params;
-+ (id)performWithUrl:(NSURL *)url params:(nullable NSDictionary *)params shouldCacheTarget:(BOOL)shouldCacheTarget;
++ (nullable id)performWithUrl:(NSURL *)url params:(nullable NSDictionary *)params;
++ (nullable id)performWithUrl:(NSURL *)url params:(nullable NSDictionary *)params shouldCacheTarget:(BOOL)shouldCacheTarget;
 
 @end
 
 NS_ASSUME_NONNULL_END
-

@@ -1,9 +1,9 @@
 //
 //  SMRNavigator.m
-//  SMRBaseCoreDemo
+//  SMRRouterDemo
 //
-//  Created by 丁治文 on 2018/10/2.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/14.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "SMRNavigator.h"
@@ -19,7 +19,7 @@
     return _sharedNavigator;
 }
 
-+ (void)resetToRootViewControllerWithCompletion:(void (^)(void))completion {
++ (void)resetToRootViewControllerWithCompletion:(nullable void (^)(void))completion {
     UIViewController *krootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
     [krootVC dismissViewControllerAnimated:NO completion:nil];
     if ([krootVC isKindOfClass:[UITabBarController class]]) {

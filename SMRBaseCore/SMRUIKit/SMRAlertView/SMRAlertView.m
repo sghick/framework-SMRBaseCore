@@ -2,57 +2,69 @@
 //  SMRAlertView.m
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/2/13.
+//  Created by 丁治文 on 2019/2/14.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
 #import "SMRAlertView.h"
-#import "SMRBaseCoreConfig.h"
+#import "SMRUIAppearance.h"
 #import "PureLayout.h"
 #import "SMRAdapter.h"
+#import "SMRUtilsUIHeader.h"
 #import "UITableView+SMRSeparator.h"
 #import "UITableView+SMRSections.h"
 #import "SMRAlertViewContentTextCell.h"
 #import "SMRAlertViewImageCell.h"
-#import "SMRAlertViewButton.h"
 
 typedef NS_ENUM(NSInteger, kSectionType) {
     kSectionTypeContent,    ///< 内容
 };
 
 typedef NS_ENUM(NSInteger, kRowType) {
-    kRowTypeContentText,    ///< 文本内容
-    kRowTypeContentImage,   ///< 图片内容
+    kRowTypeContentText,        ///< 文本内容
+    kRowTypeContentImage,       ///< 图片内容
+    kRowTypeContentTextField,   ///< 输入框内容
 };
 
 static NSString * const identifierOfAlertViewContentTextCell = @"identifierOfAlertViewContentTextCell";
 static NSString * const identifierOfAlertViewImageCell = @"identifierOfAlertViewImageCell";
+static NSString * const identifierOfAlertViewTextFieldCell = @"identifierOfAlertViewTextFieldCell";
 
 @interface SMRAlertView ()<
 UITableViewSectionsDelegate,
 SMRAlertViewContentTextCellDelegate>
 
-@property (assign, nonatomic) SMRAlertViewStyle alertViewStyle;
 @property (strong, nonatomic) NSMutableDictionary<NSString *,NSURL *> *linkSymbols;
-
-@property (copy  , nonatomic) NSString *imageURL;
-@property (strong, nonatomic) UIImage *image;
-@property (assign, nonatomic) CGSize imageSize;
-@property (assign, nonatomic) CGFloat imageSpace;
 
 @end
 
 @implementation SMRAlertView
 
+@synthesize textField = _textField;
+
++ (void)smr_beforeAppearance:(SMRAlertView *)obj {
+    obj.contentTextAlignment = NSTextAlignmentCenter;
+    obj.titleColor = [UIColor smr_colorWithHexRGB:@"#333333"];
+}
+
 - (instancetype)initWithFrame:(CGRect)frame contentAlignment:(SMRContentMaskViewContentAlignment)contentAlignment {
     self = [super initWithFrame:frame contentAlignment:contentAlignment];
     if (self) {
         // 使用config配置的样式
-        _alertViewStyle = [SMRBaseCoreConfig sharedInstance].alertViewStyle;
-        _contentTextAlignment = NSTextAlignmentCenter;
+        _contentTextAlignment = self.smr_appearance.contentTextAlignment;
+        _titleColor = self.smr_appearance.titleColor;
         
-        [self.tableView registerClass:[SMRAlertViewContentTextCell class] forCellReuseIdentifier:identifierOfAlertViewContentTextCell];
-        [self.tableView registerClass:[SMRAlertViewImageCell class] forCellReuseIdentifier:identifierOfAlertViewImageCell];
+        __weak typeof(self) weakSelf = self;
+        self.contentViewTouchedBlock = ^(id  _Nonnull maskView) {
+            [weakSelf endEditing:YES];
+        };
+        self.backgroundTouchedBlock = ^(id  _Nonnull maskView) {
+            [weakSelf endEditing:YES];
+        };
+        
+        [self.tableView registerClass:SMRAlertViewContentTextCell.class forCellReuseIdentifier:identifierOfAlertViewContentTextCell];
+        [self.tableView registerClass:SMRAlertViewImageCell.class forCellReuseIdentifier:identifierOfAlertViewImageCell];
+        [self.tableView registerClass:UITableViewCell.class forCellReuseIdentifier:identifierOfAlertViewTextFieldCell];
         self.tableView.sectionsDelegate = self;
         [self.tableView smr_markCustomTableViewSeparators];
     }
@@ -78,14 +90,20 @@ SMRAlertViewContentTextCellDelegate>
     _image = image;
     _imageSize = size;
     _imageSpace = space;
-    [self smr_reloadData];
+    [self smr_setNeedsReloadView];
 }
 
 - (void)addImageURL:(NSString *)imageURL size:(CGSize)size space:(CGFloat)space {
     _imageURL = imageURL;
     _imageSize = size;
     _imageSpace = space;
-    [self smr_reloadData];
+    [self smr_setNeedsReloadView];
+}
+
++ (instancetype)alertView {
+    SMRAlertView *alertView = [[self alloc] init];
+    [alertView smr_setNeedsReloadView];
+    return alertView;
 }
 
 + (instancetype)alertViewWithContent:(NSString *)content
@@ -96,7 +114,6 @@ SMRAlertViewContentTextCellDelegate>
     alertView.attributeContent = [[NSAttributedString alloc] initWithString:content];
     alertView.buttonTitles = buttonTitles;
     alertView.deepColorType = deepColorType;
-    [alertView smr_reloadData];
     return alertView;
 }
 
@@ -110,7 +127,6 @@ SMRAlertViewContentTextCellDelegate>
     alertView.attributeContent = [[NSAttributedString alloc] initWithString:content];
     alertView.buttonTitles = buttonTitles;
     alertView.deepColorType = deepColorType;
-    [alertView smr_reloadData];
     return alertView;
 }
 
@@ -122,7 +138,6 @@ SMRAlertViewContentTextCellDelegate>
     alertView.content = attributeContent.string;
     alertView.buttonTitles = buttonTitles;
     alertView.deepColorType = deepColorType;
-    [alertView smr_reloadData];
     return alertView;
 }
 
@@ -136,7 +151,19 @@ SMRAlertViewContentTextCellDelegate>
     alertView.content = attributeContent.string;
     alertView.buttonTitles = buttonTitles;
     alertView.deepColorType = deepColorType;
-    [alertView smr_reloadData];
+    return alertView;
+}
+
++ (instancetype)alertViewWithTextFieldAndButtonTitles:(NSArray<NSString *> *)buttonTitles
+                                        deepColorType:(SMRAlertViewButtonDeepColorType)deepColorType
+                                          configStyle:(UITextField * _Nonnull (^)(UITextField * _Nonnull))configStyle {
+    SMRAlertView *alertView = [[self alloc] init];
+    alertView.useTextField = YES;
+    alertView.buttonTitles = buttonTitles;
+    alertView.deepColorType = deepColorType;
+    if (configStyle) {
+        alertView.textField = configStyle(alertView.textField);
+    }
     return alertView;
 }
 
@@ -150,6 +177,9 @@ SMRAlertViewContentTextCellDelegate>
     }
     if ([self p_shouldShowImage]) {
         [sections addSectionKey:kSectionTypeContent rowKey:kRowTypeContentImage];
+    }
+    if (self.useTextField) {
+        [sections addSectionKey:kSectionTypeContent rowKey:kRowTypeContentTextField];
     }
     return sections;
 }
@@ -186,7 +216,7 @@ SMRAlertViewContentTextCellDelegate>
         UILabel *titleLabel = [[UILabel alloc] init];
         titleLabel.textAlignment = NSTextAlignmentCenter;
         titleLabel.font = [UIFont smr_boldSystemFontOfSize:17];
-        titleLabel.textColor = [UIColor smr_colorWithHexRGB:@"#333333"];
+        titleLabel.textColor = self.titleColor;
         titleLabel.text = self.title;
         
         [titleView addSubview:titleLabel];
@@ -194,69 +224,6 @@ SMRAlertViewContentTextCellDelegate>
         [titleLabel autoAlignAxisToSuperviewAxis:ALAxisVertical];
         
         return titleView;
-    }
-    return nil;
-}
-
-- (CGFloat)smr_heightOfBottomBar {
-    // 有按钮时
-    if (self.buttonTitles.count) {
-        return [SMRUIAdapter value:45] + [self heightOfButtonForStyle:self.alertViewStyle];
-    }
-    return 0;
-}
-
-- (UIView *)smr_bottomBarOfTableAlertView {
-    // 有按钮时
-    if (self.buttonTitles.count) {
-        NSArray<UIButton *> *buttons = nil;
-        if (self.buttonTitles.count == 1) {
-            // 1个按钮时,sure]
-            if (!self.reversCancleAndSureButtonPostion) {
-                UIButton *sureBtn = [self buttonForStyle:self.alertViewStyle
-                                                   title:self.buttonTitles[0]
-                                                  target:self
-                                                  action:@selector(sureBtnAction:)
-                                               deepColor:YES];
-                buttons = @[sureBtn];
-            } else {
-                UIButton *cancelBtn = [self buttonForStyle:self.alertViewStyle
-                                                     title:self.buttonTitles[0]
-                                                    target:self
-                                                    action:@selector(cancelBtnAction:)
-                                                 deepColor:YES];
-                
-                buttons = @[cancelBtn];
-            }
-        } else if (self.buttonTitles.count == 2) {
-            // 2个按钮时,cancel+sure
-            UIButton *cancelBtn = [self buttonForStyle:self.alertViewStyle
-                                                 title:self.buttonTitles[0]
-                                                target:self
-                                                action:@selector(cancelBtnAction:)
-                                             deepColor:NO];
-            UIButton *sureBtn = [self buttonForStyle:self.alertViewStyle
-                                               title:self.buttonTitles[1]
-                                              target:self
-                                              action:@selector(sureBtnAction:)
-                                           deepColor:YES];
-            if (!self.reversCancleAndSureButtonPostion) {
-                buttons = @[cancelBtn, sureBtn];
-            } else {
-                buttons = @[sureBtn, cancelBtn];
-            }
-        }
-        
-        CGFloat height = [self heightOfButtonForStyle:self.alertViewStyle];
-        UIView *bottomView = [[UIView alloc] init];
-        SMRAlertViewButton *btn = [[SMRAlertViewButton alloc] initWithButtons:buttons height:height space:0];
-        [bottomView addSubview:btn];
-        [btn autoPinEdgeToSuperviewEdge:ALEdgeLeft];
-        [btn autoPinEdgeToSuperviewEdge:ALEdgeRight];
-        [btn autoPinEdgeToSuperviewEdge:ALEdgeBottom];
-        [btn autoSetDimension:ALDimensionHeight toSize:height];
-        
-        return bottomView;
     }
     return nil;
 }
@@ -273,7 +240,11 @@ SMRAlertViewContentTextCellDelegate>
     NSIndexPath *indexPathForContentImage = [tableView.sections indexPathWithSectionKey:kSectionTypeContent rowKey:kRowTypeContentImage];
     CGFloat heightOfContentImage = indexPathForContentImage ? [self smr_tableView:tableView heightForRowAtIndexPath:indexPathForContentImage] : 0;
     
-    heightOfTableView = heightOfContentText + heightOfContentImage;
+    
+    NSIndexPath *indexPathForContentTextField = [tableView.sections indexPathWithSectionKey:kSectionTypeContent rowKey:kRowTypeContentTextField];
+    CGFloat heightOfContentTextField = indexPathForContentTextField ? [self smr_tableView:tableView heightForRowAtIndexPath:indexPathForContentTextField] : 0;
+    
+    heightOfTableView = heightOfContentText + heightOfContentImage + heightOfContentTextField;
     return heightOfTableView;
 }
 
@@ -292,6 +263,10 @@ SMRAlertViewContentTextCellDelegate>
             break;
         case kRowTypeContentImage: {
             return self.imageSize.height + self.imageSpace;
+        }
+            break;
+        case kRowTypeContentTextField: {
+            return [SMRUIAdapter value:60];
         }
             break;
         default:
@@ -335,6 +310,17 @@ SMRAlertViewContentTextCellDelegate>
             return cell;
         }
             break;
+        case kRowTypeContentTextField: {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierOfAlertViewTextFieldCell];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell.contentView addSubview:self.textField];
+            [self.textField autoPinEdgeToSuperviewEdge:ALEdgeTop];
+            [self.textField autoPinEdgeToSuperviewEdge:ALEdgeBottom];
+            [self.textField autoAlignAxisToSuperviewAxis:ALAxisVertical];
+            [self.textField autoSetDimension:ALDimensionWidth toSize:[self maxLayoutOfTextFieldWidth]];
+            return cell;
+        }
+            break;
             
         default:
             break;
@@ -344,7 +330,7 @@ SMRAlertViewContentTextCellDelegate>
 }
 
 - (void)smr_tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView smr_setSeparatorsWithFormat:SMRSeperatorsFormatAllNone cell:cell indexPath:indexPath];
+    [tableView smr_setSeparatorsWithFormat:SMRSeperatorsFormatNone cell:cell indexPath:indexPath];
 }
 
 - (void)smr_reloadData {
@@ -382,39 +368,28 @@ SMRAlertViewContentTextCellDelegate>
 
 #pragma mark - Style
 
-- (CGFloat)heightOfButtonForStyle:(SMRAlertViewStyle)style {
-    return [SMRAlertViewButton generalHeightOfButton];
-}
-
-- (UIButton *)buttonForStyle:(SMRAlertViewStyle)style title:(NSString *)title target:(id)target action:(SEL)action deepColor:(BOOL)deepColor {
-    // 非深色按钮为取消样式
-    if (!deepColor) {
-        return [SMRAlertViewButton buttonTitle:title target:target action:action style:style function:SMRAlertViewButtonFunctionCancel];
-    }
-    SMRAlertViewButtonDeepColorType deepColorType = self.deepColorType;
-    switch (deepColorType) {
-        case SMRAlertViewButtonDeepColorTypeCancel:
-            return [SMRAlertViewButton buttonTitle:title target:target action:action style:style function:SMRAlertViewButtonFunctionCancel];
-            break;
-        
-        case SMRAlertViewButtonDeepColorTypeSure:
-            return [SMRAlertViewButton buttonTitle:title target:target action:action style:style function:SMRAlertViewButtonFunctionSure];
-            break;
-        
-        case SMRAlertViewButtonDeepColorTypeDelete:
-            return [SMRAlertViewButton buttonTitle:title target:target action:action style:style function:SMRAlertViewButtonFunctionDelete];
-            break;
-        default:
-            return [SMRAlertViewButton buttonTitle:title target:target action:action style:style function:SMRAlertViewButtonFunctionCancel];
-            break;
-    }
-    return nil;
-}
-
 - (CGFloat)maxLayoutOfLabelWidth {
     UIEdgeInsets insets = [self smr_insetsOfContent];
     CGFloat maxLayoutWidth = [self widthOfContentView] - 2*[self smr_marginOfTableView] - insets.left - insets.right;
     return maxLayoutWidth;
+}
+
+- (CGFloat)maxLayoutOfTextFieldWidth {
+    UIEdgeInsets insets = [self smr_insetsOfContent];
+    CGFloat maxLayoutWidth = [self widthOfContentView] - 2*[self smr_marginOfTableView] - insets.left - insets.right;
+    return maxLayoutWidth;
+}
+
+#pragma mark - SMRCustomBottomButtonProtocol
+
+- (void)sureBtnAction:(UIButton *)sender {
+    [self endEditing:YES];
+    [super sureBtnAction:sender];
+}
+
+- (void)cancelBtnAction:(UIButton *)sender {
+    [self endEditing:YES];
+    [super cancelBtnAction:sender];
 }
 
 #pragma mark - Utils
@@ -424,49 +399,66 @@ SMRAlertViewContentTextCellDelegate>
             && (self.imageURL.length || self.image);
 }
 
-#pragma mark - Actions
-
-- (void)sureBtnAction:(UIButton *)sender {
-    if (self.sureButtonTouchedBlock) {
-        self.sureButtonTouchedBlock(self);
-    } else {
-        [self hide];
-    }
-}
-
-- (void)cancelBtnAction:(UIButton *)sender {
-    if (self.cancelButtonTouchedBlock) {
-        self.cancelButtonTouchedBlock(self);
-    } else {
-        [self hide];
-    }
-}
-
 #pragma mark - Setters
-
-- (void)setButtonTitles:(NSArray<NSString *> * _Nonnull)buttonTitles {
-    _buttonTitles = buttonTitles;
-}
 
 - (void)setTitle:(NSString * _Nonnull)title {
     _title = title;
+    [self smr_setNeedsReloadView];
 }
 
 - (void)setContent:(NSString * _Nonnull)content {
     _content = content;
+    _attributeContent = [[NSAttributedString alloc] initWithString:content];
+    [self smr_setNeedsReloadView];
 }
 
 - (void)setAttributeContent:(NSAttributedString * _Nonnull)attributeContent {
+    _content = attributeContent.string;
     _attributeContent = attributeContent;
+    [self smr_setNeedsReloadView];
 }
 
-- (void)setDeepColorType:(SMRAlertViewButtonDeepColorType)deepColorType {
-    _deepColorType = deepColorType;
+- (void)setTitleColor:(UIColor *)titleColor {
+    _titleColor = titleColor;
+    [self smr_setNeedsReloadView];
 }
 
 - (void)setContentTextAlignment:(NSTextAlignment)contentTextAlignment {
     _contentTextAlignment = contentTextAlignment;
-    [self.tableView smr_reloadData];
+    [self smr_setNeedsReloadView];
+}
+
+- (void)setImage:(UIImage *)image {
+    _image = image;
+    [self smr_setNeedsReloadView];
+}
+
+- (void)setImageURL:(NSString *)imageURL {
+    _imageURL = imageURL;
+    [self smr_setNeedsReloadView];
+}
+
+- (void)setImageSize:(CGSize)imageSize {
+    _imageSize = imageSize;
+    [self smr_setNeedsReloadView];
+}
+
+- (void)setImageSpace:(CGFloat)imageSpace {
+    _imageSpace = imageSpace;
+    [self smr_setNeedsReloadView];
+}
+
+- (void)setUseTextField:(BOOL)useTextField {
+    _useTextField = useTextField;
+    [self smr_setNeedsReloadView];
+}
+
+- (void)setTextField:(UITextField *)textField {
+    if (_textField != textField) {
+        [_textField removeFromSuperview];
+    }
+    _textField = textField;
+    [self smr_setNeedsReloadView];
 }
 
 #pragma mark - Getters
@@ -476,6 +468,16 @@ SMRAlertViewContentTextCellDelegate>
         _linkSymbols = [NSMutableDictionary dictionary];
     }
     return _linkSymbols;
+}
+
+- (UITextField *)textField {
+    if (!_textField) {
+        _textField = [[UITextField alloc] init];
+        _textField.font = [UIFont smr_systemFontOfSize:16];
+        _textField.textColor = [UIColor smr_generalBlackColor];
+        _textField.clearButtonMode = UITextFieldViewModeAlways;
+    }
+    return _textField;
 }
 
 @end

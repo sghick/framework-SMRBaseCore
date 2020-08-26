@@ -6,7 +6,8 @@
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <UIKit/UIImage.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

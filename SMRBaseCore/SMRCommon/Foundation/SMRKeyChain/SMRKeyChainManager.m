@@ -2,26 +2,35 @@
 //  SMRKeyChainManager.m
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/1/21.
-//  Copyright © 2019 sumrise. All rights reserved.
+//  Created by Tinswin on 2018/12/27.
+//  Copyright © 2018年 sumrise. All rights reserved.
 //
 
 #import "SMRKeyChainManager.h"
+#import "SMRCryptor.h"
 
 static NSString *const kSMRForUUIDStringInKeyChain = @"kSMRForUUIDStringInKeyChain";
 
 @implementation SMRKeyChainManager
 
-+ (NSString *)UUIDString {
-    NSString * uuid = [self readKeyChainValueFromKey:kSMRForUUIDStringInKeyChain];
-    if (!uuid && uuid.length) {
++ (NSString *)uniqueStaticString {
+    NSString *uuid = [self readKeyChainValueFromKey:kSMRForUUIDStringInKeyChain];
+    if (!uuid.length) {
         //生成一个uuid的方法
         CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
         uuid = (NSString *)CFBridgingRelease(CFUUIDCreateString (kCFAllocatorDefault,uuidRef));
+        if(!uuid.length) {
+            uuid = [self serializationString] ?: @"";
+        }
         //将该uuid保存到keychain
         [self saveKeyChainValue:uuid key:kSMRForUUIDStringInKeyChain];
     }
     return uuid;
+}
+
++ (NSString *)serializationString {
+    NSString *serializationString = [NSString stringWithFormat:@"%04d%04d%010d", arc4random()%1000, arc4random()%1000, (int)[NSDate date].timeIntervalSince1970];
+    return serializationString.smr_data.smr_stringByBase64;
 }
 
 #pragma mark - KeyChainGeneral

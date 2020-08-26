@@ -16,10 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface SMRBaseCoreConfig : NSObject
 
-#pragma mark - Switch开关
-
-@property (assign, nonatomic) BOOL assertOffAtNetDedouncer; ///< default:NO
-
 #pragma mark - BaseCore部分
 
 /** 路由配置 */
@@ -45,7 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy  ) NavigationViewAppearanceBlock appearanceBlock;
 
 /** 设置AlertView全局默认属性的style,默认black */
-@property (assign, nonatomic) SMRAlertViewStyle alertViewStyle;
+@property (assign, nonatomic) SMRAlertViewStyle alertViewStyle __deprecated_msg("废弃,使用+[SMRAlertView initialConfig]");
+@property (strong, nonatomic) UIColor *alertTitleColor __deprecated_msg("废弃,使用+[SMRAlertView initialConfig]");
 
 #pragma mark - BaseUtils部分
 

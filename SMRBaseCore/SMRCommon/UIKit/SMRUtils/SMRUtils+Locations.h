@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface SMRUtils (Locations)
 
-///** 计算2个坐标间的直线距离 */
+/** 计算2个坐标间的直线距离 */
 //+ (double)calulateDistanceWithStartLatitude:(double)start_latitude
 //                                  longitude:(double)start_longitude
 //                                endLatitude:(double)end_latitude

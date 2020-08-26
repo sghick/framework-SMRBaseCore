@@ -2,8 +2,8 @@
 //  SMRKeyChainManager.h
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/1/21.
-//  Copyright © 2019 sumrise. All rights reserved.
+//  Created by Tinswin on 2018/12/27.
+//  Copyright © 2018年 sumrise. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -15,7 +15,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  获取KeyChain中的 唯一的UUID
  */
-+ (NSString *)UUIDString;
++ (NSString *)uniqueStaticString;
+
+/**
+ 随机生成一个字符串 每次生成的都不同
+ */
++ (NSString *)serializationString;
 
 #pragma mark - KeyChainGeneral
 

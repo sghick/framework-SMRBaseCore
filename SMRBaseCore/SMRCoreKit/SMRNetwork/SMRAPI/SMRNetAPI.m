@@ -2,8 +2,8 @@
 //  SMRNetAPI.m
 //  SMRNetworkDemo
 //
-//  Created by 丁治文 on 2018/10/6.
-//  Copyright © 2018年 sumrise.com. All rights reserved.
+//  Created by 丁治文 on 2018/12/18.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "SMRNetAPI.h"
@@ -22,14 +22,14 @@
 
 /** 常用请求的回调方式1 */
 + (instancetype)callbackWithSuccessBlock:(SMRNetAPISuccessBlock)successBlock
-                             faildBlock:(SMRNetAPIFaildBlock)faildBlock {
+                              faildBlock:(SMRNetAPIFaildBlock)faildBlock {
     return [self callbackWithConstructingBlock:nil cacheOrSuccessBlock:nil cacheBlock:nil successBlock:successBlock faildBlock:faildBlock uploadProgress:nil downloadProgress:nil];
 }
 
 /** 常用请求的回调方式2 */
 + (instancetype)callbackWithCacheBlock:(SMRNetAPICacheBlock)cacheBlock
-                         successBlock:(SMRNetAPISuccessBlock)successBlock
-                           faildBlock:(SMRNetAPIFaildBlock)faildBlock {
+                          successBlock:(SMRNetAPISuccessBlock)successBlock
+                            faildBlock:(SMRNetAPIFaildBlock)faildBlock {
     return [self callbackWithConstructingBlock:nil cacheOrSuccessBlock:nil cacheBlock:cacheBlock successBlock:successBlock faildBlock:faildBlock uploadProgress:nil downloadProgress:nil];
 }
 

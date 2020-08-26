@@ -1,9 +1,9 @@
 //
 //  SMRURLProvider.m
-//  SMRBaseCoreDemo
+//  SMRRouterDemo
 //
 //  Created by 丁治文 on 2018/12/14.
-//  Copyright © 2018 sumrise.com. All rights reserved.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "SMRURLProvider.h"
@@ -112,6 +112,7 @@
 }
 
 @end
+
 
 @implementation SMRURLProvider
 

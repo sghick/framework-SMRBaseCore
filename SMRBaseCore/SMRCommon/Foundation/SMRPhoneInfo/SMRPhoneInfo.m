@@ -2,11 +2,9 @@
 //  SMRPhoneInfo.m
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/1/21.
+//  Created by 丁治文 on 2019/1/2.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
-
-#import "SMRPhoneInfo.h"
 
 // 可否使用广告标识IDFA
 #define IDFA_AVAILABLE  (1)
@@ -31,13 +29,12 @@ static NSString *const kSMRForIDFVStringInKeyChain = @"kSMRForIDFVStringInKeyCha
 @implementation SMRPhoneInfo
 
 + (NSString *)originalUUID {
-    return [SMRKeyChainManager UUIDString];
+    return [SMRKeyChainManager uniqueStaticString];
 }
 
-// private
 + (NSString *)IDFAString {
 #if IDFA_AVAILABLE && !TARGET_OS_WATCH
-    NSString *uuid = uuid = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    NSString *uuid = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
     base_core_log(@"IDFA:%@", uuid);
     return uuid;
 #else
@@ -45,11 +42,10 @@ static NSString *const kSMRForIDFVStringInKeyChain = @"kSMRForIDFVStringInKeyCha
 #endif
 }
 
-// private
 + (NSString *)IDFVString {
     NSString *uuid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     base_core_log(@"IDFV:%@", uuid);
-    return uuid;
+    return uuid ?: @"";
 }
 
 + (NSString *)imeiString {
@@ -57,7 +53,17 @@ static NSString *const kSMRForIDFVStringInKeyChain = @"kSMRForIDFVStringInKeyCha
 }
 
 + (NSString *)imsiString {
-    return [self IDFVString];
+    NSString *uuid = [SMRKeyChainManager readKeyChainValueFromKey:kSMRForIDFVStringInKeyChain];
+    if (!uuid || !uuid.length) {
+        //生成一个uuid的方法
+        uuid = [self IDFVString] ?: @"";
+        if(!uuid.length) {
+            uuid = [self originalUUID] ?: @"";
+        }
+        //将该uuid保存到keychain
+        [SMRKeyChainManager saveKeyChainValue:uuid key:kSMRForIDFVStringInKeyChain];
+    }
+    return uuid;
 }
 
 + (NSString *)systemName {

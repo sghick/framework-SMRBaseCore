@@ -1,8 +1,8 @@
 //
 //  SMRNavigationAccessoriesBar.m
-//  SMRBaseCoreDemo
+//  SMRGeneralUseDemo
 //
-//  Created by 丁治文 on 2019/1/21.
+//  Created by 丁治文 on 2019/1/11.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
@@ -54,8 +54,8 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
     typeof(self) weakSelf = self;
     [self addLayoutConstraints:^{
         for (UIView *leftView in leftViews) {
-            // 自动忽略隐藏的view
-            if (leftView.hidden) {
+            // 忽略隐藏的view
+            if (lastView.hidden) {
                 continue;
             }
             if (lastView) {
@@ -87,7 +87,7 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
     typeof(self) weakSelf = self;
     [self addLayoutConstraints:^{
         for (UIView *rightView in rightViews) {
-            // 自动忽略隐藏的view
+            // 忽略隐藏的view
             if (rightView.hidden) {
                 continue;
             }

@@ -2,16 +2,19 @@
 //  SMRTableAlertView.m
 //  SMRBaseCoreDemo
 //
-//  Created by 丁治文 on 2019/2/13.
+//  Created by 丁治文 on 2019/2/14.
 //  Copyright © 2019 sumrise. All rights reserved.
 //
 
 #import "SMRTableAlertView.h"
 #import "SMRAdapter.h"
+#import "UITableView+SMRSections.h"
 
 @interface SMRTableAlertView ()<
 UITableViewDataSource,
 UITableViewDelegate>
+
+@property (assign, nonatomic) BOOL needsReloadView;
 
 @property (strong, nonatomic) UIView *titleBar;
 @property (strong, nonatomic) UIView *bottomBar;
@@ -42,8 +45,8 @@ UITableViewDelegate>
     // 超出最大值后可以滚动
     self.tableView.scrollEnabled = overflow;
     // 获取bottomBar的高
-    CGFloat marginOfBottomBar = [self smr_marginOfBottomBar];
     CGFloat heightOfBottomBar = 0;
+    CGFloat marginOfBottomBar = [self smr_marginOfBottomBar];
     if ([self respondsToSelector:@selector(smr_heightOfBottomBar)]) {
         heightOfBottomBar = [self smr_heightOfBottomBar];
     }
@@ -198,10 +201,28 @@ UITableViewDelegate>
     
 }
 
+- (void)showInView:(UIView *)inView animated:(BOOL)animated {
+    [self smr_reloadViewIfNeeded];
+    [super showInView:inView animated:animated];
+}
+
 - (void)smr_reloadData {
     [self removeOldNeedsRemoveSubviews];
     [self createTableAlertSubviews];
     [self.tableView reloadData];
+}
+
+#pragma mark - ReloadView
+
+- (void)smr_setNeedsReloadView {
+    _needsReloadView = YES;
+}
+
+- (void)smr_reloadViewIfNeeded {
+    if (_needsReloadView) {
+        _needsReloadView = NO;
+        [self smr_reloadData];
+    }
 }
 
 #pragma mark - Setters

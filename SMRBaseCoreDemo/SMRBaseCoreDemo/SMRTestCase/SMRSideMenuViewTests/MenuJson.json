@@ -1,0 +1,28 @@
+[
+  {
+    "title": "消息",
+    "url": "SMR-hermes://message",
+    "icon": "https://img.sumrise.com/20200518/27fa3c40c49133690d3a6887cbd89658.png"
+  },
+  {
+    "title": "购物袋",
+    "icon": "http://img.sumrise.com/20200512/0730cf2eaacd36a63cf66bc06cbdd998.png",
+    "url": "SMR-hermes://web?url=https%3A%2F%2Fwx.sumrise.com%2Ftest%2Fmarket%2Fshoppingbag&login=1",
+    "badge": "0"
+  },
+  {
+    "title": "我的收藏",
+    "url": "SMR-hermes://web?url=https%3A%2F%2Fwx.sumrise.com%2Ftest%2Fmarket%2Fmycollection&login=1",
+    "icon": "https://img.sumrise.com/20200326/10bcb0599363d11189b5160b864f1a06.png"
+  },
+  {
+    "title": "我的足迹",
+    "url": "SMR-hermes://web?url=https%3A%2F%2Fwx.sumrise.com%2Ftest%2Fmarket%2Ffootprint&login=1",
+    "icon": "https://img.sumrise.com/20200518/84a5653ff35a2cdcfc7b9f3c9d80e39a.png"
+  },
+  {
+    "title": "商品订单",
+    "url": "SMR-hermes://web?url=https%3A%2F%2Fwx.sumrise.com%2Ftest%2Fmarket%2Forder&login=1",
+    "icon": "https://img.sumrise.com/20200518/a54e3ae791072112eb98635014f4c2f1.png"
+  }
+]
