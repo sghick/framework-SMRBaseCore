@@ -97,8 +97,11 @@
         
         for (NSString *keyValuePair in urlComponents) {
             NSArray *pairComponents = [keyValuePair componentsSeparatedByString:@"="];
-            NSString *key = [pairComponents.firstObject stringByRemovingPercentEncoding];
-            NSString *value = [pairComponents.lastObject stringByRemovingPercentEncoding];
+            if (pairComponents.count < 2) {
+                continue;
+            }
+            NSString *key = [pairComponents[0] stringByRemovingPercentEncoding];
+            NSString *value = [pairComponents[1] stringByRemovingPercentEncoding];
             
             if (key == nil || value == nil) {
                 continue;
