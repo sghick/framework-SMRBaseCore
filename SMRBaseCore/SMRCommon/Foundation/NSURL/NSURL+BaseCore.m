@@ -122,13 +122,11 @@
         }
     } else {
         NSArray *pairComponents = [urlQuery componentsSeparatedByString:@"="];
-        if (pairComponents.count == 1) {
+        if (pairComponents.count < 2) {
             return nil;
         }
-        
-        NSString *key = [pairComponents.firstObject stringByRemovingPercentEncoding];
-        NSString *value = [pairComponents.lastObject stringByRemovingPercentEncoding];
-        
+        NSString *key = [pairComponents[0] stringByRemovingPercentEncoding];
+        NSString *value = [pairComponents[1] stringByRemovingPercentEncoding];
         if (key == nil || value == nil) {
             return nil;
         }
