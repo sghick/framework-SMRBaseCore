@@ -33,108 +33,126 @@
     return decodeUrl;
 }
 
+#pragma mark - components
+
+- (NSDictionary *)smr_urlParams {
+    NSString *urlQuery = self.query;
+    if (urlQuery.length == 0) return nil;
+    NSURLComponents *urlCmp = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:YES];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    for (NSURLQueryItem *item in urlCmp.queryItems) {
+        NSString *key = [item.name stringByRemovingPercentEncoding];
+        NSString *value = [item.value stringByRemovingPercentEncoding];
+        if (!key.length || value == nil) {
+            continue;
+        }
+
+        id existValue = [parameters valueForKey:key];
+        if (existValue) {
+            if ([existValue isKindOfClass:[NSArray class]]) {
+                NSMutableArray *items = [existValue mutableCopy];
+                [items addObject:value];
+                parameters[key] = items;
+            } else {
+                parameters[key] = @[existValue, value];
+            }
+        } else {
+            parameters[key] = value;
+        }
+    }
+    return [parameters copy];
+}
+
+#pragma mark - Utils
+
 - (NSURL *)smr_URLByAppendKey:(NSString *)key value:(id)value {
     if (!key || !value) {
         return self;
     }
     return [self smr_URLByAppendParams:@{key:value}];
 }
-
 - (NSURL *)smr_URLByAppendParams:(NSDictionary *)params {
-    if (!params) {
+    if (!params.count) {
         return self;
     }
-    NSString *query = @"";
-    for (NSString *key in params) {
-        query = [query stringByAppendingString:[self smr_URLParamWithKey:key value:params[key]]];
-    }
-    return [self smr_URLByAppendQuery:query];
+    NSURLComponents *urlCmp = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:YES];
+    NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
+    [queryItems addObjectsFromArray:urlCmp.queryItems];
+    [queryItems addObjectsFromArray:[self p_queryItemsWithParams:params]];
+    urlCmp.queryItems = queryItems;
+    return urlCmp.URL;
 }
 
-- (NSURL *)smr_URLByAppendQuery:(NSString *)query {
-    NSString *urlString = self.absoluteString;
-    if (self.query.length) {
-        urlString = [urlString stringByAppendingString:@"&"];
-    } else {
-        urlString = [urlString stringByAppendingString:@"?"];
-    }
-    NSString *realQuery = query;
-    if (realQuery.length && ([realQuery hasPrefix:@"&"] || [realQuery hasPrefix:@"?"])) {
-        realQuery = [realQuery substringFromIndex:1];
-    }
-    urlString = [urlString stringByAppendingString:realQuery];
-    NSURL *rtnUrl = [NSURL URLWithString:urlString];
-    return rtnUrl;
-}
-
-/** 前面会带一个 & 符号 */
-- (NSString *)smr_URLParamWithKey:(NSString *)key value:(id)value {
+- (NSURL *)smr_URLByReplaceKey:(NSString *)key value:(id)value {
     if (!key || !value) {
+        return self;
+    }
+    return [self smr_URLByReplaceParams:@{key:value}];
+}
+- (NSURL *)smr_URLByReplaceParams:(NSDictionary *)params {
+    if (!params.count) {
+        return self;
+    }
+    NSMutableDictionary *realParams = [self.smr_urlParams mutableCopy];
+    [realParams setValuesForKeysWithDictionary:params];
+    NSURLComponents *urlCmp = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:YES];
+    urlCmp.queryItems = [self p_queryItemsWithParams:realParams];
+    return urlCmp.URL;
+}
+
+- (NSURL *)smr_URLByRemoveKey:(NSString *)key {
+    NSMutableDictionary *realParams = [self.smr_urlParams mutableCopy];
+    realParams[key] = nil;
+    NSURLComponents *urlCmp = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:YES];
+    urlCmp.queryItems = [self p_queryItemsWithParams:realParams];
+    return urlCmp.URL;
+}
+
+#pragma mark - Privates
+
+- (NSString *)p_querySign {
+    NSMutableString *string = [NSMutableString string];
+    NSURLComponents *urlCmp = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:YES];
+    for (NSURLQueryItem *item in urlCmp.queryItems) {
+        [string appendFormat:@"&%@=%@", item.name, item.value];
+    }
+    return [string copy];
+}
+
+- (NSArray<NSURLQueryItem *> *)p_queryItemsWithParams:(NSDictionary *)params {
+    if (!params.count) {
         return nil;
     }
-    NSString *query = @"";
+    NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
+    for (NSString *key in params) {
+        NSArray<NSURLQueryItem *> *items = [self p_queryItemsWithKey:key value:params[key]];
+        [queryItems addObjectsFromArray:items];
+    }
+    return [queryItems copy];
+}
+
+- (NSArray<NSURLQueryItem *> *)p_queryItemsWithKey:(NSString *)key value:(id)value {
+    if (!key.length || !value) {
+        return nil;
+    }
+    NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
     if ([value isKindOfClass:[NSString class]]) {
-        query = [NSString stringWithFormat:@"&%@=%@", key, [NSURL smr_encodeURLStringWithString:value]];
+        NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:key value:[NSURL smr_encodeURLStringWithString:value]];
+        [queryItems addObject:item];
     } else if ([value isKindOfClass:[NSArray class]]) {
         NSArray *objs = (NSArray *)value;
         for (id obj in objs) {
-            NSString *pQuery = [self smr_URLParamWithKey:key value:obj];
-            query = [query stringByAppendingString:pQuery];
+            NSArray<NSURLQueryItem *> *items = [self p_queryItemsWithKey:key value:obj];
+            [queryItems addObjectsFromArray:items];
         }
     } else {
-        query = [NSString stringWithFormat:@"&%@=%@", key, value];
+        NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:key value:[NSString stringWithFormat:@"%@", value]];
+        [queryItems addObject:item];
     }
-    return query;
+    return [queryItems copy];
 }
 
-- (NSDictionary *)smr_parseredParams {
-    NSString *urlQuery = self.query;
-    if (urlQuery.length == 0) return nil;
-    
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    if ([urlQuery containsString:@"&"]) {
-        NSArray *urlComponents = [urlQuery componentsSeparatedByString:@"&"];
-        
-        for (NSString *keyValuePair in urlComponents) {
-            NSArray *pairComponents = [keyValuePair componentsSeparatedByString:@"="];
-            if (pairComponents.count < 2) {
-                continue;
-            }
-            NSString *key = [pairComponents[0] stringByRemovingPercentEncoding];
-            NSString *value = [pairComponents[1] stringByRemovingPercentEncoding];
-            
-            if (key == nil || value == nil) {
-                continue;
-            }
-            
-            id existValue = [parameters valueForKey:key];
-            if (existValue != nil) {
-                if ([existValue isKindOfClass:[NSArray class]]) {
-                    NSMutableArray *items = [NSMutableArray arrayWithArray:existValue];
-                    [items addObject:value];
-                    [parameters setValue:items forKey:key];
-                } else {
-                    [parameters setValue:@[existValue, value] forKey:key];
-                }
-            } else {
-                [parameters setValue:value forKey:key];
-            }
-        }
-    } else {
-        NSArray *pairComponents = [urlQuery componentsSeparatedByString:@"="];
-        if (pairComponents.count < 2) {
-            return nil;
-        }
-        NSString *key = [pairComponents[0] stringByRemovingPercentEncoding];
-        NSString *value = [pairComponents[1] stringByRemovingPercentEncoding];
-        if (key == nil || value == nil) {
-            return nil;
-        }
-        [parameters setValue:value forKey:key];
-    }
-    
-    return [parameters copy];
-}
+#pragma mark - Static Utils
 
 + (NSArray *)smr_buildArrayTypeWithParam:(id)param {
     id rtn = param;

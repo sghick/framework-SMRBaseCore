@@ -83,10 +83,10 @@
         NSURL *bondingURL = [NSURL URLWithString:[@"bonding://" stringByAppendingString:bonding]];
         action = [bondingURL.path stringByReplacingOccurrencesOfString:@"/" withString:@""];
         target = bondingURL.host;
-        bondingParams = [bondingURL smr_parseredParams];
+        bondingParams = [bondingURL smr_urlParams];
     }
     // 添加url参数和附加参数
-    NSDictionary *urlParams = [url smr_parseredParams];
+    NSDictionary *urlParams = [url smr_urlParams];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if (bondingParams) {
         [params addEntriesFromDictionary:bondingParams];

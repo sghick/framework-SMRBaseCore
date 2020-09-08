@@ -13,6 +13,8 @@
 
 - (id)begin {
     [self test_creates];
+    [self test_creates4];
+    [self test_creates5];
     [self test_encode_query];
     [self test_encode_all];
     [self test_decode];
@@ -20,6 +22,8 @@
     [self test_paraseredParams];
     [self test_changeArrayType];
     [self test_changeInstanceType];
+    [self test_removeParams];
+    [self test_replaceParams];
     return self;
 }
 
@@ -40,6 +44,12 @@
     NSString *urlString4 = @"https://www.baidu.com?aaa=参数1&bbb=参数2";
     NSURL *url4 = [NSURL smr_URLWithString:urlString4];
     NSAssert(!url4, @"");
+}
+
+- (void)test_creates1 {
+    NSString *urlString = @"https://www.baidu.com?aaa=1&bbb=2";
+    NSURL *url = [NSURL smr_URLWithString:urlString];
+    NSAssert([urlString isEqualToString:url.absoluteString], @"");
 }
 
 - (void)test_encode_query {
@@ -110,7 +120,7 @@
 - (void)test_paraseredParams {
     NSString *urlString = @"https://www.baidu.com?aaa=1&bbb=2&bbb=3&bbb=4&ccc=5";
     NSURL *url = [NSURL smr_URLWithString:urlString];
-    NSDictionary *params = [url smr_parseredParams];
+    NSDictionary *params = [url smr_urlParams];
     NSDictionary *params2 = @{@"aaa":@"1",
                               @"bbb":@[@"2", @"3", @"4"],
                               @"ccc":@"5"};
@@ -137,6 +147,51 @@
     
     NSString *string2 = [NSURL smr_buildInstanceTypeWithParam:arrValue];
     NSAssert([stringValue isEqualToString:string2], @"");
+}
+
+- (void)test_removeParams {
+    NSString *urlString = @"https://www.baidu.com/index/path/ex?aaa=1&bbb=2&bbb=3&bbb=4&ccc=5#index";
+    NSString *urlString2 = @"https://www.baidu.com/index/path/ex?bbb=2&bbb=3&bbb=4&ccc=5#index";
+    NSURL *url = [NSURL smr_URLWithString:urlString];
+    NSURL *url2 = [url smr_URLByRemoveKey:@"aaa"];
+    NSAssert([url2.absoluteString isEqualToString:urlString2], @"");
+}
+
+- (void)test_replaceParams {
+    NSString *urlString = @"https://www.baidu.com/index/path/ex?aaa=1&bbb=2&bbb=3&bbb=4&ccc=5#index";
+    NSString *urlString2 = @"https://www.baidu.com/index/path/ex?aaa=6&bbb=2&bbb=3&bbb=4&ccc=5#index";
+    NSString *urlString3 = @"https://www.baidu.com/index/path/ex?aaa=1&bbb=2&bbb=3&bbb=4&ccc=5&ddd=9#index";
+    NSURL *url = [NSURL smr_URLWithString:urlString];
+    NSURL *url2 = [url smr_URLByReplaceKey:@"aaa" value:@(6)];
+    NSAssert([url2.absoluteString isEqualToString:urlString2], @"");
+    
+    NSURL *url3 = [NSURL smr_URLWithString:urlString3];
+    NSURL *url4 = [url smr_URLByReplaceKey:@"ddd" value:@(9)];
+    NSAssert([url3.smr_urlParams isEqualToDictionary:url4.smr_urlParams], @"");
+}
+
+- (void)test_creates2 {
+    NSString *urlString = @"https://www.baidu.com";
+    NSURL *url = [NSURL smr_URLWithString:urlString];
+    NSAssert([urlString isEqualToString:url.absoluteString], @"");
+}
+
+- (void)test_creates3 {
+    NSString *urlString = @"https://www.baidu.com?";
+    NSURL *url = [NSURL smr_URLWithString:urlString];
+    NSAssert([urlString isEqualToString:url.absoluteString], @"");
+}
+
+- (void)test_creates4 {
+    NSString *urlString = @"https://www.baidu.com?#index";
+    NSURL *url = [NSURL smr_URLWithString:urlString];
+    NSAssert([urlString isEqualToString:url.absoluteString], @"");
+}
+
+- (void)test_creates5 {
+    NSString *urlString = @"https://www.baidu.com/path/test?aaa=1&bbb=2#index";
+    NSURL *url = [NSURL smr_URLWithString:urlString];
+    NSAssert([urlString isEqualToString:url.absoluteString], @"");
 }
 
 @end

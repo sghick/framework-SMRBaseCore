@@ -21,12 +21,16 @@ NS_ASSUME_NONNULL_BEGIN
 /// decode
 + (NSString *)smr_decodeURLStringWithString:(NSString *)string;
 
+/// 获取url参数
+- (NSDictionary *)smr_urlParams;
 /// 拼接url参数
 - (NSURL *)smr_URLByAppendKey:(NSString *)key value:(id)value;
 - (NSURL *)smr_URLByAppendParams:(NSDictionary *)params;
-- (NSURL *)smr_URLByAppendQuery:(NSString *)query;
-/// 获取url参数
-- (NSDictionary *)smr_parseredParams;
+/// 拼接/替换url参数
+- (NSURL *)smr_URLByReplaceKey:(NSString *)key value:(id)value;
+- (NSURL *)smr_URLByReplaceParams:(NSDictionary *)params;
+/// 删除url的参数
+- (NSURL *)smr_URLByRemoveKey:(NSString *)key;
 
 /// 获取一个数据类型的参数
 + (NSArray *)smr_buildArrayTypeWithParam:(id)param;
