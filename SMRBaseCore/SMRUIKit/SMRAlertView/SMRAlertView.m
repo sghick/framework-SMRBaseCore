@@ -134,8 +134,8 @@ SMRAlertViewContentTextCellDelegate>
                                  buttonTitles:(NSArray<NSString *> *)buttonTitles
                                 deepColorType:(SMRAlertViewButtonDeepColorType)deepColorType {
     SMRAlertView *alertView = [[self alloc] init];
-    alertView.attributeContent = attributeContent;
     alertView.content = attributeContent.string;
+    alertView.attributeContent = attributeContent;
     alertView.buttonTitles = buttonTitles;
     alertView.deepColorType = deepColorType;
     return alertView;
@@ -147,8 +147,8 @@ SMRAlertViewContentTextCellDelegate>
                      deepColorType:(SMRAlertViewButtonDeepColorType)deepColorType {
     SMRAlertView *alertView = [[self alloc] init];
     alertView.title = title;
-    alertView.attributeContent = attributeContent;
     alertView.content = attributeContent.string;
+    alertView.attributeContent = attributeContent;
     alertView.buttonTitles = buttonTitles;
     alertView.deepColorType = deepColorType;
     return alertView;
@@ -407,8 +407,10 @@ SMRAlertViewContentTextCellDelegate>
 }
 
 - (void)setContent:(NSString * _Nonnull)content {
+    if ((_content != content) && _attributeContent) {
+        _attributeContent = [[NSAttributedString alloc] initWithString:content];
+    }
     _content = content;
-    _attributeContent = [[NSAttributedString alloc] initWithString:content];
     [self smr_setNeedsReloadView];
 }
 
