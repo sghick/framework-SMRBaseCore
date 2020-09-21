@@ -77,7 +77,7 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
     [self addLayoutConstraints:^{
         for (UIView *leftView in leftViews) {
             // 忽略隐藏的view
-            if (lastView.hidden) {
+            if (leftView.hidden) {
                 continue;
             }
             if (lastView) {
@@ -162,15 +162,13 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
 - (void)setLeftViews:(nullable NSArray<UIView *> *)leftViews {
     _leftViews = leftViews;
     _leftView = leftViews.firstObject;
-    _needsLayoutLeftViews = YES;
-    [self setNeedsLayout];
+    [self setNeedsLayoutLeftViews];
 }
 
 - (void)setRightViews:(nullable NSArray<UIView *> *)rightViews {
     _rightViews = rightViews;
     _rightView = rightViews.firstObject;
-    _needsLayoutRightViews = YES;
-    [self setNeedsLayout];
+    [self setNeedsLayoutRightViews];
 }
 
 - (void)setLeftView:(nullable UIView *)leftView {
@@ -189,12 +187,50 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
 - (void)setCenterView:(UIView *)centerView margin:(CGFloat)margin {
     _centerView = centerView;
     _centerViewMargin = margin;
-    _needsLayoutCenterViews = YES;
-    [self setNeedsLayout];
+    [self setNeedsLayoutCenterViews];
 }
 
 - (CGFloat)autoCenterViewMargin {
     return [SMRUIAdapter value:65];
+}
+
+- (void)replaceLeftView:(UIView *)view withView:(UIView *)withView {
+    NSMutableArray *leftViews = [self.leftViews mutableCopy];
+    NSInteger index = [leftViews indexOfObject:view];
+    if ((index != NSNotFound) && withView) {
+        [leftViews replaceObjectAtIndex:index withObject:withView];
+    } else {
+        [leftViews removeObject:view];
+    }
+    _leftViews = [leftViews copy];
+    [self setNeedsLayoutLeftViews];
+}
+
+- (void)replaceRightView:(UIView *)view withView:(UIView *)withView {
+    NSMutableArray *rightViews = [self.rightViews mutableCopy];
+    NSInteger index = [rightViews indexOfObject:view];
+    if ((index != NSNotFound) && withView) {
+        [rightViews replaceObjectAtIndex:index withObject:withView];
+    } else {
+        [rightViews removeObject:view];
+    }
+    _rightViews = [rightViews copy];
+    [self setNeedsLayoutRightViews];
+}
+
+- (void)setNeedsLayoutLeftViews {
+    _needsLayoutLeftViews = YES;
+    [self setNeedsLayout];
+}
+
+- (void)setNeedsLayoutRightViews {
+    _needsLayoutRightViews = YES;
+    [self setNeedsLayout];
+}
+
+- (void)setNeedsLayoutCenterViews {
+    _needsLayoutCenterViews = YES;
+    [self setNeedsLayout];
 }
 
 - (void)removeViewFromLeftViews:(UIView *)view {

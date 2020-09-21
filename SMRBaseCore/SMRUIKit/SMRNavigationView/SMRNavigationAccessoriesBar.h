@@ -40,6 +40,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setCenterView:(UIView * _Nullable)centerView margin:(CGFloat)margin;
 - (CGFloat)autoCenterViewMargin;
 
+/** 替换view,未找到则不做替换 */
+- (void)replaceLeftView:(UIView *)view withView:(nullable UIView *)withView;
+- (void)replaceRightView:(UIView *)view withView:(nullable UIView *)withView;
+
+/** 设置显示隐藏后需要触发此方法刷新 */
+- (void)setNeedsLayoutLeftViews;
+- (void)setNeedsLayoutRightViews;
+- (void)setNeedsLayoutCenterViews;
+
 /** 单纯只能移除某个view,不会刷新UI */
 - (void)removeViewFromLeftViews:(UIView *)view;
 /** 单纯只能移除某个view,不会刷新UI */

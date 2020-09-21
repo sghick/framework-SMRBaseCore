@@ -19,7 +19,7 @@
 // 记录原来的offset, 初始值为-1
 @property (nonatomic, assign) CGFloat oldGradationOffset;
 // 常驻居左按钮
-@property (nonatomic, strong) NSArray<UIView *> *navLeftViews;
+@property (nonatomic, strong, readonly) NSArray<UIView *> *navLeftViews;
 
 @end
 
@@ -210,35 +210,28 @@ static SMRNavigationView *_appearanceNavigationView = nil;
 }
 
 - (NSArray<UIView *> *)navLeftViews {
-    if (!_navLeftViews) {
-        _navLeftViews = @[self.backBtn, self.closeBtn];
-    }
-    return _navLeftViews;
+    return @[self.backBtn, self.closeBtn];
 }
 
 #pragma mark - Setters
 
 - (void)setBackBtn:(UIButton *)backBtn {
-    // 移除默认的
-    [self removeViewFromLeftViews:_backBtn];
+    [self replaceLeftView:_backBtn withView:backBtn];
     _backBtn = backBtn;
     [backBtn addTarget:self action:@selector(backButtonDidTouched:) forControlEvents:UIControlEventTouchUpInside];
-    [self setNeedsLayout];
 }
 
 - (void)setCloseBtn:(UIButton *)closeBtn {
-    // 移除默认的
-    [self removeViewFromLeftViews:_closeBtn];
+    [self replaceLeftView:_closeBtn withView:closeBtn];
     _closeBtn = closeBtn;
     [closeBtn addTarget:self action:@selector(closeButtonDidTouched:) forControlEvents:UIControlEventTouchUpInside];
-    [self setNeedsLayout];
 }
 
 - (void)setTitleLabel:(UILabel *)titleLabel {
+    self.centerView = titleLabel;
     _titleLabel = titleLabel;
     UITapGestureRecognizer *titleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleTapAction:)];
     [titleLabel addGestureRecognizer:titleTap];
-    [self setNeedsLayout];
 }
 
 - (void)setShadowView:(UIImageView *)shadowView {
@@ -254,19 +247,19 @@ static SMRNavigationView *_appearanceNavigationView = nil;
 - (void)setBackBtnHidden:(BOOL)backBtnHidden {
     _backBtnHidden = backBtnHidden;
     self.backBtn.hidden = backBtnHidden;
-    [self setNeedsLayout];
+    [self setNeedsLayoutLeftViews];
 }
 
 - (void)setTitleLabelHidden:(BOOL)titleLabelHidden {
     _titleLabelHidden = titleLabelHidden;
     self.titleLabel.hidden = titleLabelHidden;
-    [self setNeedsLayout];
+    [self setNeedsLayoutCenterViews];
 }
 
 - (void)setCloseBtnShow:(BOOL)closeBtnShow {
     _closeBtnShow = closeBtnShow;
     self.closeBtn.hidden = !closeBtnShow;
-    [self setNeedsLayout];
+    [self setNeedsLayoutLeftViews];
 }
 
 - (void)setShadowViewShow:(BOOL)shadowViewShow {
@@ -293,7 +286,6 @@ static SMRNavigationView *_appearanceNavigationView = nil;
     NSMutableArray<UIView *> *arr = [self.navLeftViews mutableCopy];
     [arr addObjectsFromArray:lefts];
     [super setLeftViews:arr];
-    [self setNeedsLayout];
 }
 
 #pragma mark - Utils
