@@ -36,7 +36,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) UIView *centerView;
 
 /** 设置centerView,同时指定margin */
+- (void)setCenterView:(UIView * _Nullable)centerView;
 - (void)setCenterView:(UIView * _Nullable)centerView margin:(CGFloat)margin;
+- (CGFloat)autoCenterViewMargin;
 
 /** 单纯只能移除某个view,不会刷新UI */
 - (void)removeViewFromLeftViews:(UIView *)view;

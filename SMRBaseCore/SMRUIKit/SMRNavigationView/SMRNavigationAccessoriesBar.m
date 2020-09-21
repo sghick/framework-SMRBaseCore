@@ -32,6 +32,16 @@ static NSString * const kTagForLeftViews = @"kTagForLeftViews";
 static NSString * const kTagForRightViews = @"kTagForRightViews";
 static NSString * const kTagForCenterViews = @"kTagForCenterViews";
 
+@interface SMRNavigationAccessoriesBar ()
+
+@property (assign, nonatomic) CGFloat centerViewMargin;
+
+@property (assign, nonatomic) BOOL needsLayoutLeftViews;
+@property (assign, nonatomic) BOOL needsLayoutRightViews;
+@property (assign, nonatomic) BOOL needsLayoutCenterViews;
+
+@end
+
 @implementation SMRNavigationAccessoriesBar
 
 - (instancetype)init {
@@ -44,9 +54,21 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
     return self;
 }
 
-- (void)setLeftViews:(nullable NSArray<UIView *> *)leftViews {
-    _leftViews = leftViews;
-    _leftView = leftViews.firstObject;
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self p_accessoriesLayoutLeftViews];
+    [self p_accessoriesLayoutRightViews];
+    [self p_accessoriesLayoutCenterViews];
+}
+
+#pragma mark - Layout
+
+- (void)p_accessoriesLayoutLeftViews {
+    if (!_needsLayoutLeftViews) {
+        return;
+    }
+    _needsLayoutLeftViews = NO;
+    NSArray<UIView *> *leftViews = self.leftViews;
     [self removeSubviewsWithTag:kTagForLeftViews];
     [self addSubviews:leftViews tag:kTagForLeftViews];
     __block UIView *lastView = nil;
@@ -77,9 +99,12 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
     } tag:kTagForLeftViews];
 }
 
-- (void)setRightViews:(nullable NSArray<UIView *> *)rightViews {
-    _rightViews = rightViews;
-    _rightView = rightViews.firstObject;
+- (void)p_accessoriesLayoutRightViews {
+    if (!_needsLayoutRightViews) {
+        return;
+    }
+    _needsLayoutRightViews = NO;
+    NSArray<UIView *> *rightViews = self.rightViews;
     [self removeSubviewsWithTag:kTagForRightViews];
     [self addSubviews:rightViews tag:kTagForRightViews];
     __block UIView *lastView = nil;
@@ -110,24 +135,19 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
     } tag:kTagForRightViews];
 }
 
-- (void)setLeftView:(nullable UIView *)leftView {
-    _leftView = leftView;
-    self.leftViews = leftView ? @[leftView] : nil;
-}
-
-- (void)setRightView:(nullable UIView *)rightView {
-    _rightView = rightView;
-    self.rightViews = rightView ? @[rightView] : nil;
-}
-
-- (void)setCenterView:(UIView *)centerView {
-    [self setCenterView:centerView margin:[SMRUIAdapter value:65]];
-}
-
-- (void)setCenterView:(UIView *)centerView margin:(CGFloat)margin {
-    _centerView = centerView;
+- (void)p_accessoriesLayoutCenterViews {
+    if (!_needsLayoutCenterViews) {
+        return;
+    }
+    _needsLayoutCenterViews = NO;
+    UIView *centerView = self.centerView;
+    CGFloat margin = self.centerViewMargin;
     [self removeSubviewsWithTag:kTagForCenterViews];
     if (centerView) {
+        // 忽略隐藏的view
+        if (centerView.hidden) {
+            return;
+        }
         [self addSubviews:@[centerView] tag:kTagForCenterViews];
         [self addLayoutConstraints:^{
             [centerView autoCenterInSuperview];
@@ -135,6 +155,46 @@ static NSString * const kTagForCenterViews = @"kTagForCenterViews";
             [centerView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:margin relation:NSLayoutRelationGreaterThanOrEqual];
         } tag:kTagForCenterViews];
     }
+}
+
+#pragma mark - Setters
+
+- (void)setLeftViews:(nullable NSArray<UIView *> *)leftViews {
+    _leftViews = leftViews;
+    _leftView = leftViews.firstObject;
+    _needsLayoutLeftViews = YES;
+    [self setNeedsLayout];
+}
+
+- (void)setRightViews:(nullable NSArray<UIView *> *)rightViews {
+    _rightViews = rightViews;
+    _rightView = rightViews.firstObject;
+    _needsLayoutRightViews = YES;
+    [self setNeedsLayout];
+}
+
+- (void)setLeftView:(nullable UIView *)leftView {
+    self.leftViews = leftView ? @[leftView] : nil;
+}
+
+- (void)setRightView:(nullable UIView *)rightView {
+    self.rightViews = rightView ? @[rightView] : nil;
+}
+
+- (void)setCenterView:(UIView *)centerView {
+    CGFloat margin = [self autoCenterViewMargin];
+    [self setCenterView:centerView margin:margin];
+}
+
+- (void)setCenterView:(UIView *)centerView margin:(CGFloat)margin {
+    _centerView = centerView;
+    _centerViewMargin = margin;
+    _needsLayoutCenterViews = YES;
+    [self setNeedsLayout];
+}
+
+- (CGFloat)autoCenterViewMargin {
+    return [SMRUIAdapter value:65];
 }
 
 - (void)removeViewFromLeftViews:(UIView *)view {

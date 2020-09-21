@@ -18,6 +18,8 @@
 @property (nonatomic, copy  ) NavigationViewResetToThemeBlock themeAction;
 // 记录原来的offset, 初始值为-1
 @property (nonatomic, assign) CGFloat oldGradationOffset;
+// 常驻居左按钮
+@property (nonatomic, strong) NSArray<UIView *> *navLeftViews;
 
 @end
 
@@ -62,7 +64,7 @@ static SMRNavigationView *_appearanceNavigationView = nil;
     self.rightViewSize = CGSizeMake(SMRNavigationView.navigationItem.heightOfNavigationContent,
                                     SMRNavigationView.navigationItem.heightOfNavigationContent);
     
-    self.leftView = self.backBtn;
+    self.leftViews = self.navLeftViews;
     self.centerView = self.titleLabel;
     
     [self.contentView addSubview:self.shadowView];
@@ -85,33 +87,14 @@ static SMRNavigationView *_appearanceNavigationView = nil;
 - (void)layoutSubviews {
     [self navigationViewNeedResetToTheme:self.theme];
     [super layoutSubviews];
-    [self layoutNavigationAccessories];
 }
 
-- (void)layoutNavigationAccessories {
-    // 如果没有左挂件,自动显示返回按钮和关闭按钮
-    NSMutableArray *leftarr = [NSMutableArray arrayWithArray:self.leftViews];
-    // 恢复显示返回按钮
-    if (![leftarr containsObject:self.backBtn]) {
-        [leftarr addObject:self.backBtn];
+- (CGFloat)autoCenterViewMargin {
+    CGFloat margin = [SMRUIAdapter value:45];
+    if ((self.leftViews.count >= 2) || (self.rightViews.count >= 2)) {
+        margin = [SMRUIAdapter value:65];
     }
-    // 恢复显示关闭按钮
-    if (![leftarr containsObject:self.closeBtn]) {
-        [leftarr addObject:self.closeBtn];
-    }
-    [super setLeftViews:leftarr];
-    
-    // 如果没有中间挂件,自动显示标题
-    if (!self.centerView) {
-        CGFloat margin = [SMRUIAdapter value:45];
-        if (leftarr.count >= 2) {
-            margin = [SMRUIAdapter value:65];
-        }
-        // 恢复显示标题
-        if (!self.titleLabel.hidden) {
-            [super setCenterView:self.titleLabel margin:margin];
-        }
-    }
+    return margin;
 }
 
 #pragma mark - Theme
@@ -160,7 +143,7 @@ static SMRNavigationView *_appearanceNavigationView = nil;
     }
 }
 
-#pragma mark - Getters/Setters
+#pragma mark - Getters
 
 - (UILabel *)titleLabel {
     if (_titleLabel == nil) {
@@ -218,6 +201,22 @@ static SMRNavigationView *_appearanceNavigationView = nil;
 - (CGFloat)bottom {
     return self.frame.origin.y + self.frame.size.height;
 }
+
+- (SMRNavigationTheme *)theme {
+    if (!_theme) {
+        _theme = [SMRNavigationTheme themeForNormal];
+    }
+    return _theme;
+}
+
+- (NSArray<UIView *> *)navLeftViews {
+    if (!_navLeftViews) {
+        _navLeftViews = @[self.backBtn, self.closeBtn];
+    }
+    return _navLeftViews;
+}
+
+#pragma mark - Setters
 
 - (void)setBackBtn:(UIButton *)backBtn {
     // 移除默认的
@@ -288,25 +287,10 @@ static SMRNavigationView *_appearanceNavigationView = nil;
     [self setNeedsLayout];
 }
 
-- (SMRNavigationTheme *)theme {
-    if (!_theme) {
-        _theme = [SMRNavigationTheme themeForNormal];
-    }
-    return _theme;
-}
-
 - (void)setLeftViews:(NSArray<UIView *> *)leftViews {
-    [super setLeftViews:leftViews];
-    [self setNeedsLayout];
-}
-
-- (void)setRightViews:(NSArray<UIView *> *)rightViews {
-    [super setRightViews:rightViews];
-    [self setNeedsLayout];
-}
-
-- (void)setCenterView:(UIView *)centerView {
-    [super setCenterView:centerView];
+    NSMutableArray<UIView *> *arr = [self.navLeftViews mutableCopy];
+    [arr addObjectsFromArray:leftViews];
+    [super setLeftViews:arr];
     [self setNeedsLayout];
 }
 
