@@ -288,8 +288,10 @@ static SMRNavigationView *_appearanceNavigationView = nil;
 }
 
 - (void)setLeftViews:(NSArray<UIView *> *)leftViews {
+    NSMutableArray *lefts = [leftViews mutableCopy];
+    [lefts removeObjectsInArray:self.navLeftViews];
     NSMutableArray<UIView *> *arr = [self.navLeftViews mutableCopy];
-    [arr addObjectsFromArray:leftViews];
+    [arr addObjectsFromArray:lefts];
     [super setLeftViews:arr];
     [self setNeedsLayout];
 }
