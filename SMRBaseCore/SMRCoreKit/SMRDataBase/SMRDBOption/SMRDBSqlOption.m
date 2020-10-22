@@ -13,7 +13,7 @@
 - (NSString *)sql {
     SMRDBMapper *dbMapper = [self dbMapper];
     if (dbMapper == nil) {
-        return nil;
+        return _sql;
     }
     
     _sql = [dbMapper sqlForReplaceFromSql:_sql];
