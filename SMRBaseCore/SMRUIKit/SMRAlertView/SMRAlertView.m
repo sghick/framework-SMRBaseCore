@@ -407,10 +407,8 @@ SMRAlertViewContentTextCellDelegate>
 }
 
 - (void)setContent:(NSString * _Nonnull)content {
-    if ((_content != content) && _attributeContent) {
-        _attributeContent = [[NSAttributedString alloc] initWithString:content];
-    }
     _content = content;
+    _attributeContent = content ? [[NSAttributedString alloc] initWithString:content] : nil;
     [self smr_setNeedsReloadView];
 }
 
