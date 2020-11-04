@@ -38,7 +38,7 @@ Pod::Spec.new do |s|
         ss.dependency 'SMRBaseCore/SMRCoreKit'
         #### SMRUIKit.SMRNavigationView
         ss.dependency 'PureLayout', '3.1.4'
-        ss.dependency 'SDWebImage', '5.7.0'
+        ss.dependency 'SDWebImage', '5.9.1'
         #### SMRUIKit.SMRController
         ss.dependency 'MJRefresh', '3.1.15.7'
         ss.dependency 'IQKeyboardManager', '~> 6.5.6'
