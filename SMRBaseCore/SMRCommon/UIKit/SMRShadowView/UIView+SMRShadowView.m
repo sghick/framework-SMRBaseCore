@@ -28,10 +28,10 @@
 }
 
 - (void)addReflection {
-    [self.layer addSublayer:[self reflectLayer]];
+    [self.layer addSublayer:[self reflectionLayer]];
 }
 
-- (CALayer *)reflectLayer {
+- (CALayer *)reflectionLayer {
     UIView *view = self;
     // 制作reflection
     CALayer *reflectLayer = [CALayer layer];
