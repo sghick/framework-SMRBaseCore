@@ -16,12 +16,13 @@
 @interface SMRAlertViewContentTextCell ()<
 SMRLinkLabelDelegate>
 
-@property (strong, nonatomic) SMRLinkLabel *contentLabel;
 @property (assign, nonatomic) BOOL didLoadLayout;
 
 @end
 
 @implementation SMRAlertViewContentTextCell
+
+@synthesize contentLabel = _contentLabel;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -119,10 +120,6 @@ SMRLinkLabelDelegate>
         _contentLabel.numberOfLines = 0;
         _contentLabel.lineBreakMode = NSLineBreakByCharWrapping;
         _contentLabel.delegate = self;
-        _contentLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink|NSTextCheckingTypePhoneNumber;
-        _contentLabel.delegate = self;
-        _contentLabel.linkAttributes = @{NSForegroundColorAttributeName:[UIColor blueColor],
-                                         NSUnderlineStyleAttributeName:[NSNumber numberWithInteger:NSUnderlineStyleSingle]};
     }
     return _contentLabel;
 }

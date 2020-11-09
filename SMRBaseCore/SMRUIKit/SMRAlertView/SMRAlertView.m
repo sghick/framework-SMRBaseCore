@@ -15,6 +15,7 @@
 #import "UITableView+SMRSections.h"
 #import "SMRAlertViewContentTextCell.h"
 #import "SMRAlertViewImageCell.h"
+#import "BDSLinkLabel.h"
 
 typedef NS_ENUM(NSInteger, kSectionType) {
     kSectionTypeContent,    ///< 内容
@@ -45,6 +46,9 @@ SMRAlertViewContentTextCellDelegate>
 + (void)smr_beforeAppearance:(SMRAlertView *)obj {
     obj.contentTextAlignment = NSTextAlignmentCenter;
     obj.titleColor = [UIColor smr_colorWithHexRGB:@"#333333"];
+    obj.enabledTextCheckingTypes = NSTextCheckingTypeLink|NSTextCheckingTypePhoneNumber;
+    obj.linkAttributes = @{NSForegroundColorAttributeName:[UIColor blueColor],
+                            NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
 }
 
 - (instancetype)initWithFrame:(CGRect)frame contentAlignment:(SMRContentMaskViewContentAlignment)contentAlignment {
@@ -288,6 +292,8 @@ SMRAlertViewContentTextCellDelegate>
             cell.maxLayoutWidth = [self maxLayoutOfLabelWidth];
             NSAttributedString *attr = [SMRAlertViewContentTextCell attributeStringWithAttributedContent:self.attributeContent alignment:self.contentTextAlignment];
             cell.alignment = self.contentTextAlignment;
+            cell.contentLabel.enabledTextCheckingTypes = self.enabledTextCheckingTypes;
+            cell.contentLabel.linkAttributes = self.linkAttributes;
             cell.attributeText = attr;
             cell.delegate = self;
             
@@ -415,6 +421,16 @@ SMRAlertViewContentTextCellDelegate>
 - (void)setAttributeContent:(NSAttributedString * _Nonnull)attributeContent {
     _content = attributeContent.string;
     _attributeContent = attributeContent;
+    [self smr_setNeedsReloadView];
+}
+
+- (void)setEnabledTextCheckingTypes:(NSTextCheckingTypes)enabledTextCheckingTypes {
+    _enabledTextCheckingTypes = enabledTextCheckingTypes;
+    [self smr_setNeedsReloadView];
+}
+
+- (void)setLinkAttributes:(NSDictionary *)linkAttributes {
+    _linkAttributes = linkAttributes;
     [self smr_setNeedsReloadView];
 }
 

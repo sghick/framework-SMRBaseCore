@@ -19,8 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@class SMRLinkLabel;
 @interface SMRAlertViewContentTextCell : UITableViewCell
 
+@property (strong, nonatomic, readonly) SMRLinkLabel *contentLabel;
 @property (strong, nonatomic) NSAttributedString *attributeText;
 @property (assign, nonatomic) CGFloat maxLayoutWidth;
 @property (assign, nonatomic) NSTextAlignment alignment;

@@ -21,6 +21,8 @@ typedef void(^SMRAlertLinkTouchedBlock)(SMRAlertView *alert, NSURL *url);
 // cmp-content
 @property (copy  , nonatomic) NSString *content;
 @property (copy  , nonatomic) NSAttributedString *attributeContent;
+@property (assign, nonatomic) NSTextCheckingTypes enabledTextCheckingTypes;
+@property (strong, nonatomic) NSDictionary *linkAttributes;
 // cmp-image
 @property (copy  , nonatomic) NSString *imageURL;
 @property (strong, nonatomic) UIImage *image;
