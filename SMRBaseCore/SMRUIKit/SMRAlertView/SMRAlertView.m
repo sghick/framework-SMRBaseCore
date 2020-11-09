@@ -15,7 +15,7 @@
 #import "UITableView+SMRSections.h"
 #import "SMRAlertViewContentTextCell.h"
 #import "SMRAlertViewImageCell.h"
-#import "BDSLinkLabel.h"
+#import "SMRLinkLabel.h"
 
 typedef NS_ENUM(NSInteger, kSectionType) {
     kSectionTypeContent,    ///< 内容
@@ -57,6 +57,8 @@ SMRAlertViewContentTextCellDelegate>
         // 使用config配置的样式
         _contentTextAlignment = self.smr_appearance.contentTextAlignment;
         _titleColor = self.smr_appearance.titleColor;
+        _enabledTextCheckingTypes = self.smr_appearance.enabledTextCheckingTypes;
+        _linkAttributes = self.smr_appearance.linkAttributes;
         
         __weak typeof(self) weakSelf = self;
         self.contentViewTouchedBlock = ^(id  _Nonnull maskView) {
