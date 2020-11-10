@@ -55,4 +55,10 @@
                                             }];
 }
 
+- (void)bds_setImageWithVideoURL:(NSURL *)videoURL atTime:(NSTimeInterval)time {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.image = [UIImage bds_imageForVideoURL:videoURL atTime:time];
+    });
+}
+
 @end

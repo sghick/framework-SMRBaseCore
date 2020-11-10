@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIImage *)smr_fixOrientation:(UIImage*)aImage;
 + (UIImage *)smr_imageNamed:(NSString *)name;
++ (UIImage *)bds_imageForVideoURL:(NSURL *)videoURL atTime:(NSTimeInterval)time;
 
 @end
 
