@@ -51,7 +51,10 @@ UIImagePickerControllerDelegate>
         // None
     }];
     
-    UIAlertController *alert = [[UIAlertController alloc] init];
+    UIAlertController *alert =
+    [UIAlertController alertControllerWithTitle:@""
+                                        message:@"请选择图片的来源"
+                                 preferredStyle:UIAlertControllerStyleActionSheet];
     [alert addAction:actionForTakePhoto];
     [alert addAction:actionForPhotoLibray];
     [alert addAction:actionForCancel];
