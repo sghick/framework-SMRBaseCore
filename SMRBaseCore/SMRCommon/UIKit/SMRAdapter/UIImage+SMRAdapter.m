@@ -7,6 +7,7 @@
 //
 
 #import "UIImage+SMRAdapter.h"
+#import <AVFoundation/AVFoundation.h>
 
 @implementation UIImage (SMRAdapter)
 
@@ -90,7 +91,7 @@
     return [self imageNamed:name];
 }
 
-+ (UIImage *)bds_imageForVideoURL:(NSURL *)videoURL atTime:(NSTimeInterval)time {
++ (UIImage *)smr_imageForVideoURL:(NSURL *)videoURL atTime:(NSTimeInterval)time {
     AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:videoURL options:nil];
     AVAssetImageGenerator *assetImageGenerator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
     assetImageGenerator.appliesPreferredTrackTransform = YES;

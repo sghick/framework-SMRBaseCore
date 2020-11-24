@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)smr_setImageWithAsset:(PHAsset *)asset options:(PHImageRequestOptions *)options fitWidth:(CGFloat)fitWidth;
 
 /** 设置视频某一帧的图片 */
-- (void)bds_setImageWithVideoURL:(NSURL *)videoURL atTime:(NSTimeInterval)time;
+- (void)smr_setImageWithVideoURL:(NSURL *)videoURL atTime:(NSTimeInterval)time;
 
 @end
 

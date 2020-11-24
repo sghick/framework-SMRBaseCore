@@ -18,19 +18,27 @@
 @implementation SMRUtilsVersionTests
 
 - (id)begin {
-    SMRNavFatherController *controller = [[SMRNavFatherController alloc] init];
-    controller.navigationView.title = @"测试d";
-    [SMRNavigator pushOrPresentToViewController:controller animated:YES];
-    [SMRUtils showHUD];
+//    SMRNavFatherController *controller = [[SMRNavFatherController alloc] init];
+//    controller.navigationView.title = @"测试d";
+//    [SMRNavigator pushOrPresentToViewController:controller animated:YES];
+//    [SMRUtils showHUD];
     
-//    [self testVersionCodeWithoutBuildNumber];
-//    [self testVersionCodeWithBuildNumber];
-//
-//    [self testVersionCompareWithoutBuildNumber];
-//    [self testVersionCompareWithBuildNumber];
+    [SMRUtils setVersionFormat:SMRVersionFormatUpgrade];
+    [self testVersionCodeWithoutBuildNumber2];
+    [self testVersionCodeWithBuildNumber2];
+    [self testVersionCompareWithoutBuildNumber2];
+    [self testVersionCompareWithBuildNumber2];
+    
+    [SMRUtils setVersionFormat:SMRVersionFormatDefault];
+    [self testVersionCodeWithoutBuildNumber];
+    [self testVersionCodeWithBuildNumber];
+    [self testVersionCompareWithoutBuildNumber];
+    [self testVersionCompareWithBuildNumber];
     
     return self;
 }
+
+#pragma mark - Tests for DefaultFormat
 
 - (void)testVersionCodeWithoutBuildNumber {
     assert(version_code1(@"2.2.1") == 20201);
@@ -73,6 +81,66 @@
 }
 
 - (void)testVersionCompareWithBuildNumber {
+    assert(compare_version2(@"2.2.1", @"2.2.0") > 0);
+    assert(compare_version2(@"2.2.1", @"2.1.9") > 0);
+    assert(compare_version2(@"2.2.1", @"2.2.01") == 0);
+    assert(compare_version2(@"2.2.1", @"2.2.1") == 0);
+    assert(compare_version2(@"2.2", @"2.1.1") > 0);
+    assert(compare_version2(@"2.2", @"2.2.1") < 0);
+    assert(compare_version2(@"2.2", @"2.2.1.4.5") < 0);
+    assert(compare_version2(@"2.2.3.4", @"2.2.4.4.5") < 0);
+    assert(compare_version2(@"2.2.3.4.5.6", @"2.2.2.4.5.12") > 0);
+    assert(compare_version2(@"3.1", @"3.1.") == 0);
+    assert(compare_version2(@"2.2.3.4.5.6", @"2.2.3.4.5.12") == 0);
+    
+    assert(compare_version2(@"3.0.0.1", @"3.0.0.0.1") > 0);
+    assert(compare_version2(@"2.2.3.1", @"2.2.3.5") < 0);
+    assert(compare_version2(@"2.2.3.1", @"2.2.3.0") > 0);
+}
+
+#pragma mark - Tests for UpgradeFormat
+
+- (void)testVersionCodeWithoutBuildNumber2 {
+    assert(version_code1(@"2.2.1") == 202001);
+    assert(version_code1(@"2.2.01") == 202001);
+    assert(version_code1(@"2.2") == 202000);
+    assert(version_code1(@"2.2.3.5") == 202003);
+    assert(version_code1(@"2.2.3.0") == 202003);
+    assert(version_code1(@"2.2.2.4.5.12") == 202002);
+    assert(version_code1(@"3.1") == 301000);
+    assert(version_code1(@"3.1.") == 301000);
+}
+
+- (void)testVersionCodeWithBuildNumber2 {
+    assert(version_code2(@"2.2.1") == 20200100);
+    assert(version_code2(@"2.2.01") == 20200100);
+    assert(version_code2(@"2.2") == 20200000);
+    assert(version_code2(@"2.2.3.5") == 20200305);
+    assert(version_code2(@"2.2.3.0") == 20200300);
+    assert(version_code2(@"2.2.2.4.5.12") == 20200204);
+    assert(version_code2(@"3.1") == 30100000);
+    assert(version_code2(@"3.1.") == 30100000);
+}
+
+- (void)testVersionCompareWithoutBuildNumber2 {
+    assert(compare_version1(@"2.2.1", @"2.2.0") > 0);
+    assert(compare_version1(@"2.2.1", @"2.1.9") > 0);
+    assert(compare_version1(@"2.2.1", @"2.2.01") == 0);
+    assert(compare_version1(@"2.2.1", @"2.2.1") == 0);
+    assert(compare_version1(@"2.2", @"2.1.1") > 0);
+    assert(compare_version1(@"2.2", @"2.2.1") < 0);
+    assert(compare_version1(@"2.2", @"2.2.1.4.5") < 0);
+    assert(compare_version1(@"2.2.3.4", @"2.2.4.4.5") < 0);
+    assert(compare_version1(@"2.2.3.4.5.6", @"2.2.2.4.5.12") > 0);
+    assert(compare_version1(@"3.1", @"3.1.") == 0);
+    assert(compare_version1(@"2.2.3.4.5.6", @"2.2.3.4.5.12") == 0);
+    
+    assert(compare_version1(@"3.0.0.1", @"3.0.0.0.1") == 0);
+    assert(compare_version1(@"2.2.3.1", @"2.2.3.5") == 0);
+    assert(compare_version1(@"2.2.3.1", @"2.2.3.0") == 0);
+}
+
+- (void)testVersionCompareWithBuildNumber2 {
     assert(compare_version2(@"2.2.1", @"2.2.0") > 0);
     assert(compare_version2(@"2.2.1", @"2.1.9") > 0);
     assert(compare_version2(@"2.2.1", @"2.2.01") == 0);

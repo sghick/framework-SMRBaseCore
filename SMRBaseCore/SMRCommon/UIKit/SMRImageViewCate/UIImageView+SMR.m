@@ -8,6 +8,7 @@
 
 #import "UIImageView+SMR.h"
 #import <Photos/Photos.h>
+#import "UIImage+SMRAdapter.h"
 
 @implementation UIImageView (SMR)
 
@@ -55,9 +56,9 @@
                                             }];
 }
 
-- (void)bds_setImageWithVideoURL:(NSURL *)videoURL atTime:(NSTimeInterval)time {
+- (void)smr_setImageWithVideoURL:(NSURL *)videoURL atTime:(NSTimeInterval)time {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.image = [UIImage bds_imageForVideoURL:videoURL atTime:time];
+        self.image = [UIImage smr_imageForVideoURL:videoURL atTime:time];
     });
 }
 

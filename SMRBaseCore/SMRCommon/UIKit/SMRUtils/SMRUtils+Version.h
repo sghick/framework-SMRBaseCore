@@ -10,7 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/** 可解析格式: xx.xx.xx.aa */
+static NSString *SMRVersionFormatDefault = @"%02d.%02d.%02d.%02d";
+/** 可解析格式: xx.xx.xxx.aa */
+static NSString *SMRVersionFormatUpgrade = @"%02d.%02d.%03d.%02d";
+
 @interface SMRUtils (Version)
+
+/** 设置版本号格式 */
++ (void)setVersionFormat:(NSString *)format;
 
 /** 比较2个版本号的大小,忽略build号 */
 + (NSComparisonResult)compareVersion:(NSString *)version toVersion:(NSString *)toVersion;
