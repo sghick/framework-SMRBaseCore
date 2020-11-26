@@ -11,7 +11,7 @@
 @implementation NSNumber (SMRCents)
 
 - (NSString *)smr_yuan {
-    int32_t cents = [self intValue];
+    int64_t cents = [self integerValue];
     return [self reviseString:(cents/100.0)];
 }
 
