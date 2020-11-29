@@ -16,6 +16,7 @@ Pod::Spec.new do |s|
         end
         ss.subspec 'UIKit' do |sss| 
             sss.source_files = 'SMRBaseCore/SMRCommon/UIKit/**/*.{h,m,c,mm}'
+            sss.dependency 'PureLayout'
         end
     end
 
@@ -37,7 +38,7 @@ Pod::Spec.new do |s|
         ss.dependency 'SMRBaseCore/SMRCommon'
         ss.dependency 'SMRBaseCore/SMRCoreKit'
         #### SMRUIKit.SMRNavigationView
-        ss.dependency 'PureLayout', '3.1.4'
+        ss.dependency 'PureLayout'
         ss.dependency 'SDWebImage', '5.9.1'
         #### SMRUIKit.SMRController
         ss.dependency 'MJRefresh', '3.1.15.7'
