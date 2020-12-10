@@ -197,8 +197,8 @@
         empty.view.backgroundColor = [UIColor clearColor];
         UINavigationController *nav = [[navigator.defaultNavigationControllerClass alloc] initWithRootViewController:empty];
         nav.modalPresentationStyle = UIModalPresentationFullScreen;
-        [viewController addChildViewController:nav];
-        [viewController.view addSubview:nav.view];
+        [baseController addChildViewController:nav];
+        [baseController.view addSubview:nav.view];
         [nav pushViewController:viewController animated:animated];
         return YES;;
     }
