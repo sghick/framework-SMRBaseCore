@@ -3,12 +3,21 @@
 //  SMRRouterDemo
 //
 //  Created by 丁治文 on 2018/12/14.
-//  Copyright © 2018 sumrise. All rights reserved.
+//  Copyright © 2018 ibaodashi. All rights reserved.
 //
 
 #import "SMRNavigator.h"
 
 @implementation SMRNavigator
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _defaultNavigationControllerClass = UINavigationController.class;
+        _defaultNavigationEmptyControllerClass = SMRNavEmtpyController.class;
+    }
+    return self;
+}
 
 + (instancetype)sharedNavigator {
     static SMRNavigator *_sharedNavigator = nil;
@@ -167,12 +176,32 @@
     return NO;
 }
 + (BOOL)pushToViewController:(UIViewController *)viewController baseController:(UINavigationController *)baseController animated:(BOOL)animated {
-    if (!viewController || ![viewController isKindOfClass:[UIViewController class]] ||
-        !baseController || ![baseController isKindOfClass:[UINavigationController class]]) {
+    if (!viewController || ![viewController isKindOfClass:[UIViewController class]]) {
         return NO;
     }
-    [baseController pushViewController:viewController animated:animated];
-    return YES;
+    if (!baseController) {
+        return NO;
+    }
+    if ([baseController isKindOfClass:[UINavigationController class]]) {
+        [baseController pushViewController:viewController animated:animated];
+        return YES;
+    } else {
+        SMRNavigator *navigator = [SMRNavigator sharedNavigator];
+        if (![navigator.defaultNavigationControllerClass isKindOfClass:UINavigationController.class]) {
+            return NO;
+        }
+        if (![navigator.defaultNavigationEmptyControllerClass isKindOfClass:UIViewController.class]) {
+            return NO;
+        }
+        UIViewController *empty = [[navigator.defaultNavigationEmptyControllerClass alloc] init];
+        empty.view.backgroundColor = [UIColor clearColor];
+        UINavigationController *nav = [[navigator.defaultNavigationControllerClass alloc] initWithRootViewController:empty];
+        nav.modalPresentationStyle = UIModalPresentationFullScreen;
+        [viewController addChildViewController:nav];
+        [viewController.view addSubview:nav.view];
+        [nav pushViewController:viewController animated:animated];
+        return YES;;
+    }
 }
 + (BOOL)presentToViewController:(UIViewController *)viewController animated:(BOOL)animated {
     UIViewController *base = [SMRNavigator getMainwindowTopController];
@@ -196,6 +225,19 @@
     } else {
         [viewController dismissViewControllerAnimated:animated completion:nil];
     }
+}
+
+@end
+
+@implementation SMRNavEmtpyController
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.isViewAppeared) {
+        [self.navigationController removeFromParentViewController];
+        [self.navigationController.view removeFromSuperview];
+    }
+    _isViewAppeared = YES;
 }
 
 @end

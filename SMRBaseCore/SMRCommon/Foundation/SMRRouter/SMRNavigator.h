@@ -3,7 +3,7 @@
 //  SMRRouterDemo
 //
 //  Created by 丁治文 on 2018/12/14.
-//  Copyright © 2018 sumrise. All rights reserved.
+//  Copyright © 2018 ibaodashi. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -29,6 +29,11 @@ typedef UINavigationController * _Nullable (^SMRChangeRootTabNavigationControlle
 @property (nonatomic, copy  ) SMRRootTabNavigationController rootTabNavigationControllerBlock;
 /// 3.设置选中tabBar的方法,无此root则无响应
 @property (nonatomic, copy  ) SMRChangeRootTabNavigationController changeRootTabNavigationControllerBlock;
+
+/// 强行push时自动增加的NavController的类名,默认为UINavigationController.class,必须为UINavigationController及其子类
+@property (nonatomic, assign) Class defaultNavigationControllerClass;
+/// 强行push时自动增加的NavController的root类名,默认为SMRNavEmtpyController.class,必须为UIViewController及其子类
+@property (nonatomic, assign) Class defaultNavigationEmptyControllerClass;
 
 + (instancetype)sharedNavigator;
 
@@ -58,6 +63,12 @@ typedef UINavigationController * _Nullable (^SMRChangeRootTabNavigationControlle
 + (BOOL)presentToViewController:(UIViewController *)viewController baseController:(UIViewController *)baseController animated:(BOOL)animated;
 
 + (void)popOrDismissViewController:(UIViewController *)viewController animated:(BOOL)animated;
+
+@end
+
+@interface SMRNavEmtpyController : UIViewController
+
+@property (assign, nonatomic, readonly) BOOL isViewAppeared;
 
 @end
 
