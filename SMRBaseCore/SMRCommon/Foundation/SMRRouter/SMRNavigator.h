@@ -57,7 +57,10 @@ typedef UINavigationController * _Nullable (^SMRChangeRootTabNavigationControlle
 + (BOOL)pushOrPresentToViewController:(UIViewController *)viewController animated:(BOOL)animated;
 + (BOOL)pushOrPresentToViewController:(UIViewController *)viewController baseController:(UIViewController *)baseController animated:(BOOL)animated;
 
-+ (BOOL)pushToViewController:(UIViewController *)viewController baseController:(UINavigationController *)baseController animated:(BOOL)animated;
+/**
+ 如果baseController不是UINavigationController及其子类,则会重新开启一个nav栈
+ */
++ (BOOL)pushToViewController:(UIViewController *)viewController baseController:(UIViewController *)baseController animated:(BOOL)animated;
 
 + (BOOL)presentToViewController:(UIViewController *)viewController animated:(BOOL)animated;
 + (BOOL)presentToViewController:(UIViewController *)viewController baseController:(UIViewController *)baseController animated:(BOOL)animated;

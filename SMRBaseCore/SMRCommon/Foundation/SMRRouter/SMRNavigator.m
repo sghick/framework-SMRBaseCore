@@ -175,7 +175,7 @@
     }
     return NO;
 }
-+ (BOOL)pushToViewController:(UIViewController *)viewController baseController:(UINavigationController *)baseController animated:(BOOL)animated {
++ (BOOL)pushToViewController:(UIViewController *)viewController baseController:(UIViewController *)baseController animated:(BOOL)animated {
     if (!viewController || ![viewController isKindOfClass:[UIViewController class]]) {
         return NO;
     }
@@ -183,7 +183,7 @@
         return NO;
     }
     if ([baseController isKindOfClass:[UINavigationController class]]) {
-        [baseController pushViewController:viewController animated:animated];
+        [(UINavigationController *)baseController pushViewController:viewController animated:animated];
         return YES;
     } else {
         SMRNavigator *navigator = [SMRNavigator sharedNavigator];
