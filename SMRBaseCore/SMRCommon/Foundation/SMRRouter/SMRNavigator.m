@@ -187,12 +187,6 @@
         return YES;
     } else {
         SMRNavigator *navigator = [SMRNavigator sharedNavigator];
-        if (![navigator.defaultNavigationControllerClass isKindOfClass:UINavigationController.class]) {
-            return NO;
-        }
-        if (![navigator.defaultNavigationEmptyControllerClass isKindOfClass:UIViewController.class]) {
-            return NO;
-        }
         UIViewController *empty = [[navigator.defaultNavigationEmptyControllerClass alloc] init];
         empty.view.backgroundColor = [UIColor clearColor];
         UINavigationController *nav = [[navigator.defaultNavigationControllerClass alloc] initWithRootViewController:empty];
