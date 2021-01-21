@@ -9,11 +9,16 @@
 #import "SMRTextAttributeTests.h"
 #import "PureLayout.h"
 #import "SMRCommon.h"
+#import "SMRUtils+MBProgressHUD.h"
 
 @implementation SMRTextAttributeTests
 
 - (id)begin {
-    [self text_markAttributes];
+//    [self text_markAttributes];
+    
+    NSURL *url = [NSURL URLWithString:@"alipay://"];
+    BOOL canOpen = [[UIApplication sharedApplication] canOpenURL:url];
+    [SMRUtils toast:canOpen ? @"可以" : @"不可以"];
     return self;
 }
 

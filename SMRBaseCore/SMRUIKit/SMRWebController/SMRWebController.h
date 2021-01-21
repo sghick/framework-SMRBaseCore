@@ -21,11 +21,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@class WKWebView, SMRWebControllerParameter;
+@class WKWebView, WKWebViewConfiguration, WKUserContentController, SMRWebControllerParameter;
 @interface SMRWebController : SMRNavFatherController
 
-@property (assign, nonatomic) BOOL autoAdjustTabBarByMainPage; // default:NO
 @property (strong, nonatomic, readonly) WKWebView *webView;
+@property (strong, nonatomic, readonly) UIProgressView *progressView;
+@property (strong, nonatomic, readonly) WKWebViewConfiguration *config;
+@property (strong, nonatomic, readonly) WKUserContentController *userController;
+
+@property (assign, nonatomic) BOOL autoAdjustTabBarByMainPage; // default:NO
 @property (strong, nonatomic) SMRWebControllerParameter *webParameter;
 @property (copy  , nonatomic) NSString *url;
 

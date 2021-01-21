@@ -49,9 +49,6 @@
 WKUIDelegate,
 WKNavigationDelegate>
 
-@property (strong, nonatomic) UIProgressView *progressView;
-@property (strong, nonatomic) WKWebViewConfiguration *config;
-@property (strong, nonatomic) WKUserContentController *userController;
 @property (strong, nonatomic) NSArray<SMRWKScriptMessageHandler *> *messageHandlers;
 
 @end
@@ -59,6 +56,9 @@ WKNavigationDelegate>
 @implementation SMRWebController
 
 @synthesize webView = _webView;
+@synthesize progressView = _progressView;
+@synthesize config = _config;
+@synthesize userController = _userController;
 
 - (void)dealloc {
     [self removeScriptMessageHandlers];
@@ -610,7 +610,7 @@ WKNavigationDelegate>
 - (UIProgressView *)progressView {
     if (!_progressView) {
         _progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, self.navigationView.bottom, [UIScreen mainScreen].bounds.size.width, 0)];
-        _progressView.tintColor = [UIColor blueColor];
+        _progressView.tintColor = [UIColor greenColor];
         _progressView.trackTintColor = [UIColor clearColor];
     }
     return _progressView;
