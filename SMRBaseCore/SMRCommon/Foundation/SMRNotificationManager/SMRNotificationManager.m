@@ -80,6 +80,15 @@ NSString * kSMRWillJumpFromPushNotificaation = @"kSMRWillJumpFromPushNotificaati
     }
 }
 
+- (void)performCurrentActionOnceIfPrepared {
+    BOOL prepared = (self.prepared && self.pushURL.length);
+    if (prepared) {
+        [self performCurrentAction];
+        [self removeCurrentAction];
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    }
+}
+
 - (BOOL)canResponseCurrentAction {
     if (self.pushURL.length) {
         return YES;

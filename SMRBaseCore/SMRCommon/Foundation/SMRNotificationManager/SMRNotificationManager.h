@@ -33,6 +33,8 @@ typedef void(^SMRNotificationManagerActionBlock)(SMRNotificationManager *manager
 @property (copy  , nonatomic) SMRNotificationManagerActionBlock actionBlock;
 /** 设置AppIcon位置的红点数,0自动隐藏 */
 @property (assign, nonatomic) NSInteger applicationIconBadgeNumber;
+/** 设置为YES后,执行performCurrentActionOnceIfPrepared有效 */
+@property (assign, nonatomic) BOOL prepared;
 
 @property (copy  , nonatomic, readonly) NSString * _Nullable pushURL;
 @property (copy  , nonatomic, readonly) NSDictionary * _Nullable userInfo;
@@ -49,7 +51,8 @@ typedef void(^SMRNotificationManagerActionBlock)(SMRNotificationManager *manager
 - (void)setActionWithPushURL:(nullable NSString *)pushURL userInfo:(NSDictionary *)userInfo fromType:(SMRPushFromType)fromType;
 
 /** 执行一次任务[推荐]在root的`viewDidAppear/后台激活时`调用 */
-- (void)performCurrentActionOnceIfNeeded;
+- (void)performCurrentActionOnceIfNeeded __deprecated_msg("即将废弃, use -performCurrentActionOnceIfPrepared 方法代替");
+- (void)performCurrentActionOnceIfPrepared;
 
 /** 清除推送的badge */
 - (void)clearIconBadgeNumber;
