@@ -1109,8 +1109,8 @@
 		1D50A1F224F6404E00B36F07 /* SMRNotificationManager */ = {
 			isa = PBXGroup;
 			children = (
-				1D50A1F324F6404E00B36F07 /* SMRNotificationManager.m */,
 				1D50A1F424F6404E00B36F07 /* SMRNotificationManager.h */,
+				1D50A1F324F6404E00B36F07 /* SMRNotificationManager.m */,
 			);
 			path = SMRNotificationManager;
 			sourceTree = "<group>";
