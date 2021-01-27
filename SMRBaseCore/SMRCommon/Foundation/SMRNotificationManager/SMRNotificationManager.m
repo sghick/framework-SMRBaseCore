@@ -3,7 +3,7 @@
 //  SMRBaseCoreDemo
 //
 //  Created by 丁治文 on 2019/5/10.
-//  Copyright © 2019 sumrise. All rights reserved.
+//  Copyright © 2019 ibaodashi. All rights reserved.
 //
 
 #import "SMRNotificationManager.h"
@@ -15,6 +15,17 @@ NSString * kSMRWillJumpFromPushNotificaation = @"kSMRWillJumpFromPushNotificaati
 @end
 
 @implementation SMRNotificationManager
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        if (@available(iOS 10.0, *)) {
+            _authOptions = UNAuthorizationOptionAlert | UNAuthorizationOptionBadge | UNAuthorizationOptionSound;
+        }
+        _notiTypes = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
+    }
+    return self;
+}
 
 + (instancetype)sharedInstance {
     static SMRNotificationManager *_sharedNotificationManager = nil;
@@ -31,14 +42,11 @@ NSString * kSMRWillJumpFromPushNotificaation = @"kSMRWillJumpFromPushNotificaati
     if (@available(iOS 10.0, *)) {
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
         [center setDelegate:delegate];
-        [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert |
-                                                 UNAuthorizationOptionBadge |
-                                                 UNAuthorizationOptionSound)
+        [center requestAuthorizationWithOptions:self.authOptions
                               completionHandler:^(BOOL granted, NSError * _Nullable error) {
                                   if (granted) { // 授权接收通知
                                       // 注册获得device Token
                                       dispatch_async(dispatch_get_main_queue(), ^{
-                                          
                                           [[UIApplication sharedApplication] registerForRemoteNotifications];
                                       });
                                   }
@@ -50,10 +58,50 @@ NSString * kSMRWillJumpFromPushNotificaation = @"kSMRWillJumpFromPushNotificaati
 }
 
 - (void)configNotification {
-    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeSound | UIUserNotificationTypeBadge categories:nil];
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:self.notiTypes categories:nil];
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     // 注册获得device Token
     [[UIApplication sharedApplication] registerForRemoteNotifications];
+}
+
+#pragma mark - SetJump
+
+- (BOOL)setActionAndOpenWithUniversalLinkWithApplication:(UIApplication *)application userActivity:(NSUserActivity *)userActivity {
+    if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
+        NSURL *webUrl = [NSURL URLWithString:userActivity.webpageURL.absoluteString];
+        // 拦截所有的包大师的jump域名
+        if ([webUrl.host isEqualToString:self.domainForUL]) {
+            NSString *lastPath = [webUrl.absoluteString lastPathComponent];
+            lastPath = [lastPath componentsSeparatedByString:@"?"].firstObject;
+            lastPath = [lastPath stringByRemovingPercentEncoding];
+            NSURL *openUrl = [NSURL URLWithString:lastPath];
+            if ([self p_setOpenURL:openUrl userInfo:nil fromType:SMRPushFromTypeUniversalLink]) {
+                return YES;
+            } else {
+                return [[UIApplication sharedApplication] openURL:openUrl];
+            }
+        }
+    }
+    return NO;
+}
+
+- (BOOL)setActionAndOpenWithURL:(NSURL *)url userInfo:(NSDictionary *)userInfo fromType:(SMRPushFromType)fromType {
+    return [self p_setOpenURL:url userInfo:userInfo fromType:fromType];
+}
+
+/** 需要打开App时,统一由manager保存,由其处理 */
+- (BOOL)p_setOpenURL:(NSURL *)url userInfo:(NSDictionary *)userInfo fromType:(SMRPushFromType)fromType {
+    if (self.urlTypes.count) {
+        if (url.scheme.length && [self.urlTypes containsObject:url.scheme]) {
+            SMRNotificationManager *manager = [SMRNotificationManager sharedInstance];
+            [manager setActionWithPushURL:url.absoluteString userInfo:nil fromType:fromType];
+            [self performCurrentActionOnceIfPrepared];
+            return YES;
+        }
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 #pragma mark - Jump
@@ -66,14 +114,15 @@ NSString * kSMRWillJumpFromPushNotificaation = @"kSMRWillJumpFromPushNotificaati
     return [UIApplication sharedApplication].applicationIconBadgeNumber;
 }
 
-- (void)setActionWithPushURL:(NSString *)pushURL userInfo:(nonnull NSDictionary *)userInfo fromType:(SMRPushFromType)fromType {
+- (void)setActionWithPushURL:(NSString *)pushURL userInfo:(NSDictionary *)userInfo fromType:(SMRPushFromType)fromType {
     _pushURL = pushURL;
     _userInfo = userInfo;
     _fromType = fromType;
 }
 
 - (void)performCurrentActionOnceIfNeeded {
-    if ([self canResponseCurrentAction]) {
+    BOOL prepared = self.pushURL.length;
+    if (prepared) {
         [self performCurrentAction];
         [self removeCurrentAction];
         [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
@@ -87,13 +136,6 @@ NSString * kSMRWillJumpFromPushNotificaation = @"kSMRWillJumpFromPushNotificaati
         [self removeCurrentAction];
         [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     }
-}
-
-- (BOOL)canResponseCurrentAction {
-    if (self.pushURL.length) {
-        return YES;
-    }
-    return NO;
 }
 
 - (void)performCurrentAction {
