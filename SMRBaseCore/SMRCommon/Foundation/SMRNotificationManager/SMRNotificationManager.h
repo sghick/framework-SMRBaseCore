@@ -39,7 +39,7 @@ API_AVAILABLE(ios(10.0))
 @property (copy  , nonatomic) SMRNotificationManagerActionBlock actionBlock;
 /** 设置UniversalLink域名校验,如"jump.xxxx.com" */
 @property (copy  , nonatomic) NSString *domainForUL;
-/** 配置白名单, 默认nil, 表示限制; 配置后仅允许urlTypes中的url进行跳转 */
+/** 配置白名单, 默认nil, 表示无限制; 配置后仅允许urlTypes中的url进行跳转 */
 @property (copy  , nonatomic) NSArray<NSString *> *urlTypes;
 
 /// =========== 功能方法=============== ///

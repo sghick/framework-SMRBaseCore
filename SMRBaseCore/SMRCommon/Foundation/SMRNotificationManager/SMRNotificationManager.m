@@ -91,16 +91,13 @@ NSString * kSMRWillJumpFromPushNotificaation = @"kSMRWillJumpFromPushNotificaati
 
 /** 需要打开App时,统一由manager保存,由其处理 */
 - (BOOL)p_setOpenURL:(NSURL *)url userInfo:(NSDictionary *)userInfo fromType:(SMRPushFromType)fromType {
-    if (self.urlTypes.count) {
-        if (url.scheme.length && [self.urlTypes containsObject:url.scheme]) {
-            SMRNotificationManager *manager = [SMRNotificationManager sharedInstance];
-            [manager setActionWithPushURL:url.absoluteString userInfo:nil fromType:fromType];
-            [self performCurrentActionOnceIfPrepared];
-            return YES;
-        }
-        return NO;
-    } else {
+    if (url.scheme.length && (!self.urlTypes.count || [self.urlTypes containsObject:url.scheme])) {
+        SMRNotificationManager *manager = [SMRNotificationManager sharedInstance];
+        [manager setActionWithPushURL:url.absoluteString userInfo:nil fromType:fromType];
+        [self performCurrentActionOnceIfPrepared];
         return YES;
+    } else {
+        return NO;
     }
 }
 
