@@ -127,7 +127,7 @@ static const char SMRUnfoldStatusPropertyKey = '\0';
     if ((indexPath.section < 0) || (indexPath.section > lastSection)) {
         return;
     }
-    NSInteger lastRow = [self numberOfRowsInSection:lastSection] - 1;
+    NSInteger lastRow = [self numberOfRowsInSection:indexPath.section] - 1;
     if ((indexPath.row < 0) || (indexPath.row > lastRow)) {
         return;
     }
