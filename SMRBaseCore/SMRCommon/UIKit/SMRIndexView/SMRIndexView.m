@@ -11,11 +11,48 @@
 #import <CoreText/CoreText.h>
 #import "SMRLog.h"
 
+@interface SMRIndexViewItem : NSObject
+
+@property (strong, nonatomic) NSString *item;
+@property (assign, nonatomic) CGPoint origin;
+@property (assign, nonatomic) CGPoint position;
+@property (strong, nonatomic) UIFont *font;
+@property (assign, nonatomic) CGFloat fontSize;
+@property (strong, nonatomic) UIColor *color;
+@property (assign, nonatomic) CGFloat alpha;
+@property (assign, nonatomic) CGFloat zPosition;
+@property (strong, nonatomic) CATextLayer *layer;
+
+@end
+
+@implementation SMRIndexViewItem
+
++ (CTFontRef)CTFontWithUIFont:(UIFont *)font {
+    NSString *fontName = font.fontName;
+    if ([fontName hasPrefix:@".SFUI"]) {
+        fontName = [fontName stringByReplacingOccurrencesOfString:@".SFUI" withString:@"TimesNewRomanPSMT"];
+    }
+    CTFontRef ref = CTFontCreateWithName((CFStringRef)fontName, font.pointSize, NULL);
+    return ref;
+}
+
++ (UIFont *)UIFontWithCTFont:(CTFontRef)ctFont {
+    NSString *fontName = (__bridge NSString *)CTFontCopyName(ctFont, kCTFontPostScriptNameKey);
+    if ([fontName hasPrefix:@".SFUI"]) {
+        fontName = [fontName stringByReplacingOccurrencesOfString:@".SFUI" withString:@"TimesNewRomanPSMT"];
+    }
+    CGFloat fontSize = CTFontGetSize(ctFont);
+    UIFont *font = [UIFont fontWithName:fontName size:fontSize];
+    return font;
+}
+
+@end
+
 @interface SMRIndexView ()
 
 // item properties
 @property (nonatomic, copy) NSArray *indexItems;
-@property (nonatomic, copy) NSArray *itemsAtrributes;
+@property (nonatomic, copy) NSArray<SMRIndexViewItem *> *itemsAtrributes;
 
 @property (nonatomic, strong) NSNumber *section;
 
@@ -55,10 +92,6 @@
 }
 
 - (UIColor *)selectedItemFontColor {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     if (!_selectedItemFontColor) {
         _selectedItemFontColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
         
@@ -69,19 +102,10 @@
 #pragma mark setters
 
 - (void)setCurtainColor:(UIColor *)curtainColor {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     _curtainColor = curtainColor;
 }
 
 - (void)setFontColor:(UIColor *)fontColor {
-    
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     // we need to convert grayColor, whiteColor and blackColor to RGB;
     if ([fontColor isEqual:[UIColor grayColor]]) {
         _fontColor = [UIColor colorWithRed:0.5
@@ -102,10 +126,6 @@
 }
 
 - (void)setCurtainFade:(CGFloat)curtainFade {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     if (self.gradientLayer) {
         [self.gradientLayer removeFromSuperlayer];
         self.gradientLayer = nil;
@@ -114,10 +134,6 @@
 }
 
 - (void)setDataSource:(id<SMRIndexViewDataSource>)dataSource {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     _dataSource = dataSource;
     self.indexItems = [dataSource sectionIndexTitlesForIndexView:self];
 }
@@ -125,10 +141,6 @@
 #pragma mark view lifecycle methods
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     self = [super initWithFrame:frame];
     if (self) {
         // initialising all default values
@@ -141,8 +153,8 @@
         self.rightMargin = 10.0;
         self.maxItemDeflection = 100.0;
         self.rangeOfDeflection = 3;
-        self.font = [UIFont fontWithName:@"HelveticaNeue" size:15.0];
-        self.selectedItemFont = [UIFont fontWithName:@"HelveticaNeue" size:50.0];
+        self.font = [UIFont fontWithName:@"TimesNewRomanPSMT" size:15.0];
+        self.selectedItemFont = [UIFont fontWithName:@"TimesNewRomanPSMT" size:50.0];
         self.ergonomicHeight = YES;
         self.maxValueForErgonomicHeight = 400.0;
         self.minimumGapBetweenItems = 5.0;
@@ -152,19 +164,11 @@
 }
 
 - (instancetype)init {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     self = [self initWithFrame:CGRectZero];
     return self;
 }
 
 - (void)didMoveToSuperview {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     [self getAllItemsSize];
     [self initialiseAllAttributes];
     [self resetPosition];
@@ -172,16 +176,11 @@
 
 // refreshing our index items
 - (void)refreshIndexItems {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     // if items existed we have to remove all sublayers from main layer
     if (self.itemsAtrributes) {
-        for (NSDictionary *item in self.itemsAtrributes) {
-            CALayer *layer = item[@"layer"];
-            [layer removeFromSuperlayer];
-        }
+        [self.itemsAtrributes enumerateObjectsUsingBlock:^(SMRIndexViewItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [obj.layer removeFromSuperlayer];
+        }];
         self.itemsAtrributes = nil;
     }
     
@@ -191,14 +190,16 @@
     [self resetPosition];
 }
 
+- (void)setSelectedItemIndex:(NSInteger)index {
+    if (index < self.itemsAtrributes.count) {
+        _section = @(index);
+        [self refreshIndexItems];
+    }
+}
+
 #pragma mark calculating initial values and sizes then setting them
 // calculating all necessary sizes and values to draw index items
 - (void)getAllItemsSize {
-    
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     CGSize indexSize = CGSizeZero;
     
     // determining font sizes
@@ -297,10 +298,6 @@
 
 // checking if there are any items with lower case
 - (BOOL)checkForLowerCase {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     NSCharacterSet *lowerCaseSet = [NSCharacterSet lowercaseLetterCharacterSet];
     for (NSString *item in self.indexItems) {
         if ([item rangeOfCharacterFromSet:lowerCaseSet].location != NSNotFound) return YES;
@@ -310,10 +307,6 @@
 
 // checking ig there are any items with upper case
 - (BOOL)checkForUpperCase {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     NSCharacterSet *upperCaseSet = [NSCharacterSet uppercaseLetterCharacterSet];
     for (NSString *item in self.indexItems) {
         if ([item rangeOfCharacterFromSet:upperCaseSet].location != NSNotFound) return YES;
@@ -322,10 +315,6 @@
 }
 
 - (void) initialiseAllAttributes {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     CGFloat verticalPos = self.firstItemOrigin.y;
     NSMutableArray *newItemsAttributes = [NSMutableArray new];
     
@@ -347,30 +336,26 @@
         } else point.x = self.firstItemOrigin.x;
         
         point.y = verticalPos;
-        NSValue *newValueForPoint = [NSValue valueWithCGPoint:point];
-        
+//        NSValue *newValueForPoint = [NSValue valueWithCGPoint:point];
         
         if (!self.itemsAtrributes) {
             CATextLayer * singleItemTextLayer = [CATextLayer layer];
             
-            NSNumber *alpha = @(CGColorGetAlpha([self.fontColor CGColor]));
-            
+            SMRIndexViewItem *itemAttributes = [[SMRIndexViewItem alloc] init];
+            itemAttributes.item = item;
+            itemAttributes.origin = point;
+            itemAttributes.position = point;
+            itemAttributes.font = self.font;
+            itemAttributes.color = self.fontColor;
+            itemAttributes.alpha = CGColorGetAlpha(self.fontColor.CGColor);
             // setting zPosition a little above because we might need to put something below
-            NSNumber *zPosition = @(5.0);
-            
-            NSCache *itemAttributes = [@{@"item":item,
-                                         @"origin":newValueForPoint,
-                                         @"position":newValueForPoint,
-                                         @"font":(__bridge_transfer id)CTFontCreateWithName((__bridge CFStringRef)self.font.fontName, self.font.pointSize, NULL),
-                                         @"color":self.fontColor,
-                                         @"alpha":alpha,
-                                         @"zPosition":zPosition,
-                                         @"layer":singleItemTextLayer}mutableCopy];
+            itemAttributes.zPosition = 5.0;
+            itemAttributes.layer = singleItemTextLayer;
             
             [newItemsAttributes addObject:itemAttributes];
         } else {
-            self.itemsAtrributes[count][@"origin"] = newValueForPoint;
-            self.itemsAtrributes[count][@"position"] = newValueForPoint;
+            self.itemsAtrributes[count].origin = point;
+            self.itemsAtrributes[count].position = point;
         }
         
         verticalPos += self.itemsOffset;
@@ -384,19 +369,18 @@
 
 // reseting positions of index items
 - (void)resetPosition {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
-    for (NSCache *itemAttributes in self.itemsAtrributes) {
-        CGPoint origin = [[itemAttributes objectForKey:@"origin"] CGPointValue];
-        [itemAttributes setObject:[NSValue valueWithCGPoint:origin] forKey:@"position"];
-        [itemAttributes setObject:(__bridge_transfer id)CTFontCreateWithName((__bridge CFStringRef)self.font.fontName, self.font.pointSize, NULL) forKey:@"font"];
-        [itemAttributes setObject:@(1.0) forKey:@"alpha"];
-        [itemAttributes setObject:self.fontColor forKey:@"color"];
-        [itemAttributes setObject:@(5.0) forKey:@"zPosition"];
+    [self.itemsAtrributes enumerateObjectsUsingBlock:^(SMRIndexViewItem * _Nonnull itemAttributes, NSUInteger idx, BOOL * _Nonnull stop) {
+        itemAttributes.position = itemAttributes.origin;
+        itemAttributes.font = self.font;
+        itemAttributes.alpha = 1;
+        itemAttributes.color = self.fontColor;
+        itemAttributes.zPosition = 5;
         
-    }
+        if (idx == self.section.integerValue) {
+            itemAttributes.font = self.highlightedItemFont ?: self.font;
+            itemAttributes.color = self.highlightedItemFontColor ?: self.fontColor;
+        }
+    }];
     
     [self drawIndex];
     [self setNeedsDisplay];
@@ -407,19 +391,15 @@
 
 #pragma mark calculating item position during the pan gesture
 - (void)positionForIndexItemsWhilePanLocation:(CGPoint)location {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     CGFloat verticalPos = self.firstItemOrigin.y;
     
     int section = 0;
-    for (NSCache *itemAttributes in self.itemsAtrributes) {
+    for (SMRIndexViewItem *itemAttributes in self.itemsAtrributes) {
         
-        CGFloat alpha = [[itemAttributes objectForKey: @"alpha"] floatValue];
-        CGPoint point = [[itemAttributes objectForKey:@"position"] CGPointValue];
-        CGPoint origin = [[itemAttributes objectForKey:@"origin"] CGPointValue];
-        CGFloat fontSize = [[itemAttributes objectForKey:@"fontSize"] floatValue];
+        CGFloat alpha = itemAttributes.alpha;
+        CGPoint point = itemAttributes.position;
+        CGPoint origin = itemAttributes.origin;
+        CGFloat fontSize = itemAttributes.fontSize;
         UIColor *fontColor;
         
         BOOL inRange = NO;
@@ -450,7 +430,7 @@
             
             CGFloat zPosition = self.actualRangeOfDeflection - fabs(point.y - location.y) * differenceMappedToRange;
             
-            [itemAttributes setObject:@(5.0 + zPosition) forKey:@"zPosition"];
+            itemAttributes.zPosition = zPosition + 5;
             
             // calculating a fontIncrease factor of the deflected item
             CGFloat fontIncrease = (self.maxItemDeflection - (fabs(point.y - location.y)) *
@@ -473,9 +453,8 @@
                 alpha = colorChange;
             } else alpha = 1.0;
             
-            [itemAttributes setObject:(__bridge_transfer id)CTFontCreateWithName((__bridge CFStringRef)self.font.fontName, fontSize, NULL) forKey:@"font"];
-            
-            [itemAttributes setObject:fontColor forKey:@"color"];
+            itemAttributes.font = [self.font fontWithSize:fontSize];
+            itemAttributes.color = fontColor;
             
             // checking if the item is the most deflected one -> it means it is the selected one
             BOOL selectedInRange  = location.y > point.y - self.itemsOffset / 2.0 && location.y < point.y + self.itemsOffset / 2.0;
@@ -487,10 +466,9 @@
             // if our location is pointing to the selected item we have to change this item's font, color and make it's zPosition the largest to be sure it's on the top
             if (selectedInRange || firstItemInRange || lastItemInRange) {
                 alpha = 1.0;
-                
-                [itemAttributes setObject:(__bridge_transfer id)CTFontCreateWithName((__bridge CFStringRef)self.selectedItemFont.fontName, fontSize, NULL) forKey:@"font"];
-                [itemAttributes setObject:self.selectedItemFontColor forKey:@"color"];
-                [itemAttributes setObject:@(10.0) forKey:@"zPosition"];
+                itemAttributes.font = [self.selectedItemFont fontWithSize:fontSize];
+                itemAttributes.color = self.selectedItemFontColor;
+                itemAttributes.zPosition = 10;
                 if (!self.getSelectedItemsAfterPanGestureIsFinished && [self.section integerValue] != section) {
                     [self.dataSource indexView:self selectedTitle:self.indexItems[section] atIndex:section];
                 }
@@ -508,17 +486,16 @@
             
             point.x = origin.x;
             alpha = 1.0;
-            [itemAttributes setObject:(__bridge_transfer id)CTFontCreateWithName((__bridge CFStringRef)self.font.fontName, self.font.pointSize, NULL) forKey:@"font"];
+            itemAttributes.font = self.font;
             fontColor = self.fontColor;
-            [itemAttributes setObject:self.fontColor forKey:@"color"];
-            [itemAttributes setObject:@(5.0) forKey:@"zPosition"];
+            itemAttributes.color = self.fontColor;
+            itemAttributes.zPosition = 5;
         }
         
         // we have to store some values in itemAtrributes array
         point.y = verticalPos;
-        NSValue *newValueForPoint = [NSValue valueWithCGPoint:point];
-        [itemAttributes setObject:newValueForPoint forKey:@"position"];
-        [itemAttributes setObject:@(alpha) forKey:@"alpha"];
+        itemAttributes.position = point;
+        itemAttributes.alpha = alpha;
         verticalPos += self.itemsOffset;
         section ++;
     }
@@ -531,10 +508,6 @@
 
 // calculating darker color to the given one
 - (UIColor *)darkerColor:(UIColor *)color by:(float)value {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     CGFloat h, s, b, a;
     if ([color getHue:&h saturation:&s brightness:&b alpha:&a])
         return [UIColor colorWithHue:h
@@ -547,15 +520,12 @@
 #pragma mark drawing CATextLayers with indexitems
 
 - (void)drawIndex {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
-    for (NSCache *itemAttributes in self.itemsAtrributes) {
+    for (SMRIndexViewItem *itemAttributes in self.itemsAtrributes) {
         // getting attributes necessary to check if we need to animate
         
-        CTFontRef currentFont = (__bridge CTFontRef)[itemAttributes objectForKey:@"font"];
-        CATextLayer * singleItemTextLayer = [itemAttributes objectForKey:@"layer"];
+        CTFontRef currentFont = [SMRIndexViewItem CTFontWithUIFont:itemAttributes.font];
+        CATextLayer *singleItemTextLayer = itemAttributes.layer;
+        UIColor *currentColor = itemAttributes.color;
         
         // checking if all CATexts exists
         if ([self.itemsAtrributes count] != [self.layer.sublayers count] - 1) {
@@ -563,7 +533,8 @@
         }
         
         // checking if font size is different if it's different we have to animate CALayer
-        if (singleItemTextLayer.fontSize != CTFontGetSize(currentFont)) {
+        if ((singleItemTextLayer.fontSize != CTFontGetSize(currentFont)) ||
+            CGColorEqualToColor(singleItemTextLayer.foregroundColor, currentColor.CGColor)) {
             // we have to animate several CALayers at once
             [CATransaction begin];
             
@@ -573,8 +544,8 @@
             else [CATransaction setAnimationDuration:0.2];
             
             // getting other attributes and updading CALayer
-            CGPoint point = [[itemAttributes objectForKey:@"position"] CGPointValue];
-            NSString *currentItem = [itemAttributes objectForKey:@"item"];
+            CGPoint point = itemAttributes.position;
+            NSString *currentItem = itemAttributes.item;
             
             CFStringRef stringRef = (__bridge CFStringRef)currentItem;
             CFMutableAttributedStringRef attrStr = CFAttributedStringCreateMutable(kCFAllocatorDefault, 0);
@@ -591,12 +562,12 @@
             
             CGSize textSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, currentItem.length), NULL, CGSizeMake(self.maxWidth, self.maxHeight*2.0), NULL);
             CFRelease(framesetter);
-            UIColor *fontColor = [itemAttributes objectForKey:@"color"];
+            UIColor *fontColor = itemAttributes.color;
             
-            singleItemTextLayer.zPosition = [[itemAttributes objectForKey:@"zPosition"] floatValue];
+            singleItemTextLayer.zPosition = itemAttributes.zPosition;
             singleItemTextLayer.font = currentFont;
             singleItemTextLayer.fontSize = CTFontGetSize(currentFont);
-            singleItemTextLayer.opacity = [[itemAttributes objectForKey:@"alpha"] floatValue];
+            singleItemTextLayer.opacity = itemAttributes.alpha;
             singleItemTextLayer.string = currentItem;
             singleItemTextLayer.backgroundColor = [UIColor clearColor].CGColor;
             singleItemTextLayer.foregroundColor = fontColor.CGColor;
@@ -618,15 +589,11 @@
 #pragma mark managing touch events
 
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     int section = 0;
     
     // checking if item any item is touched
-    for (NSCache *itemAttributes in self.itemsAtrributes) {
-        CGPoint point = [[itemAttributes objectForKey:@"position"] CGPointValue];
+    for (SMRIndexViewItem *itemAttributes in self.itemsAtrributes) {
+        CGPoint point = itemAttributes.position;
         CGPoint location = [touch locationInView:self];
         if (location.y > point.y - self.itemsOffset / 2.0  &&
             location.y < point.y + self.itemsOffset / 2.0) {
@@ -640,10 +607,6 @@
 
 
 - (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     CGFloat currentY = [touch locationInView:self].y;
     CGFloat prevY = [touch previousLocationInView:self].y;
     
@@ -664,10 +627,6 @@
 }
 
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     if (self.indexItems && [self.indexItems count] > 0) {
         // sending selected items to dataSource
         [self.dataSource indexView:self selectedTitle:self.indexItems[[self.section integerValue]] atIndex:[self.section integerValue]];
@@ -692,10 +651,6 @@
 }
 
 - (void)cancelTrackingWithEvent:(UIEvent *)event {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     // if touch was canceled we reset everything
     self.animate = YES;
     [self resetPosition];
@@ -705,11 +660,6 @@
 }
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
-    
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     // UIView will be "transparent" for touch events if we return NO
     // we are going to return YES only if items or area right to them is being touched
     if ((point.x > self.bounds.size.width - (self.indexSize.width + self.rightMargin + 10.0)) &&
@@ -722,10 +672,6 @@
 #pragma drawing curtain with CAGradientLayer or CALayer
 
 - (void)addCurtain {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     // if we want a curtain to fade we have to use CAGradientLayer
     if (self.curtainFade != 0.0) {
         if (self.curtainFade > 1) self.curtainFade = 1;
@@ -768,10 +714,6 @@
 
 // hiding the curtain
 - (void)hideCurtain {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     // first we have to check if the curtain is shown and a color for it is set
     if (self.curtain && self.curtainColor) {
         CGRect curtainBoundsRect;
@@ -840,10 +782,6 @@
 
 // showing the curtain
 - (void)showCurtain {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     // first we have to check if the curtain is shown and a color for it is set
     if (!self.curtain && self.curtainColor && self.curtainMoves && self.actualRangeOfDeflection > 0) {
         CGFloat curtainVerticalCenter;
@@ -884,10 +822,6 @@
 // drawing text labels for test purposes only
 - (void)drawLabel:(NSString *)label withFont:(UIFont *)font forSize:(CGSize)size
           atPoint:(CGPoint)point withAlignment:(NSTextAlignment)alignment lineBreakMode:(NSLineBreakMode)lineBreak color:(UIColor *)color {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     // obtain current context
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -921,10 +855,6 @@
 
 // drawing rectangles - for test purposes only
 - (void)drawTestRectangleAtPoint:(CGPoint)p withSize:(CGSize)size red:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
     CGContextSetRGBFillColor(context, red, green, blue, alpha);
@@ -937,10 +867,6 @@
 
 // our drawRect - for test purposee only
 - (void)drawRect:(CGRect)rect {
-    if (debug == 1) {
-        base_core_log(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
-    }
-    
     if (self.dot) {
         [self drawTestRectangleAtPoint:CGPointMake(self.bounds.size.width / 2.0 - 100.0, self.bounds.size.height / 2.0 - 100.0)
                               withSize:CGSizeMake(200.0, 200.0)

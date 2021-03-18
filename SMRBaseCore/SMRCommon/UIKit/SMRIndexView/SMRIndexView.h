@@ -42,6 +42,12 @@
 /** 设置选中字体颜色 */
 @property (nonatomic, strong) UIColor *selectedItemFontColor;
 
+/** 设置选中字体高亮,默认nil,使用fontColor  */
+@property (nonatomic, strong) UIColor *highlightedItemFontColor;
+
+/** 设置选中字体高亮,默认nil,,使用font  */
+@property (nonatomic, strong) UIFont *highlightedItemFont;
+
 /** 如果您想显示手指两旁的索引,请设置为NO,默认:YES */
 @property (nonatomic, assign) BOOL darkening;
 
@@ -92,5 +98,8 @@
 
 /** 刷新索引 */
 - (void)refreshIndexItems;
+
+/** 设置选中位置, 仅有样式变化 */
+- (void)setSelectedItemIndex:(NSInteger)index;
 
 @end
