@@ -37,7 +37,7 @@
 - (CGFloat)smr_heightOfBottomBar {
     // 有按钮时
     if (self.buttonTitles.count) {
-        return [SMRUIAdapter value:45] + [self heightOfButtonForStyle:self.alertViewStyle];
+        return [self smr_topInsetsOfBottomButton] + [self heightOfButtonForStyle:self.alertViewStyle];
     }
     return 0;
 }
@@ -98,6 +98,10 @@
 }
 
 #pragma mark - SMRCustomBottomButtonProtocol
+
+- (CGFloat)smr_topInsetsOfBottomButton {
+    return [SMRUIAdapter value:45];
+}
 
 - (void)sureBtnAction:(UIButton *)sender {
     if (self.sureButtonTouchedBlock) {

@@ -26,6 +26,9 @@ typedef NS_ENUM(NSInteger, SMRAlertViewStyle) {
 
 @protocol SMRCustomBottomButtonProtocol <NSObject>
 
+/** 底部按钮的margin:45*scale */
+- (CGFloat)smr_topInsetsOfBottomButton;
+
 /** 确定按钮的响应action,子类自定义按钮样式时可以用做按钮的action */
 - (void)sureBtnAction:(UIButton *)sender;
 /** 取消按钮的响应action,子类自定义按钮样式时可以用做按钮的action */
