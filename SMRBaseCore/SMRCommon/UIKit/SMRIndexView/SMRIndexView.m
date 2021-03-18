@@ -192,8 +192,10 @@
 
 - (void)setSelectedItemIndex:(NSInteger)index {
     if (index < self.itemsAtrributes.count) {
-        _section = @(index);
-        [self refreshIndexItems];
+        if (_section.integerValue != index) {
+            _section = @(index);
+            [self refreshIndexItems];
+        }
     }
 }
 
