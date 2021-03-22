@@ -318,6 +318,7 @@ SMRAlertViewContentTextCellDelegate>
             }
             if (self.imageBackgroundColor) {
                 cell.contentView.backgroundColor = self.imageBackgroundColor;
+                cell.backgroundColor = self.imageBackgroundColor;
             }
             return cell;
         }
