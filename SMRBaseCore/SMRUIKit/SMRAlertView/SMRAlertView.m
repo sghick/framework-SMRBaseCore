@@ -317,7 +317,7 @@ SMRAlertViewContentTextCellDelegate>
                 cell.imageURL = self.imageURL;
             }
             if (self.imageBackgroundColor) {
-                cell.imageBackgroundColor = self.imageBackgroundColor;
+                cell.contentView.backgroundColor = self.imageBackgroundColor;
             }
             return cell;
         }
