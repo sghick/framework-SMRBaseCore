@@ -63,6 +63,16 @@
     [self setNeedsUpdateConstraints];
 }
 
+- (void)setImageBackgroundColor:(UIColor *)imageBackgroundColor {
+    _imageBackgroundColor = imageBackgroundColor;
+    self.alertImageView.backgroundColor = imageBackgroundColor;
+}
+
+- (void)setImageViewContentMode:(UIViewContentMode)imageViewContentMode {
+    _imageViewContentMode = imageViewContentMode;
+    self.alertImageView.contentMode = imageViewContentMode;
+}
+
 #pragma mark - Getters
 
 - (UIImageView *)alertImageView {

@@ -28,6 +28,8 @@ typedef void(^SMRAlertLinkTouchedBlock)(SMRAlertView *alert, NSURL *url);
 @property (strong, nonatomic) UIImage *image;
 @property (assign, nonatomic) CGSize imageSize;
 @property (assign, nonatomic) CGFloat imageSpace;
+@property (strong, nonatomic) UIColor *imageBackgroundColor;
+@property (assign, nonatomic) UIViewContentMode imageViewContentMode;
 // cmp-textField
 @property (assign, nonatomic) BOOL useTextField;
 @property (strong, nonatomic) UITextField *textField;

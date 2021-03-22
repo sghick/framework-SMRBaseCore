@@ -309,11 +309,15 @@ SMRAlertViewContentTextCellDelegate>
         case kRowTypeContentImage: {
             SMRAlertViewImageCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierOfAlertViewImageCell];
             cell.imageSize = self.imageSize;
+            cell.imageViewContentMode = self.imageViewContentMode;
             if (self.image) {
                 cell.image = self.image;
             }
             if (self.imageURL.length) {
                 cell.imageURL = self.imageURL;
+            }
+            if (self.imageBackgroundColor) {
+                cell.imageBackgroundColor = self.imageBackgroundColor;
             }
             return cell;
         }
