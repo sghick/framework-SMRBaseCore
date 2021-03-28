@@ -7,6 +7,7 @@
 //
 
 #import "SMRDialogMaskView.h"
+#import "PureLayout.h"
 
 @interface SMRDialogMaskView ()<
 UIGestureRecognizerDelegate>

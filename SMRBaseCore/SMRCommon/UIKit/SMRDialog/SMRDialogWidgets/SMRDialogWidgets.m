@@ -7,6 +7,7 @@
 //
 
 #import "SMRDialogWidgets.h"
+#import "PureLayout.h"
 
 @implementation SMRDialogWidget
 
