@@ -26,6 +26,7 @@
 #import "SMRMatrixCalculator.h"
 #import "SMRLineLayout.h"
 
+#import "SMRDialogs.h"
 #import "SMRLinkLabel.h"
 #import "SMRPageControl.h"
 #import "SMRGeneralButton.h"

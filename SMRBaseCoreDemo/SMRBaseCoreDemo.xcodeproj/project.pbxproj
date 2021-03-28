@@ -601,6 +601,19 @@
 		1D50A3DC24F6443A00B36F07 /* SMRDataBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRDataBase.m; sourceTree = "<group>"; };
 		1D50A3DE24F6443A00B36F07 /* SMRYYModelParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRYYModelParser.h; sourceTree = "<group>"; };
 		1D50A3DF24F6443A00B36F07 /* SMRYYModelParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRYYModelParser.m; sourceTree = "<group>"; };
+		1DF8ADA2261072A80047176D /* SMRDialogBodyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRDialogBodyView.h; sourceTree = "<group>"; };
+		1DF8ADA3261072A80047176D /* SMRDialogBodyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRDialogBodyView.m; sourceTree = "<group>"; };
+		1DF8ADA4261072A80047176D /* SMRDialogs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRDialogs.h; sourceTree = "<group>"; };
+		1DF8ADA6261072A80047176D /* SMRDialogDragView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRDialogDragView.m; sourceTree = "<group>"; };
+		1DF8ADA7261072A80047176D /* SMRDialogAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRDialogAlertView.h; sourceTree = "<group>"; };
+		1DF8ADA8261072A80047176D /* SMRDialogSheetView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRDialogSheetView.h; sourceTree = "<group>"; };
+		1DF8ADA9261072A80047176D /* SMRDialogMaskView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRDialogMaskView.h; sourceTree = "<group>"; };
+		1DF8ADAA261072A80047176D /* SMRDialogSheetView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRDialogSheetView.m; sourceTree = "<group>"; };
+		1DF8ADAB261072A80047176D /* SMRDialogAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRDialogAlertView.m; sourceTree = "<group>"; };
+		1DF8ADAC261072A80047176D /* SMRDialogDragView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRDialogDragView.h; sourceTree = "<group>"; };
+		1DF8ADAD261072A80047176D /* SMRDialogMaskView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRDialogMaskView.m; sourceTree = "<group>"; };
+		1DF8ADAF261072A80047176D /* SMRDialogWidgets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMRDialogWidgets.h; sourceTree = "<group>"; };
+		1DF8ADB0261072A80047176D /* SMRDialogWidgets.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMRDialogWidgets.m; sourceTree = "<group>"; };
 		265B7E2F72042FFDB9545E7F /* Pods-SMRBaseCoreDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMRBaseCoreDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SMRBaseCoreDemo/Pods-SMRBaseCoreDemo.release.xcconfig"; sourceTree = "<group>"; };
 		8A814A4A21F5B7BD00D8AEB6 /* SMRBaseCoreDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMRBaseCoreDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A814A4D21F5B7BD00D8AEB6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -676,6 +689,7 @@
 			isa = PBXGroup;
 			children = (
 				1D50A1A124F6404E00B36F07 /* UIKit.h */,
+				1DF8ADA0261072A80047176D /* SMRDialog */,
 				1D50A18824F6404E00B36F07 /* SMRAdapter */,
 				1D50A19624F6404E00B36F07 /* SMRBadgeView */,
 				1D50A19E24F6404E00B36F07 /* SMRButtonCate */,
@@ -1814,6 +1828,50 @@
 				1D50A3DF24F6443A00B36F07 /* SMRYYModelParser.m */,
 			);
 			path = SMRYYModelParser;
+			sourceTree = "<group>";
+		};
+		1DF8ADA0261072A80047176D /* SMRDialog */ = {
+			isa = PBXGroup;
+			children = (
+				1DF8ADA4261072A80047176D /* SMRDialogs.h */,
+				1DF8ADA1261072A80047176D /* SMRDialogBodyView */,
+				1DF8ADA5261072A80047176D /* SMRDialogMaskView */,
+				1DF8ADAE261072A80047176D /* SMRDialogWidgets */,
+			);
+			path = SMRDialog;
+			sourceTree = "<group>";
+		};
+		1DF8ADA1261072A80047176D /* SMRDialogBodyView */ = {
+			isa = PBXGroup;
+			children = (
+				1DF8ADA2261072A80047176D /* SMRDialogBodyView.h */,
+				1DF8ADA3261072A80047176D /* SMRDialogBodyView.m */,
+			);
+			path = SMRDialogBodyView;
+			sourceTree = "<group>";
+		};
+		1DF8ADA5261072A80047176D /* SMRDialogMaskView */ = {
+			isa = PBXGroup;
+			children = (
+				1DF8ADA9261072A80047176D /* SMRDialogMaskView.h */,
+				1DF8ADAD261072A80047176D /* SMRDialogMaskView.m */,
+				1DF8ADA7261072A80047176D /* SMRDialogAlertView.h */,
+				1DF8ADAB261072A80047176D /* SMRDialogAlertView.m */,
+				1DF8ADA8261072A80047176D /* SMRDialogSheetView.h */,
+				1DF8ADAA261072A80047176D /* SMRDialogSheetView.m */,
+				1DF8ADAC261072A80047176D /* SMRDialogDragView.h */,
+				1DF8ADA6261072A80047176D /* SMRDialogDragView.m */,
+			);
+			path = SMRDialogMaskView;
+			sourceTree = "<group>";
+		};
+		1DF8ADAE261072A80047176D /* SMRDialogWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				1DF8ADAF261072A80047176D /* SMRDialogWidgets.h */,
+				1DF8ADB0261072A80047176D /* SMRDialogWidgets.m */,
+			);
+			path = SMRDialogWidgets;
 			sourceTree = "<group>";
 		};
 		8A814A4121F5B7BD00D8AEB6 = {
