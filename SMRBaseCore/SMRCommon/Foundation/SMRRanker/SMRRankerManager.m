@@ -3,7 +3,7 @@
 //  SMRBaseCoreDemo
 //
 //  Created by 丁治文 on 2018/7/28.
-//  Copyright © 2018年 baodashi.com. All rights reserved.
+//  Copyright © 2018年 sumrise.com. All rights reserved.
 //
 
 ////////////////////////////////////////////////////
@@ -15,13 +15,13 @@
 #import "SMRRankerConfig.h"
 #import "SMRRankerLifecycleManager.h"
 
-static NSString * const SMRankerMangerLockName = @"com.baodashi.ranker.manager.lock";
+static NSString * const SMRankerMangerLockName = @"com.sumrise.ranker.manager.lock";
 
 static dispatch_queue_t smr_ranker_manager_creation_queue() {
     static dispatch_queue_t smr_in_ranker_manager_creation_queue;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        smr_in_ranker_manager_creation_queue = dispatch_queue_create("com.baodashi.ranker.creation.queue", DISPATCH_QUEUE_SERIAL);
+        smr_in_ranker_manager_creation_queue = dispatch_queue_create("com.sumrise.ranker.creation.queue", DISPATCH_QUEUE_SERIAL);
     });
     
     return smr_in_ranker_manager_creation_queue;

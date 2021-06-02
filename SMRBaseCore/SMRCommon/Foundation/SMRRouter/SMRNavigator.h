@@ -3,7 +3,7 @@
 //  SMRRouterDemo
 //
 //  Created by 丁治文 on 2018/12/14.
-//  Copyright © 2018 ibaodashi. All rights reserved.
+//  Copyright © 2018 isumrise. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

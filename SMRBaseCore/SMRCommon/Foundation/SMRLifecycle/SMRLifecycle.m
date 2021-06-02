@@ -3,7 +3,7 @@
 //  SMRBaseCoreDemo
 //
 //  Created by 丁治文 on 2018/12/17.
-//  Copyright © 2018 BaoDashi. All rights reserved.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import "SMRLifecycle.h"
@@ -235,6 +235,11 @@ static dispatch_once_t _lifecyclemanageronceToken;
 }
 
 - (void)markSuccessCheckWithIdentifier:(NSString *)identifier {
+    [self markSuccessCheckWithIdentifier:identifier
+                           timerinterval:[[NSDate date] timeIntervalSince1970]];
+}
+
+- (void)markSuccessCheckWithIdentifier:(NSString *)identifier timerinterval:(NSTimeInterval)timerinterval {
     NSDictionary *lifecycleInfo = [[NSUserDefaults standardUserDefaults]
                                    objectForKey:[NSString stringWithFormat:@"%@_%@", kPrefixHeaderForLifecycleManager, identifier]];
     NSNumber *lastCheckLifecyleType = lifecycleInfo[@"lastCheckLifecycle"];
@@ -252,7 +257,7 @@ static dispatch_once_t _lifecyclemanageronceToken;
             [mutInfo setObject:@(1) forKey:@"curcount"];
         }
     }
-    [mutInfo setObject:@([[NSDate date] timeIntervalSince1970]) forKey:@"lastsuccesstime"];
+    [mutInfo setObject:@(timerinterval) forKey:@"lastsuccesstime"];
     [[NSUserDefaults standardUserDefaults] setObject:[NSDictionary dictionaryWithDictionary:mutInfo]
                                               forKey:[NSString stringWithFormat:@"%@_%@", kPrefixHeaderForLifecycleManager, identifier]];
 }
@@ -296,6 +301,12 @@ static dispatch_once_t _lifecyclemanageronceToken;
 + (void)markSuccessCheckWithIdentifier:(NSString *)identifier {
     SMRLifecycle *lifecycle = [SMRLifecycle shareInstance];
     [lifecycle markSuccessCheckWithIdentifier:identifier];
+}
+
++ (void)markSuccessCheckWithIdentifier:(NSString *)identifier
+                         timerinterval:(NSTimeInterval)timerinterval {
+    SMRLifecycle *lifecycle = [SMRLifecycle shareInstance];
+    [lifecycle markSuccessCheckWithIdentifier:identifier timerinterval:timerinterval];
 }
 
 + (void)clearLifecycleWithIdentifier:(NSString *)identifier {

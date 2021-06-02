@@ -3,7 +3,7 @@
 //  SMRBaseCoreDemo
 //
 //  Created by 丁治文 on 2018/12/17.
-//  Copyright © 2018 BaoDashi. All rights reserved.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #ifndef SMRLifecycleLogDelegate_h

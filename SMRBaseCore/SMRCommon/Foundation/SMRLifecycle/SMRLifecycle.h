@@ -3,7 +3,7 @@
 //  SMRBaseCoreDemo
 //
 //  Created by 丁治文 on 2018/12/17.
-//  Copyright © 2018 BaoDashi. All rights reserved.
+//  Copyright © 2018 sumrise. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -65,6 +65,13 @@ typedef NS_ENUM(NSInteger, SMRLifecycleType) {
  @param identifier 唯一标识
  */
 + (void)markSuccessCheckWithIdentifier:(NSString *)identifier;
+
+/**
+ 标记identifier成功检查一次, 并指定标记时间, 可用于处理自然日的生命周期
+ @param identifier 唯一标识
+ */
++ (void)markSuccessCheckWithIdentifier:(NSString *)identifier
+                         timerinterval:(NSTimeInterval)timerinterval;
 
 /**
  清除identifier的生命周期记录

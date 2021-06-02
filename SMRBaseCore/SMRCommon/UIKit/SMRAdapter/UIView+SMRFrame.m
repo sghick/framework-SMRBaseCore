@@ -3,7 +3,7 @@
 //  SMRBaseCoreDemo
 //
 //  Created by Tinswin on 2018/12/21.
-//  Copyright © 2018年 BaoDashi. All rights reserved.
+//  Copyright © 2018年 sumrise. All rights reserved.
 //
 
 #import "UIView+SMRFrame.h"

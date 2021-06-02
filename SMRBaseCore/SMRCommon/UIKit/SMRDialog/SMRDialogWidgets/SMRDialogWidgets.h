@@ -3,7 +3,7 @@
 //  Hermes
 //
 //  Created by Tinswin on 2021/3/27.
-//  Copyright © 2021 ibaodashi. All rights reserved.
+//  Copyright © 2021 isumrise. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
