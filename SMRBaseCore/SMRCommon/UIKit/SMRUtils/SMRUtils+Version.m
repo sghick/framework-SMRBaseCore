@@ -39,11 +39,14 @@ static NSString *_format = nil;
 }
 
 + (int32_t)p_convertToCodeWithVersion:(NSString *)version buildNumber:(BOOL)buildNumber format:(nullable NSString *)format {
+    if (!version.length) {
+        return 0;
+    }
     int32_t bitLimit = buildNumber ? 4 : 3;
     NSArray<NSString *> *vers = [version componentsSeparatedByString:@"."];
     NSArray<NSString *> *fms = [format componentsSeparatedByString:@"."];
     if (vers.count < bitLimit) {
-        return [self convertToCodeWithVersion:[version stringByAppendingString:@".0"] buildNumber:buildNumber];
+        return [self p_convertToCodeWithVersion:[version stringByAppendingString:@".0"] buildNumber:buildNumber format:format];
     }
     NSString *defm = @"%02d"; /// 默认使用此format
     NSString *rtn = @"";
