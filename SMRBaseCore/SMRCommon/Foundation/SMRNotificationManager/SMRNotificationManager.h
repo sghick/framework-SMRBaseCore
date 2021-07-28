@@ -27,7 +27,6 @@ typedef NS_ENUM(NSInteger, SMRPushFromType) {
 @class SMRNotificationManager;
 typedef void(^SMRNotificationManagerActionBlock)(SMRNotificationManager *manager);
 
-API_AVAILABLE(ios(10.0))
 @interface SMRNotificationManager : NSObject
 
 /// =========== 推荐在注册时设置=============== ///
