@@ -25,7 +25,15 @@
 @implementation NSHTTPCookie (SMRWebViewController)
 
 - (NSString *)javaScriptValue {
-    return [NSString stringWithFormat:@"document.cookie='%@=%@';", self.name, self.value];
+    NSMutableArray<NSString *> *pairs = [NSMutableArray array];
+    NSMutableDictionary *dict = [self.properties mutableCopy];
+    dict[dict[NSHTTPCookieName]] = dict[NSHTTPCookieValue];
+    dict[NSHTTPCookieName] = nil;
+    dict[NSHTTPCookieValue] = nil;
+    [dict enumerateKeysAndObjectsUsingBlock:^(NSHTTPCookiePropertyKey  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        [pairs addObject:[NSString stringWithFormat:@"%@=%@", key, obj]];
+    }];
+    return [NSString stringWithFormat:@"document.cookie='%@", [pairs componentsJoinedByString:@";"]];
 }
 
 + (NSString *)javaScriptValueWithCookies:(NSArray<NSHTTPCookie *> *)cookies {
@@ -65,6 +73,15 @@ WKNavigationDelegate>
     [self removeObserverForProperties];
 }
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self addObserverForProperties];
+        [self addScriptMessageHandlers];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -72,8 +89,6 @@ WKNavigationDelegate>
     [self.view addSubview:self.webView];
     [self.view addSubview:self.progressView];
     self.navigationView.title = self.webParameter.navTitle;
-    [self addObserverForProperties];
-    [self addScriptMessageHandlers];
     [self reloadWeb];
     
     id<SMRWebNavigationViewConfig> navigationViewConfig = [SMRWebConfig shareConfig].webNavigationViewConfig;
@@ -160,7 +175,9 @@ WKNavigationDelegate>
             }
         }
     } else if ([keyPath isEqual:@"estimatedProgress"] && object == self.webView) {
-        self.progressView.hidden = NO;
+        if (!self.progressViewHidden) {
+            self.progressView.hidden = NO;
+        }
         [self.progressView setProgress:self.webView.estimatedProgress animated:YES];
         if (self.webView.estimatedProgress  >= 1.0f) {
             [self p_hiddenProgressView];
@@ -239,10 +256,11 @@ WKNavigationDelegate>
     }];
     
     // 将cookie保存在NSHTTPCookieStorage中
-//    NSHTTPCookieStorage *cookieStore = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-//    [cookies enumerateObjectsUsingBlock:^(NSHTTPCookie * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        [cookieStore setCookie:obj];
-//    }];
+    NSHTTPCookieStorage *cookieStore = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    [cookies enumerateObjectsUsingBlock:^(NSHTTPCookie * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [cookieStore setCookie:obj];
+    }];
+    
 //    // 给webView注入cookie
 //    if (@available(iOS 11.0, *)) {
 //        WKHTTPCookieStore *cookieStore = self.webView.configuration.websiteDataStore.httpCookieStore;
@@ -350,7 +368,9 @@ WKNavigationDelegate>
  页面开始加载(2)
 */
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
-    self.progressView.hidden = NO;
+    if (!self.progressViewHidden) {
+        self.progressView.hidden = NO;
+    }
     // web回调
     id<SMRWebNavigationViewConfig> navigationViewConfig = [SMRWebConfig shareConfig].webNavigationViewConfig;
     if ([navigationViewConfig respondsToSelector:@selector(webView:didStartProvisionalNavigation:)]) {
@@ -480,6 +500,18 @@ WKNavigationDelegate>
 
 #pragma mark -  WKUIDelegate
 
+- (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures {
+    if (navigationAction.targetFrame == nil) {
+        id<SMRWebNavigationViewConfig> navigationViewConfig = [SMRWebConfig shareConfig].webNavigationViewConfig;
+        if ([navigationViewConfig respondsToSelector:@selector(webView:createWebViewWithConfiguration:forNavigationAction:windowFeatures:)]) {
+            [navigationViewConfig webView:webView createWebViewWithConfiguration:configuration forNavigationAction:navigationAction windowFeatures:windowFeatures];
+        } else {
+            [webView loadRequest:navigationAction.request];
+        }
+    }
+    return nil;
+}
+
 // alert
 - (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler {
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"提示" message:message ? : @"" preferredStyle:UIAlertControllerStyleAlert];
@@ -568,6 +600,13 @@ WKNavigationDelegate>
     }
 }
 
+#pragma mark - Setters
+
+- (void)setProgressViewHidden:(BOOL)progressViewHidden {
+    _progressViewHidden = progressViewHidden;
+    self.progressView.hidden = progressViewHidden;
+}
+
 #pragma mark - Getters
 
 - (WKUserContentController *)userController {
@@ -609,9 +648,21 @@ WKNavigationDelegate>
 
 - (UIProgressView *)progressView {
     if (!_progressView) {
-        _progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, self.navigationView.bottom, [UIScreen mainScreen].bounds.size.width, 0)];
-        _progressView.tintColor = [UIColor greenColor];
-        _progressView.trackTintColor = [UIColor clearColor];
+        id<SMRWebNavigationViewConfig> navigationViewConfig = [SMRWebConfig shareConfig].webNavigationViewConfig;
+        UIProgressView *progressView = nil;
+        if ([navigationViewConfig respondsToSelector:@selector(progressViewForWeb:)]) {
+            progressView = [navigationViewConfig progressViewForWeb:self];
+        } else {
+            progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, self.navigationView.bottom, [UIScreen mainScreen].bounds.size.width, 0)];
+            progressView.tintColor = [UIColor smr_colorWithHexRGB:@"#F19722"];
+            progressView.trackTintColor = [UIColor clearColor];
+            if (@available(iOS 14.0, *)) {
+                CGAffineTransform scaleform = CGAffineTransformMakeScale(1, 0.5);
+                CGAffineTransform transform = CGAffineTransformTranslate(scaleform, 0, -5);
+                progressView.transform = transform;
+            }
+        }
+        _progressView = progressView;
     }
     return _progressView;
 }

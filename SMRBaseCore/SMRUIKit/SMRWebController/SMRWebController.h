@@ -14,6 +14,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface NSHTTPCookie (SMRWebViewController)
+
+- (NSString *)javaScriptValue;
++ (NSString *)javaScriptValueWithCookies:(NSArray<NSHTTPCookie *> *)cookies;
+
+@end
+
 /** web中的各个参数的定制,推荐继承本对象,并在被继承的config中定义和使用其子类 */
 @interface SMRWebControllerParameter : NSObject
 
@@ -29,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, readonly) WKWebViewConfiguration *config;
 @property (strong, nonatomic, readonly) WKUserContentController *userController;
 
+@property (assign, nonatomic) BOOL progressViewHidden; // default:NO
 @property (assign, nonatomic) BOOL autoAdjustTabBarByMainPage; // default:NO
 @property (strong, nonatomic) SMRWebControllerParameter *webParameter;
 @property (copy  , nonatomic) NSString *url;
