@@ -41,19 +41,53 @@
     [self smr_setImageWithAsset:asset options:options fitWidth:fitWidth];
 }
 
-
 - (void)smr_setImageWithAsset:(PHAsset *)asset options:(PHImageRequestOptions *)options fitWidth:(CGFloat)fitWidth {
-    // 是否要原图
+    [self smr_setImageWithAsset:asset options:options fitWidth:fitWidth resultHandler:nil completionHandlder:nil];
+}
+
+- (void)smr_setImageWithAsset:(PHAsset *)asset
+                      options:(PHImageRequestOptions *)options
+                     fitWidth:(CGFloat)fitWidth
+                resultHandler:(void (^)(UIImage *_Nullable result, NSDictionary *_Nullable info))resultHandler
+           completionHandlder:(void (^)(PHImageRequestID requestID))completionHandlder {
     CGFloat scale = fitWidth/asset.pixelWidth;
     CGSize size = CGSizeMake(scale*asset.pixelWidth, scale*asset.pixelHeight);
     // 从asset中获得图片
-    [[PHImageManager defaultManager] requestImageForAsset:asset
-                                               targetSize:size
-                                              contentMode:PHImageContentModeDefault
-                                                  options:options
-                                            resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-                                                self.image = result;
-                                            }];
+    [self.class smr_requestImageForAsset:asset
+                              targetSize:size
+                             contentMode:PHImageContentModeDefault
+                                 options:options
+                           resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+        self.image = result;
+        if (resultHandler) {
+            resultHandler(result, info);
+        }
+    } completionHandlder:completionHandlder];
+}
+
++ (void)smr_requestImageForAsset:(PHAsset *)asset
+                      targetSize:(CGSize)targetSize
+                     contentMode:(PHImageContentMode)contentMode
+                         options:(nullable PHImageRequestOptions *)options
+                   resultHandler:(void (^)(UIImage *_Nullable result, NSDictionary *_Nullable info))resultHandler
+              completionHandlder:(void (^)(PHImageRequestID requestID))completionHandlder {
+    dispatch_async(dispatch_queue_create("image.view.asset", NULL), ^{
+        PHImageRequestID requestID =
+        [PHImageManager.defaultManager requestImageForAsset:asset
+                                                 targetSize:targetSize
+                                                contentMode:contentMode
+                                                    options:options
+                                              resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (resultHandler) {
+                    resultHandler(result, info);
+                }
+            });
+        }];
+        if (completionHandlder) {
+            completionHandlder(requestID);
+        }
+    });
 }
 
 - (void)smr_setImageWithVideoURL:(NSURL *)videoURL atTime:(NSTimeInterval)time {
