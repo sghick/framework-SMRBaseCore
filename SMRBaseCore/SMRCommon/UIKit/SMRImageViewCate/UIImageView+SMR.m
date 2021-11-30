@@ -9,6 +9,7 @@
 #import "UIImageView+SMR.h"
 #import <Photos/Photos.h>
 #import "UIImage+SMRAdapter.h"
+#import "SMRGlobalCache.h"
 
 @implementation UIImageView (SMR)
 
@@ -42,14 +43,13 @@
 }
 
 - (void)smr_setImageWithAsset:(PHAsset *)asset options:(PHImageRequestOptions *)options fitWidth:(CGFloat)fitWidth {
-    [self smr_setImageWithAsset:asset options:options fitWidth:fitWidth resultHandler:nil completionHandlder:nil];
+    [self smr_setImageWithAsset:asset options:options fitWidth:fitWidth resultHandler:nil];
 }
 
 - (void)smr_setImageWithAsset:(PHAsset *)asset
                       options:(PHImageRequestOptions *)options
                      fitWidth:(CGFloat)fitWidth
-                resultHandler:(void (^)(UIImage *_Nullable result, NSDictionary *_Nullable info))resultHandler
-           completionHandlder:(void (^)(PHImageRequestID requestID))completionHandlder {
+                resultHandler:(void (^)(UIImage *_Nullable result, NSDictionary *_Nullable info))resultHandler {
     CGFloat scale = fitWidth/asset.pixelWidth;
     CGSize size = CGSizeMake(scale*asset.pixelWidth, scale*asset.pixelHeight);
     // 从asset中获得图片
@@ -62,30 +62,35 @@
         if (resultHandler) {
             resultHandler(result, info);
         }
-    } completionHandlder:completionHandlder];
+    }];
 }
 
 + (void)smr_requestImageForAsset:(PHAsset *)asset
                       targetSize:(CGSize)targetSize
                      contentMode:(PHImageContentMode)contentMode
                          options:(nullable PHImageRequestOptions *)options
-                   resultHandler:(void (^)(UIImage *_Nullable result, NSDictionary *_Nullable info))resultHandler
-              completionHandlder:(void (^)(PHImageRequestID requestID))completionHandlder {
+                   resultHandler:(void (^)(UIImage *_Nullable result, NSDictionary *_Nullable info))resultHandler {
     dispatch_async(dispatch_queue_create("image.view.asset", NULL), ^{
-        PHImageRequestID requestID =
-        [PHImageManager.defaultManager requestImageForAsset:asset
-                                                 targetSize:targetSize
-                                                contentMode:contentMode
-                                                    options:options
-                                              resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+        UIImage *cache = [SMRGlobalCache.defaultUnnecessaryCache imageWithKey:asset.localIdentifier];
+        if (cache) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (resultHandler) {
-                    resultHandler(result, info);
+                    resultHandler(cache, nil);
                 }
             });
-        }];
-        if (completionHandlder) {
-            completionHandlder(requestID);
+        } else {
+            [PHImageManager.defaultManager requestImageForAsset:asset
+                                                     targetSize:targetSize
+                                                    contentMode:contentMode
+                                                        options:options
+                                                  resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [SMRGlobalCache.defaultUnnecessaryCache setImageToMemory:result forKey:asset.localIdentifier];
+                    if (resultHandler) {
+                        resultHandler(result, info);
+                    }
+                });
+            }];
         }
     });
 }

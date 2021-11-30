@@ -27,15 +27,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)smr_setImageWithAsset:(PHAsset *)asset
                       options:(PHImageRequestOptions *)options
                      fitWidth:(CGFloat)fitWidth
-                resultHandler:(nullable void (^)(UIImage *_Nullable result, NSDictionary *_Nullable info))resultHandler
-           completionHandlder:(nullable void (^)(PHImageRequestID requestID))completionHandlder;
+                resultHandler:(nullable void (^)(UIImage *_Nullable result, NSDictionary *_Nullable info))resultHandler;
 
 + (void)smr_requestImageForAsset:(PHAsset *)asset
                       targetSize:(CGSize)targetSize
                      contentMode:(PHImageContentMode)contentMode
                          options:(nullable PHImageRequestOptions *)options
-                   resultHandler:(void (^)(UIImage *_Nullable result, NSDictionary *_Nullable info))resultHandler
-              completionHandlder:(nullable void (^)(PHImageRequestID requestID))completionHandlder;
+                   resultHandler:(void (^)(UIImage *_Nullable result, NSDictionary *_Nullable info))resultHandler;
 
 /** 设置视频某一帧的图片 */
 - (void)smr_setImageWithVideoURL:(NSURL *)videoURL atTime:(NSTimeInterval)time;
