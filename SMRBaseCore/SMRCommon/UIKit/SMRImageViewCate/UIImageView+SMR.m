@@ -70,15 +70,15 @@
                      contentMode:(PHImageContentMode)contentMode
                          options:(nullable PHImageRequestOptions *)options
                    resultHandler:(void (^)(UIImage *_Nullable result, NSDictionary *_Nullable info))resultHandler {
-    dispatch_async(dispatch_queue_create("image.view.asset", NULL), ^{
-        UIImage *cache = [SMRGlobalCache.defaultUnnecessaryCache imageWithKey:asset.localIdentifier];
-        if (cache) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (resultHandler) {
-                    resultHandler(cache, nil);
-                }
-            });
-        } else {
+    UIImage *cache = [SMRGlobalCache.defaultUnnecessaryCache imageWithKey:asset.localIdentifier];
+    if (cache) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (resultHandler) {
+                resultHandler(cache, nil);
+            }
+        });
+    } else {
+        dispatch_async(dispatch_queue_create("image.view.asset", NULL), ^{
             [PHImageManager.defaultManager requestImageForAsset:asset
                                                      targetSize:targetSize
                                                     contentMode:contentMode
@@ -91,8 +91,8 @@
                     }
                 });
             }];
-        }
-    });
+        });
+    }
 }
 
 - (void)smr_setImageWithVideoURL:(NSURL *)videoURL atTime:(NSTimeInterval)time {
