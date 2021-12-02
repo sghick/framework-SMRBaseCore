@@ -65,7 +65,7 @@ FOUNDATION_EXPORT NSString * const kWebHandlerForMessage;
 
 @class SMRWebController;
 @class SMRNavigationView;
-@protocol SMRWebNavigationViewConfig <WKNavigationDelegate>
+@protocol SMRWebNavigationViewConfig <WKNavigationDelegate, WKUIDelegate>
 
 @optional
 /** 返回一个自定义的navigationView */
@@ -74,6 +74,7 @@ FOUNDATION_EXPORT NSString * const kWebHandlerForMessage;
 - (void)webViewWillAppear:(SMRWebController *)web;
 - (void)webViewWillDisappear:(SMRWebController *)web;
 - (BOOL)canLoadRequest:(NSURLRequest *)request web:(SMRWebController *)web; ///< 默认当YES处理
+- (UIProgressView *)progressViewForWeb:(SMRWebController *)web;
 
 @end
 

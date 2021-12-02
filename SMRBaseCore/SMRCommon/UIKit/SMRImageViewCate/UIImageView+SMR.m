@@ -11,6 +11,37 @@
 #import "UIImage+SMRAdapter.h"
 #import "SMRGlobalCache.h"
 
+@implementation SMRPHAssetResult
+
++ (instancetype)result:(UIImage *)image info:(NSDictionary *)info {
+    SMRPHAssetResult *result = [[SMRPHAssetResult alloc] init];
+    result.image = image;
+    result.info = info;
+    return result;
+}
+
+- (BOOL)isInCloud {
+    return [self.info[PHImageResultIsInCloudKey] boolValue];
+}
+
+- (BOOL)isDegraded {
+    return [self.info[PHImageResultIsDegradedKey] boolValue];
+}
+
+- (PHImageRequestID)requestID {
+    return [self.info[PHImageResultRequestIDKey] intValue];
+}
+
+- (BOOL)isCancelled {
+    return [self.info[PHImageCancelledKey] boolValue];
+}
+
+- (NSError *)error {
+    return self.info[PHImageErrorKey];
+}
+
+@end
+
 @implementation UIImageView (SMR)
 
 - (void)smr_setAnimatedImage:(UIImage *)animatedImage {
@@ -50,15 +81,25 @@
                       options:(PHImageRequestOptions *)options
                      fitWidth:(CGFloat)fitWidth
                 resultHandler:(void (^)(UIImage *_Nullable result, NSDictionary *_Nullable info))resultHandler {
+    UIImage *cache = [SMRGlobalCache.defaultUnnecessaryCache imageWithKey:asset.localIdentifier];
+    if (cache) {
+        self.image = cache;
+        if (resultHandler) {
+            resultHandler(cache, nil);
+        }
+        return;
+    }
+    
     CGFloat scale = fitWidth/asset.pixelWidth;
-    CGSize size = CGSizeMake(scale*asset.pixelWidth, scale*asset.pixelHeight);
+    CGSize targetSize = CGSizeMake(scale*asset.pixelWidth, scale*asset.pixelHeight);
     // 从asset中获得图片
     [self.class smr_requestImageForAsset:asset
-                              targetSize:size
+                              targetSize:targetSize
                              contentMode:PHImageContentModeDefault
                                  options:options
                            resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
         self.image = result;
+        [SMRGlobalCache.defaultUnnecessaryCache setImageToMemory:result forKey:asset.localIdentifier];
         if (resultHandler) {
             resultHandler(result, info);
         }
@@ -70,29 +111,54 @@
                      contentMode:(PHImageContentMode)contentMode
                          options:(nullable PHImageRequestOptions *)options
                    resultHandler:(void (^)(UIImage *_Nullable result, NSDictionary *_Nullable info))resultHandler {
-    UIImage *cache = [SMRGlobalCache.defaultUnnecessaryCache imageWithKey:asset.localIdentifier];
-    if (cache) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (resultHandler) {
-                resultHandler(cache, nil);
-            }
-        });
-    } else {
-        dispatch_async(dispatch_queue_create("image.view.asset", NULL), ^{
+    dispatch_async(dispatch_queue_create("view.view.asset.request", NULL), ^{
+        [PHImageManager.defaultManager requestImageForAsset:asset
+                                                 targetSize:targetSize
+                                                contentMode:contentMode
+                                                    options:options
+                                              resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (resultHandler) {
+                    resultHandler(result, info);
+                }
+            });
+        }];
+    });
+}
+
++ (void)smr_requestImageForAssets:(NSArray<PHAsset *> *)assets
+                         fitWidth:(CGFloat)fitWidth
+                      contentMode:(PHImageContentMode)contentMode
+                          options:(PHImageRequestOptions *)options
+                      targetCount:(NSInteger)targetCount
+                    resultHandler:(BOOL (^)(SMRPHAssetResult *result))resultHandler
+                   resultHandlers:(void (^)(NSArray<SMRPHAssetResult *> * _Nonnull))resultHandlers {
+    dispatch_async(dispatch_queue_create("view.view.asset.request", NULL), ^{
+        NSMutableArray *results = [@[] mutableCopy];
+        for (PHAsset *asset in assets) {
+            CGFloat scale = fitWidth ? (fitWidth/asset.pixelWidth) : 1;
+            CGSize targetSize = CGSizeMake(scale*asset.pixelWidth, scale*asset.pixelHeight);
             [PHImageManager.defaultManager requestImageForAsset:asset
                                                      targetSize:targetSize
                                                     contentMode:contentMode
                                                         options:options
                                                   resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [SMRGlobalCache.defaultUnnecessaryCache setImageToMemory:result forKey:asset.localIdentifier];
-                    if (resultHandler) {
-                        resultHandler(result, info);
-                    }
-                });
+                SMRPHAssetResult *rst = [SMRPHAssetResult result:result info:info];
+                BOOL use = YES;
+                if (resultHandler) {
+                    use = resultHandler(rst);
+                }
+                if (use) {
+                    [results addObject:rst];
+                }
             }];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (resultHandlers) {
+                resultHandlers(results);
+            }
         });
-    }
+    });
 }
 
 - (void)smr_setImageWithVideoURL:(NSURL *)videoURL atTime:(NSTimeInterval)time {
