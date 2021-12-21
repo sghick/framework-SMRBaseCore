@@ -24,15 +24,20 @@ typedef CGSize(^SMRLineLayoutItemSizeBlock)(SMRLineLayout *layout, NSInteger ind
 @interface SMRLineLayout : NSObject
 
 @property (assign, nonatomic) UIEdgeInsets contentInset;
-@property (assign, nonatomic) CGSize maxSize;
-@property (assign, nonatomic) CGSize sep;   
+@property (assign, nonatomic) CGSize maxSize;   ///< 默认maxfloat
 @property (copy  , nonatomic) SMRLineLayoutItemSizeBlock itemBlock;
+@property (assign, nonatomic) CGSize sep;
+@property (assign, nonatomic) NSInteger numberOfLine;///< 默认0,无限制
 
 - (void)clearCache;
 - (void)clearCacheFromIndex:(NSInteger)fromIndex;
 
+/// 超出行限制时,返回最后一个有效item
 - (SMRLineLayoutItem *)itemWithLayoutIndex:(NSInteger)index;
+/// 超出行限制时,返回nil
+- (SMRLineLayoutItem *)effectiveItemWithLayoutIndex:(NSInteger)index;
 
+- (void)layoutWithCount:(NSInteger)count process:(nullable void (^)(NSInteger index, SMRLineLayoutItem *item))process;
 - (void)layoutToIndex:(NSInteger)index process:(nullable void (^)(NSInteger index, SMRLineLayoutItem *item))process;
 - (void)layoutWithinRange:(NSRange)range process:(nullable void (^)(NSInteger, SMRLineLayoutItem *item))process;
 

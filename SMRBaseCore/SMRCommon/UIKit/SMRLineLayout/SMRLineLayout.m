@@ -21,13 +21,36 @@
 
 @implementation SMRLineLayout
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _maxSize = CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX);
+    }
+    return self;
+}
+
 - (SMRLineLayoutItem *)itemWithLayoutIndex:(NSInteger)index {
     SMRLineLayoutItem *item = self.caches[@(index)];
     if (item) {
         return item;
     } else {
         [self layoutToIndex:index process:nil];
-        return [self itemWithLayoutIndex:index];
+        item = self.caches[@(index)];
+        if (!item && (index > 0)) {
+            return [self itemWithLayoutIndex:index - 1];
+        } else {
+            return item;
+        }
+    }
+}
+
+- (SMRLineLayoutItem *)effectiveItemWithLayoutIndex:(NSInteger)index {
+    SMRLineLayoutItem *item = self.caches[@(index)];
+    if (item) {
+        return item;
+    } else {
+        [self layoutToIndex:index process:nil];
+        return self.caches[@(index)];
     }
 }
 
@@ -39,6 +62,10 @@
     for (NSInteger i = fromIndex; i < _caches.allKeys.count; i++) {
         _caches[@(i)] = nil;
     }
+}
+
+- (void)layoutWithCount:(NSInteger)count process:(void (^)(NSInteger, SMRLineLayoutItem * _Nonnull))process {
+    [self layoutWithinRange:NSMakeRange(0, count) process:process];
 }
 
 - (void)layoutToIndex:(NSInteger)index process:(nullable void (^)(NSInteger, SMRLineLayoutItem * _Nonnull))process {
@@ -62,23 +89,37 @@
         SMRLineLayoutItem *lastItem = (i > 0) ? self.caches[@(i - 1)] : nil;
         SMRLineLayoutItem *item = self.caches[@(i)];
         if (item) {
+            if ([self p_isOutOfLineLimit:item]) {
+                self.caches[@(i)] = nil;
+                break;
+            }
             if (process) {
                 process(i, item);
             }
             continue;
-        }
-        CGSize cSize = self.itemBlock(self, i);
-        item = [self itemWithIndex:i size:cSize lastItem:lastItem];
-        self.caches[@(i)] = item;
-        if (process) {
-            process(i, item);
+        } else {
+            CGSize cSize = self.itemBlock(self, i);
+            item = [self itemWithIndex:i size:cSize lastItem:lastItem];
+            if (!item) {
+                break;
+            }
+            self.caches[@(i)] = item;
+            if (process) {
+                process(i, item);
+            }
         }
     }
 }
 
 #pragma mark - Utils
 
+///< 超出行限制,返回nil
 - (SMRLineLayoutItem *)itemWithIndex:(NSInteger)index size:(CGSize)size lastItem:(SMRLineLayoutItem *)lastItem {
+    // 超出行数限制,直接返回nil
+    if ([self p_isOutOfLineLimit:lastItem]) {
+        return nil;
+    }
+    
     SMRLineLayoutItem *item = [[SMRLineLayoutItem alloc] init];
     item.index = index;
     // 如果是第0个,直接计算出结果
@@ -107,6 +148,11 @@
     } else {
         // 换行处理
         item.position = CGPointMake(lastItem.position.x + 1, 0);
+        // 超出行数限制,直接返回nil
+        if ([self p_isOutOfLineLimit:item]) {
+            return nil;
+        }
+        
         CGFloat originY = lastItem.frame.origin.y + lastItem.frame.size.height + self.sep.height;
         // 如果当前item的宽超过最大值,做出限制
         CGFloat maxWith = self.maxSize.width - self.contentInset.left - self.contentInset.right;
@@ -117,6 +163,15 @@
         }
     }
     return item;
+}
+
+- (BOOL)p_isOutOfLineLimit:(SMRLineLayoutItem *)item {
+    // 超出行数限制
+    if ((self.numberOfLine > 0) && (self.numberOfLine < (item.position.x + 1))) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 #pragma mark - Getters
