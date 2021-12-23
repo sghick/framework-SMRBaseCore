@@ -10,6 +10,27 @@
 
 @implementation SMRLineLayoutItem
 
+- (CGFloat)left {
+    return self.frame.origin.x;
+}
+
+- (CGFloat)right {
+    return self.frame.origin.x + self.frame.size.width;
+}
+
+- (CGFloat)top {
+    return self.frame.origin.y;
+}
+
+- (CGFloat)bottom {
+    return self.frame.origin.y + self.frame.size.height;
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"index:%@, postion:%@, maxRight:%@, maxBottom:%@, frame:%@",
+            @(self.index), NSStringFromCGPoint(self.position), @(self.maxRight), @(self.maxBottom), NSStringFromCGRect(self.frame)];
+}
+
 @end
 
 @interface SMRLineLayout ()
@@ -27,6 +48,12 @@
         _maxSize = CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX);
     }
     return self;
+}
+
+- (CGSize)sizeWithLayoutIndex:(NSInteger)index {
+    SMRLineLayoutItem *item = [self itemWithLayoutIndex:index];
+    return CGSizeMake(self.contentInset.right + item.maxRight,
+                      self.contentInset.bottom + item.maxBottom);
 }
 
 - (SMRLineLayoutItem *)itemWithLayoutIndex:(NSInteger)index {
@@ -81,11 +108,11 @@
     }
     
     // 判断是否存在上一个
-    if (!range.location && ![self.caches.allKeys containsObject:@(range.location - 1)]) {
+    if ((range.location > 0) && ![self.caches.allKeys containsObject:@(range.location - 1)]) {
         [self layoutWithinRange:NSMakeRange(range.location - 1, 1) process:nil];
     }
     
-    for (NSUInteger i = range.location; i < (range.length - range.location); i++) {
+    for (NSUInteger i = range.location; i < (range.location + range.length); i++) {
         SMRLineLayoutItem *lastItem = (i > 0) ? self.caches[@(i - 1)] : nil;
         SMRLineLayoutItem *item = self.caches[@(i)];
         if (item) {
@@ -115,11 +142,6 @@
 
 ///< 超出行限制,返回nil
 - (SMRLineLayoutItem *)itemWithIndex:(NSInteger)index size:(CGSize)size lastItem:(SMRLineLayoutItem *)lastItem {
-    // 超出行数限制,直接返回nil
-    if ([self p_isOutOfLineLimit:lastItem]) {
-        return nil;
-    }
-    
     SMRLineLayoutItem *item = [[SMRLineLayoutItem alloc] init];
     item.index = index;
     // 如果是第0个,直接计算出结果
@@ -132,11 +154,16 @@
         } else {
             item.frame = CGRectMake(self.contentInset.left, self.contentInset.top, size.width, size.height);
         }
+        item.maxRight = item.right;
+        item.maxBottom = item.bottom;
         return item;
     }
-
     if (index && !lastItem) {
         NSAssert(NO, @"[SMRLineLayout] lastItem 不能为空");
+    }
+    // 超出行数限制,直接返回nil
+    if ([self p_isOutOfLineLimit:lastItem]) {
+        return nil;
     }
     
     // 计算x的起点
@@ -162,10 +189,16 @@
             item.frame = CGRectMake(self.contentInset.left, originY, size.width, size.height);
         }
     }
+    // 记录目前为止的最右和最底值
+    item.maxRight = MAX(item.right, lastItem.maxRight);
+    item.maxBottom = MAX(item.bottom, lastItem.maxBottom);
     return item;
 }
 
 - (BOOL)p_isOutOfLineLimit:(SMRLineLayoutItem *)item {
+    if (!item) {
+        return NO;
+    }
     // 超出行数限制
     if ((self.numberOfLine > 0) && (self.numberOfLine < (item.position.x + 1))) {
         return YES;

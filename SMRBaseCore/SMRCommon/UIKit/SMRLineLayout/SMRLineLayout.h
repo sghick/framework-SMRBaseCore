@@ -16,6 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) CGPoint position; ///< 坐标位置, x表示row的index, y表示column的index
 @property (assign, nonatomic) CGRect frame;
 
+@property (assign, nonatomic, readonly) CGFloat left;
+@property (assign, nonatomic, readonly) CGFloat right;
+@property (assign, nonatomic, readonly) CGFloat top;
+@property (assign, nonatomic, readonly) CGFloat bottom;
+
+@property (assign, nonatomic) CGFloat maxRight;
+@property (assign, nonatomic) CGFloat maxBottom;
+
 @end
 
 @class SMRLineLayout;
@@ -32,6 +40,8 @@ typedef CGSize(^SMRLineLayoutItemSizeBlock)(SMRLineLayout *layout, NSInteger ind
 - (void)clearCache;
 - (void)clearCacheFromIndex:(NSInteger)fromIndex;
 
+/// 计算出整体大小
+- (CGSize)sizeWithLayoutIndex:(NSInteger)index;
 /// 超出行限制时,返回最后一个有效item
 - (SMRLineLayoutItem *)itemWithLayoutIndex:(NSInteger)index;
 /// 超出行限制时,返回nil
