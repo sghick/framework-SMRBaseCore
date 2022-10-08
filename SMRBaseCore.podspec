@@ -24,12 +24,12 @@ Pod::Spec.new do |s|
         ss.source_files = 'SMRBaseCore/SMRCoreKit/**/*.{h,m,c,mm}'
         ss.dependency 'SMRBaseCore/SMRCommon'
         #### SMRCoreKit.SMRNetwork
-        ss.dependency 'AFNetworking', '4.0.1'
-        ss.dependency 'YYCache', '1.0.4'
+        ss.dependency 'AFNetworking'
+        ss.dependency 'YYCache'
         #### SMRCoreKit.SMRDataBase
-        ss.dependency 'FMDB', '2.7.2'
+        ss.dependency 'FMDB'
         #### SMRCoreKit.SMRDataBase/SMRModel
-        ss.dependency 'YYModel', '1.0.4'
+        ss.dependency 'YYModel'
     end
 
     s.subspec 'SMRUIKit' do |ss| 
@@ -39,15 +39,15 @@ Pod::Spec.new do |s|
         ss.dependency 'SMRBaseCore/SMRCoreKit'
         #### SMRUIKit.SMRNavigationView
         ss.dependency 'PureLayout'
-        ss.dependency 'SDWebImage', '5.9.1'
+        ss.dependency 'SDWebImage'
         #### SMRUIKit.SMRController
-        ss.dependency 'MJRefresh', '3.1.15.7'
-        ss.dependency 'IQKeyboardManager', '~> 6.5.6'
+        ss.dependency 'MJRefresh'
+        ss.dependency 'IQKeyboardManager'
         #### SMRUtilsKit.SMRUtils
-        ss.dependency 'YYText', '1.0.7'
-        ss.dependency 'MBProgressHUD', '1.1.0'
+        ss.dependency 'YYText'
+        ss.dependency 'MBProgressHUD'
         ####
-        ss.dependency 'YBImageBrowser', '3.0.6'
+        ss.dependency 'YBImageBrowser'
     end
 
     s.subspec 'SMRConfigs' do |ss| 
